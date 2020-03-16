@@ -4,7 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 
-<!-- el bt mde7a, a7aaaaaaa -->
+<!-- Za3'rat lel kemya ya beeeeeh -->
 
 
 	<head>
