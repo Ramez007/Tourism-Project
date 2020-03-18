@@ -187,9 +187,9 @@
 							<section>
 								<select class="cs-select cs-skin-border">
 									<option value="" disabled selected>Select Hotel</option>
-									<option value="email">Luxe Hotel</option>
-									<option value="twitter">Deluxe Hotel</option>
-									<option value="linkedin">Five Star Hotel</option>
+									<option value="email">Steinberger Hotel</option>
+									<option value="twitter">Winter Palace Hotel</option>
+									<option value="linkedin">Isis Hotel</option>
 								</select>
 							</section>
 						</div>
