@@ -9240,4 +9240,8 @@ input[type="text"] {
   background: url(../images/hourglass.svg) center no-repeat #222222;
 }
 
+.desc.desc-blog{
+  height: 350px;
+}
+
 /*# sourceMappingURL=style.css.map */
