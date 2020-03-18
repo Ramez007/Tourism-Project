@@ -141,7 +141,7 @@
 							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
 						</div>
 						<div class="desc">
-							<h3><a href="#">Hotel Name</a></h3>
+							<h3><a href="#">Winter Palace</a></h3>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 						</div>
 					</div>
@@ -153,7 +153,7 @@
 							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
 						</div>
 						<div class="desc">
-							<h3><a href="#">Hotel Name</a></h3>
+							<h3><a href="#">Steinberger</a></h3>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 						</div>
 					</div>
@@ -165,7 +165,7 @@
 							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
 						</div>
 						<div class="desc">
-							<h3><a href="#">Hotel Name</a></h3>
+							<h3><a href="#">Isis</a></h3>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 						</div>
 					</div>
@@ -177,7 +177,7 @@
 							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
 						</div>
 						<div class="desc">
-							<h3><a href="#">Hotel Name</a></h3>
+							<h3><a href="#">Emilio</a></h3>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 						</div>
 					</div>
@@ -189,7 +189,7 @@
 							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
 						</div>
 						<div class="desc">
-							<h3><a href="#">Hotel Name</a></h3>
+							<h3><a href="#">Iberotel</a></h3>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 						</div>
 					</div>
@@ -201,7 +201,7 @@
 							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
 						</div>
 						<div class="desc">
-							<h3><a href="#">Hotel Name</a></h3>
+							<h3><a href="#">Sunset</a></h3>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 						</div>
 					</div>
