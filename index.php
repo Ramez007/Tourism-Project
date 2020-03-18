@@ -497,7 +497,7 @@
 	</div>
 
 
-	<div id="fh5co-blog-section">
+	<!-- <div id="fh5co-blog-section">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -542,7 +542,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<footer id="footer" class="fh5co-bg-color">
 	<?php
