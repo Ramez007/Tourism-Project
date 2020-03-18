@@ -4,6 +4,8 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 
+<!-- Za3'rat lel kemya ya beeeeeh -->
+
 
 	<head>
 	<meta charset="utf-8">
@@ -134,7 +136,7 @@
 		   						<p><span>Winter Palace Hotel</span></p>
 		   						<h2>Reserve Room for Family Vacation</h2>
 			   					<p>
-			   						<a href="#" class="btn btn-primary btn-lg">Book Now</a>
+			   						<a href="single-hotel.php" class="btn btn-primary btn-lg">Book Now</a>
 			   					</p>
 		   					</div>
 		   				</div>
@@ -187,9 +189,9 @@
 							<section>
 								<select class="cs-select cs-skin-border">
 									<option value="" disabled selected>Select Hotel</option>
-									<option value="email">Luxe Hotel</option>
-									<option value="twitter">Deluxe Hotel</option>
-									<option value="linkedin">Five Star Hotel</option>
+									<option value="email">Steinberger Hotel</option>
+									<option value="twitter">Winter Palace Hotel</option>
+									<option value="linkedin">Isis Hotel</option>
 								</select>
 							</section>
 						</div>
@@ -259,9 +261,9 @@
 						</div>
 					</div>
 					<div class="desc">
-						<h3>Deluxe Hotel</h3>
+						<h3>Winter Palace Hotel</h3>
 						<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed. Vivamus augue enim, consectetur ac interdum a, pulvinar ac massa. Nullam malesuada congue </p>
-						<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
+						<p><a href="single-hotel.php" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
 					</div>
 				</div>
 
@@ -273,7 +275,7 @@
 							</div>
 						</div>
 						<div class="desc">
-							<h3>Hotel Bora</h3>
+							<h3>Steinberger Hotel</h3>
 							<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, 
 							in suscipit urna condimentum sed. </p>
 							<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
@@ -286,7 +288,7 @@
 							</div>
 						</div>
 						<div class="desc">
-							<h3>D’Morvie</h3>
+							<h3>Isis Hotel</h3>
 							<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed. </p>
 							<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
 						</div>
@@ -497,7 +499,7 @@
 	</div>
 
 
-	<div id="fh5co-blog-section">
+	<!-- <div id="fh5co-blog-section">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -542,7 +544,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<footer id="footer" class="fh5co-bg-color">
 	<?php
