@@ -63,7 +63,11 @@
 	<link rel="stylesheet" href="css/flexslider.css">
 	
 	<!-- Style -->
-	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Slidshow Styles -->
+    <link rel="stylesheet" href="css/slidshowstyles.css">
+
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
@@ -104,6 +108,28 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-15">
+                                        <!-- Slidshow Section -->
+                                                                        
+
+                                        <div class="w3-content" style="max-width:800px">
+                                        <img class="mySlides" src="images/wph1.jpg" style="width:100%">
+                                        <img class="mySlides" src="images/wph2.jpg" style="width:100%">
+                                        <img class="mySlides" src="images/wph3.jpg" style="width:100%">
+                                        </div>
+
+                                        <div class="w3-center">
+                                        <div class="w3-section">
+                                            <button class="w3-button w3-light-grey" onclick="plusDivs(-1)">❮ Prev</button>
+                                            <button class="w3-button w3-light-grey" onclick="plusDivs(1)">Next ❯</button>
+                                        </div>
+                                        <button class="w3-button demo" onclick="currentDiv(1)">1</button> 
+                                        <button class="w3-button demo" onclick="currentDiv(2)">2</button> 
+                                        <button class="w3-button demo" onclick="currentDiv(3)">3</button> 
+                                        </div>
+                                        
+                                   
+                                        <!-- End Slidshow Section -->
+                 
                         <h3>Description</h3>
                             <p>The Sofitel Winter Palace Hotel, also known as the Old Winter Palace Hotel, is a historic British colonial-era 5-star luxury resort hotel located on the banks of the River Nile in Luxor, Egypt, just south of Luxor Temple, with 86 rooms and 6 suites. </p>
                             <p>The hotel was built by the Upper Egypt Hotels Co, an enterprise founded in 1905 by Cairo hoteliers Charles Baehler and George Nungovich in collaboration with Thomas Cook & Son (Egypt). It was inaugurated on Saturday 19 January 1907, with a picnic at the Valley of the Kings followed by dinner at the hotel and speeches.[1]
@@ -257,6 +283,7 @@
 	<script src="js/jquery.flexslider-min.js"></script>
 
     <script src="js/custom.js"></script>
+    <script src="js/Slideshow.js"></script>
     <script src="js/multi-level-drop.js"></script>
 
 </body>
