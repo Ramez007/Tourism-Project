@@ -15,7 +15,7 @@
                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                 <ul class="fh5co-sub-menu">
                      <li><a href="#">Steinberger Hotel</a></li>
-                     <li><a href="#">Winter Palace Hotel</a></li>
+                     <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
                      <li><a href="#">Isis Hotel</a></li>
                      <li><a href="#">Ibertol Hotel</a></li>
                      <li><a href="#">Sunset Hotel</a></li>

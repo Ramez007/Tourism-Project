@@ -134,7 +134,7 @@
 		   						<p><span>Winter Palace Hotel</span></p>
 		   						<h2>Reserve Room for Family Vacation</h2>
 			   					<p>
-			   						<a href="#" class="btn btn-primary btn-lg">Book Now</a>
+			   						<a href="single-hotel.php" class="btn btn-primary btn-lg">Book Now</a>
 			   					</p>
 		   					</div>
 		   				</div>
@@ -261,7 +261,7 @@
 					<div class="desc">
 						<h3>Winter Palace Hotel</h3>
 						<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed. Vivamus augue enim, consectetur ac interdum a, pulvinar ac massa. Nullam malesuada congue </p>
-						<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
+						<p><a href="single-hotel.php" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
 					</div>
 				</div>
 
