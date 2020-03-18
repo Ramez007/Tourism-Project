@@ -12,7 +12,7 @@
         <ul class="sf-menu" id="fh5co-primary-menu">
             <li><a href="index.php">Home</a></li>
             <li>
-                <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotel</a>
+                <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                 <ul class="fh5co-sub-menu">
                      <li><a href="#">Luxe Hotel</a></li>
                      <li><a href="#">Deluxe Hotel</a></li>
