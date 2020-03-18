@@ -8718,8 +8718,8 @@ div.cs-select span {
   left: 0;
 }
 .services span > i {
-  font-size: 50px;
-  color: #FF5722;
+  font-size: 25px;
+  color: #142ADC;
   padding: 15px;
   background: rgba(0, 0, 0, 0.1);
   -webkit-border-radius: 50%;
@@ -8728,7 +8728,8 @@ div.cs-select span {
   border-radius: 50%;
 }
 .services .desc {
-  padding-left: 100px;
+  padding-left: 68px;
+  padding-top: 12px;
 }
 
 .contact-info {
@@ -9242,6 +9243,18 @@ input[type="text"] {
 
 .desc.desc-blog{
   height: 350px;
+}
+
+.quantity-box{
+  margin: 20px;
+}
+
+#quantity{
+  margin-left: 50px;
+}
+
+.boardtype{
+  margin-left: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */
