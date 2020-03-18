@@ -199,37 +199,37 @@
                                 
                                 <div class="quantity-box">   
                                     <label for="quantity">Number of Adults:</label>
-                                    <input type="number" id="quantity" name="quantity" min="1" max="100">
+                                    <input type="number" id="quantity" style='margin-left:168px;' name="quantity" min="1" max="100">
                                 </div>
 
                                 <div class="quantity-box">   
                                     <label for="quantity">Number of Children:</label>
-                                    <input type="number" id="quantity" name="quantity" min="0" max="100">
+                                    <input type="number" id="quantity" style='margin-left:153px;' name="quantity" min="0" max="100">
                                 </div>
 
                                 <div class="boardtype">
-                                    <input type="radio" name="boardtype" value="fullboard"> Full Board<br>
+                                    <input type="radio" name="boardtype" value="fullboard"> Full Board <br>
                                     <input type="radio" name="boardtype" value="halfboard"> Half Board<br>
                                 </div>
                                 
                                 <div class="quantity-box">   
                                     <label for="quantity">Choose Number of Single Rooms</label>
-                                    <input type="number" id="quantity" name="quantity" min="0" max="20">
+                                    <input type="number" id="quantity" style='margin-left:47px;' name="quantity" min="0" max="20">
                                 </div>
                                  
                                 <div class="quantity-box">   
                                     <label for="quantity">Choose Number of Double Rooms:</label>
-                                    <input type="number" id="quantity" name="quantity" min="0" max="20">
+                                    <input type="number" id="quantity" style='margin-left:34px;' name="quantity" min="0" max="20">
                                 </div>
 
                                 <div class="quantity-box">   
                                     <label for="quantity">Choose Number of Triple Rooms:</label>
-                                    <input type="number" id="quantity" name="quantity" min="0" max="20">
+                                    <input type="number" id="quantity" style='margin-left:46px;' name="quantity" min="0" max="20">
                                 </div>
 
                                 <div class="quantity-box">   
                                     <label for="quantity">Choose Number of Suits:</label>
-                                    <input type="number" id="quantity" name="quantity" min="0" max="5">
+                                    <input type="number" id="quantity" style='margin-left:114px;' name="quantity" min="0" max="5">
                                 </div>
 
                                 <input type="submit" value="Book" class="btn btn-primary btn-lg">
