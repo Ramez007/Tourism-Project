@@ -259,7 +259,7 @@
 						</div>
 					</div>
 					<div class="desc">
-						<h3>Deluxe Hotel</h3>
+						<h3>Winter Palace Hotel</h3>
 						<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed. Vivamus augue enim, consectetur ac interdum a, pulvinar ac massa. Nullam malesuada congue </p>
 						<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
 					</div>
@@ -273,7 +273,7 @@
 							</div>
 						</div>
 						<div class="desc">
-							<h3>Hotel Bora</h3>
+							<h3>Steinberger Hotel</h3>
 							<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, 
 							in suscipit urna condimentum sed. </p>
 							<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
@@ -286,7 +286,7 @@
 							</div>
 						</div>
 						<div class="desc">
-							<h3>D’Morvie</h3>
+							<h3>Isis Hotel</h3>
 							<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed. </p>
 							<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
 						</div>
