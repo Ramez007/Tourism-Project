@@ -4,7 +4,6 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 
-<!-- Za3'rat lel kemya ya beeeeeh -->
 
 
 	<head>
@@ -123,6 +122,7 @@
 		</header>
 		
 	</div>
+	
 	<!-- end:fh5co-header -->
 	<aside id="fh5co-hero" class="js-fullheight">
 		<div class="flexslider js-fullheight">
