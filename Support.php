@@ -1,9 +1,37 @@
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Support Office</title>
-<meta property="og:title" content=""/>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<!-- Za3'rat lel kemya ya beeeeeh -->
+
+
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Speedo Tours &mdash; License No. 782</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="FREEHTML5.CO" />
+
+  <!-- 
+	//////////////////////////////////////////////////////
+
+	FREE HTML5 TEMPLATE 
+	DESIGNED & DEVELOPED by FREEHTML5.CO
+		
+	Website: 		http://freehtml5.co/
+	Email: 			info@freehtml5.co
+	Twitter: 		http://twitter.com/fh5co
+	Facebook: 		https://www.facebook.com/fh5co
+
+	//////////////////////////////////////////////////////
+	 -->
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>
 	<meta property="og:url" content=""/>
 	<meta property="og:site_name" content=""/>
@@ -32,8 +60,7 @@
 	<!-- Themify Icons -->
 	<link rel="stylesheet" href="css/themify-icons.css">
 	<!-- Flat Icon -->
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/support.css">
+	<link rel="stylesheet" href="css/flaticon.css">
 	<!-- Icomoon -->
 	<link rel="stylesheet" href="css/icomoon.css">
 	<!-- Flexslider  -->
@@ -44,33 +71,56 @@
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
-</head>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
 
+</head>
 <body>
-<div id="fh5co-wrapper">
+	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
 	<div id="fh5co-header">
 		<header id="fh5co-header-section">
 			<div class="container">
-                <?php
-                include_once "header.php";
-                ?>
-            </div>
-        </header>
-    </div>
-    
 
-    <div id="hotel-facilities">
+				<?php 
+				include "header.php";
+				?>
+			</div>
+		</header>
+		
+	</div>
+	<!-- end:fh5co-header -->
+	
+	<div class="fh5co-parallax" style="background-image: url(images/help.jpg);" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+					<div class="fh5co-intro fh5co-table-cell">
+						<h1 class="text-center">Support Center</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	
+
+	<div id="hotel-facilities">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-title text-center">
-						<h2>User Services</h2>
+						<h2>Client Services</h2>
 					</div>
 				</div>
 			</div>
-            <div id="tabs">
-				<nav class="tabs-nav">
+
+			<div id="tabs">
+			<nav class="tabs-nav">
 					<a href="#" class="active" data-tab="tab1">
                     <img id="News" src="images\inquiry.png" width="50" height="50">
 						<span>Reply To Inquiry</span>
@@ -115,13 +165,49 @@
 							</div>
 						</div>
 					</div>
+					<div class="tab-content" data-tab-content="tab2">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12">
+									<h3 class="heading">Send NewsWire</h3>
+									<form action="" method="post">
+                                    <div class="form-group">
+                                    <textarea class="form-control form-control-lg" id="Reply" placeholder="Please write news to be sent to all subscribed mails" rows="10"></textarea>
+                                    </div>
 
-    <!-- <footer id="footer" class="fh5co-bg-color">
+									<p class="service-hour">
+										<span>Send news</span>
+                                    </p>
+									<button type="submit" class="btn btn-primary mb-2">Send</button>
+                                    </form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
 
-    </footer> -->
-    </div>
-</div>
-<script src="js/jquery-2.1.4.min.js"></script>
+	
+
+
+
+	<footer id="footer" class="fh5co-bg-color">
+	<?php
+	include "Footer.php"
+	?>
+		
+	</footer>
+
+	</div>
+	<!-- END fh5co-page -->
+
+	</div>
+	<!-- END fh5co-wrapper -->
+	
+	<!-- Javascripts -->
+	<script src="js/jquery-2.1.4.min.js"></script>
 	<!-- Dropdown Menu -->
 	<script src="js/hoverIntent.js"></script>
 	<script src="js/superfish.js"></script>
@@ -146,5 +232,4 @@
 	<script src="js/custom.js"></script>
 
 </body>
-
 </html>
