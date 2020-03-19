@@ -32,7 +32,8 @@
 	<!-- Themify Icons -->
 	<link rel="stylesheet" href="css/themify-icons.css">
 	<!-- Flat Icon -->
-	<link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/support.css">
 	<!-- Icomoon -->
 	<link rel="stylesheet" href="css/icomoon.css">
 	<!-- Flexslider  -->
@@ -78,13 +79,41 @@
                     <img id="News" src="images\news.png" width="50" height="50">
 						<span>Send newswire</span>
 					</a>
+                </nav>
+                <div class="tab-content-container">
+					<div class="tab-content active show" data-tab-content="tab1">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12">
+									<h3 class="heading">Replying To Inquiry</h3>
+									<form action="" method="post">
+                                     <div class="form-group">
+                                        <label for=Emails>Please select an email to write reply to </label>
+                                    <select id="Emails" class="form-control" name="email">
+                                        <option value="Email 1">Ramez1700124@miuegypt.edu.eg</option>
+                                        <option value="Email 2">Khaled1701294@miuegypt.edu.eg</option>
+                                        <option value="Email 3">Ahmed1700299@miuegypt.edu.eg</option>
+                                        <option value="Email 4">Nour179123@miuegypt.edu.eg</option>
+                                    </select> 
+                                    </div>
 
+                                    <div class="form-group">
+                                    <textarea class="form-control form-control-lg" id="Reply" placeholder="Please write your reply..." rows="5"cols="20"></textarea>
+                                    </div>
 
-    <footer id="footer" class="fh5co-bg-color">
-	<?php
-	include_once "Footer.php"
-	?>
-    </footer>
+									<p class="service-hour">
+										<span>Submit reply</span>
+                                    </p>
+                                    <input type="submit" class="btn btn-primary">Submit
+                                    </form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+    <!-- <footer id="footer" class="fh5co-bg-color">
+
+    </footer> -->
     </div>
 </div>
 <script src="js/jquery-2.1.4.min.js"></script>
