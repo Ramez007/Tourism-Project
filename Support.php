@@ -98,13 +98,18 @@
                                     </div>
 
                                     <div class="form-group">
+                                    <label for="staticinquiry">User's Inquiry</label>
+                                    <input type="text" readonly class="form-control " id="staticEmail2" value="I would like to ask if you like this form please submit your answer quickly">
+                                    </div>
+
+                                    <div class="form-group">
                                     <textarea class="form-control form-control-lg" id="Reply" placeholder="Please write your reply..." rows="5"cols="20"></textarea>
                                     </div>
 
 									<p class="service-hour">
 										<span>Submit reply</span>
                                     </p>
-                                    <input type="submit" class="btn btn-primary">Submit
+									<button type="submit" class="btn btn-primary mb-2">Submit</button>
                                     </form>
 								</div>
 							</div>
