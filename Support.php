@@ -75,7 +75,26 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	<script>
+        function ShowTab(y) {
+            var idarr = ["tab1", "tab2"]
 
+            // document.getElementById("poll").style.display="none";
+            y += "";
+            var x = document.getElementById(y);
+            var count = 0;
+
+            for (var i = 0; i < idarr.length; i++) {
+                var l = document.getElementById(idarr[count] + '');
+                l.style.display = "none";
+                count++;
+            }
+
+            x.style.display = "block";
+
+        }
+
+    </script>
 </head>
 <body>
 	<div id="fh5co-wrapper">
@@ -121,17 +140,17 @@
 
 			<div id="tabs">
 			<nav class="tabs-nav">
-					<a href="#" class="active" data-tab="tab1">
+					<a href="#" class="active" onclick="ShowTab('tab1')" data-tab="tab1">
                     <img id="News" src="images\inquiry.png" width="50" height="50">
 						<span>Reply To Inquiry</span>
 					</a>
-					<a href="#" data-tab="tab2">
+					<a href="#"  onclick="ShowTab('tab2')" data-tab="tab2">
                     <img id="News" src="images\news.png" width="50" height="50">
 						<span>Send newswire</span>
 					</a>
                 </nav>
                 <div class="tab-content-container">
-					<div class="tab-content active show" data-tab-content="tab1">
+					<div class="tab-content active show" id="tab1" data-tab-content="tab1">
 						<div class="container">
 							<div class="row">
 								<div class="col-md-12">
@@ -153,7 +172,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                    <textarea class="form-control form-control-lg" id="Reply" placeholder="Please write your reply..." rows="5"cols="20"></textarea>
+                                    <textarea class="form-control form-control-lg" id="Reply" placeholder="Please write your reply..." name="reply" rows="5"cols="20"></textarea>
                                     </div>
 
 									<p class="service-hour">
@@ -165,14 +184,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="tab-content" data-tab-content="tab2">
+					<div class="tab-content" id="tab2" data-tab-content="tab2">
 						<div class="container">
 							<div class="row">
 								<div class="col-md-12">
 									<h3 class="heading">Send NewsWire</h3>
 									<form action="" method="post">
                                     <div class="form-group">
-                                    <textarea class="form-control form-control-lg" id="Reply" placeholder="Please write news to be sent to all subscribed mails" rows="10"></textarea>
+                                    <textarea class="form-control form-control-lg" id="news" placeholder="Please write news to be sent to all subscribed mails" name ="news"rows="10"></textarea>
                                     </div>
 
 									<p class="service-hour">
