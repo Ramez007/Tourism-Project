@@ -9247,6 +9247,7 @@ input[type="text"] {
 
 .quantity-box{
   margin: 20px;
+  margin-left:0px;
 }
 
 #quantity{
