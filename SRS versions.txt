@@ -6,5 +6,4 @@ version 1.4 - creating functional requirements (user)
 version 1.5 - updating functional requirements - creating whole system functions
 version 1.6 - creating user cases and creating the User interface -updating GUI and operational scenarios
 version 1.7 - refining functional requirements and updating the verbs to include shall and should
-version 1.8 - adding citations and references
-version 1.9 - uploading ERD diagram and class diagram and citation github link in the GUI section 
+version 1.8 - adding citations and references uploading ERD diagram and class diagram and citation github link in the GUI section 
