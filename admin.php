@@ -78,8 +78,6 @@
 	<script>
         function ShowTab(y) {
             var idarr = ["tab1", "tab2","tab3","tab4","tab5","tab6"]
-
-            // document.getElementById("poll").style.display="none";
             y += "";
             var x = document.getElementById(y);
             var count = 0;
@@ -133,7 +131,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-title text-center">
-						<h2>Client Services</h2>
+						<h2>Edit Services</h2>
 					</div>
 				</div>
 			</div>
@@ -174,11 +172,11 @@
 								<div class="col-md-12">
                                     <h3>Pending Reservations</h3>
                                     <span>Mr. Al pacino reserving Winter Palace for 1 single rooms from 18-9-2020 to 18-10-2020</span>
-                                    <button style="margin-left:20px;">Confirm Book</button>
+                                    <button class="btn btn-primary mb-2" style="margin-left:20px;">Confirm Book</button>
                                     <br>
                                     <br>
                                     <span>Mr. Karl Benz reserving Aswan/Luxor Pacakage (Pacakage ID: 12) for 2 double rooms</span>
-                                    <button style="margin-left:20px;">Confirm Book</button>
+                                    <button class="btn btn-primary mb-2" style="margin-left:25px;">Confirm Book</button>
 								</div>
 							</div>
 						</div>
@@ -197,8 +195,18 @@
                                     <div id="add-hotel-subsec">
                                         <h4 class="text-center">Add Hotel</h4>
                                         <form action="">
-                                            Enter Hotel Name  <input type="text"><br><br>
-                                            Enter Hotel Location  <input type="text">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="enterhotel">Enter Hotel Name</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="enterhotel" placeholder="Hotel Name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="enterlocation">Enter Hotel Location</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="enterlocation" placeholder="Hotel Name">
+                                                </div>
+                                            </div>
                                             <div id="checkboxes">
                                                 <label>Enter List of services offered by the hotel</label>
                                                 <ul>
@@ -210,12 +218,16 @@
                                                     <li><input type="checkbox"> Resturant</li>
                                                 </ul>
                                             </div>
-                                            Enter Hotel Description <br>
-                                            <textarea rows="4" cols="50" name="comment" form="usrform">Enter text here...</textarea>
-                                            <br><br><br> Upload Gallery of Hotel <br>
-                                            <input type="file" name="fileToUpload" id="fileToUpload">
+                                            <div class="form-group">
+                                                <label for="hoteldescription">Enter Hotel Description</label>
+                                                <textarea class="form-control" id="hoteldescription" rows="4" name="comment" form="usrform" placeholder="Enter text here..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="fileToUpload">Upload Gallery of Hotel</label>
+                                                <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
+                                            </div>
                                             <br><br>
-                                            <input type="submit" value="Save Hotel">
+                                            <input class="btn btn-primary mb-2" type="submit" value="Save Hotel">
                                         </form>  
                                     </div>
                         <!-- end add hotel subsection   -->
@@ -227,18 +239,32 @@
                                     <div id="edit-hotel-subsec">
                                         <form action="">
                                             <h4 class="text-center">Edit Hotel</h4>
-                                            <label for="hotelslabel">Choose a Hotel to edit:</label>
-                                            <select id="hotels-editing-dropdown">
-                                                <option value="wph">Winter Palace</option>
-                                                <option value="ih">Isis</option>
-                                                <option value="sh">Steinberger</option>
-                                                <option value="eh">Emilio</option>
-                                                <option value="ibh">Iberotel</option>
-                                                <option value="ssh">Sunset</option>
-                                            </select>
-                                            <br><br>
-                                            Hotel Name  <input type="text" value="Winter Palace"><br><br>   
-                                            Hotel Location  <input type="text" value="Luxor, Egypt"><br><br>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label" for="hotels-editing-dropdown">Choose Hotel To Edit</label>
+                                                <div class="col-sm-3">
+                                                    <select class="form-control form-control-sm" style="margin-left:-102px;" id="hotels-editing-dropdown">
+                                                        <option value="wph">Winter Palace</option>
+                                                        <option value="ih">Isis</option>
+                                                        <option value="sh">Steinberger</option>
+                                                        <option value="eh">Emilio</option>
+                                                        <option value="ibh">Iberotel</option>
+                                                        <option value="ssh">Sunset</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="edithotelname">Hotel Name</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="edithotelname" value="Winter Palace">
+                                                </div>
+                                            </div> 
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="edithotellocation">Hotel Location</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="edithotellocation" value="Luxor,Egypt">
+                                                </div>
+                                            </div>
                                             <div id="checkboxes">
                                                 <label>Edit List of services offered by the hotel</label>
                                                 <ul>
@@ -251,15 +277,18 @@
                                                 </ul>
                                             </div>
                                             <br><br>
-                                            Edit Hotel Description <br>
-                                            <textarea rows="4" cols="50" name="comment" form="usrform">The Sofitel Winter Palace Hotel, also known as the Old Winter Palace Hotel, is a historic British colonial-era 5-star luxury resort hotel located on the banks of the River Nile in Luxor, Egypt, just south of Luxor Temple, with 86 rooms and 6 suites.
-                                            The hotel was built by the Upper Egypt Hotels Co, an enterprise founded in 1905 by Cairo hoteliers Charles Baehler and George Nungovich in collaboration with Thomas Cook & Son (Egypt). It was inaugurated on Saturday 19 January 1907, with a picnic at the Valley of the Kings followed by dinner at the hotel and speeches.[1] The architect was Leon Stienon, the Italian construction company G.GAROZZO & Figli Costruzioni in Cemento Armato, Sistema SIACCI brevettato. During World War I the hotel was temporarily closed to paying guests and employed as a hospice for convalescing soldiers. A regular guest at the hotel from 1907 on was George Herbert, 5th Earl of Carnarvon, better known simply as Lord Carnarvon. Carnarvon was the patron of Egyptologist Howard Carter, who in 1922 discovered the intact tomb of Tutankhamun. After the discovery was announced the Winter Palace played host to the international press corps and foreign visitors there to follow the story. Carter used the hotel's noticeboard to deliver occasional news and information on the discovery. In 1975 the complex was expanded with the construction of the New Winter Palace. The addition, classified as a 3-star hotel, was joined by corridors to the original. It was demolished in 2008. In 1996, the Pavillon, a 4-star annex with 116 rooms, was built in the rear garden of the Winter Palace, close to the swimming pool. The Pavillon shares many amenities with the Winter Palace, including the gardens, pools, tennis courts, terraces and restaurants. The hotel is owned by the Egyptian General Company for Tourism & Hotels ("EGOTH") of Egypt and managed by Accor, a French Hotel company, where it is part of the prime division Sofitel. The Hotel is featured on the exclusive Palace Hotels of the World. The Winter Palace has 5 restaurants. The 1886 Restaurant, which serves French cuisine, is named after the date the hotel inaccurately advertises that it was founded. It and the la Corniche Restaurant (international cuisine) are both located in the historic Palace wing. The Bougainvilliers (international cuisine) is in the Pavilion wing, while the Palmetto (Italian cuisine and snacks) and the El Tarboush (Egyptian cuisine) are in the garden close to the swimming pool. </textarea>  
-                                            <br><br><br> 
+                                            <div class="form-group">
+                                                <label for="edithoteldescription">Enter Hotel Description</label>
+                                                <textarea class="form-control" id="edithoteldescription" rows="15" name="comment" form="usrform">The Sofitel Winter Palace Hotel, also known as the Old Winter Palace Hotel, is a historic British colonial-era 5-star luxury resort hotel located on the banks of the River Nile in Luxor, Egypt, just south of Luxor Temple, with 86 rooms and 6 suites.
+                                                The hotel was built by the Upper Egypt Hotels Co, an enterprise founded in 1905 by Cairo hoteliers Charles Baehler and George Nungovich in collaboration with Thomas Cook & Son (Egypt). It was inaugurated on Saturday 19 January 1907, with a picnic at the Valley of the Kings followed by dinner at the hotel and speeches.[1] The architect was Leon Stienon, the Italian construction company G.GAROZZO & Figli Costruzioni in Cemento Armato, Sistema SIACCI brevettato. During World War I the hotel was temporarily closed to paying guests and employed as a hospice for convalescing soldiers. A regular guest at the hotel from 1907 on was George Herbert, 5th Earl of Carnarvon, better known simply as Lord Carnarvon. Carnarvon was the patron of Egyptologist Howard Carter, who in 1922 discovered the intact tomb of Tutankhamun. After the discovery was announced the Winter Palace played host to the international press corps and foreign visitors there to follow the story. Carter used the hotel's noticeboard to deliver occasional news and information on the discovery. In 1975 the complex was expanded with the construction of the New Winter Palace. The addition, classified as a 3-star hotel, was joined by corridors to the original. It was demolished in 2008. In 1996, the Pavillon, a 4-star annex with 116 rooms, was built in the rear garden of the Winter Palace, close to the swimming pool. The Pavillon shares many amenities with the Winter Palace, including the gardens, pools, tennis courts, terraces and restaurants. The hotel is owned by the Egyptian General Company for Tourism & Hotels ("EGOTH") of Egypt and managed by Accor, a French Hotel company, where it is part of the prime division Sofitel. The Hotel is featured on the exclusive Palace Hotels of the World. The Winter Palace has 5 restaurants. The 1886 Restaurant, which serves French cuisine, is named after the date the hotel inaccurately advertises that it was founded. It and the la Corniche Restaurant (international cuisine) are both located in the historic Palace wing. The Bougainvilliers (international cuisine) is in the Pavilion wing, while the Palmetto (Italian cuisine and snacks) and the El Tarboush (Egyptian cuisine) are in the garden close to the swimming pool.</textarea>
+                                            </div>
                                             <a href="#">Show Gallery</a><br>
-                                            Update Gallery of Hotel <br>
-                                            <input type="file" name="fileToUpload" id="fileToUpload">
+                                            <div class="form-group">
+                                                <label for="fileToUpload">Upload Gallery of Hotel</label>
+                                                <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
+                                            </div>
                                             <br><br>
-                                            <input type="submit" value="Save Editing Hotel">
+                                            <input class="btn btn-primary mb-2" type="submit" value="Save Editing Hotel">
                                         </form>        
                                     </div>   
                         <!-- End Edit Hotel Subsection -->
@@ -279,7 +308,7 @@
                                             </ul>
                                         </div>
                                         <br><br>
-                                        <input type="submit" value="Save Deletion">
+                                        <input type="submit" class="btn btn-primary mb-2" value="Save Deletion">
                                     </div>    
 
 								</div>
@@ -296,11 +325,36 @@
                                     <div id="add-package-subsec">
                                         <h4 class="text-center">Add Package</h4>
                                         <form action="">
-                                            Enter Package Title  <input type="text"><br><br>
-                                            Enter Package Number of Days  <input type="number"><br><br>
-                                            Enter Package Number of Nights  <input type="number"><br><br>
-                                            Enter Package Reserve Limit  <input type="number"><br><br>
-                                            Enter Package Total Price  <input type="number"><br><br>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="packagename">Enter Package Name</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="packagename" placeholder="Package Name ...">
+                                                </div>
+                                            </div> 
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofdays">Enter Package Number of Days</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" id="numberofdays" placeholder="1">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofdays">Enter Package Number of Nights</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" id="numberofnights" placeholder="1">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="reservelimit">Enter Package Reserve Limit</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" id="reservelimit" placeholder="1">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="totalprice">Enter Package Total Price</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" id="totalprice" placeholder="1">
+                                                </div>
+                                            </div>
                                             <div class="input-field">
                                                 <label for="date-start">Start Date</label>
                                                 <input type="text" class="form-control" id="date-start" />
@@ -321,12 +375,14 @@
                                                 <input type="radio" name="boardtype" value="fullboard"> Full Board <br>
                                                 <input type="radio" name="boardtype" value="halfboard"> Half Board<br>
                                             </div>
-                                            Enter Pacakage Vists/Details <br>
-                                            <textarea rows="4" cols="50" name="comment" form="usrform">Enter text here...</textarea>
-                                            <br><br><br> Upload Gallery of Package <br>
+                                            <div class="form-group">
+                                                <label for="edithoteldescription">Enter Package Visits/Details</label>
+                                                <textarea class="form-control" id="edithoteldescription" rows="4" name="comment" Placeholder="Enter Text Here..." form="usrform"></textarea>
+                                            </div>
+                                            <label for="fileToUpload">Enter Package Visits/Details</label>
                                             <input type="file" name="fileToUpload" id="fileToUpload">
                                             <br><br>
-                                            <input type="submit" value="Save Package">
+                                            <input type="submit"  class="btn btn-primary mb-2" value="Save Package">
                                         </form>
                                     </div>
                                     <hr style="border-top: 1px solid black">
@@ -334,17 +390,45 @@
                                     <div id="edit-package-subsec">
                                         <h4 class="text-center">Edit Package</h4>
                                         <form action="">
-                                            <label for="Packagelabel">Choose a Pakage to edit:</label>
-                                            <select id="Packages-editing-dropdown">
-                                                <option value="">Cairo/Ain-Sokhna</option>
-                                                <option value="">Luxor/Aswan</option>
-                                            </select>
-                                            <br><br>
-                                            Edit Package Title  <input type="text" value="Cairo/Ain-Sokhna"><br><br>
-                                            Edit Package Number of Days  <input type="number" value="10"><br><br>
-                                            Edit Package Number of Nights  <input type="number" value="9"><br><br>
-                                            Edit Package Reserve Limit  <input type="number" value="100"><br><br>
-                                            Edit Package Total Price  <input type="number" value="5000"><br><br>
+                                            <div class="form-group row">
+                                                <label style="margin-left:-275px" for="Packages-editing-dropdown">Choose a Pakage to edit:</label>
+                                                <div class="col-sm-3">
+                                                    <select class="form-control form-control-sm" style="margin-left:198px;"  id="Packages-editing-dropdown">
+                                                        <option value="">Cairo/Ain-Sokhna</option>
+                                                        <option value="">Luxor/Aswan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="packagetitle">Edit Package Title</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="packagetitle" value="Cairo/Ain-Sokhna">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="packagedays">Edit Package Number of Days</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" id="packagedays" value="10">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="packagenights">Edit Package Number of Nights</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" id="packagenights" value="9">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="packagelimit">Edit Package Reserve Limit</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" id="packagelimit" value="100">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="packagelimit">Edit Package Total Price</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" id="packagelimit" value="5000">
+                                                </div>
+                                            </div>
                                             <div class="input-field">
                                                 <label for="date-start">Start Date</label>
                                                 <input type="text" class="form-control" id="date-start" value="20/9/2020" />
@@ -365,9 +449,9 @@
                                                 <input type="radio" name="boardtype" value="fullboard" checked="checked"> Full Board <br>
                                                 <input type="radio" name="boardtype" value="halfboard"> Half Board<br>
                                             </div>
-                                            <br><br>
-                                            Enter Pacakage Vists/Details <br>
-                                            <textarea rows="4" cols="50" name="comment" form="usrform">
+                                            
+                                            <label class="col-sm-4 col-form-label" for="packagedetails">Edit Package Visits/Details</label>
+                                            <textarea rows="15" class="form-control" id="packagedetails" name="comment" form="usrform">
                                                 Day 1: Cairo
                                                 Upon arrival at the Cairo International Airport, you will be greeted by a Travco representative and transferred by our deluxe coach to Cairo Marriott Hotel or similar for check in and overnight.
 
@@ -396,7 +480,7 @@
                                             Update Gallery of Package <br>
                                             <input type="file" name="fileToUpload" id="fileToUpload">
                                             <br><br>
-                                            <input type="submit" value="Save Editing Package">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Editing Package">
                                         </form>  
                                     </div>
                                     <!-- end edit Package subsection   -->
@@ -412,7 +496,7 @@
                                             </ul>
                                         </div>
                                         <br><br>
-                                        <input type="submit" value="Save Deletion">
+                                        <input type="submit" class="btn btn-primary mb-2" value="Save Deletion">
                                     </div>    
 
                                     <!-- end of packages -->
@@ -430,15 +514,32 @@
                                     <div id="add-event-sec">
                                         <h4 class="text-center">Add Events</h4>
                                         <form action="">
-                                            Enter Event Title  <input type="text"><br><br>
-                                            Enter Event Month  <input type="text"><br><br>
-                                            Enter Event Year  <input type="text"><br><br>
-                                            Enter Event Paragraph <br>
-                                            <textarea rows="4" cols="50" name="comment" form="usrform">Enter text here...</textarea>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="eventtitle">Enter Event Title</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="eventtitle" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="eventmonth">Enter Event Month</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="eventmonth">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="eventyear">Enter Event Year</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="eventyear">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventdetails">Enter Event Details</label>
+                                                <textarea rows="4" class="form-control" name="comment" form="usrform" placeholder="Enter text here"></textarea>
+                                            </div>
                                             <br><br><br> Upload Photo of Event <br>
                                             <input type="file" name="fileToUpload" id="fileToUpload">
                                             <br><br>
-                                            <input type="submit" value="Save Event">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Event">
                                         </form>        
                                     </div>
                                     <!-- end event section -->
@@ -447,25 +548,46 @@
                                     <div id="edit-event-sec">
                                         <h4 class="text-center">Edit Events</h4>
                                         <form action="">
-                                            <label for="eventslabel">Choose an event to edit:</label>
-                                            <select id="events-editing-dropdown">
-                                                <option value="">Establishing The Company</option>
-                                                <option value="">Our First Bus</option>
-                                                <option value="">1st Anniversary of Speedo tours</option>
-                                                <option value="">Ten Years Of Experince</option>
-                                                <option value="">Entering The 21st Century</option>
-                                                <option value="">Twenty Years Of Experince</option>
-                                            </select>
-                                            <br><br>
-                                            Edit Event Title  <input type="text" value="Establishing The Company"><br><br>
-                                            Edit Event Month  <input type="text" value="Sep"><br><br>
-                                            Edit Event Year  <input type="text" value="1989"><br><br>
-                                            Edit Event Paragraph <br>
-                                            <textarea rows="4" cols="50" name="comment" form="usrform">Enter text here...</textarea>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="events-editing-dropdown">Choose an event to edit</label>
+                                                <div class="col-sm-3">
+                                                    <select class="form-control" id="events-editing-dropdown">
+                                                        <option value="">Establishing The Company</option>
+                                                        <option value="">Our First Bus</option>
+                                                        <option value="">1st Anniversary of Speedo tours</option>
+                                                        <option value="">Ten Years Of Experince</option>
+                                                        <option value="">Entering The 21st Century</option>
+                                                        <option value="">Twenty Years Of Experince</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="editeventtitle">Edit Event Title</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" value="Establishing the company" id="editeventtitle" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="editeventmonth">Edit Event Month</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" value="sep" id="editeventmonth" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="editeventyear">Edit Event Year</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" value="1989" id="editeventyear" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventdetails">Edit Event Details</label>
+                                                <textarea rows="4" class="form-control" name="comment" form="usrform" placeholder="Enter text here"></textarea>
+                                            </div>
                                             <br><br><br> Upload Photo of Event <br>
                                             <input type="file" name="fileToUpload" id="fileToUpload">
                                             <br><br>
-                                            <input type="submit" value="Save Editing Event">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Editing Event">
                                         </form>        
                                     </div>
                                     <!-- end edit event section -->
@@ -475,7 +597,7 @@
                                         <h4 class="text-center">Delete Events</h4>
                                         <form action="">
                                             <div id="checkboxes">
-                                                <label>Select Events To Be Deleted</label>
+                                                <label for="deletevent">Select Events To Be Deleted</label>
                                                 <ul>
                                                     <li><input type="checkbox"> Establishing The Company</li>
                                                     <li><input type="checkbox"> Our First Bus</li>
@@ -486,7 +608,7 @@
                                                 </ul>
                                             </div>
                                             <br><br>
-                                            <input type="submit" value="Save Deletion">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Deletion">
                                         </form>
                                     </div>    
 								</div>
@@ -514,7 +636,7 @@
                                                 </ul>
                                             </div>
                                             <br><br>
-                                            <input type="submit" value="Save Changes">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
                                         </form>    
                                     </div>
                                     <!-- end editing main slider section -->
@@ -534,7 +656,7 @@
                                                 </ul>
                                             </div>
                                             <br><br>
-                                            <input type="submit" value="Save Changes">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
                                         </form>
                                     </div>
                                     <!-- end editing featured hotels section -->
@@ -554,7 +676,7 @@
                                                 </ul>
                                             </div>
                                             <br><br>
-                                            <input type="submit" value="Save Changes">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
                                         </form>
                                     </div>
                                     <!-- end editing happy customer says section -->
@@ -569,14 +691,19 @@
                                     <h3 class="text-center" >Edit Contact Page Content</h3>
                                     <hr style="border-top: 1px solid black">
                                     <form action="">
-                                        Edit Address <br>
-                                        <textarea rows="4" cols="50" name="comment" form="usrform">7 Ali Ibn Abi Taleb Street, Luxor, Egypt</textarea><br><br>
-                                        Edit Address Message <br>
-                                        <textarea rows="4" cols="50" name="comment" form="usrform">We would be delighted to have you in our headquarters.</textarea><br><br>
-                                        Edit Email <br>
-                                        <textarea rows="4" cols="50" name="comment" form="usrform">info@speedotours.com</textarea>
-                                        <br><br>
-                                        <input type="submit" value="Save Changes">
+                                        <div class="form-group">
+                                            <label for="editaddress">Edit Address</label>
+                                            <textarea rows="4" class="form-control" name="comment" form="usrform">7 Ali Ibn Abi Taleb Street, Luxor, Egypt</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editmessage">Edit Address Message</label>
+                                            <textarea rows="4" class="form-control" name="comment" form="usrform">We would be delighted to have you in our headquarters.</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editemail">Edit Email</label>
+                                            <textarea rows="4" class="form-control" name="comment" form="usrform">info@speedotours.com</textarea>
+                                        </div>
+                                        <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
                                     </form>
 								</div>
 							</div>
