@@ -55,7 +55,7 @@
 	<!-- CS Select -->
 	<link rel="stylesheet" href="css/cs-select.css">
 	<link rel="stylesheet" href="css/cs-skin-border.css">
-
+    
 	<!-- Themify Icons -->
 	<link rel="stylesheet" href="css/themify-icons.css">
 	<!-- Flat Icon -->
@@ -74,6 +74,22 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+        function hide(jquery) {
+            var idarr = ["tab1", "tab2","tab3","tab4","tab5","tab6"];
+            var count = 0;
+
+            for (var i = 0; i < idarr.length; i++) {
+                var l = document.getElementById(idarr[count] + '');
+                l.style.display = "none";
+                count++;
+            }
+        }
+
+    $(document).ready(hide);
+    </script>
+
 	<script>
         function ShowTab(y) {
             var idarr = ["tab1", "tab2","tab3","tab4","tab5","tab6"]
@@ -90,7 +106,7 @@
             x.style.display = "block";
 
         }
-
+       
     </script>
 </head>
 <body>
