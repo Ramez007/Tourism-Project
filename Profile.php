@@ -127,126 +127,128 @@
             </div>
 
             <div id="hotel-facilities">
-                <div id="tabs">
-                    <nav class="tabs-nav">
-                        <a href="#" class="active" data-tab="tab1" onclick="showsec('tab1')">
-                            <img id="Profile" src="images\profile.png" width="50" height="50">
-                            <span>Personal Info</span>
-                        </a>
-                        <a href="#" data-tab="tab2" onclick="showsec('tab2')">
-                            <img id="History" src="images\clock.png" width="50" height="50">
-                            <span>History</span>
-                        </a>
-                        <a href="#" data-tab="tab3" onclick="showsec('tab3')">
-                            <img id="QnA" src="images\QnA.png" width="50" height="50">
-                            <span>Questions and Answers</span>
-                        </a>
-                        <a href="#" data-tab="tab4" onclick="showsec('tab4')">
-                            <img id="Reservations" src="images\reservation.png" width="50" height="50">
-                            <span>Reservations</span>
-                        </a>
-                    </nav>
-                    <div class="tab-content-container">
-                        <div class="tab-content active show" data-tab-content="tab1" id="tab1">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img id="Profile-Picture" src="images\blank-profile-picture.jpg" width="250" height="300">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <button class="btn btn-primary mb-2" style="margin-left: 50px; margin-top: 20px;"> Change Picture </button>
-                                                <button class="btn btn-primary mb-2" style="margin-top: 20px; margin-left: 700px;"> Edit Profile </button>
+                <div class="container">    
+                    <div id="tabs">
+                        <nav class="tabs-nav">
+                            <a href="#" class="active" data-tab="tab1" onclick="showsec('tab1')">
+                                <img id="Profile" src="images\profile.png" width="50" height="50">
+                                <span>Personal Info</span>
+                            </a>
+                            <a href="#" data-tab="tab2" onclick="showsec('tab2')">
+                                <img id="History" src="images\clock.png" width="50" height="50">
+                                <span>History</span>
+                            </a>
+                            <a href="#" data-tab="tab3" onclick="showsec('tab3')">
+                                <img id="QnA" src="images\QnA.png" width="50" height="50">
+                                <span>Questions and Answers</span>
+                            </a>
+                            <a href="#" data-tab="tab4" onclick="showsec('tab4')">
+                                <img id="Reservations" src="images\reservation.png" width="50" height="50">
+                                <span>Reservations</span>
+                            </a>
+                        </nav>
+                        <div class="tab-content-container">
+                            <div class="tab-content active show" data-tab-content="tab1" id="tab1">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img id="Profile-Picture" src="images\blank-profile-picture.jpg" width="250" height="300">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button class="btn btn-primary mb-2" style="margin-left: 50px; margin-top: 20px;"> Change Picture </button>
+                                                    <button class="btn btn-primary mb-2" style="margin-top: 20px; margin-left: 700px;"> Edit Profile </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <p> First Name: John</p><br>
-                                        <p> Last Name: Doe</p><br>
-                                        <p> Email: JohnDoe@email.com</p><br>
-                                        <p> Country: Westeros</p>
+                                        <div class="col-md-8">
+                                            <p> First Name: John</p><br>
+                                            <p> Last Name: Doe</p><br>
+                                            <p> Email: JohnDoe@email.com</p><br>
+                                            <p> Country: Westeros</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab-content" data-tab-content="tab2" id="tab2">
-                            <div class="container">
-                                <h2>Past reservations</h2>
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Type of reservation</th>
-                                            <th>Date in</th>
-                                            <th>Date out</th>
-                                            <th>Notes</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Package</td>
-                                            <td>20/12/2017</td>
-                                            <td>23/12/2017</td>
-                                            <td>December offer, Hurghada, 2 Double rooms</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="tab-content" data-tab-content="tab2" id="tab2">
+                                <div class="container">
+                                    <h2>Past reservations</h2>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of reservation</th>
+                                                <th>Date in</th>
+                                                <th>Date out</th>
+                                                <th>Notes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Package</td>
+                                                <td>20/12/2017</td>
+                                                <td>23/12/2017</td>
+                                                <td>December offer, Hurghada, 2 Double rooms</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        <div class="tab-content" data-tab-content="tab3" id="tab3">
-                            <div class="container">
-                                <h2>Asked questions</h2>
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Question</th>
-                                            <th>Answer</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>19/12/2017</td>
-                                            <td>Here goes the question</td>
-                                            <td>Here goes the answer</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <br><br>
-                                <p> Want to ask another question?. Enter your question here:</p>
-                                <textarea class="form-control" rows="3"></textarea>
-                                <button class="btn btn-primary mb-2" style="margin-top: 20px;">Send Question</button>
+                            <div class="tab-content" data-tab-content="tab3" id="tab3">
+                                <div class="container">
+                                    <h2>Asked questions</h2>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Question</th>
+                                                <th>Answer</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>19/12/2017</td>
+                                                <td>Here goes the question</td>
+                                                <td>Here goes the answer</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br><br>
+                                    <p> Want to ask another question?. Enter your question here:</p>
+                                    <textarea class="form-control" rows="3"></textarea>
+                                    <button class="btn btn-primary mb-2" style="margin-top: 20px;">Send Question</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="tab-content" data-tab-content="tab4" id="tab4">
-                            <div class="container">
-                                <h2>Current/Upcoming reservations</h2>
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Type of reservation</th>
-                                            <th>Date in</th>
-                                            <th>Date out</th>
-                                            <th>Notes</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Hotel</td>
-                                            <td>14/3/2018</td>
-                                            <td>17/3/2018</td>
-                                            <td>Winter Palace, Luxor, 1 Double rooms</td>
-                                            <td>
-                                                <button class="btn btn-danger">Cancel Reservation</button>
-                                                <button class="btn btn-success">Track Reservation</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="tab-content" data-tab-content="tab4" id="tab4">
+                                <div class="container">
+                                    <h2>Current/Upcoming reservations</h2>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of reservation</th>
+                                                <th>Date in</th>
+                                                <th>Date out</th>
+                                                <th>Notes</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Hotel</td>
+                                                <td>14/3/2018</td>
+                                                <td>17/3/2018</td>
+                                                <td>Winter Palace, Luxor, 1 Double rooms</td>
+                                                <td>
+                                                    <button class="btn btn-danger">Cancel Reservation</button>
+                                                    <button class="btn btn-success">Track Reservation</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>    
             </div>
 
 
