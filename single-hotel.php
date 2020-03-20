@@ -197,40 +197,60 @@
                                     <input type="text" class="form-control" id="date-end">
                                 </div>
 								</div>
+								<br><br>
                                 
-                                <div class="quantity-box">   
-                                    <label for="quantity">Number of Adults:</label>
-                                    <input type="number" id="quantity" style='margin-left:168px;' name="quantity" min="1" max="100">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="quantity">Number of Adults:</label>
+                                    <div class="col-sm-3">
+                                    	<input type="number" class="form-control" id="quantity" min="0" max="100" placeholder="1">
+                                    </div>
                                 </div>
 
-                                <div class="quantity-box">   
-                                    <label for="quantity">Number of Children:</label>
-                                    <input type="number" id="quantity" style='margin-left:153px;' name="quantity" min="0" max="100">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="quantity">Number of Children:</label>
+                                    <div class="col-sm-3">
+                                    	<input type="number" class="form-control" id="quantity" min="0" max="100" placeholder="0">
+                                    </div>
                                 </div>
-
-                                <div class="boardtype">
-                                    <input type="radio" name="boardtype" value="fullboard"> Full Board <br>
-                                    <input type="radio" name="boardtype" value="halfboard"> Half Board<br>
+								
+								<div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="enterhotel">Boarding type</label>
+                                    <div class="col-sm-3">
+										<div class="boardtype">
+											<input type="radio" class="form-check-input" name="boardtype" value="fullboard"> Full Board <br>
+											<input type="radio" class="form-check-input" name="boardtype" value="halfboard"> Half Board<br>
+                                		</div>
+                                    </div>
                                 </div>
                                 
-                                <div class="quantity-box">   
-                                    <label for="quantity">Choose Number of Single Rooms</label>
-                                    <input type="number" id="quantity" style='margin-left:47px;' name="quantity" min="0" max="20">
+                                
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Single Rooms:</label>
+                                    <div class="col-sm-3">
+                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    </div>
                                 </div>
                                  
-                                <div class="quantity-box">   
-                                    <label for="quantity">Choose Number of Double Rooms:</label>
-                                    <input type="number" id="quantity" style='margin-left:34px;' name="quantity" min="0" max="20">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Double Rooms:</label>
+                                    <div class="col-sm-3">
+                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    </div>
                                 </div>
 
-                                <div class="quantity-box">   
-                                    <label for="quantity">Choose Number of Triple Rooms:</label>
-                                    <input type="number" id="quantity" style='margin-left:46px;' name="quantity" min="0" max="20">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Triple Rooms:</label>
+                                    <div class="col-sm-3">
+                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    </div>
                                 </div>
 
-                                <div class="quantity-box">   
-                                    <label for="quantity">Choose Number of Suits:</label>
-                                    <input type="number" id="quantity" style='margin-left:114px;' name="quantity" min="0" max="5">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="quantity">Choose Number of suites:</label>
+                                    <div class="col-sm-3">
+                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    </div>
                                 </div>
 
                                 <input type="submit" value="Book" class="btn btn-primary btn-lg">
