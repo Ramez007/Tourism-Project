@@ -138,7 +138,7 @@
 			<div class="row">
 				<div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
 					<div class="fh5co-intro fh5co-table-cell">
-						<h1 class="text-center">Package 1</h1>
+						<h1 class="text-center">Cairo/Abu-Simble Package</h1>
 					</div>
 				</div>
 			</div>
@@ -179,8 +179,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-title text-center">
-						<h2>Client Services</h2>
-					</div>
+					</div>			
 				</div>
 			</div>
 
@@ -204,9 +203,25 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-md-12">
-									<h4> a brief description on package 1  include visits , information about the hotel and the landmarks </h3>
+									<h4> a brief description on package 1  include visits , information about the hotel,cruise including cruise name and the landmarks </h4>
 									
 								</div>
+								<div class="services"style="top: 12px;">
+									<span style="margin-bottom:20px;top: 39px;"><img id="News" src="images\sun.png" width="50" height="50"style="margin-bottom:20px"></span>
+                                        <div class="desc"> Number of days:</div>
+									</div>
+									<div class="services">
+									<span style="margin-bottom:20px;top: 5px;"><img id="News" src="images\moon.png" width="50" height="50"style="margin-bottom:40px"></span>
+                                        <div class="desc"style=""> number of nights:</div>
+									</div>
+									<div class="services">
+									<span style="margin-bottom:20px;top: 5px;"><img id="News" src="images\city.png" width="50" height="50"style="margin-bottom:40px"></span>
+										<div class="desc" style="margin-top: 0px;padding-top: 30px;"> cities:</div>
+									</div>
+									<div class="services">
+									<span><img id="News" src="images\dollar.png" width="50" height="50"style="margin-bottom:40px"></span>
+                                        <div class="desc"style="padding-top: 45px;"> Basic cost:</div>
+									</div>
 							</div>
 						</div>
 					</div>
@@ -214,19 +229,8 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-md-12">
-									<h3 class="heading">package includes</h3>
-                                    <div class="services">
-									<span><img id="News" src="images\sun.png" width="50" height="50"style="margin-bottom:40px"></span>
-                                        <div class="desc"> Number of days:</div>
-									</div>
-									<div class="services">
-									<span><img id="News" src="images\moon.png" width="50" height="50"style="margin-bottom:40px"></span>
-                                        <div class="desc"> number of nights:</div>
-									</div>
-									<div class="services">
-									<span><img id="News" src="images\city.png" width="50" height="50"style="margin-bottom:40px"></span>
-                                        <div class="desc"> cities:</div>
-									</div>
+									<h3 class="heading">Hotel includes</h3>
+                                    
                                     <div class="services">
                                         <span><i class="ti-rss-alt"></i></span>
                                         <div class="desc"> Wifi</div>
@@ -256,12 +260,19 @@
                                         <span><i class="flaticon-restaurant icon"></i></span>
 										<div class="desc" >Resturant</div>
 									</div>
-									
+									<h3 class="heading">Cruise includes</h3>
 									<div class="services">
-									<span><img id="News" src="images\dollar.png" width="50" height="50"style="margin-bottom:40px"></span>
-                                        <div class="desc"> Basic cost:</div>
+                                        <span><i class="ti-medall"></i></span>
+										<div class="desc" >Pets</div>
 									</div>
-
+									<div class="services">
+                                        <span><i class="ti-bag"></i></span>
+										<div class="desc" >Fishing</div>
+									</div>
+									<div class="services">
+                                        <span><i class="ti-shine"></i></span>
+										<div class="desc" >Sunbathing</div>
+									</div>
 
 									<a href="single-hotel.php" style="color:orangered"><b>hotel/cruise details here</b></a>
 								</div>
