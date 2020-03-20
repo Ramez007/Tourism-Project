@@ -1,0 +1,91 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  background: transparent;
+}
+
+.box{
+    width: 300px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%,-15%);
+  text-align: center; 
+    background :transparent  ;
+}
+
+.box h1{
+  color: white;
+  text-align: center;
+  padding: 10px 5px;
+  font-weight: 500;
+}
+
+#Select{
+    border: 2px solid orangered  ;
+    border-radius: 30px;
+    color: orangered;
+    background-color:34495e;
+    text-align:center;
+    
+}
+
+#Empval{
+     border: 2px solid #FF1493;
+    border-radius: 30px;
+    color: #ff3e6d;
+    background-color:34495e;
+    text-align:center;
+    
+}
+
+#Select1{
+    display:none;
+    border: 2px solid #2ecc71;
+    border-radius: 30px;
+    color: black;
+    background-color:gold;
+    text-align:center;
+    margin-left: 85px;
+    margin-top: 10px;
+}
+
+.box input[type = "text"],.box input[type = "password"]{
+  border:0;
+  background: orangered;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid red;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color:floralwhite;
+  border-radius: 30px;
+  transition: 0.25s;
+}
+
+.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+  width: 280px;
+  border-color: rgb(20, 114, 255);
+ color:powderblue
+}
+
+.box input[type = "submit"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid cadetblue;
+  padding: 14px 40px;
+  outline: none;
+  color: black  ;
+  border-radius: 30px;
+  cursor: pointer;
+ 
+}
+
+.box input[type = "submit"]:hover{
+  background: #2ecc71;
+}
