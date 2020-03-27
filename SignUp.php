@@ -140,7 +140,7 @@
             <div class="col-md-12" >
 			<div class="wrapper">
             <form class="box" action="" method="post">
-                <h1 style="color:black"><b> Sign Up credentials</b> </h1>
+                <h1 style="color:black"><b> Sign Up Credentials</b> </h1>
 
                 <input type="text" name="FirstName" placeholder="First name" required>
                 
@@ -162,7 +162,7 @@
               
                 
                 <input type="submit" name="Submit" value="SignUp">
-               <a href="Login.php" style="color:orangered  ">login here!</a>
+               <a href="Login.php" style="color:orangered">If you already have an account Login Here!</a>
 </form>
 </div>
 

@@ -36,7 +36,7 @@
             <li><a href="services.php">Packages</a></li>
             <li><a href="blog.php">About Us</a></li>
             <li><a href="contact.php">Contact</a></li>
-            <li><a href="">Register</a></li>
+            <li><a href="SignUp.php">Register</a></li>
         </ul>
     </nav>
 </div>
