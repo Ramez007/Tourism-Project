@@ -65,7 +65,22 @@ body{
   transition: 0.25s;
 }
 
-.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+.box input[type = "email"],.box input[type = "password"]{
+  border:0;
+  background: orangered;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid red;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color:floralwhite;
+  border-radius: 30px;
+  transition: 0.25s;
+}
+
+.box input[type = "text"]:focus,.box input[type="email"]:focus,.box input[type = "password"]:focus{
   width: 280px;
   border-color: rgb(20, 114, 255);
  color:powderblue

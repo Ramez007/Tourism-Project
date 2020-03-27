@@ -74,45 +74,75 @@
 
 </head>
 <body>
+<?php
+session_start();
+ ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
 	<div id="fh5co-header">
 		<header id="fh5co-header-section">
 			<div class="container">
-				<!-- <div class="nav-header">
-					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
-					<h1 id="fh5co-logo"><a href="index.html">Luxe</a></h1>
-					<nav id="fh5co-menu-wrap" role="navigation">
-						<ul class="sf-menu" id="fh5co-primary-menu">
-							<li><a href="index.html">Home</a></li>
-							<li>
-								<a href="hotel.html" class="fh5co-sub-ddown">Hotel</a>
-								<ul class="fh5co-sub-menu">
-								 	<li><a href="#">Luxe Hotel</a></li>
-								 	<li><a href="#">Deluxe Hotel</a></li>
-									<li>
-										<a href="#" class="fh5co-sub-ddown">King Hotel</a>
-										<ul class="fh5co-sub-menu">
-											<li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-											<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-											<li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-											<li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-											<li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-											<li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-										</ul>
-									</li>
-									<li><a href="#">Five Star Hotel</a></li> 
-								</ul>
-							</li>
-							<li><a href="services.html">Services</a></li>
-							<li><a class="active" href="blog.html">Blog</a></li>
-							<li><a href="contact.html">Contact</a></li>
-						</ul>
-					</nav>
-				</div> -->
-				<?php 
-				include "header.php";
-				?>
+				<div class="nav-header">
+                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+                    <h1 id="fh5co-logo"><img id="LogoImg" src="images\WebAppLogo.png" alt="Flowers in Chania" width="150" height="100"><a href="index.php">Speedo Tours</a></h1>
+                    <nav id="fh5co-menu-wrap" role="navigation">
+                        <ul class="sf-menu" id="fh5co-primary-menu">
+                            <li><a href="index.php">Home</a></li>
+                            <li>
+                                <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
+                                <ul class="fh5co-sub-menu">
+                                    <li><a href="#">Steinberger Hotel</a></li>
+                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
+                                    <li><a href="#">Isis Hotel</a></li>
+                                    <li><a href="#">Ibertol Hotel</a></li>
+                                    <li><a href="#">Sunset Hotel</a></li>
+                                    <!-- <li>
+                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
+                                        <ul class="fh5co-sub-menu">
+                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
+                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
+                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
+                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
+                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
+                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
+                                        </ul>
+                                    </li> -->
+                                    <li><a href="#">Emilio Hotel</a></li> 
+                                </ul>
+                            </li>
+                            <li><a href="services.php">Packages</a></li>
+                            <li><a href="blog.php">About Us</a></li>
+                            <li><a href="contact.php">Contact</a></li>
+                    
+                            <?php
+                             
+                            if (isset($_SESSION['type']) &&$_SESSION["type"]==="SUPPORT" )
+                            {
+                                echo "<li><a href='Support.php'>Support center</a></li>";
+                                echo "<li><a href='Logout.php'>Log Out</a></li>";
+                            }
+                            else if (isset($_SESSION['type']) && $_SESSION["type"]==="USER" )
+                            {
+                                echo "<li><a href='profile.php'>Profile</a></li>";
+                                echo "<li><a href='Logout.php'>Log Out</a></li>";
+                            }
+                            else if (isset($_SESSION['type']) &&$_SESSION["type"]==="ADMIN")
+                            {
+                                echo "<li><a href='admin.php'>Admin page</a></li>";
+                                echo "<li><a href='logout.php'>Log Out</a></li>";
+                            }
+                            else if(!isset($_SESSION['type']))
+                            {
+                                echo "<li><a href='SignUp.php'>Register</a></li>";
+                                echo "<li><a href='Login.php'>Login</a></li>";
+                            }
+                        
+                            ?> 
+
+                            
+                        </ul>
+                    </nav>
+                </div>
 			</div>
 		</header>
 		

@@ -12,6 +12,7 @@ body{
   transform: translate(-50%,-15%);
   text-align: center; 
     background :transparent  ;
+
 }.box input[type = "text"],.box input[type = "password"]{
   border:0;
   background: orangered;
@@ -25,6 +26,15 @@ body{
   color:floralwhite;
   border-radius: 30px;
   transition: 0.25s;
+}
+
+#Select{
+  border: 2px solid orangered  ;
+  border-radius: 30px;
+  color: orangered;
+  background-color:34495e;
+  text-align:center;
+  
 }
 
 .box input[type = "text"]:focus,.box input[type = "password"]:focus{
