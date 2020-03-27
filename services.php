@@ -167,12 +167,12 @@ session_start();
 			<div class="row">
 				<div class="col-md-4">
 					<div class="hotel-content">
-						<div class="hotel-grid" style="background-image: url(images/image-1.jpg);">
+						<div class="hotel-grid" style="background-image: url(images/abu-simble.jpg);">
 							<div class="price"><small>For as low as</small><span>$100/night</span></div>
-							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
+							<a class="book-now text-center" href="Single-Package.php"><i class="ti-calendar"></i> Book Now</a>
 						</div>
 						<div class="desc">
-							<h3><a href="#">Package Name</a></h3>
+							<h3><a href="Single-Package.php">Cairo/Abu Simble</a></h3>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 						</div>
 					</div>
