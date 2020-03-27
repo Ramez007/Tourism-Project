@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2020 at 10:09 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Mar 27, 2020 at 10:25 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -66,7 +66,8 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`EmployeeID`, `Name`, `JobType`, `Email`, `Username`, `Password`) VALUES
-(3, 'elge3r el neten', 'TOURGUIDE', 'tetststs', 'test', 'test');
+(3, 'elge3r el neten', 'ADMIN', 'tetststs', 'test', 'test'),
+(4, 'abo ga7sh el wa7sh', 'SUPPORT', 'arfafras', 'test1', 'test1');
 
 -- --------------------------------------------------------
 
@@ -91,6 +92,7 @@ CREATE TABLE `guest` (
   `GuestID` int(11) NOT NULL,
   `FirstName` varchar(20) NOT NULL,
   `LastName` varchar(20) NOT NULL,
+  `Gender` set('MALE','FEMALE') NOT NULL,
   `Age` int(3) NOT NULL,
   `NationalID` int(11) NOT NULL,
   `PassportNumber` int(9) NOT NULL,
@@ -106,8 +108,9 @@ CREATE TABLE `guest` (
 -- Dumping data for table `guest`
 --
 
-INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Age`, `NationalID`, `PassportNumber`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`) VALUES
-(1, '7azal ', '2oom zay om e2ef', 5, 2020, 9999, 'bola2 el dakror', 'zo7le2a', 'test', 'm7md', 'howa meen dah', 2112);
+INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`) VALUES
+(1, '7azal ', '2oom zay om e2ef', 'MALE', 5, 2020, 9999, 'bola2 el dakror', 'zo7le2a', 'test', 'test', 'test', 2112),
+(2, 'afsad', 'asdfads', 'MALE', 0, 0, 0, '', '', 'test@dsafsda', 'ramez', 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -413,7 +416,7 @@ ALTER TABLE `cruise`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `EmployeeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `EmployeeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `gallery`
@@ -425,7 +428,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hotel`
