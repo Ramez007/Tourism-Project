@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2020 at 10:25 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: Mar 30, 2020 at 09:04 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -44,7 +44,7 @@ CREATE TABLE `cruise` (
 --
 
 INSERT INTO `cruise` (`CruiseID`, `CruiseName`, `NumberofCabins`, `Captain`, `Pets`, `Fishing`, `SunBathing`, `Pool`) VALUES
-(1, 'shmandoura', 2, 'captain bazoz', 'TRUE', 'TRUE', '', 'TRUE');
+(1, 'RMS Titanic', 2, 'Edward Smith', 'TRUE', 'TRUE', '', 'TRUE');
 
 -- --------------------------------------------------------
 
@@ -66,8 +66,8 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`EmployeeID`, `Name`, `JobType`, `Email`, `Username`, `Password`) VALUES
-(3, 'elge3r el neten', 'ADMIN', 'tetststs', 'test', 'test'),
-(4, 'abo ga7sh el wa7sh', 'SUPPORT', 'arfafras', 'test1', 'test1');
+(3, 'John Doe', 'ADMIN', 'test@test', 'test', 'test'),
+(4, 'Al Pacino', 'SUPPORT', 'test1@test1', 'test1', 'test1');
 
 -- --------------------------------------------------------
 
@@ -109,8 +109,8 @@ CREATE TABLE `guest` (
 --
 
 INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`) VALUES
-(1, '7azal ', '2oom zay om e2ef', 'MALE', 5, 2020, 9999, 'bola2 el dakror', 'zo7le2a', 'test', 'test', 'test', 2112),
-(2, 'afsad', 'asdfads', 'MALE', 0, 0, 0, '', '', 'test@dsafsda', 'ramez', 'test', 0);
+(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 'Corleone', 'Italy', 'test', 'test', 'test', 2112),
+(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 'London', 'England', 'test@dsafsda', 'ramez', 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,7 @@ CREATE TABLE `hotel` (
 --
 
 INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `WiFI`, `Swimming Pool`, `RESORT`, `GYM`, `Full_Board`, `Half_Board`, `Pets`) VALUES
-(1, 'hotel ne7mdo', 5, 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE');
+(1, 'Ritz Carlton', 500, 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE');
 
 -- --------------------------------------------------------
 
@@ -158,7 +158,7 @@ CREATE TABLE `inquiries` (
 --
 
 INSERT INTO `inquiries` (`InquiryID`, `EmployeeID`, `Name`, `Email`, `Inquiry`, `TimeStamp`) VALUES
-(1, 3, 'kos', 'eln3ga @mail', 'hahsdgadsfsadfadsfasdfasfsadf', '2020-03-16 19:52:30');
+(1, 3, 'Robert', 'test@valid', 'some text', '2020-03-16 19:52:30');
 
 -- --------------------------------------------------------
 
@@ -177,7 +177,7 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`LanguageID`, `Employee ID`, `LanguageName`) VALUES
-(1, 3, 'bnha');
+(1, 3, 'English');
 
 -- --------------------------------------------------------
 
@@ -217,7 +217,7 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`PackageID`, `PackageName`, `ReserveLimit`, `CruiseID`, `HotelID`, `Price`, `TourGuideID`, `Transportation`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`) VALUES
-(3, 're7let el 50 lela 7mra', 40, 1, 1, 500, 3, 'TRUE', 50, 51, '', 21, 12);
+(3, 'Rome/Milano', 40, 1, 1, 500, 3, 'TRUE', 50, 51, '', 21, 12);
 
 -- --------------------------------------------------------
 

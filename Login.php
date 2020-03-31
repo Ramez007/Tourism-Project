@@ -119,7 +119,7 @@
 			{
 				$sql="SELECT* FROM guest where Username='$user'";
 				$result=mysqli_query($conn,$sql);
-				$row=mysqli_fetch_assoc($conn,$sql);
+				$row=mysqli_fetch_assoc($result);
 				$_SESSION["ID"]=$row["GuestID"];
 				$_SESSION["fname"]=$row["FirstName"];
 				$_SESSION["lname"]=$row["LastName"];
