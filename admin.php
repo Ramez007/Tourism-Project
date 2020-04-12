@@ -366,11 +366,11 @@
                                     </div>   
                         <!-- End Edit Hotel Subsection -->
                                     <hr style="border-top: 1px solid black">
-                                    <!-- Delete Hotel Section -->
-                                    <div id="delete-hotel-sec">
-                                        <h4 class="text-center">Delete Hotels</h4>
+                                    <!-- Suspend Hotel Section -->
+                                    <div id="suspend-hotel-sec">
+                                        <h4 class="text-center">Suspend Hotels</h4>
                                         <div id="checkboxes">
-                                            <label>Select Hotels To Be Deleted</label>
+                                            <label>Select Hotels To Suspended</label>
                                             <ul>
                                                 <li><input type="checkbox"> Winter palace</li>
                                                 <li><input type="checkbox"> Isis</li>
@@ -381,7 +381,7 @@
                                             </ul>
                                         </div>
                                         <br><br>
-                                        <input type="submit" class="btn btn-primary mb-2" value="Save Deletion">
+                                        <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">
                                     </div>    
 
 								</div>
@@ -558,18 +558,18 @@
                                     </div>
                                     <!-- end edit Package subsection   -->
                                     <hr style="border-top: 1px solid black">
-                                    <!-- Delete Pakage Section -->
-                                    <div id="delete-package-sec">
-                                        <h4 class="text-center">Delete Pacakges</h4>
+                                    <!-- Suspend Pakage Section -->
+                                    <div id="suspend-package-sec">
+                                        <h4 class="text-center">Suspend Pacakges</h4>
                                         <div id="checkboxes">
-                                            <label>Select Packages To Be Deleted</label>
+                                            <label>Select Packages To Be Suspended</label>
                                             <ul>
                                                 <li><input type="checkbox"> Cairo/Ain-Sokhna</li>
                                                 <li><input type="checkbox"> Luxor/Aswan</li>
                                             </ul>
                                         </div>
                                         <br><br>
-                                        <input type="submit" class="btn btn-primary mb-2" value="Save Deletion">
+                                        <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">
                                     </div>    
 
                                     <!-- end of packages -->
@@ -665,12 +665,12 @@
                                     </div>
                                     <!-- end edit event section -->
                                     <hr style="border-top: 1px solid black">
-                                    <!-- Delete Event Section -->
-                                    <div id="edit-event-sec">
-                                        <h4 class="text-center">Delete Events</h4>
+                                    <!-- suspend Event Section -->
+                                    <div id="suspend-event-sec">
+                                        <h4 class="text-center">Suspend Events</h4>
                                         <form action="">
                                             <div id="checkboxes">
-                                                <label for="deletevent">Select Events To Be Deleted</label>
+                                                <label for="deletevent">Select Events To Be Suspended</label>
                                                 <ul>
                                                     <li><input type="checkbox"> Establishing The Company</li>
                                                     <li><input type="checkbox"> Our First Bus</li>
@@ -681,7 +681,7 @@
                                                 </ul>
                                             </div>
                                             <br><br>
-                                            <input type="submit" class="btn btn-primary mb-2" value="Save Deletion">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">
                                         </form>
                                     </div>    
 								</div>
