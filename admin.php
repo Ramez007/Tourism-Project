@@ -833,5 +833,26 @@
 
 	<script src="js/custom.js"></script>
 
+    <script>
+        var limit = 4;
+                $('input.single-checkbox').on('change', function(evt) {
+                if($("input[name='hotel']:checked").length >= limit) {
+                    this.checked = false;
+                }
+                });
+
+                $('input.single-checkbox').on('change', function(evt) {
+                if($("input[name='fhotel']:checked").length >= limit) {
+                    this.checked = false;
+                }
+                });
+
+                $('input.single-checkbox').on('change', function(evt) {
+                if($("input[name='review']:checked").length >= limit) {
+                    this.checked = false;
+                }
+                });
+    </script>
+
 </body>
 </html>
