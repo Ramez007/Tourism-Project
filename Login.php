@@ -73,62 +73,16 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 	<?php
-		include_once "dbconnection.php";
+		require_once("app/model/user.php");
+		require_once("app/controller/UserController.php");
+		require_once("app/view/login_view.php");
+		$usermodel = new User();
+		$usercontrol = new UserController($usermodel);
+		$loginview=new ViewLogin($usercontrol, $usermodel);
 		session_start();
 		if (isset($_POST['submit']))
 		{
-			$user=$_POST['username'];
-			$pass=$_POST['password'];
-			if ($_POST['Selectjob']=="Admin")
-			{
-				$sql="SELECT * From employees where Username='$user'";
-				$result=mysqli_query($conn,$sql);
-				$row=mysqli_fetch_assoc($result);
-				if ($row['JobType']=="ADMIN")
-				{
-				$_SESSION["ID"]=$row["EmployeeID"];
-				$_SESSION["Name"]=$row['Name'];
-				$_SESSION["type"]=$row['JobType'];
-				$_SESSION["Email"]=$row['Email'];
-				header ("Location:Admin.php");
-				}
-				else
-            	{
-                echo '<script> alert("Invalid Username or Password") </script>';
-           		}
-			}
-			else if ($_POST['Selectjob']=="Support")
-			{
-				$sql="SELECT * From employees where Username='$user'";
-				$result=mysqli_query($conn,$sql);
-				$row=mysqli_fetch_assoc($result);
-				if ($row['JobType']=="SUPPORT")
-				{
-				$_SESSION["ID"]=$row["EmployeeID"];
-				$_SESSION["Name"]=$row['Name'];
-				$_SESSION["type"]=$row['JobType'];
-				$_SESSION["Email"]=$row['Email'];
-				header ("Location:Support.php");
-				}
-				else
-            	{
-                echo '<script> alert("Invalid Username or Password") </script>';
-           		}
-			}
-			else if ($_POST['Selectjob']=="Guest")
-			{
-				$sql="SELECT* FROM guest where Username='$user'";
-				$result=mysqli_query($conn,$sql);
-				$row=mysqli_fetch_assoc($result);
-				$_SESSION["ID"]=$row["GuestID"];
-				$_SESSION["fname"]=$row["FirstName"];
-				$_SESSION["lname"]=$row["LastName"];
-				$_SESSION["Email"]=$row["Email"];
-				$_SESSION["Gender"]=$row["Gender"];
-				$_SESSION["type"]="USER";
-				header ("Location:Profile.php");
-				
-			}
+			$usercontrol->login();
 		}
 		
 
@@ -218,8 +172,8 @@
 					
 						<form class="box" action = "" method ="post">
 							<h1 style="color:Black"><b>Login Form</b></h1>
-							<input type ="text" name= "username" placeholder ="username">
-							<input type ="password" name= "password" placeholder ="password">
+							<input type ="text" name= "username" placeholder ="username" required>
+							<input type ="password" name= "password" placeholder ="password" required>
 							<select class ="Select" name="Selectjob" id="Select">
 							<option value="0"> Select Login Type </option>
 								<option value="Admin"> Admin </option>
