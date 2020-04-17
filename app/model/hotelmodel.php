@@ -62,7 +62,7 @@ class Hotel extends Model
    
     public function CheckAvailability()
     {
-        for ($i=0;$i<count($this-Room);$i++)
+        for ($i=0;$i<count($this->Room);$i++)
         {
             if($this->Room[$i]->getAvailabilty()==true)
             {
