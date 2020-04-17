@@ -34,7 +34,7 @@
 							<form action="" id="form-subscribe" method="post">
 								<div class="form-field">
 									<input type="email" name="em" placeholder="Email Address" id="email" required>
-									<input type="submit" id="submit" name="submit" value="Send">
+									<input type="submit" id="submit" name="submitnews" value="Send">
 								</div>
 							</form>
 						</div>
@@ -60,7 +60,7 @@
 			$visitormodel = new subscribe();
 			$subscribecontrol = new SubscribeController($visitormodel);
 			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
-			if (isset($_POST['submit']))
+			if (isset($_POST['submitnews']))
 			{
 				
 				$subscribecontrol->subscribe();
