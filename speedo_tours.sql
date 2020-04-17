@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2020 at 10:40 PM
+-- Generation Time: Apr 18, 2020 at 01:44 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `speedtours_database`
+-- Database: `speedo_tours`
 --
 
 -- --------------------------------------------------------
@@ -125,6 +125,8 @@ CREATE TABLE `hotel` (
   `HotelID` int(11) NOT NULL,
   `Name` varchar(30) NOT NULL,
   `NumberofRooms` int(11) NOT NULL,
+  `overview` varchar(140) NOT NULL,
+  `description` varchar(500) NOT NULL,
   `WiFI` set('TRUE','FALSE') NOT NULL,
   `Swimming Pool` set('TRUE','FALSE') NOT NULL,
   `RESORT` set('TRUE','FALSE') NOT NULL,
@@ -132,6 +134,7 @@ CREATE TABLE `hotel` (
   `Full_Board` set('TRUE','FALSE') NOT NULL,
   `Half_Board` set('TRUE','FALSE') NOT NULL,
   `Pets` set('TRUE','FALSE') NOT NULL,
+  `featured` set('feature','header','false') NOT NULL DEFAULT 'false',
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -139,8 +142,12 @@ CREATE TABLE `hotel` (
 -- Dumping data for table `hotel`
 --
 
-INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `WiFI`, `Swimming Pool`, `RESORT`, `GYM`, `Full_Board`, `Half_Board`, `Pets`, `Suspended`) VALUES
-(1, 'Ritz Carlton', 500, 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'Enabled');
+INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming Pool`, `RESORT`, `GYM`, `Full_Board`, `Half_Board`, `Pets`, `featured`, `Suspended`) VALUES
+(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'header', 'Enabled'),
+(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'feature', 'Enabled'),
+(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled'),
+(5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled'),
+(6, 'testo hotelo', 3999, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled');
 
 -- --------------------------------------------------------
 
@@ -193,6 +200,13 @@ CREATE TABLE `newswire` (
   `ID` int(11) NOT NULL,
   `Email` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `newswire`
+--
+
+INSERT INTO `newswire` (`ID`, `Email`) VALUES
+(1, '');
 
 -- --------------------------------------------------------
 
@@ -259,7 +273,7 @@ CREATE TABLE `reserves` (
 --
 
 INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `Date`, `Suspended`) VALUES
-(1, 1, NULL, 1, 65, 2, '2020-03-03', 'Enabled');
+(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Enabled');
 
 -- --------------------------------------------------------
 
@@ -460,7 +474,7 @@ ALTER TABLE `guest`
 -- AUTO_INCREMENT for table `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `HotelID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `HotelID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `inquiries`
@@ -478,7 +492,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `newswire`
 --
 ALTER TABLE `newswire`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `packages`
