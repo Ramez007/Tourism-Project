@@ -10,16 +10,21 @@ class Hotel extends Model
     protected static $id=1;
     protected $name;
     protected $services;
-    protected $Room=[];
+    protected $Room=array();
     protected $Location;
+    protected $ViewNames=array();
+    protected $ViewOverview=array();
     protected $availablerooms=0;
     private $dbh;
     
 
-    function __construct($name,$services,$location,$type)
+    
+    function __construct($name=null,$services=null,$location=null,$type=null)
     {
         $this->dbh=$this->connect();
-        $this->id=$this->id+1;
+        if($name!=null || $services!=null||$location!=null||$type!=null)
+        {
+        $this->id+=1;
         $this->name=$name;
         $this->services=$services;
         $this->location=$location;
@@ -58,6 +63,8 @@ class Hotel extends Model
 
         $this->addrooms($type);
         $sql="insert into hotel(Name,NumberofRooms,WiFi,Swimming Pool,RESORT,Gym,Pets) values($name,$roomcount,$wifi,$swimming,$resort,$gym,$pets)";
+        $result=mysqli_query($this->dbh->getConn(),$sql);
+        }
     }
    
     public function CheckAvailability()
@@ -148,6 +155,16 @@ class Hotel extends Model
         return $this->name;
     }
 
+    function listdata()
+    {
+        $sql="select Name,overview from hotel ";
+        $result=mysqli_query($this->db->getConn(),$sql);
+        while($row=$result->fetch_assoc())
+        {
+            array_push($this->ViewNames,$row['Name']);
+            array_push($this->ViewOverview,$row['overview']);
+        }
+    }
 
     public function setName($name)
     {
@@ -170,6 +187,15 @@ class Hotel extends Model
 
     
 
+    public function getViewNames()
+    {
+        return $this->ViewNames;
+    }
+
+    public function getViewOverview()
+    {
+        return $this->ViewOverview;
+    }
 }
 
 ?>

@@ -74,10 +74,21 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	
 
 </head>
 <body>
-<?php session_start(); ?>
+<?php 
+session_start();
+require_once("app/model/mainpagemodel.php");
+require_once("app/controller/MainpageController.php");
+require_once("app/view/MainpageView.php");
+$pagemodel=new mainpage();
+$pagecontroller=new MainpageController($pagemodel);
+$pagecontroller->listhoteldata();
+$pageview=new MainpageView($pagecontroller,$pagemodel);
+
+?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
 	<div id="fh5co-header">
@@ -215,9 +226,7 @@
 							<section>
 								<select class="cs-select cs-skin-border">
 									<option value="" disabled selected>Select Hotel</option>
-									<option value="email">Steinberger Hotel</option>
-									<option value="twitter">Winter Palace Hotel</option>
-									<option value="linkedin">Isis Hotel</option>
+									<?php $pageview->output()?>
 								</select>
 							</section>
 						</div>
@@ -281,44 +290,15 @@
 
 			<div class="row">
 				<div class="feature-full-1col">
-					<div class="image" style="background-image: url(images/hotel_feture_1.jpg);">
-						<div class="descrip text-center">
-							<p><small>For as low as</small><span>$100/night</span></p>
-						</div>
-					</div>
-					<div class="desc">
-						<h3>Winter Palace Hotel</h3>
-						<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed. Vivamus augue enim, consectetur ac interdum a, pulvinar ac massa. Nullam malesuada congue </p>
-						<p><a href="single-hotel.php" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-					</div>
+					<?php
+					$pageview->outputfeatureheader();
+					?>
 				</div>
 
 				<div class="feature-full-2col">
-					<div class="f-hotel">
-						<div class="image" style="background-image: url(images/hotel_feture_2.jpg);">
-							<div class="descrip text-center">
-								<p><small>For as low as</small><span>$99/night</span></p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3>Steinberger Hotel</h3>
-							<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, 
-							in suscipit urna condimentum sed. </p>
-							<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-						</div>
-					</div>
-					<div class="f-hotel">
-						<div class="image" style="background-image: url(images/hotel_feture_3.jpg);">
-							<div class="descrip text-center">
-								<p><small>For as low as</small><span>$99/night</span></p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3>Isis Hotel</h3>
-							<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed. </p>
-							<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-						</div>
-					</div>
+					<?php
+					$pageview->outputdivs();
+					?>
 				</div>
 			</div>
 

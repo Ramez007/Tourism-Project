@@ -4,7 +4,7 @@ require_once("app/controller/controller.php");
 
 <?php
 
-class MainpageController extends Controller
+class HotelController extends Controller
 {
     
 

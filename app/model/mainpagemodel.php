@@ -7,34 +7,27 @@ require_once("app/model/model.php");
 
 class mainpage extends Model
 {
-    private $db;
-    private $name=[];
-    private $overview=[];
+    private $dbh;
+    private $name=array();
+    private $overview=array();
+    private $featured=array();
 
     function __construct()
     {
-        $this->db=$this->connect();
+        $this->dbh=$this->connect();
     }
 
-    function listhotelname()
-    {
-        $sql="select Name from hotel";
-        $result=mysqli_query($this->db->getConn(),$sql);
-        while($row=$result->fetch_assoc())
-        {
-            array_push($name,$row['Name']);
-        }
-        
-    }
+    
 
     function listdata()
     {
-        $sql="select name,overview from hotel ";
+        $sql="select Name,overview,featured from hotel ";
         $result=mysqli_query($this->db->getConn(),$sql);
         while($row=$result->fetch_assoc())
         {
-            array_push($name,$row['Name']);
-            array_push($overview,$row['overview']);
+            array_push($this->name,$row['Name']);
+            array_push($this->overview,$row['overview']);
+            array_push($this->featured,$row['featured']);
         }
     }
 
@@ -47,6 +40,11 @@ class mainpage extends Model
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getFeatured()
+    {
+        return $this->featured;
     }
 }
 
