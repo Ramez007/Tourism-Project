@@ -36,7 +36,7 @@ class MainpageView extends View
                         <div class="desc">
                             <h3>'.$this->name[$i].'</h3>
                             <p>'.$this->overview[$i].'</p>
-                            <p><a href="single-hotel.php" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
+                            <p><a href="single-hotel.php?action='.$this->name[$i].'" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
                         </div>';
             }
         }
@@ -61,7 +61,7 @@ class MainpageView extends View
                         <div class="desc">
                             <h3>'.$this->name[$i].'</h3>
                             <p>'.$this->overview[$i].'</p>
-                            <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
+                            <p><a href="single-hotel.php?action='.$this->name[$i].'" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
                         </div>
                 </div>';
             }

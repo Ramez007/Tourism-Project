@@ -22,7 +22,7 @@ class mainpage extends Model
     function listdata()
     {
         $sql="select Name,overview,featured from hotel ";
-        $result=mysqli_query($this->db->getConn(),$sql);
+        $result=mysqli_query($this->dbh->getConn(),$sql);
         while($row=$result->fetch_assoc())
         {
             array_push($this->name,$row['Name']);

@@ -17,7 +17,6 @@ class Hotel extends Model
     protected $availablerooms=0;
     private $dbh;
     
-
     
     function __construct($name=null,$services=null,$location=null,$type=null)
     {
@@ -120,7 +119,11 @@ class Hotel extends Model
         }
     }
     
+    public function ListHotelData()
+    {
 
+    }
+    
 
 
     public function getLocation()
