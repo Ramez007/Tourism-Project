@@ -4,7 +4,11 @@
 --
 -- Host: 127.0.0.1
 <<<<<<< HEAD
+<<<<<<< HEAD
 -- Generation Time: Apr 18, 2020 at 09:32 PM
+=======
+-- Generation Time: Apr 18, 2020 at 03:41 PM
+>>>>>>> 408b59945ac1e4e80382b4a54f624ab8aad9be6d
 =======
 -- Generation Time: Apr 18, 2020 at 03:41 PM
 >>>>>>> 408b59945ac1e4e80382b4a54f624ab8aad9be6d
@@ -305,6 +309,7 @@ CREATE TABLE `reserves` (
   `NoofChildren` int(11) NOT NULL,
   `NoofAdults` int(11) NOT NULL,
 <<<<<<< HEAD
+<<<<<<< HEAD
   `DateIn` timestamp NOT NULL DEFAULT current_timestamp(),
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
   `DateOut` timestamp NULL DEFAULT NULL,
@@ -314,6 +319,8 @@ CREATE TABLE `reserves` (
   `NoOfSuits` int(11) NOT NULL,
   `BoardType` set('TRUE','FALSE') NOT NULL
 =======
+=======
+>>>>>>> 408b59945ac1e4e80382b4a54f624ab8aad9be6d
   `Date` timestamp NOT NULL DEFAULT current_timestamp(),
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
 >>>>>>> 408b59945ac1e4e80382b4a54f624ab8aad9be6d
