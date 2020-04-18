@@ -14,6 +14,10 @@ class AdminView extends View
     {
         $this->model->ReadPendingReservations2();
     }
+
+    public function ReadEditHotels(){
+        $this->model->ReadEditHotelsSection();
+    }
 }
 
 ?>

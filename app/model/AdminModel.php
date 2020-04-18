@@ -68,9 +68,85 @@ class Admin extends Employee {
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
 
+    function ReadEditHotelsSection()
+    {
+        $sql="SELECT Name From Hotel";
+        $Result = mysqli_query($this->db->getConn(),$sql);
+
+                $optionString = '';
+                while($row=$Result->fetch_assoc())
+                {
+                    $optionString .= "<option>".$row["Name"]."</option>";
+                }
+
+                
+            echo'<div class="form-group row">
+                                                <label class="col-sm-3 col-form-label" for="hotels-editing-dropdown">Choose Hotel To Edit</label>
+                                                <div class="col-sm-3">
+                                                    <select class="form-control form-control-sm" style="margin-left:-102px;" name="hotels-editing-dropdown">   
+                                                        '.$optionString.'
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="edithotelname">Hotel Name</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="edithotelname" value="Winter Palace">
+                                                </div>
+                                            </div> 
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="edithotellocation">Hotel Location</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="edithotellocation" value="Luxor,Egypt">
+                                                </div>
+                                            </div>
+                                            <div id="checkboxes">
+                                                <label>Edit List of services offered by the hotel</label>
+                                                <ul>
+                                                    <li><input type="checkbox" checked> Wifi</li>
+                                                    <li><input type="checkbox" checked> Gym</li>
+                                                    <li><input type="checkbox" checked> Bar</li>
+                                                    <li><input type="checkbox" checked> Spa</li>
+                                                    <li><input type="checkbox" checked> Swimming Pool</li>
+                                                    <li><input type="checkbox" checked> Resturant</li>
+                                                </ul>
+                                            </div>
+                                            <br><br>
+                                            <div class="form-group">
+                                                <label for="edithoteldescription">Enter Hotel Description</label>
+                                                <textarea class="form-control" id="edithoteldescription" rows="15" name="comment" form="usrform">The Sofitel Winter Palace Hotel, also known as the Old Winter Palace Hotel, is a historic British colonial-era 5-star luxury resort hotel located on the banks of the River Nile in Luxor, Egypt, just south of Luxor Temple, with 86 rooms and 6 suites.
+                                                The hotel was built by the Upper Egypt Hotels Co, an enterprise founded in 1905 by Cairo hoteliers Charles Baehler and George Nungovich in collaboration with Thomas Cook & Son (Egypt). It was inaugurated on Saturday 19 January 1907, with a picnic at the Valley of the Kings followed by dinner at the hotel and speeches.[1] The architect was Leon Stienon, the Italian construction company G.GAROZZO & Figli Costruzioni in Cemento Armato, Sistema SIACCI brevettato. During World War I the hotel was temporarily closed to paying guests and employed as a hospice for convalescing soldiers. A regular guest at the hotel from 1907 on was George Herbert, 5th Earl of Carnarvon, better known simply as Lord Carnarvon. Carnarvon was the patron of Egyptologist Howard Carter, who in 1922 discovered the intact tomb of Tutankhamun. After the discovery was announced the Winter Palace played host to the international press corps and foreign visitors there to follow the story. Carter used the hotels noticeboard to deliver occasional news and information on the discovery. In 1975 the complex was expanded with the construction of the New Winter Palace. The addition, classified as a 3-star hotel, was joined by corridors to the original. It was demolished in 2008. In 1996, the Pavillon, a 4-star annex with 116 rooms, was built in the rear garden of the Winter Palace, close to the swimming pool. The Pavillon shares many amenities with the Winter Palace, including the gardens, pools, tennis courts, terraces and restaurants. The hotel is owned by the Egyptian General Company for Tourism & Hotels ("EGOTH") of Egypt and managed by Accor, a French Hotel company, where it is part of the prime division Sofitel. The Hotel is featured on the exclusive Palace Hotels of the World. The Winter Palace has 5 restaurants. The 1886 Restaurant, which serves French cuisine, is named after the date the hotel inaccurately advertises that it was founded. It and the la Corniche Restaurant (international cuisine) are both located in the historic Palace wing. The Bougainvilliers (international cuisine) is in the Pavilion wing, while the Palmetto (Italian cuisine and snacks) and the El Tarboush (Egyptian cuisine) are in the garden close to the swimming pool.</textarea>
+                                            </div>
+                                            <a href="#">Show Gallery</a><br>
+                                            <div class="form-group">
+                                                <label for="fileToUpload">Upload Gallery of Hotel</label>
+                                                <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
+                                            </div>
+                                            <br><br>
+                                            ';
+        
+
+
+    }
+
     function AddHotel()
     {
+                    //     $hotelname = $_POST["enterhotel"];
+                    //     $hotellocation = $_POST["enterlocation"];
+                    //     $servicesarray=array();
+                        
+                    //     if(!empty($_POST['check_list']))   
+				    //  {
+					// 		    foreach($_POST['check_list'] as $check)
+					// 		    {
+                    //                     array_push($servicesarray,$check); 
+					// 				//check what is checked in checkboxes
+					// 		    }
 
+                    //  }
+                    //  $NewHotel = New Hotel($hotelname,$servicesarray,$hotellocation);
+                              
     }
 
 }

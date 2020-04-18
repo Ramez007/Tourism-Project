@@ -126,6 +126,12 @@
     $adminModel = new Admin();
     $AdminController = new AdminController($adminModel);
     $AdminView = new AdminView($AdminController,$adminModel);
+
+    if (isset($_POST['saveAddingHotel']))
+	{
+		$AdminController->Addhotel();
+	}
+
     ?>
 </head>
 <body>
@@ -268,33 +274,45 @@
                                     <!-- Add Hotel SubSection -->
                                     <div id="add-hotel-subsec">
                                         <h4 class="text-center">Add Hotel</h4>
-                                        <form action="">
+                                        <form action="" method="post">
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterhotel">Enter Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="enterhotel" placeholder="Hotel Name">
+                                                    <input type="text" class="form-control" name="enterhotel" placeholder="Hotel Name">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterlocation">Enter Hotel Location</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="enterlocation" placeholder="Hotel Name">
+                                                    <input type="text" class="form-control" name="enterlocation" placeholder="Hotel Name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" name="numberofrooms" placeholder="1">
                                                 </div>
                                             </div>
                                             <div id="checkboxes">
                                                 <label>Enter List of services offered by the hotel</label>
                                                 <ul>
-                                                    <li><input type="checkbox"> Wifi</li>
-                                                    <li><input type="checkbox"> Gym</li>
-                                                    <li><input type="checkbox"> Bar</li>
-                                                    <li><input type="checkbox"> Spa</li>
-                                                    <li><input type="checkbox"> Swimming Pool</li>
-                                                    <li><input type="checkbox"> Resturant</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Wifi"> Wifi</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Gym"> Gym</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Bar"> Bar</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Spa"> Spa</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Swimming Pool"> Swimming Pool</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Resturant"> Resturant</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Resort"> Resort</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Pets"> Pets</li>
                                                 </ul>
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoteldescription">Enter Hotel Description</label>
                                                 <textarea class="form-control" id="hoteldescription" rows="4" name="comment" form="usrform" placeholder="Enter text here..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="hoteloverview">Enter Hotel Overview</label>
+                                                <textarea class="form-control" id="hoteloverview" rows="4" name="comment" form="usrform" placeholder="Enter text here..."></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="fileToUpload">Upload Gallery of Hotel</label>
@@ -311,9 +329,9 @@
                                     <!-- Edit Hotel Subsection -->
             
                                     <div id="edit-hotel-subsec">
-                                        <form action="">
+                                        <form action="" method="post">
                                             <h4 class="text-center">Edit Hotel</h4>
-                                            <div class="form-group row">
+                                            <!-- <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label" for="hotels-editing-dropdown">Choose Hotel To Edit</label>
                                                 <div class="col-sm-3">
                                                     <select class="form-control form-control-sm" style="margin-left:-102px;" id="hotels-editing-dropdown">
@@ -361,7 +379,8 @@
                                                 <label for="fileToUpload">Upload Gallery of Hotel</label>
                                                 <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
                                             </div>
-                                            <br><br>
+                                            <br><br> -->
+                                            <?php $AdminView->ReadEditHotels(); ?>
                                             <input class="btn btn-primary mb-2" type="submit" value="Save Editing Hotel">
                                         </form>        
                                     </div>   

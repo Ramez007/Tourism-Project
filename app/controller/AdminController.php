@@ -4,6 +4,10 @@
 
 class AdminController extends Controller{
 
+    function Addhotel(){
+        $this->model->AddHotel();
+    }
+
     
    }
 ?>
