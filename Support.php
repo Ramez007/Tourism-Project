@@ -252,7 +252,7 @@
 									<p class="service-hour">
 										<span>Send news</span>
                                     </p>
-									<button type="submit" class="btn btn-primary mb-2">Send</button>
+									<button type="submit" class="btn btn-primary mb-2" id="submitnewwire" name="submitnewwire">Send</button>
                                     </form>
 								</div>
 							</div>
@@ -264,15 +264,40 @@
 	</div>
 
 	
+<!-- php for mailling -->
+<?php
 
+require_once("app/model/Support_model.php");
+	require_once("app/controller/SupportController.php");
+			// require_once("app/view/susbcribeview.php");
+			$support_operatormodel = new support_operator();
+			$suport_operatorcontroller = new Support_operatorController($support_operatormodel);
+			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
+			if(isset($_POST['submitnewwire']))
+			$suport_operatorcontroller->Send_newwire();
 
-
+?>
+ 
+ <!-- php for mailling end -->
 	<footer id="footer" class="fh5co-bg-color">
 	<?php
-	include "Footer.php"
+	
+	require_once("app/model/subscribe_to_news_wire_model.php");
+	require_once("app/controller/SubscibeController.php");
+	// require_once("app/view/susbcribeview.php");
+	$visitormodel = new subscribe();
+	$subscribecontrol = new SubscribeController($visitormodel);
+	// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
+	if (isset($_POST['submitnews']))
+	{
+
+		$subscribecontrol->subscribe();
+		// $viewsuccess->output();
+	}
 	?>
 		
 	</footer>
+
 
 	</div>
 	<!-- END fh5co-page -->
