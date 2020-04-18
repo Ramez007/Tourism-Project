@@ -20,10 +20,10 @@ class HotelView extends View
                     <div class="hotel-content">
                         <div class="hotel-grid" style="background-image: url(images/image-1.jpg);">
                             <div class="price"><small>For as low as</small><span>$100/night</span></div>
-                            <a class="book-now text-center" href="single-hotel.php"><i class="ti-calendar"></i> Book Now</a>
+                            <a class="book-now text-center" href="single-hotel.php?action='.$this->name[$i].'"><i class="ti-calendar"></i> Book Now</a>
                         </div>
                         <div class="desc">
-                            <h3><a href="single-hotel.php">'.$this->name[$i].'</a></h3>
+                            <h3><a href="single-hotel.php?action='.$this->name[$i].'">'.$this->name[$i].'</a></h3>
                             <p>'.$this->overview[$i].'</p>
                         </div>
                     </div>
@@ -38,7 +38,7 @@ class HotelView extends View
 
         for ($i=0;$i<count($this->name);$i++)
         {
-            echo '<li><a href="single-hotel.php">'.$this->name[$i].'</a></li>';
+            echo '<li><a href="single-hotel.php?action='.$this->name[$i].'">'.$this->name[$i].'</a></li>';
         }
     }
 

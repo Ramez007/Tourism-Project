@@ -87,6 +87,16 @@ $model=new Hotel();
 $controller=new HotelController($model);
 $controller->listhoteldata();
 $hotelview=new HotelView($controller,$model);
+
+
+require_once("app/model/singlehotelmodel.php");
+require_once("app/controller/singlehotelcontroller.php");
+require_once("app/view/singlehotelview.php");
+$var_value=$_GET['action'];
+$pagemodel=new singlehotelmodel($var_value);
+$pagecontroller=new singlehotelcontroller($pagemodel);
+$pagecontroller->listhoteldata();
+$pageview=new singlehotelview($pagecontroller,$pagemodel);
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -151,7 +161,7 @@ $hotelview=new HotelView($controller,$model);
 			<div class="row">
 				<div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
 					<div class="fh5co-intro fh5co-table-cell">
-						<h1 class="text-center">Winter Palace Hotel</h1>
+						<?php $pageview->output(); ?>
 					</div>
 				</div>
 			</div>
@@ -185,54 +195,10 @@ $hotelview=new HotelView($controller,$model);
                                         <!-- End Slidshow Section -->
                  
                         <h3>Description</h3>
-                            <p>The Sofitel Winter Palace Hotel, also known as the Old Winter Palace Hotel, is a historic British colonial-era 5-star luxury resort hotel located on the banks of the River Nile in Luxor, Egypt, just south of Luxor Temple, with 86 rooms and 6 suites. </p>
-                            <p>The hotel was built by the Upper Egypt Hotels Co, an enterprise founded in 1905 by Cairo hoteliers Charles Baehler and George Nungovich in collaboration with Thomas Cook & Son (Egypt). It was inaugurated on Saturday 19 January 1907, with a picnic at the Valley of the Kings followed by dinner at the hotel and speeches.[1]
-
-                            The architect was Leon Stienon, the Italian construction company G.GAROZZO & Figli Costruzioni in Cemento Armato, Sistema SIACCI brevettato.
-
-                            During World War I the hotel was temporarily closed to paying guests and employed as a hospice for convalescing soldiers. A regular guest at the hotel from 1907 on was George Herbert, 5th Earl of Carnarvon, better known simply as Lord Carnarvon. Carnarvon was the patron of Egyptologist Howard Carter, who in 1922 discovered the intact tomb of Tutankhamun. After the discovery was announced the Winter Palace played host to the international press corps and foreign visitors there to follow the story. Carter used the hotel's noticeboard to deliver occasional news and information on the discovery.
-
-                            In 1975 the complex was expanded with the construction of the New Winter Palace. The addition, classified as a 3-star hotel, was joined by corridors to the original. It was demolished in 2008.
-
-                            In 1996, the Pavillon, a 4-star annex with 116 rooms, was built in the rear garden of the Winter Palace, close to the swimming pool. The Pavillon shares many amenities with the Winter Palace, including the gardens, pools, tennis courts, terraces and restaurants.
-
-                            The hotel is owned by the Egyptian General Company for Tourism & Hotels ("EGOTH") of Egypt and managed by Accor, a French Hotel company, where it is part of the prime division Sofitel.
-
-                            The Hotel is featured on the exclusive Palace Hotels of the World.
-
-                            The Winter Palace has 5 restaurants. The 1886 Restaurant, which serves French cuisine, is named after the date the hotel inaccurately advertises that it was founded. It and the la Corniche Restaurant (international cuisine) are both located in the historic Palace wing. The Bougainvilliers (international cuisine) is in the Pavilion wing, while the Palmetto (Italian cuisine and snacks) and the El Tarboush (Egyptian cuisine) are in the garden close to the swimming pool. 
-                            </p>
+                            <?php $pageview->outputdesc(); ?>
                         <h3>Leisure Facilities</h3>
 
-                            <div class="services">
-                                <span><i class="ti-rss-alt"></i></span>
-                                <div class="desc"> Wifi</div>
-                            </div>
-
-                            <div class="services">
-                                <span><i class="flaticon-swimming icon"></i></span>
-                                <div class="desc"> Swimming Pool</div>
-                            </div>
-
-                            <div class="services">
-                                <span><i class="flaticon-bicycle icon"></i></span>
-                                <div class="desc"> Gym</div>
-                            </div>
-
-                            <div class="services">
-                                <span><i class="flaticon-massage icon"></i></span>
-                                <div class="desc"> Spa</div>
-                            </div>
-
-                            <div class="services">
-                                <span><i class="flaticon-cup icon"></i></span>
-                                <div class="desc"> Bar</div>
-                            </div>
-
-                            <div class="services">
-                                <span><i class="flaticon-restaurant icon"></i></span>
-                                <div class="desc"> Resturant</div>
-                            </div>
+                            <?php $pageview->outputservices(); ?>
                             <!-- Booking Section -->
                         <h3>Book Now</h3> 
                         <form action="">
