@@ -99,23 +99,9 @@ $view=new HotelView($controller,$model);
                             <li>
                                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                                 <ul class="fh5co-sub-menu">
-                                    <li><a href="#">Steinberger Hotel</a></li>
-                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-                                    <li><a href="#">Isis Hotel</a></li>
-                                    <li><a href="#">Ibertol Hotel</a></li>
-                                    <li><a href="#">Sunset Hotel</a></li>
-                                    <!-- <li>
-                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                        <ul class="fh5co-sub-menu">
-                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <li><a href="#">Emilio Hotel</a></li> 
+									<?php 
+									$view->headerhotellist();
+									?> 
                                 </ul>
                             </li>
                             <li><a href="services.php">Packages</a></li>

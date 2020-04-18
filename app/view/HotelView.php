@@ -31,6 +31,17 @@ class HotelView extends View
         }
     }
 
+    public function headerhotellist()
+    {
+        $this->name=$this->model->getViewNames();
+        
+
+        for ($i=0;$i<count($this->name);$i++)
+        {
+            echo '<li><a href="single-hotel.php">'.$this->name[$i].'</a></li>';
+        }
+    }
+
 }
 
 ?>
