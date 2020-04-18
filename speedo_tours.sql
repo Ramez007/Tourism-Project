@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2020 at 04:52 AM
--- Server version: 10.1.40-MariaDB
--- PHP Version: 7.3.5
+-- Generation Time: Apr 18, 2020 at 03:41 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -183,7 +183,7 @@ CREATE TABLE `inquiries` (
   `Name` varchar(12) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `Inquiry` varchar(600) NOT NULL,
-  `TimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -228,20 +228,20 @@ CREATE TABLE `newswire` (
 --
 
 INSERT INTO `newswire` (`ID`, `Email`) VALUES
-(1, '');
+(2, 'ahmed.mahdy1899@gmail.com'),
+(3, 'Ramez1700124@miuegypt.edu.eg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `newwirehistory`
+-- Table structure for table `newswirehistory`
 --
 
-CREATE TABLE `newwirehistory` (
-  `ArticleID` int(11) DEFAULT NULL,
+CREATE TABLE `newswirehistory` (
+  `MessageID` int(11) NOT NULL,
   `EmployeeID` int(11) NOT NULL,
-  `ArticleName` varchar(300) NOT NULL,
-  `Article` text NOT NULL,
-  `NewWireID` int(11) NOT NULL
+  `MessageContent` text NOT NULL,
+  `Email` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -287,7 +287,7 @@ CREATE TABLE `reserves` (
   `HotelId` int(11) DEFAULT NULL,
   `NoofChildren` int(11) NOT NULL,
   `NoofAdults` int(11) NOT NULL,
-  `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Date` timestamp NOT NULL DEFAULT current_timestamp(),
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -413,14 +413,16 @@ ALTER TABLE `languages`
 -- Indexes for table `newswire`
 --
 ALTER TABLE `newswire`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `Email` (`Email`);
 
 --
--- Indexes for table `newwirehistory`
+-- Indexes for table `newswirehistory`
 --
-ALTER TABLE `newwirehistory`
-  ADD KEY `EmployeeID` (`EmployeeID`,`NewWireID`),
-  ADD KEY `NewWireID` (`NewWireID`);
+ALTER TABLE `newswirehistory`
+  ADD PRIMARY KEY (`MessageID`),
+  ADD KEY `EmployeeID` (`EmployeeID`),
+  ADD KEY `Email` (`Email`);
 
 --
 -- Indexes for table `packages`
@@ -527,7 +529,13 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `newswire`
 --
 ALTER TABLE `newswire`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `newswirehistory`
+--
+ALTER TABLE `newswirehistory`
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `packages`
@@ -589,11 +597,11 @@ ALTER TABLE `languages`
   ADD CONSTRAINT `languages_ibfk_1` FOREIGN KEY (`Employee ID`) REFERENCES `employees` (`EmployeeID`);
 
 --
--- Constraints for table `newwirehistory`
+-- Constraints for table `newswirehistory`
 --
-ALTER TABLE `newwirehistory`
-  ADD CONSTRAINT `newwirehistory_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`),
-  ADD CONSTRAINT `newwirehistory_ibfk_2` FOREIGN KEY (`NewWireID`) REFERENCES `newswire` (`ID`);
+ALTER TABLE `newswirehistory`
+  ADD CONSTRAINT `newswirehistory_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`),
+  ADD CONSTRAINT `newswirehistory_ibfk_2` FOREIGN KEY (`Email`) REFERENCES `newswire` (`Email`);
 
 --
 -- Constraints for table `packages`
