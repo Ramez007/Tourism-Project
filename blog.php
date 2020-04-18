@@ -76,6 +76,15 @@
 <body>
 <?php
 session_start();
+
+require_once("app/model/blogpost.php");
+require_once("app/controller/BlogController.php");
+require_once("app/view/BlogView.php");
+
+$Model = new BlogPost();
+$Controller = new BlogController($Model);
+$Controller->ListBlogPosts();
+$View = new BlogView($Controller,$Model);
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -165,79 +174,9 @@ session_start();
 	<div id="fh5co-blog-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-1.jpg);">
-						<div class="date text-center">
-							<span>Sep</span>
-							<small>1989</small>
-						</div>
-					</div>
-					<div class="desc desc-blog">
-						<h3><a href="#">Establishing The Company</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-2.jpg);">
-						<div class="date text-center">
-							<span>Oct</span>
-							<small>1989</small>
-						</div>
-					</div>
-
-					<div class="desc desc-blog">
-						<h3><a href="#">Our First Bus</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-3.jpg);">
-						<div class="date text-center">
-							<span>Sep</span>
-							<small>1990</small>
-						</div>
-					</div>
-					<div class="desc desc-blog">
-						<h3><a href="#">1st Anniversary of Speedo tours</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-4.jpg);">
-						<div class="date text-center">
-							<span>Sep</span>
-							<small>1999</small>
-						</div>
-					</div>
-					<div class="desc desc-blog">
-						<h3><a href="#">Ten Years Of Experince</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-5.jpg);">
-						<div class="date text-center">
-							<span>Jan</span>
-							<small>2000</small>
-						</div>
-					</div>
-					<div class="desc desc-blog">
-						<h3><a href="#">Entering The 21st Century</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-6.jpg);">
-						<div class="date text-center">
-							<span>Sep</span>
-							<small>2009</small>
-						</div>
-					</div>
-					<div class="desc desc-blog">
-						<h3><a href="#">Twenty Years Of Experince</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
+				<?php
+				$View->output();
+				?>
 			</div>
 		</div>
 	</div>

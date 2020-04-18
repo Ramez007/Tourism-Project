@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2020 at 01:44 AM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Apr 18, 2020 at 04:52 AM
+-- Server version: 10.1.40-MariaDB
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `speedo_tours`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blogposts`
+--
+
+CREATE TABLE `blogposts` (
+  `PostID` int(11) NOT NULL,
+  `PostTitle` varchar(255) NOT NULL,
+  `PostMonth` varchar(255) NOT NULL,
+  `PostYear` varchar(255) NOT NULL,
+  `PostText` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `blogposts`
+--
+
+INSERT INTO `blogposts` (`PostID`, `PostTitle`, `PostMonth`, `PostYear`, `PostText`) VALUES
+(1, 'Establishing the company', 'SEP', '1989', 'Some Text'),
+(2, 'Our First Bus', 'OCT', '1989', 'Some Text');
 
 -- --------------------------------------------------------
 
@@ -161,7 +183,7 @@ CREATE TABLE `inquiries` (
   `Name` varchar(12) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `Inquiry` varchar(600) NOT NULL,
-  `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
+  `TimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -241,15 +263,16 @@ CREATE TABLE `packages` (
   `NumberofNights` int(11) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
   `DateIn` int(11) NOT NULL,
-  `DateOut` int(11) NOT NULL
+  `DateOut` int(11) NOT NULL,
+  `Overview` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `packages`
 --
 
-INSERT INTO `packages` (`PackageID`, `PackageName`, `ReserveLimit`, `CruiseID`, `HotelID`, `Price`, `TourGuideID`, `Transportation`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`) VALUES
-(3, 'Rome/Milano', 40, 1, 1, 500, 3, 'TRUE', 50, 51, '', 21, 12);
+INSERT INTO `packages` (`PackageID`, `PackageName`, `ReserveLimit`, `CruiseID`, `HotelID`, `Price`, `TourGuideID`, `Transportation`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`, `Overview`) VALUES
+(3, 'Rome/Milano', 40, 1, 1, 500, 3, 'TRUE', 50, 51, '', 21, 12, 'Rome/Milano package overview to test out the first stage');
 
 -- --------------------------------------------------------
 
@@ -264,7 +287,7 @@ CREATE TABLE `reserves` (
   `HotelId` int(11) DEFAULT NULL,
   `NoofChildren` int(11) NOT NULL,
   `NoofAdults` int(11) NOT NULL,
-  `Date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -333,6 +356,12 @@ CREATE TABLE `visits` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `blogposts`
+--
+ALTER TABLE `blogposts`
+  ADD PRIMARY KEY (`PostID`);
 
 --
 -- Indexes for table `cruise`
@@ -445,6 +474,12 @@ ALTER TABLE `visits`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `blogposts`
+--
+ALTER TABLE `blogposts`
+  MODIFY `PostID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cruise`
