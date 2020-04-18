@@ -22,15 +22,19 @@ class support_operator extends Model {
     }
 
     function Send_newwire()
-    {include_once "serverdetails.php";
-     $email->Subject="New wire Update";
+     {include_once "serverdetails.php";
+     $ID=$_SESSION['ID'];
+        $email->Subject="New wire Update";
             $email->Body=$_POST['news'];    
          
 $sql = "Select Email from newswire" ; 
+; 
         $result = mysqli_query($this->dbh->getConn(),$sql) ;
          try{
+            
          while($row=$result->fetch_assoc()){
-           
+            $sql1 = 'INSERT INTO newswirehistory (employeeID,MessageContent,Email) VALUES("'.$ID.'","'.$email->Body.'","'.$row["Email"].'");';
+            $result1 = mysqli_query($this->dbh->getConn(),$sql1) ;
             $email->addAddress($row["Email"]);
 
         }
