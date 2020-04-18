@@ -117,6 +117,15 @@
     $controller=new HotelController($model);
     $controller->listhoteldata();
     $hotelview=new HotelView($controller,$model);
+
+
+    require_once("app/model/AdminModel.php");
+    require_once("app/controller/AdminController.php");
+    require_once("app/view/AdminView.php");
+
+    $adminModel = new Admin();
+    $AdminController = new AdminController($adminModel);
+    $AdminView = new AdminView($AdminController,$adminModel);
     ?>
 </head>
 <body>
@@ -162,7 +171,7 @@
                                 echo "<li><a href='admin.php'>Admin page</a></li>";
                                 echo "<li><a href='logout.php'>Log Out</a></li>";
                             }
-                         
+                            
                         
                             ?> 
 
@@ -236,13 +245,12 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-md-12">
-                                    <h3>Pending Reservations</h3>
-                                    <span>Mr. Al pacino reserving Winter Palace for 1 single rooms from 18-9-2020 to 18-10-2020</span>
-                                    <button class="btn btn-primary mb-2" style="margin-left:20px;">Confirm Book</button>
-                                    <br>
-                                    <br>
-                                    <span>Mr. Karl Benz reserving Aswan/Luxor Pacakage (Pacakage ID: 12) for 2 double rooms</span>
-                                    <button class="btn btn-primary mb-2" style="margin-left:25px;">Confirm Book</button>
+                                    <h3 class="text-center">Pending Reservations</h3>
+                                    <h4>Hotels Pending Reservations</h4>
+                                    <?php $AdminView->output();?>
+                                    <h4>Packages Pending Reservations</h4>
+                                    <?php $AdminView->OutofPendingPackagesReservations();?>
+
 								</div>
 							</div>
 						</div>
@@ -293,7 +301,7 @@
                                                 <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
                                             </div>
                                             <br><br>
-                                            <input class="btn btn-primary mb-2" type="submit" value="Save Hotel">
+                                            <input class="btn btn-primary mb-2" type="submit" name="saveAddingHotel" value="Save Hotel">
                                         </form>  
                                     </div>
                         <!-- end add hotel subsection   -->
