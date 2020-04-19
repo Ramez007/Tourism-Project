@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2020 at 09:53 PM
+-- Generation Time: Apr 19, 2020 at 02:32 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -159,19 +159,20 @@ CREATE TABLE `hotel` (
   `Half_Board` set('TRUE','FALSE') NOT NULL,
   `Pets` set('TRUE','FALSE') NOT NULL,
   `featured` set('feature','header','false') NOT NULL DEFAULT 'false',
-  `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
+  `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
+  `location` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `hotel`
 --
 
-INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming_Pool`, `Spa`, `Gym`, `Bar`, `Restaurant`, `Full_Board`, `Half_Board`, `Pets`, `featured`, `Suspended`) VALUES
-(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', '', 'TRUE', 'TRUE', 'TRUE', 'header', 'Enabled'),
-(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', '', 'TRUE', 'FALSE', 'TRUE', 'feature', 'Enabled'),
-(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', '', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled'),
-(5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', '', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled'),
-(6, 'testo hotelo', 3999, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', '', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled');
+INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming_Pool`, `Spa`, `Gym`, `Bar`, `Restaurant`, `Full_Board`, `Half_Board`, `Pets`, `featured`, `Suspended`, `location`) VALUES
+(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', 'Rtiz is in france', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'header', 'Enabled', 'Paris,France'),
+(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'feature', 'Enabled', 'Luxor,Egypt'),
+(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled', 'Luxor,Egypt'),
+(5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled', 'London,England'),
+(6, 'testo hotelo', 3999, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled', 'Havana,Cuba');
 
 -- --------------------------------------------------------
 
@@ -307,7 +308,7 @@ CREATE TABLE `reserves` (
   `NoOfDoubleRooms` int(11) NOT NULL,
   `NoOfTripleRooms` int(11) NOT NULL,
   `NoOfSuits` int(11) NOT NULL,
-  `BoardType` set('TRUE','FALSE') NOT NULL
+  `BoardType` set('Full','Half') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -315,7 +316,8 @@ CREATE TABLE `reserves` (
 --
 
 INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`) VALUES
-(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Enabled', NULL, 0, 0, 0, 0, '');
+(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Enabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Full'),
+(2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Enabled', NULL, 3, 1, 1, 1, 'Half');
 
 -- --------------------------------------------------------
 
@@ -579,7 +581,7 @@ ALTER TABLE `packages`
 -- AUTO_INCREMENT for table `reserves`
 --
 ALTER TABLE `reserves`
-  MODIFY `ReserveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ReserveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `reviews`

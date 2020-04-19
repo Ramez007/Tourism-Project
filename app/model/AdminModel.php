@@ -2,6 +2,7 @@
   require_once("app/model/model.php");
   require_once("app/model/employee.php");
   require_once("app/model/hotelmodel.php");
+  
 ?>
 
 <?php
@@ -70,6 +71,7 @@ class Admin extends Employee {
 
     function ReadEditHotelsSection()
     {
+        
         $sql="SELECT Name From Hotel";
         $Result = mysqli_query($this->db->getConn(),$sql);
 
@@ -77,13 +79,37 @@ class Admin extends Employee {
                 while($row=$Result->fetch_assoc())
                 {
                     $optionString .= "<option>".$row["Name"]."</option>";
+                    $hotelstring=$row["Name"];
+                    $sql2="SELECT location,description ,overview FROM Hotel WHERE Name='$hotelstring'";
+                    $Result2 = mysqli_query($this->db->getConn(),$sql2);
+                    $row2=$Result2->fetch_assoc();
+                        echo '<script>
+                            function changeopt()
+                        {
+                    
+                                var x=document.getElementById("hotels-editing-dropdown").value;
+                                if(x=="'.$row["Name"].'")
+                                {
+                                    document.getElementById("edithotelname").value="'.$row["Name"].'";
+                                    document.getElementById("edithotellocation").value="'.$row2["location"].'";
+                                    document.getElementById("edithoteldescription").value="'.$row2["description"].'";
+                                    document.getElementById("edithoteloverview").value="'.$row2["overview"].'";
+
+                                }
+                    
+                    
+                         }
+                         setInterval(changeopt,50);
+                         </script>';  
                 }
+
+             
 
                 
             echo'<div class="form-group row">
                                                 <label class="col-sm-3 col-form-label" for="hotels-editing-dropdown">Choose Hotel To Edit</label>
                                                 <div class="col-sm-3">
-                                                    <select class="form-control form-control-sm" style="margin-left:-102px;" name="hotels-editing-dropdown">   
+                                                    <select class="form-control form-control-sm" style="margin-left:-102px;" name="hotels-editing-dropdown" id="hotels-editing-dropdown" onchange="changeopt()">   
                                                         '.$optionString.'
                                                     </select>
                                                 </div>
@@ -117,6 +143,10 @@ class Admin extends Employee {
                                                 <label for="edithoteldescription">Enter Hotel Description</label>
                                                 <textarea class="form-control" id="edithoteldescription" rows="15" name="comment" form="usrform">The Sofitel Winter Palace Hotel, also known as the Old Winter Palace Hotel, is a historic British colonial-era 5-star luxury resort hotel located on the banks of the River Nile in Luxor, Egypt, just south of Luxor Temple, with 86 rooms and 6 suites.
                                                 The hotel was built by the Upper Egypt Hotels Co, an enterprise founded in 1905 by Cairo hoteliers Charles Baehler and George Nungovich in collaboration with Thomas Cook & Son (Egypt). It was inaugurated on Saturday 19 January 1907, with a picnic at the Valley of the Kings followed by dinner at the hotel and speeches.[1] The architect was Leon Stienon, the Italian construction company G.GAROZZO & Figli Costruzioni in Cemento Armato, Sistema SIACCI brevettato. During World War I the hotel was temporarily closed to paying guests and employed as a hospice for convalescing soldiers. A regular guest at the hotel from 1907 on was George Herbert, 5th Earl of Carnarvon, better known simply as Lord Carnarvon. Carnarvon was the patron of Egyptologist Howard Carter, who in 1922 discovered the intact tomb of Tutankhamun. After the discovery was announced the Winter Palace played host to the international press corps and foreign visitors there to follow the story. Carter used the hotels noticeboard to deliver occasional news and information on the discovery. In 1975 the complex was expanded with the construction of the New Winter Palace. The addition, classified as a 3-star hotel, was joined by corridors to the original. It was demolished in 2008. In 1996, the Pavillon, a 4-star annex with 116 rooms, was built in the rear garden of the Winter Palace, close to the swimming pool. The Pavillon shares many amenities with the Winter Palace, including the gardens, pools, tennis courts, terraces and restaurants. The hotel is owned by the Egyptian General Company for Tourism & Hotels ("EGOTH") of Egypt and managed by Accor, a French Hotel company, where it is part of the prime division Sofitel. The Hotel is featured on the exclusive Palace Hotels of the World. The Winter Palace has 5 restaurants. The 1886 Restaurant, which serves French cuisine, is named after the date the hotel inaccurately advertises that it was founded. It and the la Corniche Restaurant (international cuisine) are both located in the historic Palace wing. The Bougainvilliers (international cuisine) is in the Pavilion wing, while the Palmetto (Italian cuisine and snacks) and the El Tarboush (Egyptian cuisine) are in the garden close to the swimming pool.</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="edithoteloverview">Enter Hotel Overview</label>
+                                                <textarea class="form-control" id="edithoteloverview" rows="15" name="comment" form="usrform"> Overview </textarea>
                                             </div>
                                             <a href="#">Show Gallery</a><br>
                                             <div class="form-group">
