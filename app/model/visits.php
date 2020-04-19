@@ -5,9 +5,14 @@ require_once("app/model/model.php");
 class Visits extends Model
 {
     protected $VisitID;
-    protected $Location;
+    protected $Locations = array();
     protected $Day;
     protected $PackageID;
+
+    public function __construct()
+    {
+        $this->dbh = $this->connect();
+    }
 
     /**
      * Get the value of VisitID
@@ -20,9 +25,13 @@ class Visits extends Model
     /**
      * Get the value of Location
      */ 
-    public function getLocation()
+    public function getLocations()
     {
-        return $this->Location;
+        // for($i = 0; $i < count($this->Locations); $i++)
+        // {
+        //     echo ''.$this->Locations[$i].' <br>';
+        // }
+        return $this->Locations;
     }
 
     /**
@@ -32,7 +41,7 @@ class Visits extends Model
      */ 
     public function setLocation($Location)
     {
-        $this->Location = $Location;
+        array_push($this->Locations,$Location);
 
         return $this;
     }

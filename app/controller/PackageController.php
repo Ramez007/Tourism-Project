@@ -7,6 +7,14 @@ class PackageController extends Controller
     {
         $this->model->ListPackages();
     }
+    public function ListSinglePackage($PKID)
+    {
+        $this->model->GetDetails($PKID);
+    }
+    public function ListPackageServices($PKID)
+    {
+        $this->model->FetchCruiseServices($PKID);
+    }
 }
 
 ?>

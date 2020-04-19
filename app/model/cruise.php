@@ -5,14 +5,15 @@ class Cruise extends Model
 {
 
     protected $CruiseID;
+    protected $PackageID;
     protected $CruiseName;
     protected $NumberOfCabins;
     protected $Captain;
-    protected $Services;
+    protected $Services = array();
 
     public function __construct()
     {
-        
+        $this->dbh = $this->connect();
     }
 
     /**
@@ -81,6 +82,24 @@ class Cruise extends Model
         $this->Captain = $Captain;
 
         return $this;
+    }
+
+    /**
+     * Get the value of PackageID
+     */ 
+    public function getPackageID()
+    {
+        return $this->PackageID;
+    }
+
+    public function AddService($Service)
+    {
+        array_push($this->Services,$Service);
+    }
+
+    public function  GetServices()
+    {
+        return $this->Services;
     }
 }
 
