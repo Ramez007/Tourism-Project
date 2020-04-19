@@ -28,10 +28,11 @@ class writeinquiry extends Model {
         try{
             $sql = "INSERT INTO inquiries (author,Email,Inquiry) values ('$name','$mail','$message')" ; 
              $result = mysqli_query($this->dbh->getConn(),$sql) ;
-             $email->addAddress($mail);
+             $email->addAddress("ahmed1707083@miuegypt.edu.eg");
              $email->Subject="inquiries";
              $email->Body=$message;
-             $email->SetFrom("$mail",$name);
+             $email->SetFrom("$mail");
+             $email->AddReplyTo("$mail",$name);
              $email->send();
              echo'<script>swal("Successfully Sent", "", "success");</script>'; 
     }catch(Exception $e){
