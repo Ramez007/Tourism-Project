@@ -331,6 +331,7 @@
                                     <div id="edit-hotel-subsec">
                                         <form action="" method="post">
                                             <h4 class="text-center">Edit Hotel</h4>
+                                            
                                             <!-- <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label" for="hotels-editing-dropdown">Choose Hotel To Edit</label>
                                                 <div class="col-sm-3">
@@ -382,6 +383,66 @@
                                             <br><br> -->
                                             <?php $AdminView->ReadEditHotels(); ?>
                                             <input class="btn btn-primary mb-2" type="submit" value="Save Editing Hotel">
+                                            <script>
+
+                                            document.getElementById("hotels-editing-dropdown").addEventListener("change",function(){
+                                                var res=document.getElementById("hotels-editing-dropdown").value.split("&");
+                                                document.getElementById("edithotelname").value=res[0];
+                                                document.getElementById("edithotellocation").value=res[1];
+                                                if(res[2]==" TRUE ")
+                                                {
+                                                document.getElementById("wifi").checked=true;
+                                                }
+                                                else
+                                                {
+                                                document.getElementById("wifi").checked=false;  
+                                                }
+                                                if(res[3]==" TRUE ")
+                                                {
+                                                document.getElementById("gym").checked=true;
+                                                }
+                                                else
+                                                {
+                                                document.getElementById("gym").checked=false;  
+                                                }
+                                                if(res[4]==" TRUE ")
+                                                {
+                                                document.getElementById("bar").checked=true;
+                                                }
+                                                else
+                                                {
+                                                document.getElementById("bar").checked=false;  
+                                                }
+                                                if(res[5]==" TRUE ")
+                                                {
+                                                document.getElementById("spa").checked=true;
+                                                }
+                                                else
+                                                {
+                                                document.getElementById("spa").checked=false;  
+                                                }
+                                                if(res[6]==" TRUE ")
+                                                {
+                                                document.getElementById("pool").checked=true;
+                                                }
+                                                else
+                                                {
+                                                document.getElementById("pool").checked=false;  
+                                                }
+                                                if(res[7]==" TRUE ")
+                                                {
+                                                document.getElementById("restaurant").checked=true;
+                                                }
+                                                else
+                                                {
+                                                document.getElementById("restaurant").checked=false;  
+                                                }
+                                                document.getElementById("edithoteldescription").value=res[8];
+                                                document.getElementById("edithoteloverview").value=res[9];
+                                                });
+                                                
+                                            
+                                            </script>
                                         </form>        
                                     </div>   
                         <!-- End Edit Hotel Subsection -->

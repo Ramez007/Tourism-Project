@@ -72,44 +72,53 @@ class Admin extends Employee {
     function ReadEditHotelsSection()
     {
         
-        $sql="SELECT Name From Hotel";
+        $sql="SELECT Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,description,overview From Hotel";
         $Result = mysqli_query($this->db->getConn(),$sql);
 
                 $optionString = '';
                 while($row=$Result->fetch_assoc())
                 {
-                    $optionString .= "<option>".$row["Name"]."</option>";
-                    $hotelstring=$row["Name"];
-                    $sql2="SELECT location,description ,overview FROM Hotel WHERE Name='$hotelstring'";
-                    $Result2 = mysqli_query($this->db->getConn(),$sql2);
-                    $row2=$Result2->fetch_assoc();
-                        echo '<script>
-                            function changeopt()
-                        {
-                    
-                                var x=document.getElementById("hotels-editing-dropdown").value;
-                                if(x=="'.$row["Name"].'")
-                                {
-                                    document.getElementById("edithotelname").value="'.$row["Name"].'";
-                                    document.getElementById("edithotellocation").value="'.$row2["location"].'";
-                                    document.getElementById("edithoteldescription").value="'.$row2["description"].'";
-                                    document.getElementById("edithoteloverview").value="'.$row2["overview"].'";
+                    $optionString .= "<option value='".$row['Name']." & ".$row['location']." & ".$row['WiFI']." & ".$row['Gym']." & ".$row['Bar']." & ".$row['Spa']." & ".$row['Swimming_Pool']." & ".$row['Restaurant']." & ".$row['description']." & ".$row['overview']."'>".$row["Name"]."</option>";
 
-                                }
+                    // $hotelstring=$row["Name"];
+                    // $sql2="SELECT location,description ,overview FROM Hotel WHERE Name='$hotelstring'";
+                    // $Result2 = mysqli_query($this->db->getConn(),$sql2);
+                    // $row2=$Result2->fetch_assoc();
+                    //     echo '<script>
+                    //         function changeopt()
+                    //     {
+                    
+                    //             var x=document.getElementById("hotels-editing-dropdown").value;
+                    //             if(x=="'.$row["Name"].'")
+                    //             {
+                    //                 document.getElementById("edithotelname").value="'.$row["Name"].'";
+                    //                 document.getElementById("edithotellocation").value="'.$row2["location"].'";
+                    //                 document.getElementById("edithoteldescription").value="'.$row2["description"].'";
+                    //                 document.getElementById("edithoteloverview").value="'.$row2["overview"].'";
+
+                    //             }
                     
                     
-                         }
-                         setInterval(changeopt,50);
-                         </script>';  
+                    //      }
+                    //      setInterval(changeopt,50);
+                    //      </script>';  
                 }
 
-             
+                // echo"<script>
+                // document.getElementById('hotels-editing-dropdown').addEventListener('change',function(){
+                //     var res=document.getElementById('hotels-editing-dropdown').value.split('&').pop();
+                //     alert(res);
+                // });
+                // </script>";
+            $sql="SELECT Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,description,overview From Hotel";
+            $Result = mysqli_query($this->db->getConn(),$sql);
+            $row=$Result->fetch_assoc();
 
                 
             echo'<div class="form-group row">
                                                 <label class="col-sm-3 col-form-label" for="hotels-editing-dropdown">Choose Hotel To Edit</label>
                                                 <div class="col-sm-3">
-                                                    <select class="form-control form-control-sm" style="margin-left:-102px;" name="hotels-editing-dropdown" id="hotels-editing-dropdown" onchange="changeopt()">   
+                                                    <select class="form-control form-control-sm" style="margin-left:-102px;" name="hotels-editing-dropdown" id="hotels-editing-dropdown" onchange="">   
                                                         '.$optionString.'
                                                     </select>
                                                 </div>
@@ -118,34 +127,34 @@ class Admin extends Employee {
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="edithotelname">Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="edithotelname" value="Winter Palace">
+                                                    <input type="text" class="form-control" id="edithotelname" value="'.$row['Name'].'">
                                                 </div>
                                             </div> 
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="edithotellocation">Hotel Location</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="edithotellocation" value="Luxor,Egypt">
+                                                    <input type="text" class="form-control" id="edithotellocation" value="'.$row['location'].'">
                                                 </div>
                                             </div>
                                             <div id="checkboxes">
                                                 <label>Edit List of services offered by the hotel</label>
                                                 <ul>
-                                                    <li><input type="checkbox" checked> Wifi</li>
-                                                    <li><input type="checkbox" checked> Gym</li>
-                                                    <li><input type="checkbox" checked> Bar</li>
-                                                    <li><input type="checkbox" checked> Spa</li>
-                                                    <li><input type="checkbox" checked> Swimming Pool</li>
-                                                    <li><input type="checkbox" checked> Resturant</li>
+                                                    <li><input type="checkbox" id="wifi" '.($row['WiFI']=="TRUE"?"checked":"").'> Wifi</li>
+                                                    <li><input type="checkbox" id="gym" ' .($row['Gym']=="TRUE"?"checked":"").'> Gym</li>
+                                                    <li><input type="checkbox" id="bar"'  .($row['Bar']=="TRUE"?"checked":"").'> Bar</li>
+                                                    <li><input type="checkbox" id="spa"'  .($row['Spa']=="TRUE"?"checked":"").'> Spa</li>
+                                                    <li><input type="checkbox" id="pool" '.($row['Swimming_Pool']=="TRUE"?"checked":"").'> Swimming Pool</li>
+                                                    <li><input type="checkbox" id="restaurant" '.($row['Restaurant']=="TRUE"?"checked":"").'> Resturant</li>
                                                 </ul>
                                             </div>
                                             <br><br>
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Hotel Description</label>
-                                                <textarea class="form-control" id="edithoteldescription" rows="15" name="comment" form="usrform">Description</textarea>
+                                                <textarea class="form-control" id="edithoteldescription" rows="15" name="comment" form="usrform">'.$row['description'].'</textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="edithoteloverview">Enter Hotel Overview</label>
-                                                <textarea class="form-control" id="edithoteloverview" rows="15" name="comment" form="usrform"> Overview </textarea>
+                                                <textarea class="form-control" id="edithoteloverview" rows="15" name="comment" form="usrform">'.$row['overview'].'</textarea>
                                             </div>
                                             <a href="#">Show Gallery</a><br>
                                             <div class="form-group">
