@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2020 at 09:32 PM
+-- Generation Time: Apr 20, 2020 at 11:14 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -67,7 +67,7 @@ CREATE TABLE `cruise` (
 --
 
 INSERT INTO `cruise` (`CruiseID`, `CruiseName`, `NumberofCabins`, `Captain`, `Pets`, `Fishing`, `SunBathing`, `Pool`, `Suspended`) VALUES
-(1, 'RMS Titanic', 2, 'Edward Smith', 'TRUE', 'TRUE', '', 'TRUE', 'Enabled');
+(1, 'RMS Titanic', 2, 'Edward Smith', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'Enabled');
 
 -- --------------------------------------------------------
 
@@ -192,7 +192,16 @@ CREATE TABLE `inquiries` (
 --
 
 INSERT INTO `inquiries` (`InquiryID`, `Author`, `Email`, `Inquiry`, `TimeStamp`) VALUES
-(1, 'Robert', 'test@valid', 'some text', '2020-03-16 19:52:30');
+(1, 'Robert', 'test@valid', 'some text', '2020-03-16 19:52:30'),
+(12, 'ahmed', 'ahmed.mahdy1899@gmail.com', 'hi', '2020-04-19 06:15:16'),
+(13, 'ahmed', 'harkon.bard99@yahoo.com', 'hi', '2020-04-19 06:16:07'),
+(14, 'ahmed', 'ahmed.mahdy1899@gmail.com', 'hello', '2020-04-19 06:19:41'),
+(15, 'ahmed', 'harkon.bard99@yahoo.com', 'hi', '2020-04-19 06:20:39'),
+(16, 'ahmed', 'harkon.bard99@yahoo.com', 'hi', '2020-04-19 06:22:43'),
+(17, 'nour', 'nourborhan22@gmail.com', 'hi', '2020-04-19 06:26:36'),
+(18, 'nour', 'nourborhan22@gmail.com', 'hi\r\n', '2020-04-19 06:34:54'),
+(19, 'nour', 'nourborhan22@gmail.com', 'hi', '2020-04-19 06:36:15'),
+(20, 'nour', 'nourborhan22@gmail.com', 'hi', '2020-04-19 06:37:52');
 
 -- --------------------------------------------------------
 
@@ -203,7 +212,9 @@ INSERT INTO `inquiries` (`InquiryID`, `Author`, `Email`, `Inquiry`, `TimeStamp`)
 CREATE TABLE `inquiryhistory` (
   `InquiryID` int(11) NOT NULL,
   `EmployeeID` int(11) NOT NULL,
-  `ID` int(11) NOT NULL
+  `ID` int(11) NOT NULL,
+  `Reply` text NOT NULL,
+  `Reply Date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -256,6 +267,14 @@ CREATE TABLE `newswirehistory` (
   `MessageContent` text NOT NULL,
   `Email` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `newswirehistory`
+--
+
+INSERT INTO `newswirehistory` (`MessageID`, `EmployeeID`, `MessageContent`, `Email`) VALUES
+(1, 4, '', 'ahmed.mahdy1899@gmail.com'),
+(2, 4, '', 'Ramez1700124@miuegypt.edu.eg');
 
 -- --------------------------------------------------------
 
@@ -543,7 +562,7 @@ ALTER TABLE `hotel`
 -- AUTO_INCREMENT for table `inquiries`
 --
 ALTER TABLE `inquiries`
-  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `inquiryhistory`
@@ -567,7 +586,7 @@ ALTER TABLE `newswire`
 -- AUTO_INCREMENT for table `newswirehistory`
 --
 ALTER TABLE `newswirehistory`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `packages`
