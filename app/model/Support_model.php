@@ -16,7 +16,7 @@ require 'C:\xampp\composer\vendor\autoload.php';
 class support_operator extends Model {
 
     private $dbh;
-
+    protected $Inquiries = array();
 
     function __construct() {
         $this->dbh = $this->connect();
@@ -77,27 +77,32 @@ function Reply_to_Inquiry(){
 
 public function FetchInquiries()
 {
-    $Inquiries = array();
-    $SQL = 'SELECT Email,InquiryID FROM inquiries';
+    
+    $SQL = 'SELECT Email,InquiryID,Inquiry FROM inquiries';
     $Result = mysqli_query($this->dbh->getConn(),$SQL);
     while($row = $Result->fetch_assoc())
     {
         $Inq = new Inquiry();
         $Inq -> setEmails($row['Email']);
         $Inq -> setInquiryID($row['InquiryID']);
+        $Inq ->setInquiries($row['Inquiry']);
         array_push($Inquiries,$Inq);
     }
     return $Inquiries;
 }
-
-public function FetchSingleInquiry()
-{$inquiryID = $_REQUEST["InquiryID"];
-
-    $SQL = 'SELECT Inquiry FROM inquiries WHERE InquiryID ='.$inquiryID.'';
-    $Result = mysqli_query($this->dbh->getConn(),$SQL);
-    $row = $Result->fetch_assoc();
-    return $row;
+public function getInquiries()
+{
+    return $this->Inquiries;
 }
+
+// public function FetchSingleInquiry()
+// {$inquiryID = $_REQUEST["InquiryID"];
+
+//     $SQL = 'SELECT Inquiry FROM inquiries WHERE InquiryID ='.$inquiryID.'';
+//     $Result = mysqli_query($this->dbh->getConn(),$SQL);
+//     $row = $Result->fetch_assoc();
+//     return $row;
+// }
 
 
 
