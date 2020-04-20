@@ -109,7 +109,6 @@ require_once("app/model/Support_model.php");
 	require_once("app/controller/SupportController.php");
 			// require_once("app/view/susbcribeview.php");
 			$support_operatormodel = new support_operator();
-			$_SESSION['supp']=$support_operatormodel;
 			$suport_operatorcontroller = new Support_operatorController($support_operatormodel);
 			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
 			if(isset($_POST['submitnewwire']))
@@ -243,7 +242,7 @@ require_once("app/model/Support_model.php");
 										{
 											echo 
 											'
-											<option value = "'.$Inquiries[$i]->getInquiryID().'" onchange = fetch('.$i.')>'.$Inquiries[$i]->getEmails().'</option>
+											<option value = "'.$Inquiries[$i]->getInquiryID().'" onclick = fetch('.$Inquiries[$i]->getInquiryID().')>'.$Inquiries[$i]->getEmails().'</option>
 											';
 										}
 										?>
@@ -253,16 +252,21 @@ require_once("app/model/Support_model.php");
                                     <div class="form-group">
 									<label for="staticinquiry">User's Inquiry</label>
 									<script>
-									function fetch(id) {
-												$.ajax({
-													type: "GET",
-													url: "FetchSingleInquiry.php",
-													data: "mainid =" + id,
-													success: function(result) {
-														$("#staticEmail2").val()=result;
-													}
-												});
-											};
+									function fetch(str) {
+    if (str.length == 0) {
+        document.getElementById("staticEmail2").value = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("staticEmail2").value = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "FetchSingleInquiry?q=" + str, true);
+        xmlhttp.send();
+    }
+}
 									</script>
 									<input type="text" readonly class="form-control" style="padding-bottom: 150px;" id="staticEmail2" value="" >                                    
 								</div>
