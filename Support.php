@@ -99,6 +99,8 @@
 <body>
 	<?php
 	session_start();
+
+	
 	?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -214,10 +216,19 @@
                                      <div class="form-group">
                                         <label for=Emails>Please select an email to write reply to </label>
                                     <select id="Emails" class="form-control" name="emailinquiry">
-                                        <option value="Email 1">Ramez1700124@miuegypt.edu.eg</option>
+                                        <!-- <option value="Email 1">Ramez1700124@miuegypt.edu.eg</option>
                                         <option value="Email 2">Khaled1701294@miuegypt.edu.eg</option>
                                         <option value="Email 3">Ahmed1700299@miuegypt.edu.eg</option>
-                                        <option value="Email 4">Nour179123@miuegypt.edu.eg</option>
+										<option value="Email 4">Nour179123@miuegypt.edu.eg</option> -->
+										<?php 
+										for($i = 0; $i < count($Inquiries); $i++)
+										{
+											echo 
+											'
+											<option value = "'.$Inquiries[$i]->getInquiryID().'">'.$Inquiries[$i]->getEmails().'</option>
+											';
+										}
+										?>
                                     </select> 
                                     </div>
 
@@ -277,6 +288,7 @@ require_once("app/model/Support_model.php");
 			$suport_operatorcontroller->Send_newwire();
 			if(isset($_POST['submitreply']))
 			$suport_operatorcontroller->Reply_to_Inquiry();
+			$Inquiries = $suport_operatorcontroller->FetchInq();
 
 ?>
 <!-- php for mailling end -->

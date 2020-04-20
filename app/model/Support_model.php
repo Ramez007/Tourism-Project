@@ -17,6 +17,7 @@ class support_operator extends Model {
 
     private $dbh;
 
+
     function __construct() {
         $this->dbh = $this->connect();
     }
@@ -74,12 +75,92 @@ function Reply_to_Inquiry(){
 
 }
 
+public function FetchInquiries()
+{
+    $Inquiries = array();
+    $SQL = 'SELECT Email,Inquiry,InquiryID FROM inquiries';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        $Inq = new Inquiry();
+        $Inq -> setEmails($row['Email']);
+        $Inq -> setInquiryID($row['InquiryID']);
+        $Inq -> setInquiries($row['Inquiry']);
+        array_push($Inquiries,$Inq);
+    }
+    return $Inquiries;
+}
 
 
 
 
+}
 
+class Inquiry extends Model
+{
+    private $Emails;
+    private $Inquiries;
+    private $InquiryID;
 
+    /**
+     * Get the value of Emails
+     */ 
+    public function getEmails()
+    {
+        return $this->Emails;
+    }
+
+    /**
+     * Set the value of Emails
+     *
+     * @return  self
+     */ 
+    public function setEmails($Emails)
+    {
+        $this->Emails = $Emails;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Inquiries
+     */ 
+    public function getInquiries()
+    {
+        return $this->Inquiries;
+    }
+
+    /**
+     * Set the value of Inquiries
+     *
+     * @return  self
+     */ 
+    public function setInquiries($Inquiries)
+    {
+        $this->Inquiries = $Inquiries;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of InquiryID
+     */ 
+    public function getInquiryID()
+    {
+        return $this->InquiryID;
+    }
+
+    /**
+     * Set the value of InquiryID
+     *
+     * @return  self
+     */ 
+    public function setInquiryID($InquiryID)
+    {
+        $this->InquiryID = $InquiryID;
+
+        return $this;
+    }
 }
 
 ?>
