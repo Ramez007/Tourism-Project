@@ -12,12 +12,14 @@ class supportview extends View{
         {
             echo 
 				'
-				    <option value = "'.$emails[$i].'" onchange("changeopt('.$inqs[$i].')"))>'.$emails[$i].'</option>
+				    <option value = "'.$inqs[$i].'")>'.$emails[$i].'</option>
                 ';
                 
+            
         }
         
     }
+    
     
 }
 ?>

@@ -234,7 +234,7 @@ require_once("app/model/Support_model.php");
 									<!-- first form start--><form action="" method="post">
                                      <div class="form-group">
                                         <label for=Emails>Please select an email to write reply to </label>
-                                    <select id="Emails" class="form-control" name="emailinquiry">
+                                    <select id="Emails" class="form-control" onchange="" name="emailinquiry">
                                         <!-- <option value="Email 1">Ramez1700124@miuegypt.edu.eg</option>
                                         <option value="Email 2">Khaled1701294@miuegypt.edu.eg</option>
                                         <option value="Email 3">Ahmed1700299@miuegypt.edu.eg</option>
@@ -242,18 +242,19 @@ require_once("app/model/Support_model.php");
 										<?php 
 										$supportview->output();
 										?>
+
+										<script>
+										document.getElementById("Emails").addEventListener("change",function(){
+											document.getElementById("staticEmail2").value=document.getElementById("Emails").value;
+										});
+										</script>
+
                                     </select> 
                                     </div>
 
                                     <div class="form-group">
 									<label for="staticinquiry">User's Inquiry</label>
-									<script>
-									function changeopt(x) {
-									document.getElementById("StaticEmail2").value=x;
-									setInterval(changeopt,50);
-
-									}
-									</script>
+									
 									<input type="text" readonly class="form-control" style="padding-bottom: 150px;" id="staticEmail2" value="" >                                    
 								</div>
 

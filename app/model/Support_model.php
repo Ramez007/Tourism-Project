@@ -84,20 +84,16 @@ public function FetchInquiries()
     while($row = $Result->fetch_assoc())
     {   
         array_push($this->Inqemail,$row['Email']);
-        array_push($this->Inqemail,$row['InquiryID']);
+        array_push($this->InqId,$row['InquiryID']);
         array_push($this->Inquiries,$row['Inquiry']);
     }
 
 }
 
-// public function FetchSingleInquiry()
-// {$inquiryID = $_REQUEST["InquiryID"];
-
-//     $SQL = 'SELECT Inquiry FROM inquiries WHERE InquiryID ='.$inquiryID.'';
-//     $Result = mysqli_query($this->dbh->getConn(),$SQL);
-//     $row = $Result->fetch_assoc();
-//     return $row;
-// }
+public function FetchSingleInquiry($val)
+{
+    return $this->Inquiries[$val];
+}
 
 
 
