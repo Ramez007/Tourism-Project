@@ -16,7 +16,9 @@ require 'C:\xampp\composer\vendor\autoload.php';
 class support_operator extends Model {
 
     private $dbh;
-
+    protected $Inqemail=array();
+    protected $InqId=array();
+    protected $Inquiries = array();
 
     function __construct() {
         $this->dbh = $this->connect();
@@ -77,33 +79,15 @@ function Reply_to_Inquiry(){
 
 public function FetchInquiries()
 {
-    $Inquiries = array();
     $SQL = 'SELECT Email,InquiryID,Inquiry FROM inquiries';
     $Result = mysqli_query($this->dbh->getConn(),$SQL);
-    $i=0;
-    while ($row =$Result->fetch_assoc());
-    {
-        array_push($Inquiries,$row['Inquiry']);
-    }
     while($row = $Result->fetch_assoc())
-    {
-        echo '<script> 
-        myfunction(x)
-        {
-            document.getElementById("staticEmail2").value='.$Inquiries['x'].'
-        }
-        </script>';
-
-        echo
-        	'
-			<option id="selectemail" value = "'.$row['Email'].'" onchange = "myfunction('.$i.')">'.$row['Email'].'</option>
-            ';
-
-            $i++;
-        
-        
+    {   
+        array_push($this->Inqemail,$row['Email']);
+        array_push($this->Inqemail,$row['InquiryID']);
+        array_push($this->Inquiries,$row['Inquiry']);
     }
-   
+
 }
 
 // public function FetchSingleInquiry()
@@ -119,32 +103,21 @@ public function FetchInquiries()
 
 
 
-}
-
-class Inquiry extends Model
-{
-    private $Emails;
-    private $Inquiries;
-    private $InquiryID;
 
     /**
-     * Get the value of Emails
+     * Get the value of Inqemail
      */ 
-    public function getEmails()
+    public function getInqemail()
     {
-        return $this->Emails;
+        return $this->Inqemail;
     }
 
     /**
-     * Set the value of Emails
-     *
-     * @return  self
+     * Get the value of InqId
      */ 
-    public function setEmails($Emails)
+    public function getInqId()
     {
-        $this->Emails = $Emails;
-
-        return $this;
+        return $this->InqId;
     }
 
     /**
@@ -154,39 +127,74 @@ class Inquiry extends Model
     {
         return $this->Inquiries;
     }
-
-    /**
-     * Set the value of Inquiries
-     *
-     * @return  self
-     */ 
-    public function setInquiries($Inquiries)
-    {
-        $this->Inquiries = $Inquiries;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of InquiryID
-     */ 
-    public function getInquiryID()
-    {
-        return $this->InquiryID;
-    }
-
-    /**
-     * Set the value of InquiryID
-     *
-     * @return  self
-     */ 
-    public function setInquiryID($InquiryID)
-    {
-        $this->InquiryID = $InquiryID;
-
-        return $this;
-    }
 }
+
+// class Inquiry extends Model
+// {
+//     private $Emails;
+//     private $Inquiries;
+//     private $InquiryID;
+
+//     /**
+//      * Get the value of Emails
+//      */ 
+//     public function getEmails()
+//     {
+//         return $this->Emails;
+//     }
+
+//     /**
+//      * Set the value of Emails
+//      *
+//      * @return  self
+//      */ 
+//     public function setEmails($Emails)
+//     {
+//         $this->Emails = $Emails;
+
+//         return $this;
+//     }
+
+//     /**
+//      * Get the value of Inquiries
+//      */ 
+//     public function getInquiries()
+//     {
+//         return $this->Inquiries;
+//     }
+
+//     /**
+//      * Set the value of Inquiries
+//      *
+//      * @return  self
+//      */ 
+//     public function setInquiries($Inquiries)
+//     {
+//         $this->Inquiries = $Inquiries;
+
+//         return $this;
+//     }
+
+//     /**
+//      * Get the value of InquiryID
+//      */ 
+//     public function getInquiryID()
+//     {
+//         return $this->InquiryID;
+//     }
+
+//     /**
+//      * Set the value of InquiryID
+//      *
+//      * @return  self
+//      */ 
+//     public function setInquiryID($InquiryID)
+//     {
+//         $this->InquiryID = $InquiryID;
+
+//         return $this;
+//     }
+// }
 
 ?>
 </body>

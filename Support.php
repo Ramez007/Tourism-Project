@@ -107,6 +107,7 @@
 
 require_once("app/model/Support_model.php");
 	require_once("app/controller/SupportController.php");
+	require_once("app/view/supportview.php");
 			// require_once("app/view/susbcribeview.php");
 			$support_operatormodel = new support_operator();
 			$suport_operatorcontroller = new Support_operatorController($support_operatormodel);
@@ -115,7 +116,8 @@ require_once("app/model/Support_model.php");
 			$suport_operatorcontroller->Send_newwire();
 			if(isset($_POST['submitreply']))
 			$suport_operatorcontroller->Reply_to_Inquiry();
-			
+			$suport_operatorcontroller->FetchInquiries();
+			$supportview=new supportview($suport_operatorcontroller,$support_operatormodel);
 
 ?>
 <!-- php for mailling end -->
@@ -238,14 +240,20 @@ require_once("app/model/Support_model.php");
                                         <option value="Email 3">Ahmed1700299@miuegypt.edu.eg</option>
 										<option value="Email 4">Nour179123@miuegypt.edu.eg</option> -->
 										<?php 
-										$suport_operatorcontroller->FetchInq();
+										$supportview->output();
 										?>
                                     </select> 
                                     </div>
 
                                     <div class="form-group">
 									<label for="staticinquiry">User's Inquiry</label>
-									
+									<script>
+									function changeopt(x) {
+									document.getElementById("StaticEmail2").value=x;
+									setInterval(changeopt,50);
+
+									}
+									</script>
 									<input type="text" readonly class="form-control" style="padding-bottom: 150px;" id="staticEmail2" value="" >                                    
 								</div>
 

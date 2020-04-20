@@ -13,7 +13,7 @@ class Support_operatorController extends Controller
         $this->model->Reply_to_Inquiry();
    }
 
-   public function FetchInq()
+   public function FetchInquiries()
    {
         return $this->model->FetchInquiries();
    }
