@@ -12,7 +12,7 @@ class supportview extends View{
         {
             echo 
 				'
-				    <option value = "'."id= ".$ids[$i].'&'.$inqs[$i].'")>'.$emails[$i].'</option>
+				    <option key='.$ids[$i].' value = "'."id= ".$ids[$i].'&'.$inqs[$i].'")>'.$emails[$i].'</option>
                 ';
                 
             

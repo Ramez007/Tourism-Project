@@ -16,12 +16,14 @@ require 'C:\xampp\composer\vendor\autoload.php';
 class support_operator extends Model {
 
     private $dbh;
+    // protected $inquiryar=array();
     protected $Inqemail=array();
     protected $InqId=array();
     protected $Inquiries = array();
 
     function __construct() {
         $this->dbh = $this->connect();
+        
     }
 
     function Send_newwire()
@@ -55,21 +57,46 @@ function Reply_to_Inquiry(){
     
 
     $ID=$_SESSION['ID'];
-    $inquiryid=$_POST["inquiryid"];
-    $name=$_POST['name'];
-    $mail=$_POST['sendermail'];
-    $message=$_POST['message'];
+    $inquiryidrecieve=$_POST["emailinquiry"];
+    $inquiryidspace=explode(" ",$inquiryidrecieve);
+    $inquiryid=explode("&",$inquiryidspace[1]);
+    $message=$_POST['reply'];
     $email->Subject="Reply to your inquiry ";
+    // for($i=0;i<count($inquiryar);$i++){
+
+    //     if($this->inquiryar[$i]->$InquiryID=$inquiryid);
+    //    echo $finalemail=$this->inquiryar[$i]->Emails;}
+
+        
     
     try{
-        $sql1 = 'INSERT INTO InquiryHistory (employeeID,Reply,ID) VALUES("'.$ID.'","'.$message.'","'.$row["Email"].'");';
-        $sql2 = 'DELETE FROM Inquiries where inquiries.InquiryID="'.$inquiryid.'";';
-         $result = mysqli_query($this->dbh->getConn(),$sql1) ;
-         $email->addAddress("$mail","$name");
+        $sql2 = 'SELECT Email,inquiry FROM Inquiries where inquiries.InquiryID="'.$inquiryid[0].'";';
+    
+        $sql3 = 'DELETE  FROM Inquiries where InquiryID="'.$inquiryid[0].'";'; 
+        $result1=mysqli_query($this->dbh->getConn(),$sql2) ;
+         $row=$result1->fetch_assoc();
+        $sql1 = 'INSERT INTO InquiryHistory (employeeID,inquiry,Reply,ID) VALUES("'.$ID.'","'. $row['inquiry'].'","'.$message.'","'.$inquiryid[0].'");';
+        $result = mysqli_query($this->dbh->getConn(),$sql1) ;
+        
+        if(mysqli_query($this->dbh->getConn(),$sql3)){
+
+       
+        $email->addAddress($row['Email']);
          $email->Body=$message;
          $email->send();
-         $result = mysqli_query($this->dbh->getConn(),$sql2) ;
-         echo'<script>swal("Successfully sent your reply", "", "success");</script>'; 
+         
+          echo'<script>swal("Successfully sent your reply", "", "success");</script>'; 
+         
+
+         }
+         else
+         echo "error";
+
+        //  $email->addAddress($row['Email']);
+        //  $email->Body=$message;
+        //  $email->send();
+         
+        //   echo'<script>swal("Successfully sent your reply", "", "success");</script>'; 
 }catch(Exception $e){
     echo $e->errorMessage();
  
@@ -82,7 +109,7 @@ public function FetchInquiries()
     $SQL = 'SELECT Email,InquiryID,Inquiry FROM inquiries';
     $Result = mysqli_query($this->dbh->getConn(),$SQL);
     while($row = $Result->fetch_assoc())
-    {   
+    {
         array_push($this->Inqemail,$row['Email']);
         array_push($this->InqId,$row['InquiryID']);
         array_push($this->Inquiries,$row['Inquiry']);
@@ -127,10 +154,9 @@ public function FetchSingleInquiry($val)
 
 // class Inquiry extends Model
 // {
-//     private $Emails;
-//     private $Inquiries;
-//     private $InquiryID;
-
+//     protected $Emails ;
+//     protected $Inquiries;
+//     protected $InquiryID;
 //     /**
 //      * Get the value of Emails
 //      */ 
@@ -190,7 +216,8 @@ public function FetchSingleInquiry($val)
 
 //         return $this;
 //     }
-// }
+// }}
+
 
 ?>
 </body>

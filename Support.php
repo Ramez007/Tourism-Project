@@ -135,6 +135,7 @@ require_once("app/model/Support_model.php");
 			$suport_operatorcontroller->Send_newwire();
 			if(isset($_POST['submitreply']))
 			$suport_operatorcontroller->Reply_to_Inquiry();
+			
 			$suport_operatorcontroller->FetchInquiries();
 			$supportview=new supportview($suport_operatorcontroller,$support_operatormodel);
 
@@ -253,11 +254,8 @@ require_once("app/model/Support_model.php");
 									<!-- first form start--><form action="" method="post">
                                      <div class="form-group">
                                         <label for=Emails>Please select an email to write reply to </label>
-                                    <select id="Emails" class="form-control" onchange="" name="emailinquiry">
-                                        <!-- <option value="Email 1">Ramez1700124@miuegypt.edu.eg</option>
-                                        <option value="Email 2">Khaled1701294@miuegypt.edu.eg</option>
-                                        <option value="Email 3">Ahmed1700299@miuegypt.edu.eg</option>
-										<option value="Email 4">Nour179123@miuegypt.edu.eg</option> -->
+                                    <select id="Emails" class="form-control" name="emailinquiry">
+        
 										<?php 
 										$supportview->output();
 										?>
