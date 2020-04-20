@@ -210,10 +210,10 @@
 							<div class="row">
 								<div class="col-md-12">
 									<h3 class="heading">Replying To Inquiry</h3>
-									<form action="" method="post">
+									<!-- first form start--><form action="" method="post">
                                      <div class="form-group">
                                         <label for=Emails>Please select an email to write reply to </label>
-                                    <select id="Emails" class="form-control" name="email">
+                                    <select id="Emails" class="form-control" name="emailinquiry">
                                         <option value="Email 1">Ramez1700124@miuegypt.edu.eg</option>
                                         <option value="Email 2">Khaled1701294@miuegypt.edu.eg</option>
                                         <option value="Email 3">Ahmed1700299@miuegypt.edu.eg</option>
@@ -223,8 +223,8 @@
 
                                     <div class="form-group">
                                     <label for="staticinquiry">User's Inquiry</label>
-                                    <input type="text" readonly class="form-control " id="staticEmail2" value="I would like to ask if you like this form please submit your answer quickly">
-                                    </div>
+									<input type="text" readonly class="form-control" style="padding-bottom: 150px;" id="staticEmail2" value="">                                    
+								</div>
 
                                     <div class="form-group">
                                     <textarea class="form-control form-control-lg" id="Reply" placeholder="Please write your reply..." name="reply" rows="5"cols="20"></textarea>
@@ -233,8 +233,8 @@
 									<p class="service-hour">
 										<span>Submit reply</span>
                                     </p>
-									<button type="submit" class="btn btn-primary mb-2">Submit</button>
-                                    </form>
+									<button type="submit" class="btn btn-primary mb-2" name="submitreply">Submit</button>
+                                    <!-- first form end--></form>
 								</div>
 							</div>
 						</div>
@@ -244,7 +244,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<h3 class="heading">Send NewsWire</h3>
-									<form action="" method="post">
+									<!-- second form--><form action="" method="post"> 
                                     <div class="form-group">
                                     <textarea class="form-control form-control-lg" id="news" placeholder="Please write news to be sent to all subscribed mails" name ="news"rows="10"></textarea>
                                     </div>
@@ -253,7 +253,7 @@
 										<span>Send news</span>
                                     </p>
 									<button type="submit" class="btn btn-primary mb-2" id="submitnewwire" name="submitnewwire">Send</button>
-                                    </form>
+                                   <!-- Second form end--> </form>
 								</div>
 							</div>
 						</div>
@@ -275,8 +275,12 @@ require_once("app/model/Support_model.php");
 			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
 			if(isset($_POST['submitnewwire']))
 			$suport_operatorcontroller->Send_newwire();
+			if(isset($_POST['submitreply']))
+			$suport_operatorcontroller->Reply_to_Inquiry();
 
 ?>
+<!-- php for mailling end -->
+
  
 	<footer id="footer" class="fh5co-bg-color">
 	<?php

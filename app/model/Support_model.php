@@ -39,11 +39,46 @@ $sql = "Select Email from newswire" ;
 
         }
            $email->send();
+           echo'<script>swal("Successfully sent the newsWire", "", "success");</script>'; 
     }catch(Exception $e){
         echo $e->errorMessage();
      
     }
+    
 }
+
+function Reply_to_Inquiry(){
+    include_once "serverdetails.php";
+    
+
+    $ID=$_SESSION['ID'];
+    $inquiryid=$_POST["inquiryid"];
+    $name=$_POST['name'];
+    $mail=$_POST['sendermail'];
+    $message=$_POST['message'];
+    $email->Subject="Reply to your inquiry ";
+    
+    try{
+        $sql1 = 'INSERT INTO InquiryHistory (employeeID,Reply,ID) VALUES("'.$ID.'","'.$message.'","'.$row["Email"].'");';
+        $sql2 = 'DELETE FROM Inquiries where inquiries.InquiryID="'.$inquiryid.'";';
+         $result = mysqli_query($this->dbh->getConn(),$sql1) ;
+         $email->addAddress("$mail","$name");
+         $email->Body=$message;
+         $email->send();
+         $result = mysqli_query($this->dbh->getConn(),$sql2) ;
+         echo'<script>swal("Successfully sent your reply", "", "success");</script>'; 
+}catch(Exception $e){
+    echo $e->errorMessage();
+ 
+} 
+
+}
+
+
+
+
+
+
 
 }
 

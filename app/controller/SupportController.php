@@ -8,6 +8,10 @@ class Support_operatorController extends Controller
        public function Send_newwire(){
             $this->model->Send_newwire();
        }
+      
+       public function Reply_to_Inquiry(){
+        $this->model->Reply_to_Inquiry();
+   }
 
     }
 ?>
