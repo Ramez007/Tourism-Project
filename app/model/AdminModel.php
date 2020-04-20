@@ -139,12 +139,12 @@ class Admin extends Employee {
                                             <div id="checkboxes">
                                                 <label>Edit List of services offered by the hotel</label>
                                                 <ul>
-                                                    <li><input type="checkbox" id="wifi" '.($row['WiFI']=="TRUE"?"checked":"").'> Wifi</li>
-                                                    <li><input type="checkbox" id="gym" ' .($row['Gym']=="TRUE"?"checked":"").'> Gym</li>
-                                                    <li><input type="checkbox" id="bar"'  .($row['Bar']=="TRUE"?"checked":"").'> Bar</li>
-                                                    <li><input type="checkbox" id="spa"'  .($row['Spa']=="TRUE"?"checked":"").'> Spa</li>
-                                                    <li><input type="checkbox" id="pool" '.($row['Swimming_Pool']=="TRUE"?"checked":"").'> Swimming Pool</li>
-                                                    <li><input type="checkbox" id="restaurant" '.($row['Restaurant']=="TRUE"?"checked":"").'> Resturant</li>
+                                                    <li><input type="checkbox" class="check" '.($row['WiFI']=="TRUE"?"checked":"").'> Wifi</li>
+                                                    <li><input type="checkbox" class="check" '.($row['Gym']=="TRUE"?"checked":"").'> Gym</li>
+                                                    <li><input type="checkbox" class="check" '.($row['Bar']=="TRUE"?"checked":"").'> Bar</li>
+                                                    <li><input type="checkbox" class="check" '.($row['Spa']=="TRUE"?"checked":"").'> Spa</li>
+                                                    <li><input type="checkbox" class="check" '.($row['Swimming_Pool']=="TRUE"?"checked":"").'> Swimming Pool</li>
+                                                    <li><input type="checkbox" class="check" '.($row['Restaurant']=="TRUE"?"checked":"").'> Resturant</li>
                                                 </ul>
                                             </div>
                                             <br><br>
