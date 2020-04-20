@@ -90,9 +90,10 @@ public function FetchInquiries()
     return $Inquiries;
 }
 
-public function FetchSingleInquiry($InquiryID)
-{
-    $SQL = 'SELECT Inquiry FROM inquiries WHERE InquiryID ='.$InquiryID.'';
+public function FetchSingleInquiry()
+{$inquiryID = $_REQUEST["InquiryID"];
+
+    $SQL = 'SELECT Inquiry FROM inquiries WHERE InquiryID ='.$inquiryID.'';
     $Result = mysqli_query($this->dbh->getConn(),$SQL);
     $row = $Result->fetch_assoc();
     return $row;

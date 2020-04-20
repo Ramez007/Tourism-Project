@@ -102,6 +102,23 @@
 
 	
 	?>
+	<!-- php for mailling -->
+<?php
+
+require_once("app/model/Support_model.php");
+	require_once("app/controller/SupportController.php");
+			// require_once("app/view/susbcribeview.php");
+			$support_operatormodel = new support_operator();
+			$suport_operatorcontroller = new Support_operatorController($support_operatormodel);
+			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
+			if(isset($_POST['submitnewwire']))
+			$suport_operatorcontroller->Send_newwire();
+			if(isset($_POST['submitreply']))
+			$suport_operatorcontroller->Reply_to_Inquiry();
+			$Inquiries = $suport_operatorcontroller->FetchInq();
+
+?>
+<!-- php for mailling end -->
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
 	<div id="fh5co-header">
@@ -225,7 +242,7 @@
 										{
 											echo 
 											'
-											<option value = "'.$Inquiries[$i]->getInquiryID().'">'.$Inquiries[$i]->getEmails().'</option>
+											<option value = "'.$Inquiries[$i]->getInquiryID().'" onclick = fetch('.$Inquiries[$i]->getInquiryID().')>'.$Inquiries[$i]->getEmails().'</option>
 											';
 										}
 										?>
@@ -234,13 +251,24 @@
 
                                     <div class="form-group">
 									<label for="staticinquiry">User's Inquiry</label>
-									<!-- <script>
-										var Inq = document.getElementById("Emails");
-										var InqID = Inq.options[Inq.selectedIndex];
-										
-
-									</script> -->
-									<input type="text" readonly class="form-control" style="padding-bottom: 150px;" id="staticEmail2" value="">                                    
+									<script>
+									function fetch(str) {
+    if (str.length == 0) {
+        document.getElementById("staticEmail2").value = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("staticEmail2").value = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "FetchSingleInquiry?q=" + str, true);
+        xmlhttp.send();
+    }
+}
+									</script>
+									<input type="text" readonly class="form-control" style="padding-bottom: 150px;" id="staticEmail2" value="" >                                    
 								</div>
 
                                     <div class="form-group">
@@ -281,23 +309,7 @@
 	</div>
 
 	
-<!-- php for mailling -->
-<?php
 
-require_once("app/model/Support_model.php");
-	require_once("app/controller/SupportController.php");
-			// require_once("app/view/susbcribeview.php");
-			$support_operatormodel = new support_operator();
-			$suport_operatorcontroller = new Support_operatorController($support_operatormodel);
-			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
-			if(isset($_POST['submitnewwire']))
-			$suport_operatorcontroller->Send_newwire();
-			if(isset($_POST['submitreply']))
-			$suport_operatorcontroller->Reply_to_Inquiry();
-			$Inquiries = $suport_operatorcontroller->FetchInq();
-
-?>
-<!-- php for mailling end -->
 
  
 	<footer id="footer" class="fh5co-bg-color">
