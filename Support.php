@@ -75,7 +75,25 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+        function hide(jquery) {
+            var idarr = ["tab1", "tab2","tab3","tab4","tab5","tab6"];
+            var count = 0;
+
+            for (var i = 0; i < idarr.length; i++) {
+                var l = document.getElementById(idarr[count] + '');
+                l.style.display = "none";
+                count++;
+            }
+        }
+
+    $(document).ready(hide);
+	
+    </script>
+
 	<script>
+	
         function ShowTab(y) {
             var idarr = ["tab1", "tab2"]
 
@@ -95,6 +113,7 @@
         }
 
     </script>
+	
 </head>
 <body>
 	<?php
@@ -242,20 +261,30 @@ require_once("app/model/Support_model.php");
 										<?php 
 										$supportview->output();
 										?>
-
-										<script>
-										document.getElementById("Emails").addEventListener("change",function(){
-											document.getElementById("staticEmail2").value=document.getElementById("Emails").value;
-										});
-										</script>
+                                        
+										
 
                                     </select> 
                                     </div>
+										<script>
+											
 
+											document.getElementById("Emails").addEventListener("change",function(){
+												document.getElementById("staticEmail2").value=document.getElementById("Emails").value.split("&").pop();
+											});
+											
+
+											function change(jQuery)
+											{
+												$("#staticEmail2").val()=$("#Emails").val();
+											}
+											$(document).ready(change);
+										
+										</script>
                                     <div class="form-group">
 									<label for="staticinquiry">User's Inquiry</label>
 									
-									<input type="text" readonly class="form-control" style="padding-bottom: 150px;" id="staticEmail2" value="" >                                    
+									<?php $supportview->output2();?>                                    
 								</div>
 
                                     <div class="form-group">
@@ -337,6 +366,7 @@ require_once("app/model/Support_model.php");
 	<script src="js/jquery.flexslider-min.js"></script>
 
 	<script src="js/custom.js"></script>
+	
 
 </body>
 </html>
