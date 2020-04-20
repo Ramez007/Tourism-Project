@@ -233,7 +233,13 @@
                                     </div>
 
                                     <div class="form-group">
-                                    <label for="staticinquiry">User's Inquiry</label>
+									<label for="staticinquiry">User's Inquiry</label>
+									<!-- <script>
+										var Inq = document.getElementById("Emails");
+										var InqID = Inq.options[Inq.selectedIndex];
+										
+
+									</script> -->
 									<input type="text" readonly class="form-control" style="padding-bottom: 150px;" id="staticEmail2" value="">                                    
 								</div>
 

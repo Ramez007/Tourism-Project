@@ -17,6 +17,10 @@ class Support_operatorController extends Controller
    {
         return $this->model->FetchInquiries();
    }
+   public function FetchSingleInq($InqID)
+   {
+        $this->model->FetchSingleInquiry($InqID);
+   }
 
     }
 ?>

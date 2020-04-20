@@ -78,18 +78,26 @@ function Reply_to_Inquiry(){
 public function FetchInquiries()
 {
     $Inquiries = array();
-    $SQL = 'SELECT Email,Inquiry,InquiryID FROM inquiries';
+    $SQL = 'SELECT Email,InquiryID FROM inquiries';
     $Result = mysqli_query($this->dbh->getConn(),$SQL);
     while($row = $Result->fetch_assoc())
     {
         $Inq = new Inquiry();
         $Inq -> setEmails($row['Email']);
         $Inq -> setInquiryID($row['InquiryID']);
-        $Inq -> setInquiries($row['Inquiry']);
         array_push($Inquiries,$Inq);
     }
     return $Inquiries;
 }
+
+public function FetchSingleInquiry($InquiryID)
+{
+    $SQL = 'SELECT Inquiry FROM inquiries WHERE InquiryID ='.$InquiryID.'';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    $row = $Result->fetch_assoc();
+    return $row;
+}
+
 
 
 
