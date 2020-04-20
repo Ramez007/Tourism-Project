@@ -78,26 +78,42 @@ function Reply_to_Inquiry(){
 public function FetchInquiries()
 {
     $Inquiries = array();
-    $SQL = 'SELECT Email,InquiryID FROM inquiries';
+    $SQL = 'SELECT Email,InquiryID,Inquiry FROM inquiries';
     $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    $i=0;
+    while ($row =$Result->fetch_assoc());
+    {
+        array_push($Inquiries,$row['Inquiry']);
+    }
     while($row = $Result->fetch_assoc())
     {
-        $Inq = new Inquiry();
-        $Inq -> setEmails($row['Email']);
-        $Inq -> setInquiryID($row['InquiryID']);
-        array_push($Inquiries,$Inq);
+        echo '<script> 
+        myfunction(x)
+        {
+            document.getElementById("staticEmail2").value='.$Inquiries['x'].'
+        }
+        </script>';
+
+        echo
+        	'
+			<option id="selectemail" value = "'.$row['Email'].'" onchange = "myfunction('.$i.')">'.$row['Email'].'</option>
+            ';
+
+            $i++;
+        
+        
     }
-    return $Inquiries;
+   
 }
 
-public function FetchSingleInquiry()
-{$inquiryID = $_REQUEST["InquiryID"];
+// public function FetchSingleInquiry()
+// {$inquiryID = $_REQUEST["InquiryID"];
 
-    $SQL = 'SELECT Inquiry FROM inquiries WHERE InquiryID ='.$inquiryID.'';
-    $Result = mysqli_query($this->dbh->getConn(),$SQL);
-    $row = $Result->fetch_assoc();
-    return $row;
-}
+//     $SQL = 'SELECT Inquiry FROM inquiries WHERE InquiryID ='.$inquiryID.'';
+//     $Result = mysqli_query($this->dbh->getConn(),$SQL);
+//     $row = $Result->fetch_assoc();
+//     return $row;
+// }
 
 
 

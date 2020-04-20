@@ -115,7 +115,7 @@ require_once("app/model/Support_model.php");
 			$suport_operatorcontroller->Send_newwire();
 			if(isset($_POST['submitreply']))
 			$suport_operatorcontroller->Reply_to_Inquiry();
-			$Inquiries = $suport_operatorcontroller->FetchInq();
+			
 
 ?>
 <!-- php for mailling end -->
@@ -238,36 +238,14 @@ require_once("app/model/Support_model.php");
                                         <option value="Email 3">Ahmed1700299@miuegypt.edu.eg</option>
 										<option value="Email 4">Nour179123@miuegypt.edu.eg</option> -->
 										<?php 
-										for($i = 0; $i < count($Inquiries); $i++)
-										{
-											echo 
-											'
-											<option value = "'.$Inquiries[$i]->getInquiryID().'" onclick = fetch('.$Inquiries[$i]->getInquiryID().')>'.$Inquiries[$i]->getEmails().'</option>
-											';
-										}
+										$suport_operatorcontroller->FetchInq();
 										?>
                                     </select> 
                                     </div>
 
                                     <div class="form-group">
 									<label for="staticinquiry">User's Inquiry</label>
-									<script>
-									function fetch(str) {
-    if (str.length == 0) {
-        document.getElementById("staticEmail2").value = "";
-        return;
-    } else {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("staticEmail2").value = this.responseText;
-            }
-        };
-        xmlhttp.open("GET", "FetchSingleInquiry?q=" + str, true);
-        xmlhttp.send();
-    }
-}
-									</script>
+									
 									<input type="text" readonly class="form-control" style="padding-bottom: 150px;" id="staticEmail2" value="" >                                    
 								</div>
 
