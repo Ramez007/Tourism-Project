@@ -38,6 +38,22 @@ class AdminView extends View
     public function ReadSuspendEvents(){
         $this->model->ReadSuspendEventsSection();
     }
+
+    public function ReadMainSliderHotels(){
+        $this->model->ReadMainSliderHotelsSection();
+    }
+
+    public function ReadFeaturedHotels(){
+        $this->model->ReadFeaturedHotelsSection();
+    }
+
+    public function ReadPReviews(){
+        $this->model->ReadPackagesReviews();
+    }
+
+    public function ReadHReviews(){
+        $this->model->ReadHotelsReviews();
+    }
 }
 
 ?>

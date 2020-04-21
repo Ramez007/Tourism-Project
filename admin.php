@@ -608,14 +608,7 @@
                                         <form action="">
                                             <div id="checkboxes">
                                                 <label>Select Three Hotels To Be Feautred in Main Slider</label>
-                                                <ul>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox" checked> Winter palace</li>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox"> Isis</li>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox" checked> Stienberger</li>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox"> Iberotel</li>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox" checked> Emilio</li>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox"> Sunset</li>
-                                                </ul>
+                                                <?php $AdminView->ReadMainSliderHotels(); ?>
                                             </div>
                                             <br><br>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
@@ -627,15 +620,8 @@
                                     <div id="edit-featured-hotels-section">
                                         <form action="">
                                             <div id="checkboxes">
-                                                <label>Select Three Hotels To Be Shown in Featured Hotels Section in Main Page</label>
-                                                <ul>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox" checked> Winter palace</li>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox"> Isis</li>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox" checked> Stienberger</li>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox"> Iberotel</li>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox" checked> Emilio</li>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox"> Sunset</li>
-                                                </ul>
+                                                <label>Select One Hotel To Be Shown in Featured Hotels Section's Header in Main Page</label>
+                                                <?php $AdminView->ReadFeaturedHotels(); ?>
                                             </div>
                                             <br><br>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
@@ -649,12 +635,8 @@
                                             <div id="checkboxes">
                                                 <label>Select Three Reviews To Be Shown in Reviews Section in Main Page</label>
                                                 <ul>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox" checked> Review 1</li>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox"> Review 2</li>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox" checked> Review 3</li>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox"> Review 4</li>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox" checked> Review 5</li>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox"> Review 6</li>
+                                                    <?php $AdminView->ReadPReviews(); ?>
+                                                    <?php $AdminView->ReadHReviews(); ?>
                                                 </ul>
                                             </div>
                                             <br><br>
@@ -744,6 +726,8 @@
 
     <script>
         var limit = 4;
+        var limit2 = 3;
+        var limit3 = 2;
                 $('input.single-checkbox').on('change', function(evt) {
                 if($("input[name='hotel']:checked").length >= limit) {
                     this.checked = false;
@@ -751,13 +735,19 @@
                 });
 
                 $('input.single-checkbox').on('change', function(evt) {
-                if($("input[name='fhotel']:checked").length >= limit) {
+                if($("input[name='fhotel']:checked").length >= limit2) {
                     this.checked = false;
                 }
                 });
 
                 $('input.single-checkbox').on('change', function(evt) {
                 if($("input[name='review']:checked").length >= limit) {
+                    this.checked = false;
+                }
+                });
+
+                $('input.single-checkbox').on('change', function(evt) {
+                if($("input[name='headerhotel']:checked").length >= limit3) {
                     this.checked = false;
                 }
                 });

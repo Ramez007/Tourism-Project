@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2020 at 04:38 PM
+-- Generation Time: Apr 21, 2020 at 11:42 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -162,6 +162,7 @@ CREATE TABLE `hotel` (
   `Half_Board` set('TRUE','FALSE') NOT NULL,
   `Pets` set('TRUE','FALSE') NOT NULL,
   `featured` set('feature','header','false') NOT NULL DEFAULT 'false',
+  `FeaturedMainSilder` set('TRUE','FALSE') NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
   `location` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -170,12 +171,12 @@ CREATE TABLE `hotel` (
 -- Dumping data for table `hotel`
 --
 
-INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming_Pool`, `Spa`, `Gym`, `Bar`, `Restaurant`, `Full_Board`, `Half_Board`, `Pets`, `featured`, `Suspended`, `location`) VALUES
-(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', 'Rtiz is in france', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'header', 'Disabled', 'Paris,France'),
-(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'feature', 'Disabled', 'Luxor,Egypt'),
-(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled', 'Luxor,Egypt'),
-(5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Disabled', 'London,England'),
-(6, 'testo hotelo', 3999, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Disabled', 'Havana,Cuba');
+INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming_Pool`, `Spa`, `Gym`, `Bar`, `Restaurant`, `Full_Board`, `Half_Board`, `Pets`, `featured`, `FeaturedMainSilder`, `Suspended`, `location`) VALUES
+(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', 'Rtiz is in france', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'header', 'TRUE', 'Disabled', 'Paris,France'),
+(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'feature', 'TRUE', 'Disabled', 'Luxor,Egypt'),
+(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'feature', 'TRUE', 'Enabled', 'Luxor,Egypt'),
+(5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Disabled', 'London,England'),
+(6, 'testo hotelo', 3999, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Disabled', 'Havana,Cuba');
 
 -- --------------------------------------------------------
 
@@ -336,8 +337,19 @@ CREATE TABLE `reviews` (
   `GuestID` int(11) DEFAULT NULL,
   `PackageID` int(11) DEFAULT NULL,
   `HotelID` int(11) DEFAULT NULL,
-  `Review` text NOT NULL
+  `Review` text NOT NULL,
+  `Featured` set('TRUE','FALSE') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`ReviewID`, `GuestID`, `PackageID`, `HotelID`, `Review`, `Featured`) VALUES
+(1, 1, 3, NULL, 'I Was Happy to visit Egypt with Speedo Tours', 'TRUE'),
+(2, 2, NULL, 3, 'Winter Palace Hotel in luxor is magnificent', 'TRUE'),
+(3, 1, NULL, 1, 'Ritz Carlton Hotel is real deal in france', 'TRUE'),
+(4, 1, 4, NULL, 'This Package Made me in love with europe', 'FALSE');
 
 -- --------------------------------------------------------
 
@@ -601,7 +613,7 @@ ALTER TABLE `reserves`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -656,6 +668,14 @@ ALTER TABLE `languages`
 --
 ALTER TABLE `packages`
   ADD CONSTRAINT `packages_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`);
+
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`),
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
+  ADD CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`PackageID`) REFERENCES `packages` (`PackageID`);
 
 --
 -- Constraints for table `visits`

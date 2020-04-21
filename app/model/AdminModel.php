@@ -316,6 +316,59 @@ class Admin extends Employee {
 
     }
 
+    function ReadMainSliderHotelsSection(){
+        $sql="SELECT Name,FeaturedMainSilder From hotel";
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        echo '<ul>';
+        while ($row=$Result->fetch_assoc()){
+
+            echo'<li><input class="single-checkbox" name="hotel" type="checkbox" '.($row['FeaturedMainSilder']=="TRUE"?"checked":"").'> '.$row['Name'].'</li>';
+        }
+        echo '</ul>';
+    }
+
+    function ReadFeaturedHotelsSection(){
+        $sql="SELECT Name,featured From hotel";
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        echo '<ul>';
+        while ($row=$Result->fetch_assoc()){
+
+            echo'<li><input class="single-checkbox" name="headerhotel" type="checkbox" '.($row['featured']=="header"?"checked":"").'> '.$row['Name'].'</li>';
+        }
+        echo '</ul>';
+        echo'<label>Select Two Hotels To Be Shown in Featured Hotels Section in Main Page</label>';
+        echo '<ul>';
+        $Result2 = mysqli_query($this->db->getConn(),$sql);
+        while ($row2=$Result2->fetch_assoc()){
+
+            echo'<li><input class="single-checkbox" name="fhotel" type="checkbox" '.($row2['featured']=="feature"?"checked":"").'> '.$row2['Name'].'</li>';
+        }
+        echo '</ul>';
+
+    }
+
+    function ReadPackagesReviews(){
+        $sql="SELECT guest.LastName, packages.PackageName ,reviews.review,Featured from reviews
+        INNER JOIN guest ON guest.GuestID=reviews.GuestID
+        INNER JOIN packages ON reviews.PackageID=packages.PackageID;"; 
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        while ($row=$Result->fetch_assoc()){
+            echo'<li><input class="single-checkbox" name="review" type="checkbox" '.($row['Featured']=="TRUE"?"checked":"").'> MR. '.$row['LastName'].' revwied '.$row['PackageName'].' Package. Review: '.$row['review'].' </li>';
+        }
+        
+    }
+
+    function ReadHotelsReviews(){
+        $sql="SELECT guest.LastName,hotel.Name,reviews.review,reviews.Featured from reviews
+        INNER JOIN guest ON guest.GuestID=reviews.GuestID
+        INNER JOIN hotel ON reviews.HotelID=hotel.HotelID;"; 
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        while ($row=$Result->fetch_assoc()){
+            echo'<li><input class="single-checkbox" name="review" type="checkbox" '.($row['Featured']=="TRUE"?"checked":"").'> MR. '.$row['LastName'].' revwied '.$row['Name'].' Hotel. Review: '.$row['review'].' </li>';
+        }
+        
+    }
+
     function AddHotel()
     {
                     //     $hotelname = $_POST["enterhotel"];
