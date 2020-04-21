@@ -331,56 +331,6 @@
                                     <div id="edit-hotel-subsec">
                                         <form action="" method="post">
                                             <h4 class="text-center">Edit Hotel</h4>
-                                            
-                                            <!-- <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label" for="hotels-editing-dropdown">Choose Hotel To Edit</label>
-                                                <div class="col-sm-3">
-                                                    <select class="form-control form-control-sm" style="margin-left:-102px;" id="hotels-editing-dropdown">
-                                                        <option value="wph">Winter Palace</option>
-                                                        <option value="ih">Isis</option>
-                                                        <option value="sh">Steinberger</option>
-                                                        <option value="eh">Emilio</option>
-                                                        <option value="ibh">Iberotel</option>
-                                                        <option value="ssh">Sunset</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="edithotelname">Hotel Name</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="edithotelname" value="Winter Palace">
-                                                </div>
-                                            </div> 
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="edithotellocation">Hotel Location</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="edithotellocation" value="Luxor,Egypt">
-                                                </div>
-                                            </div>
-                                            <div id="checkboxes">
-                                                <label>Edit List of services offered by the hotel</label>
-                                                <ul>
-                                                    <li><input type="checkbox" checked> Wifi</li>
-                                                    <li><input type="checkbox" checked> Gym</li>
-                                                    <li><input type="checkbox" checked> Bar</li>
-                                                    <li><input type="checkbox" checked> Spa</li>
-                                                    <li><input type="checkbox" checked> Swimming Pool</li>
-                                                    <li><input type="checkbox" checked> Resturant</li>
-                                                </ul>
-                                            </div>
-                                            <br><br>
-                                            <div class="form-group">
-                                                <label for="edithoteldescription">Enter Hotel Description</label>
-                                                <textarea class="form-control" id="edithoteldescription" rows="15" name="comment" form="usrform">The Sofitel Winter Palace Hotel, also known as the Old Winter Palace Hotel, is a historic British colonial-era 5-star luxury resort hotel located on the banks of the River Nile in Luxor, Egypt, just south of Luxor Temple, with 86 rooms and 6 suites.
-                                                The hotel was built by the Upper Egypt Hotels Co, an enterprise founded in 1905 by Cairo hoteliers Charles Baehler and George Nungovich in collaboration with Thomas Cook & Son (Egypt). It was inaugurated on Saturday 19 January 1907, with a picnic at the Valley of the Kings followed by dinner at the hotel and speeches.[1] The architect was Leon Stienon, the Italian construction company G.GAROZZO & Figli Costruzioni in Cemento Armato, Sistema SIACCI brevettato. During World War I the hotel was temporarily closed to paying guests and employed as a hospice for convalescing soldiers. A regular guest at the hotel from 1907 on was George Herbert, 5th Earl of Carnarvon, better known simply as Lord Carnarvon. Carnarvon was the patron of Egyptologist Howard Carter, who in 1922 discovered the intact tomb of Tutankhamun. After the discovery was announced the Winter Palace played host to the international press corps and foreign visitors there to follow the story. Carter used the hotel's noticeboard to deliver occasional news and information on the discovery. In 1975 the complex was expanded with the construction of the New Winter Palace. The addition, classified as a 3-star hotel, was joined by corridors to the original. It was demolished in 2008. In 1996, the Pavillon, a 4-star annex with 116 rooms, was built in the rear garden of the Winter Palace, close to the swimming pool. The Pavillon shares many amenities with the Winter Palace, including the gardens, pools, tennis courts, terraces and restaurants. The hotel is owned by the Egyptian General Company for Tourism & Hotels ("EGOTH") of Egypt and managed by Accor, a French Hotel company, where it is part of the prime division Sofitel. The Hotel is featured on the exclusive Palace Hotels of the World. The Winter Palace has 5 restaurants. The 1886 Restaurant, which serves French cuisine, is named after the date the hotel inaccurately advertises that it was founded. It and the la Corniche Restaurant (international cuisine) are both located in the historic Palace wing. The Bougainvilliers (international cuisine) is in the Pavilion wing, while the Palmetto (Italian cuisine and snacks) and the El Tarboush (Egyptian cuisine) are in the garden close to the swimming pool.</textarea>
-                                            </div>
-                                            <a href="#">Show Gallery</a><br>
-                                            <div class="form-group">
-                                                <label for="fileToUpload">Upload Gallery of Hotel</label>
-                                                <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
-                                            </div>
-                                            <br><br> -->
                                             <?php $AdminView->ReadEditHotels(); ?>
                                             <input class="btn btn-primary mb-2" type="submit" value="Save Editing Hotel">
                                             <script>
@@ -418,14 +368,7 @@
                                         <h4 class="text-center">Suspend Hotels</h4>
                                         <div id="checkboxes">
                                             <label>Select Hotels To Suspended</label>
-                                            <ul>
-                                                <li><input type="checkbox"> Winter palace</li>
-                                                <li><input type="checkbox"> Isis</li>
-                                                <li><input type="checkbox"> Stienberger</li>
-                                                <li><input type="checkbox"> Iberotel</li>
-                                                <li><input type="checkbox"> Emilio</li>
-                                                <li><input type="checkbox"> Sunset</li>
-                                            </ul>
+                                            <?php $AdminView->ReadSuspendHotels(); ?>
                                         </div>
                                         <br><br>
                                         <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">
@@ -509,98 +452,54 @@
                                     <!-- Edit Package SubSection -->
                                     <div id="edit-package-subsec">
                                         <h4 class="text-center">Edit Package</h4>
-                                        <form action="">
-                                            <div class="form-group row">
-                                                <label style="margin-left:-275px" for="Packages-editing-dropdown">Choose a Pakage to edit:</label>
-                                                <div class="col-sm-3">
-                                                    <select class="form-control form-control-sm" style="margin-left:198px;"  id="Packages-editing-dropdown">
-                                                        <option value="">Cairo/Ain-Sokhna</option>
-                                                        <option value="">Luxor/Aswan</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagetitle">Edit Package Title</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="packagetitle" value="Cairo/Ain-Sokhna">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagedays">Edit Package Number of Days</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="packagedays" value="10">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagenights">Edit Package Number of Nights</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="packagenights" value="9">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagelimit">Edit Package Reserve Limit</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="packagelimit" value="100">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagelimit">Edit Package Total Price</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="packagelimit" value="5000">
-                                                </div>
-                                            </div>
-                                            <div class="input-field">
-                                                <label for="date-start">Start Date</label>
-                                                <input type="text" class="form-control" id="date-start" value="20/9/2020" />
-                                            </div>
-                                            <div class="input-field">
-                                                <label for="date-start">End Date</label>
-                                                <input type="text" class="form-control" id="date-start" value="20/10/2020" />
-                                            </div>
-                                            <div id="checkboxes">
-                                                <label>Edit List of services offered</label>
-                                                <ul>
-                                                    <li><input type="checkbox" checked> Transportation</li>
-                                                    <li><input type="checkbox" checked> Tour Guide</li>
-                                                    <li><input type="checkbox" checked> Tourist Map</li>
-                                                </ul>
-                                            </div>
-                                            <div class="boardtype">
-                                                <input type="radio" name="boardtype" value="fullboard" checked="checked"> Full Board <br>
-                                                <input type="radio" name="boardtype" value="halfboard"> Half Board<br>
-                                            </div>
-                                            
-                                            <label class="col-sm-4 col-form-label" for="packagedetails">Edit Package Visits/Details</label>
-                                            <textarea rows="15" class="form-control" id="packagedetails" name="comment" form="usrform">
-                                                Day 1: Cairo
-                                                Upon arrival at the Cairo International Airport, you will be greeted by a Travco representative and transferred by our deluxe coach to Cairo Marriott Hotel or similar for check in and overnight.
-
-                                                Day 2: Cairo
-                                                Enjoy a hearty breakfast at the hotel, before being transferred to Katameya Heights Golf Resort to enjoy one round of Golf (18 holes) and back. The remainder of the day can be spent. Overnight at the hotel.
-
-                                                Day 3: Cairo
-                                                Enjoy a hearty breakfast at the hotel, before being transferred to Dream Land Golf Resort to enjoy one round of Golf (18 holes) and back. Overnight at the hotel.
-
-                                                Day 4: Cairo
-                                                Enjoy a hearty Breakfast at hotel, and spend a free day at your own pace and leisure. Upon request, we can arrange for you a tour to the Great Pyramids of Giza or the Egyptian Museum. Overnight at hotel.
-
-                                                Day 5: Cairo | Ain Sokhna
-                                                Check out after breakfast at the hotel, then drive to Ain Sokhna (100km). Upon arrival, check-in hotel then prepare yourself to enjoy one round of Golf (18 holes) at Sokhna Golf Club. Overnight at the hotel.
-
-                                                Day 6: Ain Sokhna
-                                                Enjoy a hearty breakfast at the hotel, before playing one round of Golf (18 holes) at Sokhna Golf Club. Overnight at the hotel.
-
-                                                Day 7: Ain Sokhna | Cairo
-                                                Breakfast at the hotel. Enjoy one last round of Golf (18 holes) at Sokhna Golf Club. Check-out from hotel and drive back to Cairo. Upon arrival check-in hotel and overnight.
-
-                                                Day 8: Cairo
-                                                Check-out after breakfast and transfer to Cairo International Airport for final departure.
-                                            </textarea>                                                        
-                                            <br><br><br><a href="#">Show Gallery of Pacakage</a><br>
-                                            Update Gallery of Package <br>
-                                            <input type="file" name="fileToUpload" id="fileToUpload">
-                                            <br><br>
+                                        <form action="" method="post">
+                                            <?php $AdminView->ReadEditPackages(); ?>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Editing Package">
+                                            <script>
+                                            document.getElementById("Packages-editing-dropdown").addEventListener("change",function(){
+                                                var res1=document.getElementById("Packages-editing-dropdown").value.split("&");
+                                                document.getElementById("packagetitle").value=res1[0];
+                                                document.getElementById("packagedays").value=res1[7];
+                                                document.getElementById("packagenights").value=res1[8];
+                                                document.getElementById("packagelimit").value=res1[1];
+                                                document.getElementById("packageprice").value=res1[2];
+                                                document.getElementById("date-start").value=res1[11];
+                                                document.getElementById("date-end").value=res1[9];
+                                                document.getElementById("packagedetails").value=res1[10];
+
+                                                if(res1[6]==" Full ")
+                                                {
+                                                    document.getElementById("full").checked=true;
+                                                    document.getElementById("half").checked=false;
+                                                }
+                                                else
+                                                {
+                                                    document.getElementById("full").checked=false;
+                                                    document.getElementById("half").checked=true;
+                                                }
+                                                
+                                                var inputsp = document.querySelectorAll('.checkp'); 
+                                                var valp=3;
+                                                for (var i = 0; i <= inputsp.length; i++) 
+                                                {
+                                                    if(res1[valp]==" TRUE ")
+                                                    { 
+                                                    inputsp[i].checked = true;
+                                                    }
+                                                    else
+                                                    {
+                                                    inputsp[i].checked=false;
+                                                    }
+                                                    valp++
+                                                } 
+                                                
+                                                
+
+                                                
+                                                
+                                                });
+                                                
+                                            </script>
                                         </form>  
                                     </div>
                                     <!-- end edit Package subsection   -->
@@ -610,10 +509,11 @@
                                         <h4 class="text-center">Suspend Pacakges</h4>
                                         <div id="checkboxes">
                                             <label>Select Packages To Be Suspended</label>
-                                            <ul>
+                                            <!-- <ul>
                                                 <li><input type="checkbox"> Cairo/Ain-Sokhna</li>
                                                 <li><input type="checkbox"> Luxor/Aswan</li>
-                                            </ul>
+                                            </ul> -->
+                                            <?php $AdminView->ReadSuspendPackages(); ?>
                                         </div>
                                         <br><br>
                                         <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">

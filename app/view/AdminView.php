@@ -18,6 +18,18 @@ class AdminView extends View
     public function ReadEditHotels(){
         $this->model->ReadEditHotelsSection();
     }
+
+    public function ReadSuspendHotels(){
+        $this->model->ReadSuspendHotelsSection();
+    }
+
+    public function ReadEditPackages(){
+        $this->model->ReadEditPackagesSection();
+    }
+
+    public function ReadSuspendPackages(){
+        $this->model->ReadSuspendPackagesSection();
+    }
 }
 
 ?>
