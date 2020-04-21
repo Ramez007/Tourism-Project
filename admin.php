@@ -509,10 +509,6 @@
                                         <h4 class="text-center">Suspend Pacakges</h4>
                                         <div id="checkboxes">
                                             <label>Select Packages To Be Suspended</label>
-                                            <!-- <ul>
-                                                <li><input type="checkbox"> Cairo/Ain-Sokhna</li>
-                                                <li><input type="checkbox"> Luxor/Aswan</li>
-                                            </ul> -->
                                             <?php $AdminView->ReadSuspendPackages(); ?>
                                         </div>
                                         <br><br>
@@ -568,46 +564,19 @@
                                     <div id="edit-event-sec">
                                         <h4 class="text-center">Edit Events</h4>
                                         <form action="">
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="events-editing-dropdown">Choose an event to edit</label>
-                                                <div class="col-sm-3">
-                                                    <select class="form-control" id="events-editing-dropdown">
-                                                        <option value="">Establishing The Company</option>
-                                                        <option value="">Our First Bus</option>
-                                                        <option value="">1st Anniversary of Speedo tours</option>
-                                                        <option value="">Ten Years Of Experince</option>
-                                                        <option value="">Entering The 21st Century</option>
-                                                        <option value="">Twenty Years Of Experince</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="editeventtitle">Edit Event Title</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" value="Establishing the company" id="editeventtitle" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="editeventmonth">Edit Event Month</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" value="sep" id="editeventmonth" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="editeventyear">Edit Event Year</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" value="1989" id="editeventyear" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="eventdetails">Edit Event Details</label>
-                                                <textarea rows="4" class="form-control" name="comment" form="usrform" placeholder="Enter text here"></textarea>
-                                            </div>
-                                            <br><br><br> Upload Photo of Event <br>
-                                            <input type="file" name="fileToUpload" id="fileToUpload">
-                                            <br><br>
+                                            <?php $AdminView->ReadEditEvents(); ?>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Editing Event">
+                                            <script>
+                                            document.getElementById("events-editing-dropdown").addEventListener("change",function(){
+                                                var res1=document.getElementById("events-editing-dropdown").value.split("&");
+                                                document.getElementById("editeventtitle").value=res1[0];
+                                                document.getElementById("editeventmonth").value=res1[1];
+                                                document.getElementById("editeventyear").value=res1[2];
+                                                document.getElementById("blogposttext").value=res1[3];
+                                                
+                                                });
+                                                
+                                            </script>
                                         </form>        
                                     </div>
                                     <!-- end edit event section -->
@@ -618,14 +587,7 @@
                                         <form action="">
                                             <div id="checkboxes">
                                                 <label for="deletevent">Select Events To Be Suspended</label>
-                                                <ul>
-                                                    <li><input type="checkbox"> Establishing The Company</li>
-                                                    <li><input type="checkbox"> Our First Bus</li>
-                                                    <li><input type="checkbox"> 1st Anniversary of Speedo tours</li>
-                                                    <li><input type="checkbox"> Ten Years Of Experince</li>
-                                                    <li><input type="checkbox"> Entering The 21st Century</li>
-                                                    <li><input type="checkbox"> Twenty Years Of Experince</li>
-                                                </ul>
+                                                <?php $AdminView->ReadSuspendEvents(); ?>
                                             </div>
                                             <br><br>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">

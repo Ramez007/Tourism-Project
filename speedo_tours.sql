@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2020 at 04:04 AM
+-- Generation Time: Apr 21, 2020 at 04:38 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -33,16 +33,17 @@ CREATE TABLE `blogposts` (
   `PostTitle` varchar(255) NOT NULL,
   `PostMonth` varchar(255) NOT NULL,
   `PostYear` varchar(255) NOT NULL,
-  `PostText` text NOT NULL
+  `PostText` text NOT NULL,
+  `Suspended` set('Enabled','Disabled') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `blogposts`
 --
 
-INSERT INTO `blogposts` (`PostID`, `PostTitle`, `PostMonth`, `PostYear`, `PostText`) VALUES
-(1, 'Establishing the company', 'SEP', '1989', 'Some Text'),
-(2, 'Our First Bus', 'OCT', '1989', 'Some Text');
+INSERT INTO `blogposts` (`PostID`, `PostTitle`, `PostMonth`, `PostYear`, `PostText`, `Suspended`) VALUES
+(1, 'Establishing the company', 'SEP', '1989', 'Some Text', 'Enabled'),
+(2, 'Our First Bus', 'OCT', '1989', 'Some Text 2', 'Disabled');
 
 -- --------------------------------------------------------
 

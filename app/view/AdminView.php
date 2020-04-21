@@ -30,6 +30,14 @@ class AdminView extends View
     public function ReadSuspendPackages(){
         $this->model->ReadSuspendPackagesSection();
     }
+
+    public function ReadEditEvents(){
+        $this->model->ReadEditEventsSection();
+    }
+
+    public function ReadSuspendEvents(){
+        $this->model->ReadSuspendEventsSection();
+    }
 }
 
 ?>

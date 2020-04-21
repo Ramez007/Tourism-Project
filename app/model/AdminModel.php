@@ -251,6 +251,71 @@ class Admin extends Employee {
 
     }
 
+    function ReadEditEventsSection()
+    {
+        $sql="SELECT PostTitle,PostMonth,PostYear,PostText From blogposts";
+        $Result = mysqli_query($this->db->getConn(),$sql);
+
+        $optionString = '';
+        while($row=$Result->fetch_assoc())
+        {
+          $optionString .= "<option value='".$row['PostTitle']." & ".$row['PostMonth']." & ".$row['PostYear']." & ".$row['PostText']."'>".$row["PostTitle"]."</option>";
+        }
+
+        $sql="SELECT PostTitle,PostMonth,PostYear,PostText From blogposts";
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        $row=$Result->fetch_assoc();
+
+
+        echo '<div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="events-editing-dropdown">Choose an event to edit</label>
+                <div class="col-sm-3">
+                    <select class="form-control" id="events-editing-dropdown">
+                    '.$optionString.'
+                    </select>
+                </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="editeventtitle">Edit Event Title</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" value="'.$row['PostTitle'].'" id="editeventtitle">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="editeventmonth">Edit Event Month</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" value="'.$row['PostMonth'].'" id="editeventmonth" >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="editeventyear">Edit Event Year</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" value="'.$row['PostYear'].'" id="editeventyear" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="eventdetails">Edit Event Details</label>
+                    <textarea rows="4" class="form-control" name="comment" id="blogposttext" form="usrform">'.$row['PostText'].'</textarea>
+                </div>
+                <br><br><br> Upload Photo of Event <br>
+                <input type="file" name="fileToUpload" id="fileToUpload">
+                <br><br>';
+    }
+
+    function ReadSuspendEventsSection()
+    {
+        $sql="SELECT PostTitle,Suspended From blogposts";
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        echo '<ul>';
+        while ($row=$Result->fetch_assoc()){
+
+            echo'<li><input type="checkbox" '.($row['Suspended']=="Enabled"?"checked":"").'>  ' .$row['PostTitle'].'</li>';
+        }
+        echo '<ul>';
+
+    }
+
     function AddHotel()
     {
                     //     $hotelname = $_POST["enterhotel"];
