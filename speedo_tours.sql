@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2020 at 09:12 PM
+-- Generation Time: Apr 22, 2020 at 09:24 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -37,12 +37,6 @@ CREATE TABLE `blogposts` (
   `PostText` text NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- RELATIONSHIPS FOR TABLE `blogposts`:
---   `EmployeeID`
---       `employees` -> `EmployeeID`
---
 
 -- --------------------------------------------------------
 
@@ -242,12 +236,6 @@ CREATE TABLE `inquiryhistory` (
   `Timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- RELATIONSHIPS FOR TABLE `inquiryhistory`:
---   `EmployeeID`
---       `employees` -> `EmployeeID`
---
-
 -- --------------------------------------------------------
 
 --
@@ -284,10 +272,6 @@ CREATE TABLE `newswire` (
   `Email` varchar(30) NOT NULL,
   `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONSHIPS FOR TABLE `newswire`:
---
 
 --
 -- Dumping data for table `newswire`
@@ -414,16 +398,6 @@ CREATE TABLE `reviews` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `reviews`:
---   `GuestID`
---       `guest` -> `GuestID`
---   `HotelID`
---       `hotel` -> `HotelID`
---   `PackageID`
---       `packages` -> `PackageID`
---
-
---
 -- Dumping data for table `reviews`
 --
 
@@ -487,12 +461,6 @@ CREATE TABLE `visits` (
   `VisitDay` int(11) NOT NULL,
   `PackageID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONSHIPS FOR TABLE `visits`:
---   `PackageID`
---       `packages` -> `PackageID`
---
 
 --
 -- Dumping data for table `visits`

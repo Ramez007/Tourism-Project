@@ -110,6 +110,28 @@
     </script>
   <?php
     session_start();
+    require_once("app/model/hotelmodel.php");
+    require_once("app/controller/HotelController.php");
+    require_once("app/view/HotelView.php");
+    $model=new Hotel();
+    $controller=new HotelController($model);
+    $controller->listhoteldata();
+    $hotelview=new HotelView($controller,$model);
+
+
+    require_once("app/model/AdminModel.php");
+    require_once("app/controller/AdminController.php");
+    require_once("app/view/AdminView.php");
+
+    $adminModel = new Admin();
+    $AdminController = new AdminController($adminModel);
+    $AdminView = new AdminView($AdminController,$adminModel);
+
+    if (isset($_POST['saveAddingHotel']))
+	{
+		$AdminController->Addhotel();
+	}
+
     ?>
 </head>
 <body>
@@ -129,23 +151,9 @@
                             <li>
                                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                                 <ul class="fh5co-sub-menu">
-                                    <li><a href="#">Steinberger Hotel</a></li>
-                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-                                    <li><a href="#">Isis Hotel</a></li>
-                                    <li><a href="#">Ibertol Hotel</a></li>
-                                    <li><a href="#">Sunset Hotel</a></li>
-                                    <!-- <li>
-                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                        <ul class="fh5co-sub-menu">
-                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <li><a href="#">Emilio Hotel</a></li> 
+                                    <?php
+                                    $hotelview->headerhotellist();
+                                    ?>  
                                 </ul>
                             </li>
                             <li><a href="services.php">Packages</a></li>
@@ -169,7 +177,7 @@
                                 echo "<li><a href='admin.php'>Admin page</a></li>";
                                 echo "<li><a href='logout.php'>Log Out</a></li>";
                             }
-                         
+                            
                         
                             ?> 
 
@@ -243,13 +251,12 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-md-12">
-                                    <h3>Pending Reservations</h3>
-                                    <span>Mr. Al pacino reserving Winter Palace for 1 single rooms from 18-9-2020 to 18-10-2020</span>
-                                    <button class="btn btn-primary mb-2" style="margin-left:20px;">Confirm Book</button>
-                                    <br>
-                                    <br>
-                                    <span>Mr. Karl Benz reserving Aswan/Luxor Pacakage (Pacakage ID: 12) for 2 double rooms</span>
-                                    <button class="btn btn-primary mb-2" style="margin-left:25px;">Confirm Book</button>
+                                    <h3 class="text-center">Pending Reservations</h3>
+                                    <h4>Hotels Pending Reservations</h4>
+                                    <?php $AdminView->output();?>
+                                    <h4>Packages Pending Reservations</h4>
+                                    <?php $AdminView->OutofPendingPackagesReservations();?>
+
 								</div>
 							</div>
 						</div>
@@ -267,28 +274,36 @@
                                     <!-- Add Hotel SubSection -->
                                     <div id="add-hotel-subsec">
                                         <h4 class="text-center">Add Hotel</h4>
-                                        <form action="">
+                                        <form action="" method="post">
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterhotel">Enter Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="enterhotel" placeholder="Hotel Name">
+                                                    <input type="text" class="form-control" name="enterhotel" placeholder="Hotel Name">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterlocation">Enter Hotel Location</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="enterlocation" placeholder="Hotel Name">
+                                                    <input type="text" class="form-control" name="enterlocation" placeholder="Hotel Name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" name="numberofrooms" placeholder="1">
                                                 </div>
                                             </div>
                                             <div id="checkboxes">
                                                 <label>Enter List of services offered by the hotel</label>
                                                 <ul>
-                                                    <li><input type="checkbox"> Wifi</li>
-                                                    <li><input type="checkbox"> Gym</li>
-                                                    <li><input type="checkbox"> Bar</li>
-                                                    <li><input type="checkbox"> Spa</li>
-                                                    <li><input type="checkbox"> Swimming Pool</li>
-                                                    <li><input type="checkbox"> Resturant</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Wifi"> Wifi</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Gym"> Gym</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Bar"> Bar</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Spa"> Spa</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Swimming Pool"> Swimming Pool</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Resturant"> Resturant</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Resort"> Resort</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Pets"> Pets</li>
                                                 </ul>
                                             </div>
                                             <div class="form-group">
@@ -296,11 +311,15 @@
                                                 <textarea class="form-control" id="hoteldescription" rows="4" name="comment" form="usrform" placeholder="Enter text here..."></textarea>
                                             </div>
                                             <div class="form-group">
+                                                <label for="hoteloverview">Enter Hotel Overview</label>
+                                                <textarea class="form-control" id="hoteloverview" rows="4" name="comment" form="usrform" placeholder="Enter text here..."></textarea>
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="fileToUpload">Upload Gallery of Hotel</label>
                                                 <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
                                             </div>
                                             <br><br>
-                                            <input class="btn btn-primary mb-2" type="submit" value="Save Hotel">
+                                            <input class="btn btn-primary mb-2" type="submit" name="saveAddingHotel" value="Save Hotel">
                                         </form>  
                                     </div>
                         <!-- end add hotel subsection   -->
@@ -310,58 +329,36 @@
                                     <!-- Edit Hotel Subsection -->
             
                                     <div id="edit-hotel-subsec">
-                                        <form action="">
+                                        <form action="" method="post">
                                             <h4 class="text-center">Edit Hotel</h4>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label" for="hotels-editing-dropdown">Choose Hotel To Edit</label>
-                                                <div class="col-sm-3">
-                                                    <select class="form-control form-control-sm" style="margin-left:-102px;" id="hotels-editing-dropdown">
-                                                        <option value="wph">Winter Palace</option>
-                                                        <option value="ih">Isis</option>
-                                                        <option value="sh">Steinberger</option>
-                                                        <option value="eh">Emilio</option>
-                                                        <option value="ibh">Iberotel</option>
-                                                        <option value="ssh">Sunset</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="edithotelname">Hotel Name</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="edithotelname" value="Winter Palace">
-                                                </div>
-                                            </div> 
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="edithotellocation">Hotel Location</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="edithotellocation" value="Luxor,Egypt">
-                                                </div>
-                                            </div>
-                                            <div id="checkboxes">
-                                                <label>Edit List of services offered by the hotel</label>
-                                                <ul>
-                                                    <li><input type="checkbox" checked> Wifi</li>
-                                                    <li><input type="checkbox" checked> Gym</li>
-                                                    <li><input type="checkbox" checked> Bar</li>
-                                                    <li><input type="checkbox" checked> Spa</li>
-                                                    <li><input type="checkbox" checked> Swimming Pool</li>
-                                                    <li><input type="checkbox" checked> Resturant</li>
-                                                </ul>
-                                            </div>
-                                            <br><br>
-                                            <div class="form-group">
-                                                <label for="edithoteldescription">Enter Hotel Description</label>
-                                                <textarea class="form-control" id="edithoteldescription" rows="15" name="comment" form="usrform">The Sofitel Winter Palace Hotel, also known as the Old Winter Palace Hotel, is a historic British colonial-era 5-star luxury resort hotel located on the banks of the River Nile in Luxor, Egypt, just south of Luxor Temple, with 86 rooms and 6 suites.
-                                                The hotel was built by the Upper Egypt Hotels Co, an enterprise founded in 1905 by Cairo hoteliers Charles Baehler and George Nungovich in collaboration with Thomas Cook & Son (Egypt). It was inaugurated on Saturday 19 January 1907, with a picnic at the Valley of the Kings followed by dinner at the hotel and speeches.[1] The architect was Leon Stienon, the Italian construction company G.GAROZZO & Figli Costruzioni in Cemento Armato, Sistema SIACCI brevettato. During World War I the hotel was temporarily closed to paying guests and employed as a hospice for convalescing soldiers. A regular guest at the hotel from 1907 on was George Herbert, 5th Earl of Carnarvon, better known simply as Lord Carnarvon. Carnarvon was the patron of Egyptologist Howard Carter, who in 1922 discovered the intact tomb of Tutankhamun. After the discovery was announced the Winter Palace played host to the international press corps and foreign visitors there to follow the story. Carter used the hotel's noticeboard to deliver occasional news and information on the discovery. In 1975 the complex was expanded with the construction of the New Winter Palace. The addition, classified as a 3-star hotel, was joined by corridors to the original. It was demolished in 2008. In 1996, the Pavillon, a 4-star annex with 116 rooms, was built in the rear garden of the Winter Palace, close to the swimming pool. The Pavillon shares many amenities with the Winter Palace, including the gardens, pools, tennis courts, terraces and restaurants. The hotel is owned by the Egyptian General Company for Tourism & Hotels ("EGOTH") of Egypt and managed by Accor, a French Hotel company, where it is part of the prime division Sofitel. The Hotel is featured on the exclusive Palace Hotels of the World. The Winter Palace has 5 restaurants. The 1886 Restaurant, which serves French cuisine, is named after the date the hotel inaccurately advertises that it was founded. It and the la Corniche Restaurant (international cuisine) are both located in the historic Palace wing. The Bougainvilliers (international cuisine) is in the Pavilion wing, while the Palmetto (Italian cuisine and snacks) and the El Tarboush (Egyptian cuisine) are in the garden close to the swimming pool.</textarea>
-                                            </div>
-                                            <a href="#">Show Gallery</a><br>
-                                            <div class="form-group">
-                                                <label for="fileToUpload">Upload Gallery of Hotel</label>
-                                                <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
-                                            </div>
-                                            <br><br>
+                                            <?php $AdminView->ReadEditHotels(); ?>
                                             <input class="btn btn-primary mb-2" type="submit" value="Save Editing Hotel">
+                                            <script>
+
+                                            document.getElementById("hotels-editing-dropdown").addEventListener("change",function(){
+                                                var res=document.getElementById("hotels-editing-dropdown").value.split("&");
+                                                document.getElementById("edithotelname").value=res[0];
+                                                document.getElementById("edithotellocation").value=res[1];
+                                                var inputs = document.querySelectorAll('.check'); 
+                                                var val=2;
+                                                for (var i = 0; i < inputs.length; i++) {
+                                                    if(res[val]==" TRUE ")
+                                                    { 
+                                                    inputs[i].checked = true;
+                                                    }
+                                                    else
+                                                    {
+                                                    inputs[i].checked=false;
+                                                    }
+                                                    val++
+                                                } 
+                                                document.getElementById("edithoteldescription").value=res[8];
+                                                document.getElementById("edithoteloverview").value=res[9];
+                                                
+                                                });
+                                                
+                                            
+                                            </script>
                                         </form>        
                                     </div>   
                         <!-- End Edit Hotel Subsection -->
@@ -371,14 +368,7 @@
                                         <h4 class="text-center">Suspend Hotels</h4>
                                         <div id="checkboxes">
                                             <label>Select Hotels To Suspended</label>
-                                            <ul>
-                                                <li><input type="checkbox"> Winter palace</li>
-                                                <li><input type="checkbox"> Isis</li>
-                                                <li><input type="checkbox"> Stienberger</li>
-                                                <li><input type="checkbox"> Iberotel</li>
-                                                <li><input type="checkbox"> Emilio</li>
-                                                <li><input type="checkbox"> Sunset</li>
-                                            </ul>
+                                            <?php $AdminView->ReadSuspendHotels(); ?>
                                         </div>
                                         <br><br>
                                         <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">
@@ -462,98 +452,54 @@
                                     <!-- Edit Package SubSection -->
                                     <div id="edit-package-subsec">
                                         <h4 class="text-center">Edit Package</h4>
-                                        <form action="">
-                                            <div class="form-group row">
-                                                <label style="margin-left:-275px" for="Packages-editing-dropdown">Choose a Pakage to edit:</label>
-                                                <div class="col-sm-3">
-                                                    <select class="form-control form-control-sm" style="margin-left:198px;"  id="Packages-editing-dropdown">
-                                                        <option value="">Cairo/Ain-Sokhna</option>
-                                                        <option value="">Luxor/Aswan</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagetitle">Edit Package Title</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="packagetitle" value="Cairo/Ain-Sokhna">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagedays">Edit Package Number of Days</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="packagedays" value="10">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagenights">Edit Package Number of Nights</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="packagenights" value="9">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagelimit">Edit Package Reserve Limit</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="packagelimit" value="100">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagelimit">Edit Package Total Price</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="packagelimit" value="5000">
-                                                </div>
-                                            </div>
-                                            <div class="input-field">
-                                                <label for="date-start">Start Date</label>
-                                                <input type="text" class="form-control" id="date-start" value="20/9/2020" />
-                                            </div>
-                                            <div class="input-field">
-                                                <label for="date-start">End Date</label>
-                                                <input type="text" class="form-control" id="date-start" value="20/10/2020" />
-                                            </div>
-                                            <div id="checkboxes">
-                                                <label>Edit List of services offered</label>
-                                                <ul>
-                                                    <li><input type="checkbox" checked> Transportation</li>
-                                                    <li><input type="checkbox" checked> Tour Guide</li>
-                                                    <li><input type="checkbox" checked> Tourist Map</li>
-                                                </ul>
-                                            </div>
-                                            <div class="boardtype">
-                                                <input type="radio" name="boardtype" value="fullboard" checked="checked"> Full Board <br>
-                                                <input type="radio" name="boardtype" value="halfboard"> Half Board<br>
-                                            </div>
-                                            
-                                            <label class="col-sm-4 col-form-label" for="packagedetails">Edit Package Visits/Details</label>
-                                            <textarea rows="15" class="form-control" id="packagedetails" name="comment" form="usrform">
-                                                Day 1: Cairo
-                                                Upon arrival at the Cairo International Airport, you will be greeted by a Travco representative and transferred by our deluxe coach to Cairo Marriott Hotel or similar for check in and overnight.
-
-                                                Day 2: Cairo
-                                                Enjoy a hearty breakfast at the hotel, before being transferred to Katameya Heights Golf Resort to enjoy one round of Golf (18 holes) and back. The remainder of the day can be spent. Overnight at the hotel.
-
-                                                Day 3: Cairo
-                                                Enjoy a hearty breakfast at the hotel, before being transferred to Dream Land Golf Resort to enjoy one round of Golf (18 holes) and back. Overnight at the hotel.
-
-                                                Day 4: Cairo
-                                                Enjoy a hearty Breakfast at hotel, and spend a free day at your own pace and leisure. Upon request, we can arrange for you a tour to the Great Pyramids of Giza or the Egyptian Museum. Overnight at hotel.
-
-                                                Day 5: Cairo | Ain Sokhna
-                                                Check out after breakfast at the hotel, then drive to Ain Sokhna (100km). Upon arrival, check-in hotel then prepare yourself to enjoy one round of Golf (18 holes) at Sokhna Golf Club. Overnight at the hotel.
-
-                                                Day 6: Ain Sokhna
-                                                Enjoy a hearty breakfast at the hotel, before playing one round of Golf (18 holes) at Sokhna Golf Club. Overnight at the hotel.
-
-                                                Day 7: Ain Sokhna | Cairo
-                                                Breakfast at the hotel. Enjoy one last round of Golf (18 holes) at Sokhna Golf Club. Check-out from hotel and drive back to Cairo. Upon arrival check-in hotel and overnight.
-
-                                                Day 8: Cairo
-                                                Check-out after breakfast and transfer to Cairo International Airport for final departure.
-                                            </textarea>                                                        
-                                            <br><br><br><a href="#">Show Gallery of Pacakage</a><br>
-                                            Update Gallery of Package <br>
-                                            <input type="file" name="fileToUpload" id="fileToUpload">
-                                            <br><br>
+                                        <form action="" method="post">
+                                            <?php $AdminView->ReadEditPackages(); ?>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Editing Package">
+                                            <script>
+                                            document.getElementById("Packages-editing-dropdown").addEventListener("change",function(){
+                                                var res1=document.getElementById("Packages-editing-dropdown").value.split("&");
+                                                document.getElementById("packagetitle").value=res1[0];
+                                                document.getElementById("packagedays").value=res1[7];
+                                                document.getElementById("packagenights").value=res1[8];
+                                                document.getElementById("packagelimit").value=res1[1];
+                                                document.getElementById("packageprice").value=res1[2];
+                                                document.getElementById("date-start").value=res1[11];
+                                                document.getElementById("date-end").value=res1[9];
+                                                document.getElementById("packagedetails").value=res1[10];
+
+                                                if(res1[6]==" Full ")
+                                                {
+                                                    document.getElementById("full").checked=true;
+                                                    document.getElementById("half").checked=false;
+                                                }
+                                                else
+                                                {
+                                                    document.getElementById("full").checked=false;
+                                                    document.getElementById("half").checked=true;
+                                                }
+                                                
+                                                var inputsp = document.querySelectorAll('.checkp'); 
+                                                var valp=3;
+                                                for (var i = 0; i <= inputsp.length; i++) 
+                                                {
+                                                    if(res1[valp]==" TRUE ")
+                                                    { 
+                                                    inputsp[i].checked = true;
+                                                    }
+                                                    else
+                                                    {
+                                                    inputsp[i].checked=false;
+                                                    }
+                                                    valp++
+                                                } 
+                                                
+                                                
+
+                                                
+                                                
+                                                });
+                                                
+                                            </script>
                                         </form>  
                                     </div>
                                     <!-- end edit Package subsection   -->
@@ -563,10 +509,7 @@
                                         <h4 class="text-center">Suspend Pacakges</h4>
                                         <div id="checkboxes">
                                             <label>Select Packages To Be Suspended</label>
-                                            <ul>
-                                                <li><input type="checkbox"> Cairo/Ain-Sokhna</li>
-                                                <li><input type="checkbox"> Luxor/Aswan</li>
-                                            </ul>
+                                            <?php $AdminView->ReadSuspendPackages(); ?>
                                         </div>
                                         <br><br>
                                         <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">
@@ -621,46 +564,19 @@
                                     <div id="edit-event-sec">
                                         <h4 class="text-center">Edit Events</h4>
                                         <form action="">
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="events-editing-dropdown">Choose an event to edit</label>
-                                                <div class="col-sm-3">
-                                                    <select class="form-control" id="events-editing-dropdown">
-                                                        <option value="">Establishing The Company</option>
-                                                        <option value="">Our First Bus</option>
-                                                        <option value="">1st Anniversary of Speedo tours</option>
-                                                        <option value="">Ten Years Of Experince</option>
-                                                        <option value="">Entering The 21st Century</option>
-                                                        <option value="">Twenty Years Of Experince</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="editeventtitle">Edit Event Title</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" value="Establishing the company" id="editeventtitle" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="editeventmonth">Edit Event Month</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" value="sep" id="editeventmonth" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="editeventyear">Edit Event Year</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" value="1989" id="editeventyear" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="eventdetails">Edit Event Details</label>
-                                                <textarea rows="4" class="form-control" name="comment" form="usrform" placeholder="Enter text here"></textarea>
-                                            </div>
-                                            <br><br><br> Upload Photo of Event <br>
-                                            <input type="file" name="fileToUpload" id="fileToUpload">
-                                            <br><br>
+                                            <?php $AdminView->ReadEditEvents(); ?>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Editing Event">
+                                            <script>
+                                            document.getElementById("events-editing-dropdown").addEventListener("change",function(){
+                                                var res1=document.getElementById("events-editing-dropdown").value.split("&");
+                                                document.getElementById("editeventtitle").value=res1[0];
+                                                document.getElementById("editeventmonth").value=res1[1];
+                                                document.getElementById("editeventyear").value=res1[2];
+                                                document.getElementById("blogposttext").value=res1[3];
+                                                
+                                                });
+                                                
+                                            </script>
                                         </form>        
                                     </div>
                                     <!-- end edit event section -->
@@ -671,14 +587,7 @@
                                         <form action="">
                                             <div id="checkboxes">
                                                 <label for="deletevent">Select Events To Be Suspended</label>
-                                                <ul>
-                                                    <li><input type="checkbox"> Establishing The Company</li>
-                                                    <li><input type="checkbox"> Our First Bus</li>
-                                                    <li><input type="checkbox"> 1st Anniversary of Speedo tours</li>
-                                                    <li><input type="checkbox"> Ten Years Of Experince</li>
-                                                    <li><input type="checkbox"> Entering The 21st Century</li>
-                                                    <li><input type="checkbox"> Twenty Years Of Experince</li>
-                                                </ul>
+                                                <?php $AdminView->ReadSuspendEvents(); ?>
                                             </div>
                                             <br><br>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">
@@ -699,14 +608,7 @@
                                         <form action="">
                                             <div id="checkboxes">
                                                 <label>Select Three Hotels To Be Feautred in Main Slider</label>
-                                                <ul>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox" checked> Winter palace</li>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox"> Isis</li>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox" checked> Stienberger</li>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox"> Iberotel</li>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox" checked> Emilio</li>
-                                                    <li><input class="single-checkbox" name="hotel" type="checkbox"> Sunset</li>
-                                                </ul>
+                                                <?php $AdminView->ReadMainSliderHotels(); ?>
                                             </div>
                                             <br><br>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
@@ -718,15 +620,8 @@
                                     <div id="edit-featured-hotels-section">
                                         <form action="">
                                             <div id="checkboxes">
-                                                <label>Select Three Hotels To Be Shown in Featured Hotels Section in Main Page</label>
-                                                <ul>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox" checked> Winter palace</li>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox"> Isis</li>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox" checked> Stienberger</li>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox"> Iberotel</li>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox" checked> Emilio</li>
-                                                    <li><input class="single-checkbox" name="fhotel" type="checkbox"> Sunset</li>
-                                                </ul>
+                                                <label>Select One Hotel To Be Shown in Featured Hotels Section's Header in Main Page</label>
+                                                <?php $AdminView->ReadFeaturedHotels(); ?>
                                             </div>
                                             <br><br>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
@@ -740,12 +635,8 @@
                                             <div id="checkboxes">
                                                 <label>Select Three Reviews To Be Shown in Reviews Section in Main Page</label>
                                                 <ul>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox" checked> Review 1</li>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox"> Review 2</li>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox" checked> Review 3</li>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox"> Review 4</li>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox" checked> Review 5</li>
-                                                    <li><input class="single-checkbox" name="review" type="checkbox"> Review 6</li>
+                                                    <?php $AdminView->ReadPReviews(); ?>
+                                                    <?php $AdminView->ReadHReviews(); ?>
                                                 </ul>
                                             </div>
                                             <br><br>
@@ -835,6 +726,8 @@
 
     <script>
         var limit = 4;
+        var limit2 = 3;
+        var limit3 = 2;
                 $('input.single-checkbox').on('change', function(evt) {
                 if($("input[name='hotel']:checked").length >= limit) {
                     this.checked = false;
@@ -842,13 +735,19 @@
                 });
 
                 $('input.single-checkbox').on('change', function(evt) {
-                if($("input[name='fhotel']:checked").length >= limit) {
+                if($("input[name='fhotel']:checked").length >= limit2) {
                     this.checked = false;
                 }
                 });
 
                 $('input.single-checkbox').on('change', function(evt) {
                 if($("input[name='review']:checked").length >= limit) {
+                    this.checked = false;
+                }
+                });
+
+                $('input.single-checkbox').on('change', function(evt) {
+                if($("input[name='headerhotel']:checked").length >= limit3) {
                     this.checked = false;
                 }
                 });

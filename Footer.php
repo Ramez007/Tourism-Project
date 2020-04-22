@@ -54,16 +54,16 @@
 		</div>
 
 		<?php
-            require_once("app/model/subscribe_to_news_wire_model.php");
-            require_once("app/controller/SubscibeController.php");
-            // require_once("app/view/susbcribeview.php");
-            $visitormodel = new subscribe();
-            $subscribecontrol = new SubscribeController($visitormodel);
-            // $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
-            if (isset($_POST['submitnews']))
-            {
-
-                $subscribecontrol->subscribe();
-                // $viewsuccess->output();
-            }
-        ?>
+			require_once("app/model/subscribe_to_news_wire_model.php");
+			require_once("app/controller/SubscibeController.php");
+			// require_once("app/view/susbcribeview.php");
+			$visitormodel = new subscribe();
+			$subscribecontrol = new SubscribeController($visitormodel);
+			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
+			if (isset($_POST['submitnews']))
+			{
+				
+				$subscribecontrol->subscribe();
+				// $viewsuccess->output();
+			}
+		?>

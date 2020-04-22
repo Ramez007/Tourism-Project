@@ -14,6 +14,10 @@ class GuestController extends Controller{
        public function Register(){
             $this->model->register();
        }
+       public function FetchProfileData($ID)
+       {
+         $this->model->GetProfileData($ID);
+       }
 
    }
 ?>

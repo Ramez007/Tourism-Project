@@ -75,7 +75,25 @@
 </head>
 <body>
 <?php
+
 session_start();
+require_once("app/model/package.php");
+require_once("app/controller/PackageController.php");
+require_once("app/view/PackageView.php");
+
+$Model = new Package();
+$Controller = new PackageController($Model);
+$Controller->ListPackageData();
+$View = new PackageView($Controller,$Model);
+
+require_once("app/model/hotelmodel.php");
+require_once("app/controller/HotelController.php");
+require_once("app/view/HotelView.php");
+$modelho=new Hotel();
+$controllerho=new HotelController($modelho);
+$controllerho->listhoteldata();
+$hotelview=new HotelView($controllerho,$modelho);
+
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -91,23 +109,9 @@ session_start();
                             <li>
                                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                                 <ul class="fh5co-sub-menu">
-                                    <li><a href="#">Steinberger Hotel</a></li>
-                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-                                    <li><a href="#">Isis Hotel</a></li>
-                                    <li><a href="#">Ibertol Hotel</a></li>
-                                    <li><a href="#">Sunset Hotel</a></li>
-                                    <!-- <li>
-                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                        <ul class="fh5co-sub-menu">
-                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <li><a href="#">Emilio Hotel</a></li> 
+									<?php
+									$hotelview->headerhotellist();
+									?> 
                                 </ul>
                             </li>
                             <li><a href="services.php">Packages</a></li>
@@ -165,79 +169,9 @@ session_start();
 	<div id="fh5co-hotel-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
-					<div class="hotel-content">
-						<div class="hotel-grid" style="background-image: url(images/abu-simble.jpg);">
-							<div class="price"><small>For as low as</small><span>$100/night</span></div>
-							<a class="book-now text-center" href="Single-Package.php"><i class="ti-calendar"></i> Book Now</a>
-						</div>
-						<div class="desc">
-							<h3><a href="Single-Package.php">Cairo/Abu Simble</a></h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="hotel-content">
-						<div class="hotel-grid" style="background-image: url(images/image-2.jpg);">
-							<div class="price"><small>For as low as</small><span>$100/night</span></div>
-							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
-						</div>
-						<div class="desc">
-							<h3><a href="#">Package Name</a></h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="hotel-content">
-						<div class="hotel-grid" style="background-image: url(images/image-3.jpg);">
-							<div class="price"><small>For as low as</small><span>$100/night</span></div>
-							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
-						</div>
-						<div class="desc">
-							<h3><a href="#">Package Name</a></h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="hotel-content">
-						<div class="hotel-grid" style="background-image: url(images/image-4.jpg);">
-							<div class="price"><small>For as low as</small><span>$100/night</span></div>
-							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
-						</div>
-						<div class="desc">
-							<h3><a href="#">Package Name</a></h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="hotel-content">
-						<div class="hotel-grid" style="background-image: url(images/image-5.jpg);">
-							<div class="price"><small>For as low as</small><span>$100/night</span></div>
-							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
-						</div>
-						<div class="desc">
-							<h3><a href="#">Package Name</a></h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="hotel-content">
-						<div class="hotel-grid" style="background-image: url(images/image-6.jpg);">
-							<div class="price"><small>For as low as</small><span>$100/night</span></div>
-							<a class="book-now text-center" href="#"><i class="ti-calendar"></i> Book Now</a>
-						</div>
-						<div class="desc">
-							<h3><a href="#">Package Name</a></h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						</div>
-					</div>
-				</div>
-
+				<?php
+				$View->output();
+				?>
 			</div>
 		</div>
 	</div>
