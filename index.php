@@ -74,10 +74,29 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	
 
 </head>
 <body>
-<?php session_start(); ?>
+<?php 
+session_start();
+require_once("app/model/mainpagemodel.php");
+require_once("app/controller/MainpageController.php");
+require_once("app/view/MainpageView.php");
+$pagemodel=new mainpage();
+$pagecontroller=new MainpageController($pagemodel);
+$pagecontroller->listhoteldata();
+$pageview=new MainpageView($pagecontroller,$pagemodel);
+
+require_once("app/model/hotelmodel.php");
+require_once("app/controller/HotelController.php");
+require_once("app/view/HotelView.php");
+$model=new Hotel();
+$controller=new HotelController($model);
+$controller->listhoteldata();
+$hotelview=new HotelView($controller,$model);
+
+?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
 	<div id="fh5co-header">
@@ -92,23 +111,7 @@
                             <li>
                                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                                 <ul class="fh5co-sub-menu">
-                                    <li><a href="#">Steinberger Hotel</a></li>
-                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-                                    <li><a href="#">Isis Hotel</a></li>
-                                    <li><a href="#">Ibertol Hotel</a></li>
-                                    <li><a href="#">Sunset Hotel</a></li>
-                                    <!-- <li>
-                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                        <ul class="fh5co-sub-menu">
-                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <li><a href="#">Emilio Hotel</a></li> 
+                                    <?php $hotelview->headerhotellist(); ?> 
                                 </ul>
                             </li>
                             <li><a href="services.php">Packages</a></li>
@@ -153,55 +156,7 @@
 	<aside id="fh5co-hero" class="js-fullheight">
 		<div class="flexslider js-fullheight">
 			<ul class="slides">
-		   	<li style="background-image: url(images/slider1.jpg);">
-		   		<div class="overlay-gradient"></div>
-		   		<div class="container">
-		   			<div class="col-md-12 col-md-offset-0 text-center slider-text">
-		   				<div class="slider-text-inner js-fullheight">
-		   					<div class="desc">
-		   						<p><span>Winter Palace Hotel</span></p>
-		   						<h2>Reserve Room for Family Vacation</h2>
-			   					<p>
-			   						<a href="single-hotel.php" class="btn btn-primary btn-lg">Book Now</a>
-			   					</p>
-		   					</div>
-		   				</div>
-		   			</div>
-		   		</div>
-		   	</li>
-		   	<li style="background-image: url(images/slider2.jpg);">
-		   		<div class="overlay-gradient"></div>
-		   		<div class="container">
-		   			<div class="col-md-12 col-md-offset-0 text-center slider-text">
-		   				<div class="slider-text-inner js-fullheight">
-		   					<div class="desc">
-		   						<p><span>Steinberger Hotel</span></p>
-		   						<h2>Make Your Vacation Comfortable</h2>
-			   					<p>
-			   						<a href="#" class="btn btn-primary btn-lg">Book Now</a>
-			   					</p>
-		   					</div>
-		   				</div>
-		   			</div>
-		   		</div>
-		   	</li>
-		   	<li style="background-image: url(images/slider3.jpg);">
-		   		<div class="overlay-gradient"></div>
-		   		<div class="container">
-		   			<div class="col-md-12 col-md-offset-0 text-center slider-text">
-		   				<div class="slider-text-inner js-fullheight">
-		   					<div class="desc">
-		   						<p><span>Emilio Hotel</span></p>
-		   						<h2>A Best Place To Enjoy Your Life</h2>
-			   					<p>
-			   						<a href="#" class="btn btn-primary btn-lg">Book Now</a>
-			   					</p>
-		   					</div>
-		   				</div>
-		   			</div>
-		   		</div>
-		   	</li>
-		   	
+		   	<?php $pageview->outputslider(); ?>
 		  	</ul>
 	  	</div>
 	</aside>
@@ -215,9 +170,7 @@
 							<section>
 								<select class="cs-select cs-skin-border">
 									<option value="" disabled selected>Select Hotel</option>
-									<option value="email">Steinberger Hotel</option>
-									<option value="twitter">Winter Palace Hotel</option>
-									<option value="linkedin">Isis Hotel</option>
+									<?php $pageview->output()?>
 								</select>
 							</section>
 						</div>
@@ -281,44 +234,15 @@
 
 			<div class="row">
 				<div class="feature-full-1col">
-					<div class="image" style="background-image: url(images/hotel_feture_1.jpg);">
-						<div class="descrip text-center">
-							<p><small>For as low as</small><span>$100/night</span></p>
-						</div>
-					</div>
-					<div class="desc">
-						<h3>Winter Palace Hotel</h3>
-						<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed. Vivamus augue enim, consectetur ac interdum a, pulvinar ac massa. Nullam malesuada congue </p>
-						<p><a href="single-hotel.php" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-					</div>
+					<?php
+					$pageview->outputfeatureheader();
+					?>
 				</div>
 
 				<div class="feature-full-2col">
-					<div class="f-hotel">
-						<div class="image" style="background-image: url(images/hotel_feture_2.jpg);">
-							<div class="descrip text-center">
-								<p><small>For as low as</small><span>$99/night</span></p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3>Steinberger Hotel</h3>
-							<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, 
-							in suscipit urna condimentum sed. </p>
-							<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-						</div>
-					</div>
-					<div class="f-hotel">
-						<div class="image" style="background-image: url(images/hotel_feture_3.jpg);">
-							<div class="descrip text-center">
-								<p><small>For as low as</small><span>$99/night</span></p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3>Isis Hotel</h3>
-							<p>Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed. </p>
-							<p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-						</div>
-					</div>
+					<?php
+					$pageview->outputdivs();
+					?>
 				</div>
 			</div>
 
@@ -496,30 +420,10 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
-					<div class="testimony">
-						<blockquote>
-							&ldquo;If you’re looking for a top quality hotel look no further. We were upgraded free of charge to the Premium Suite, thanks so much&rdquo;
-						</blockquote>
-						<p class="author"><cite>John Doe</cite></p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="testimony">
-						<blockquote>
-							&ldquo;Me and my wife had a delightful weekend get away here, the staff were so friendly and attentive. Highly Recommended&rdquo;
-						</blockquote>
-						<p class="author"><cite>Rob Smith</cite></p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="testimony">
-						<blockquote>
-							&ldquo;If you’re looking for a top quality hotel look no further. We were upgraded free of charge to the Premium Suite, thanks so much&rdquo;
-						</blockquote>
-						<p class="author"><cite>Jane Doe</cite></p>
-					</div>
-				</div>
+				<?php
+				$pagecontroller->listreviews();
+				$pageview->outputreviews();
+				?>
 			</div>
 		</div>
 	</div>

@@ -76,6 +76,13 @@
 <body>
 <?php
 session_start();
+require_once("app/model/hotelmodel.php");
+require_once("app/controller/HotelController.php");
+require_once("app/view/HotelView.php");
+$model=new Hotel();
+$controller=new HotelController($model);
+$controller->listhoteldata();
+$hotelview=new HotelView($controller,$model);
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -91,23 +98,9 @@ session_start();
                             <li>
                                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                                 <ul class="fh5co-sub-menu">
-                                    <li><a href="#">Steinberger Hotel</a></li>
-                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-                                    <li><a href="#">Isis Hotel</a></li>
-                                    <li><a href="#">Ibertol Hotel</a></li>
-                                    <li><a href="#">Sunset Hotel</a></li>
-                                    <!-- <li>
-                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                        <ul class="fh5co-sub-menu">
-                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <li><a href="#">Emilio Hotel</a></li> 
+									<?php
+									$hotelview->headerhotellist();
+									?>
                                 </ul>
                             </li>
                             <li><a href="services.php">Packages</a></li>
@@ -170,6 +163,7 @@ session_start();
 				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d898.8457523286523!2d32.63540162920065!3d25.69173989897926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1449156f94a96839%3A0x6517cf6d6f317332!2sSpeedo%20Tours!5e0!3m2!1sen!2seg!4v1583083785899!5m2!1sen!2seg" width="750" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 				</div>
 			</div>
+			<form action="" method="post">
 			<div class="col-md-6">
 				<div class="col-md-12">
 					<h3>Our Address</h3>
@@ -185,22 +179,22 @@ session_start();
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Name">
+								<input type="text" class="form-control" placeholder="Name" name="name" id="nameinquiry">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Email">
+								<input type="text" class="form-control" placeholder="Email" name="sendermail">
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-								<textarea name="" class="form-control" id="" cols="30" rows="7" placeholder="Message"></textarea>
+								<textarea class="form-control" id="" cols="30" rows="7" placeholder="Message" name="message" id="message"></textarea>
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-								<input type="submit" value="Send Message" class="btn btn-primary">
+								<button type="submit" value="Send Message" class="btn btn-primary" name="submitinquiry" id="submitinquiry"> Send Message </button>
 							</div>
 						</div>
 					</div>
@@ -208,9 +202,24 @@ session_start();
 			</div>
 		</div>
 	</div>
-	
+				</form>
 
 	<footer id="footer" class="fh5co-bg-color">
+	
+	<!-- writing and sending the inquiry start -->
+	<?php
+
+require_once("app/model/write_inquiries_model.php");
+	require_once("app/controller/inquiriesController.php");
+			// require_once("app/view/susbcribeview.php");
+			$inquirymodel = new writeinquiry();
+			$inquirycontroller = new inquiries_guest($inquirymodel);
+			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
+			if(isset($_POST['submitinquiry']))
+			$inquirycontroller->write_inquiries();
+
+?>
+	<!-- writing the and sending the inquiry end -->
 	<?php
 	include "Footer.php"
 	?>

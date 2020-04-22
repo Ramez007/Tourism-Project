@@ -73,35 +73,25 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 	<?php
-include_once "dbconnection.php";
-if (isset($_POST['Submit']))
-{
-	if ($_POST['SelecGender']=="0")
-	{
-		echo '<script>
-                        alert("Please Select a valid gender")
-                        </script>';
-	}
-	else{
-	$user=$_POST['UserName'];
-	$sql1="Select * from guest where Username='$user' ";
-	$res=mysqli_query($conn,$sql1);
-	$rowcount=mysqli_num_rows($res);
-	if ($rowcount<1){
-		$fname=$_POST['FirstName'];
-		$lname=$_POST['LastName'];
-		$email=$_POST['Email'];
-		$pass=$_POST['Password'];
-		$gend=$_POST['SelecGender'];
-		$sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password) VALUES('$fname','$lname','$gend','$email','$user','$pass');";
-		$result=mysqli_query($conn,$sql);
-		header("Location:Login.php");
-	}
-	else {echo '<script> alert("Username Already Exists")</script>';}
+		require_once("app/model/guest.php");
+		require_once("app/controller/GuestController.php");
+		// require_once("app/view/login_view.php");
+		$guestmodel = new Guest();
+		$guestcontrol = new GuestController($guestmodel);
+		// $loginview=new ViewLogin($usercontrol, $usermodel);
+		if (isset($_POST['Submit']))
+		{
+			$guestcontrol->register();
+		}
 
-	}
-}
-?>
+		require_once("app/model/hotelmodel.php");
+		require_once("app/controller/HotelController.php");
+		require_once("app/view/HotelView.php");
+		$model=new Hotel();
+		$controller=new HotelController($model);
+		$controller->listhoteldata();
+		$hotelview=new HotelView($controller,$model);
+	?>
 </head>
 <body>
 
@@ -119,23 +109,9 @@ if (isset($_POST['Submit']))
                             <li>
                                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                                 <ul class="fh5co-sub-menu">
-                                    <li><a href="#">Steinberger Hotel</a></li>
-                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-                                    <li><a href="#">Isis Hotel</a></li>
-                                    <li><a href="#">Ibertol Hotel</a></li>
-                                    <li><a href="#">Sunset Hotel</a></li>
-                                    <!-- <li>
-                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                        <ul class="fh5co-sub-menu">
-                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <li><a href="#">Emilio Hotel</a></li> 
+                                    <?php
+									$hotelview->headerhotellist();
+									?>
                                 </ul>
                             </li>
                             <li><a href="services.php">Packages</a></li>
@@ -144,7 +120,7 @@ if (isset($_POST['Submit']))
 							<li><a href="SignUp.php">Register</a></li>
 							<li><a href="Login.php">Login</a></li>
                         
-                            ?> 
+                            
 
                             
                         </ul>

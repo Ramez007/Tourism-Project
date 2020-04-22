@@ -119,6 +119,21 @@
 <body>
     <?php 
     session_start();
+    require_once("app/model/hotelmodel.php");
+    require_once("app/controller/HotelController.php");
+    require_once("app/view/HotelView.php");
+    $model=new Hotel();
+    $controller=new HotelController($model);
+    $controller->listhoteldata();
+    $hotelview=new HotelView($controller,$model);
+
+    require_once("app/model/guest.php");
+    require_once("app/controller/GuestController.php");
+    require_once("app/view/GuestView.php");
+    $GuestModel = new Guest();
+    $GuestController = new GuestController($GuestModel);
+    $GuestController->FetchProfileData($_SESSION['ID']);
+    $GuestView = new GuestView($GuestController,$GuestModel);
     ?>
     <div id="fh5co-wrapper">
         <div id="fh5co-page">
@@ -134,23 +149,9 @@
                             <li>
                                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                                 <ul class="fh5co-sub-menu">
-                                    <li><a href="#">Steinberger Hotel</a></li>
-                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-                                    <li><a href="#">Isis Hotel</a></li>
-                                    <li><a href="#">Ibertol Hotel</a></li>
-                                    <li><a href="#">Sunset Hotel</a></li>
-                                    <!-- <li>
-                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                        <ul class="fh5co-sub-menu">
-                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <li><a href="#">Emilio Hotel</a></li> 
+                                    <?php
+                                    $hotelview->headerhotellist();
+                                    ?>
                                 </ul>
                             </li>
                             <li><a href="services.php">Packages</a></li>
@@ -222,7 +223,12 @@
                             </a>
                         </nav>
                         <div class="tab-content-container">
-                            <div class="tab-content active show" data-tab-content="tab1" id="tab1">
+                            <?php
+                            $GuestView -> output();
+                            ?>
+                            <!-- Pesonal data -->
+
+                            <!-- <div class="tab-content active show" data-tab-content="tab1" id="tab1">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -242,8 +248,16 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-content" data-tab-content="tab2" id="tab2">
+                            </div> -->
+
+                            <!-- end of Pesonal data -->
+
+                            <?php
+                            $GuestView -> HistoryOutput();
+                            ?>
+                            <!-- History -->
+
+                            <!-- <div class="tab-content" data-tab-content="tab2" id="tab2">
                                 <div class="container">
                                     <h2>Past reservations</h2>
                                     <table class="table table-hover">
@@ -265,7 +279,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div> -->
+
+                            <!-- end of History -->
+
                             <div class="tab-content" data-tab-content="tab3" id="tab3">
                                 <div class="container">
                                     <h2>Asked questions</h2>
@@ -324,9 +341,6 @@
                     </div>
                 </div>    
             </div>
-
-
-
             <footer id="footer" class="fh5co-bg-color">
                 <?php
     include "Footer.php"

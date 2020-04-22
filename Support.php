@@ -75,7 +75,25 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+        function hide(jquery) {
+            var idarr = ["tab1", "tab2","tab3","tab4","tab5","tab6"];
+            var count = 0;
+
+            for (var i = 0; i < idarr.length; i++) {
+                var l = document.getElementById(idarr[count] + '');
+                l.style.display = "none";
+                count++;
+            }
+        }
+
+    $(document).ready(hide);
+	
+    </script>
+
 	<script>
+	
         function ShowTab(y) {
             var idarr = ["tab1", "tab2"]
 
@@ -95,11 +113,34 @@
         }
 
     </script>
+	
 </head>
 <body>
 	<?php
 	session_start();
+
+	
 	?>
+	<!-- php for mailling -->
+<?php
+
+require_once("app/model/Support_model.php");
+	require_once("app/controller/SupportController.php");
+	require_once("app/view/supportview.php");
+			// require_once("app/view/susbcribeview.php");
+			$support_operatormodel = new support_operator();
+			$suport_operatorcontroller = new Support_operatorController($support_operatormodel);
+			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
+			if(isset($_POST['submitnewwire']))
+			$suport_operatorcontroller->Send_newwire();
+			if(isset($_POST['submitreply']))
+			$suport_operatorcontroller->Reply_to_Inquiry();
+			
+			$suport_operatorcontroller->FetchInquiries();
+			$supportview=new supportview($suport_operatorcontroller,$support_operatormodel);
+
+?>
+<!-- php for mailling end -->
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
 	<div id="fh5co-header">
@@ -210,21 +251,39 @@
 							<div class="row">
 								<div class="col-md-12">
 									<h3 class="heading">Replying To Inquiry</h3>
-									<form action="" method="post">
+									<!-- first form start--><form action="" method="post">
                                      <div class="form-group">
                                         <label for=Emails>Please select an email to write reply to </label>
-                                    <select id="Emails" class="form-control" name="email">
-                                        <option value="Email 1">Ramez1700124@miuegypt.edu.eg</option>
-                                        <option value="Email 2">Khaled1701294@miuegypt.edu.eg</option>
-                                        <option value="Email 3">Ahmed1700299@miuegypt.edu.eg</option>
-                                        <option value="Email 4">Nour179123@miuegypt.edu.eg</option>
+                                    <select id="Emails" class="form-control" name="emailinquiry">
+        
+										<?php 
+										$supportview->output();
+										?>
+                                        
+										
+
                                     </select> 
                                     </div>
+										<script>
+											
 
+											document.getElementById("Emails").addEventListener("change",function(){
+												document.getElementById("staticEmail2").value=document.getElementById("Emails").value.split("&").pop();
+											});
+											
+
+											function change(jQuery)
+											{
+												$("#staticEmail2").val()=$("#Emails").val();
+											}
+											$(document).ready(change);
+										
+										</script>
                                     <div class="form-group">
-                                    <label for="staticinquiry">User's Inquiry</label>
-                                    <input type="text" readonly class="form-control " id="staticEmail2" value="I would like to ask if you like this form please submit your answer quickly">
-                                    </div>
+									<label for="staticinquiry">User's Inquiry</label>
+									
+									<?php $supportview->output2();?>                                    
+								</div>
 
                                     <div class="form-group">
                                     <textarea class="form-control form-control-lg" id="Reply" placeholder="Please write your reply..." name="reply" rows="5"cols="20"></textarea>
@@ -233,8 +292,8 @@
 									<p class="service-hour">
 										<span>Submit reply</span>
                                     </p>
-									<button type="submit" class="btn btn-primary mb-2">Submit</button>
-                                    </form>
+									<button type="submit" class="btn btn-primary mb-2" name="submitreply">Submit</button>
+                                    <!-- first form end--></form>
 								</div>
 							</div>
 						</div>
@@ -244,7 +303,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<h3 class="heading">Send NewsWire</h3>
-									<form action="" method="post">
+									<!-- second form--><form action="" method="post"> 
                                     <div class="form-group">
                                     <textarea class="form-control form-control-lg" id="news" placeholder="Please write news to be sent to all subscribed mails" name ="news"rows="10"></textarea>
                                     </div>
@@ -252,8 +311,8 @@
 									<p class="service-hour">
 										<span>Send news</span>
                                     </p>
-									<button type="submit" class="btn btn-primary mb-2">Send</button>
-                                    </form>
+									<button type="submit" class="btn btn-primary mb-2" id="submitnewwire" name="submitnewwire">Send</button>
+                                   <!-- Second form end--> </form>
 								</div>
 							</div>
 						</div>
@@ -266,13 +325,14 @@
 	
 
 
-
+ 
 	<footer id="footer" class="fh5co-bg-color">
 	<?php
-	include "Footer.php"
+	include "Footer.php";
 	?>
 		
 	</footer>
+
 
 	</div>
 	<!-- END fh5co-page -->
@@ -304,6 +364,7 @@
 	<script src="js/jquery.flexslider-min.js"></script>
 
 	<script src="js/custom.js"></script>
+	
 
 </body>
 </html>

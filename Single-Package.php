@@ -121,6 +121,32 @@
 <body>
 <?php
 session_start();
+require_once("app/model/hotelmodel.php");
+require_once("app/controller/HotelController.php");
+require_once("app/view/HotelView.php");
+$model=new Hotel();
+$controller=new HotelController($model);
+$controller->listhoteldata();
+$hotelview=new HotelView($controller,$model);
+
+
+require_once("app/model/package.php");
+require_once("app/controller/PackageController.php");
+require_once("app/view/PackageView.php");
+
+$PKModel = new Package();
+$PkController = new PackageController($PKModel);
+$PkController->ListSinglePackage($_GET['action']);
+$PkController->ListPackageServices($_GET['action']);
+$PKView = new PackageView($PkController,$PKModel);
+
+require_once("app/model/singlehotelmodel.php");
+require_once("app/controller/singlehotelcontroller.php");
+require_once("app/view/singlehotelview.php");
+$pagemodel=new singlehotelmodel($PKModel->GetHotelName());
+$pagecontroller=new singlehotelcontroller($pagemodel);
+$pagecontroller->listhoteldata();
+$pageview=new singlehotelview($pagecontroller,$pagemodel);
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -136,23 +162,9 @@ session_start();
                             <li>
                                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                                 <ul class="fh5co-sub-menu">
-                                    <li><a href="#">Steinberger Hotel</a></li>
-                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-                                    <li><a href="#">Isis Hotel</a></li>
-                                    <li><a href="#">Ibertol Hotel</a></li>
-                                    <li><a href="#">Sunset Hotel</a></li>
-                                    <!-- <li>
-                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                        <ul class="fh5co-sub-menu">
-                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <li><a href="#">Emilio Hotel</a></li> 
+                                    <?php
+									$hotelview->headerhotellist();
+									?>
                                 </ul>
                             </li>
                             <li><a href="services.php">Packages</a></li>
@@ -200,7 +212,7 @@ session_start();
 			<div class="row">
 				<div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
 					<div class="fh5co-intro fh5co-table-cell">
-						<h1 class="text-center">Cairo/Abu-Simble Package</h1>
+						<h1 class="text-center"><?php echo ''.$PKView->PackageHeader().'' ?></h1>
 					</div>
 				</div>
 			</div>
@@ -262,38 +274,15 @@ session_start();
                 </nav>
                 <div class="tab-content-container">
 					<div class="tab-content active show" id="tab1" data-tab-content="tab1">
-						<div class="container">
-							<div class="row">
-								<div class="col-md-12">
-									<h4> a brief description on package 1  include visits , information about the hotel,cruise including cruise name and the landmarks </h4>
-									
-								</div>
-								<div class="services"style="top: 12px;">
-									<span style="margin-bottom:20px;top: 39px;"><img id="News" src="images\sun.png" width="50" height="50"style="margin-bottom:20px"></span>
-                                        <div class="desc"> Number of days:</div>
-									</div>
-									<div class="services">
-									<span style="margin-bottom:20px;top: 5px;"><img id="News" src="images\moon.png" width="50" height="50"style="margin-bottom:40px"></span>
-                                        <div class="desc"style=""> number of nights:</div>
-									</div>
-									<div class="services">
-									<span style="margin-bottom:20px;top: 5px;"><img id="News" src="images\city.png" width="50" height="50"style="margin-bottom:40px"></span>
-										<div class="desc" style="margin-top: 0px;padding-top: 30px;"> cities:</div>
-									</div>
-									<div class="services">
-									<span><img id="News" src="images\dollar.png" width="50" height="50"style="margin-bottom:40px"></span>
-                                        <div class="desc"style="padding-top: 45px;"> Basic cost:</div>
-									</div>
-							</div>
-						</div>
+<!-- Details --><?php $PKView->DetailsOutput(); ?>
 					</div>
 					<div class="tab-content" id="tab2" data-tab-content="tab2">
 						<div class="container">
 							<div class="row">
 								<div class="col-md-12">
 									<h3 class="heading">Hotel includes</h3>
-                                    
-                                    <div class="services">
+                                    <?php $pageview->outputservices(); ?>
+                                    <!-- <div class="services">
                                         <span><i class="ti-rss-alt"></i></span>
                                         <div class="desc"> Wifi</div>
                                     </div>
@@ -321,9 +310,10 @@ session_start();
                                     <div class="services">
                                         <span><i class="flaticon-restaurant icon"></i></span>
 										<div class="desc" >Resturant</div>
-									</div>
+									</div> -->
 									<h3 class="heading">Cruise includes</h3>
-									<div class="services">
+									<?php $PKView->CruiseServicesOutput(); ?>
+									<!-- <div class="services">
                                         <span><i class="ti-medall"></i></span>
 										<div class="desc" >Pets</div>
 									</div>
@@ -334,7 +324,7 @@ session_start();
 									<div class="services">
                                         <span><i class="ti-shine"></i></span>
 										<div class="desc" >Sunbathing</div>
-									</div>
+									</div> -->
 
 									<a href="single-hotel.php" style="color:orangered"><b>hotel/cruise details here</b></a>
 								</div>

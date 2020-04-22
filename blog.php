@@ -76,6 +76,23 @@
 <body>
 <?php
 session_start();
+
+require_once("app/model/blogpost.php");
+require_once("app/controller/BlogController.php");
+require_once("app/view/BlogView.php");
+
+$Model = new BlogPost();
+$Controller = new BlogController($Model);
+$Controller->ListBlogPosts();
+$View = new BlogView($Controller,$Model);
+
+require_once("app/model/hotelmodel.php");
+require_once("app/controller/HotelController.php");
+require_once("app/view/HotelView.php");
+$modelhotel=new Hotel();
+$controllerhotel=new HotelController($modelhotel);
+$controllerhotel->listhoteldata();
+$hotelview=new HotelView($controllerhotel,$modelhotel);
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -91,23 +108,9 @@ session_start();
                             <li>
                                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                                 <ul class="fh5co-sub-menu">
-                                    <li><a href="#">Steinberger Hotel</a></li>
-                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-                                    <li><a href="#">Isis Hotel</a></li>
-                                    <li><a href="#">Ibertol Hotel</a></li>
-                                    <li><a href="#">Sunset Hotel</a></li>
-                                    <!-- <li>
-                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                        <ul class="fh5co-sub-menu">
-                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <li><a href="#">Emilio Hotel</a></li> 
+									<?php
+									$hotelview->headerhotellist();
+									?> 
                                 </ul>
                             </li>
                             <li><a href="services.php">Packages</a></li>
@@ -165,79 +168,9 @@ session_start();
 	<div id="fh5co-blog-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-1.jpg);">
-						<div class="date text-center">
-							<span>Sep</span>
-							<small>1989</small>
-						</div>
-					</div>
-					<div class="desc desc-blog">
-						<h3><a href="#">Establishing The Company</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-2.jpg);">
-						<div class="date text-center">
-							<span>Oct</span>
-							<small>1989</small>
-						</div>
-					</div>
-
-					<div class="desc desc-blog">
-						<h3><a href="#">Our First Bus</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-3.jpg);">
-						<div class="date text-center">
-							<span>Sep</span>
-							<small>1990</small>
-						</div>
-					</div>
-					<div class="desc desc-blog">
-						<h3><a href="#">1st Anniversary of Speedo tours</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-4.jpg);">
-						<div class="date text-center">
-							<span>Sep</span>
-							<small>1999</small>
-						</div>
-					</div>
-					<div class="desc desc-blog">
-						<h3><a href="#">Ten Years Of Experince</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-5.jpg);">
-						<div class="date text-center">
-							<span>Jan</span>
-							<small>2000</small>
-						</div>
-					</div>
-					<div class="desc desc-blog">
-						<h3><a href="#">Entering The 21st Century</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="blog-grid" style="background-image: url(images/image-6.jpg);">
-						<div class="date text-center">
-							<span>Sep</span>
-							<small>2009</small>
-						</div>
-					</div>
-					<div class="desc desc-blog">
-						<h3><a href="#">Twenty Years Of Experince</a></h3>
-						<p>Some Text</p>
-					</div>
-				</div>
+				<?php
+				$View->output();
+				?>
 			</div>
 		</div>
 	</div>

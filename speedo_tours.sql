@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2020 at 01:44 AM
+-- Generation Time: Apr 22, 2020 at 09:24 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -25,11 +25,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `blogposts`
+--
+
+CREATE TABLE `blogposts` (
+  `PostID` int(11) NOT NULL,
+  `EmployeeID` int(11) NOT NULL,
+  `PostTitle` varchar(255) NOT NULL,
+  `PostMonth` varchar(255) NOT NULL,
+  `PostYear` varchar(255) NOT NULL,
+  `PostText` text NOT NULL,
+  `Suspended` set('Enabled','Disabled') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cruise`
 --
 
 CREATE TABLE `cruise` (
   `CruiseID` int(11) NOT NULL,
+  `PackageID` int(11) NOT NULL,
   `CruiseName` varchar(30) NOT NULL,
   `NumberofCabins` int(11) NOT NULL,
   `Captain` varchar(50) NOT NULL,
@@ -41,11 +58,18 @@ CREATE TABLE `cruise` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELATIONSHIPS FOR TABLE `cruise`:
+--   `PackageID`
+--       `packages` -> `PackageID`
+--
+
+--
 -- Dumping data for table `cruise`
 --
 
-INSERT INTO `cruise` (`CruiseID`, `CruiseName`, `NumberofCabins`, `Captain`, `Pets`, `Fishing`, `SunBathing`, `Pool`, `Suspended`) VALUES
-(1, 'RMS Titanic', 2, 'Edward Smith', 'TRUE', 'TRUE', '', 'TRUE', 'Enabled');
+INSERT INTO `cruise` (`CruiseID`, `PackageID`, `CruiseName`, `NumberofCabins`, `Captain`, `Pets`, `Fishing`, `SunBathing`, `Pool`, `Suspended`) VALUES
+(2, 3, 'RMS Dauntless', 250, 'Edward Smith', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'Disabled'),
+(3, 4, 'RMS Titanic', 300, 'John Doe', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'Disabled');
 
 -- --------------------------------------------------------
 
@@ -62,6 +86,10 @@ CREATE TABLE `employees` (
   `Password` varchar(60) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `employees`:
+--
 
 --
 -- Dumping data for table `employees`
@@ -83,6 +111,14 @@ CREATE TABLE `gallery` (
   `HotelId` int(11) DEFAULT NULL,
   `picture` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `gallery`:
+--   `PackageId`
+--       `packages` -> `PackageID`
+--   `HotelId`
+--       `hotel` -> `HotelID`
+--
 
 -- --------------------------------------------------------
 
@@ -108,6 +144,10 @@ CREATE TABLE `guest` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELATIONSHIPS FOR TABLE `guest`:
+--
+
+--
 -- Dumping data for table `guest`
 --
 
@@ -126,28 +166,36 @@ CREATE TABLE `hotel` (
   `Name` varchar(30) NOT NULL,
   `NumberofRooms` int(11) NOT NULL,
   `overview` varchar(140) NOT NULL,
-  `description` varchar(500) NOT NULL,
+  `description` mediumtext NOT NULL,
   `WiFI` set('TRUE','FALSE') NOT NULL,
-  `Swimming Pool` set('TRUE','FALSE') NOT NULL,
-  `RESORT` set('TRUE','FALSE') NOT NULL,
-  `GYM` set('TRUE','FALSE') NOT NULL,
+  `Swimming_Pool` set('TRUE','FALSE') NOT NULL,
+  `Spa` set('TRUE','FALSE') NOT NULL,
+  `Gym` set('TRUE','FALSE') NOT NULL,
+  `Bar` set('TRUE','FALSE') NOT NULL,
+  `Restaurant` set('TRUE','FALSE') NOT NULL,
   `Full_Board` set('TRUE','FALSE') NOT NULL,
   `Half_Board` set('TRUE','FALSE') NOT NULL,
   `Pets` set('TRUE','FALSE') NOT NULL,
   `featured` set('feature','header','false') NOT NULL DEFAULT 'false',
-  `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
+  `FeaturedMainSilder` set('TRUE','FALSE') NOT NULL,
+  `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
+  `location` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `hotel`:
+--
 
 --
 -- Dumping data for table `hotel`
 --
 
-INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming Pool`, `RESORT`, `GYM`, `Full_Board`, `Half_Board`, `Pets`, `featured`, `Suspended`) VALUES
-(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'header', 'Enabled'),
-(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'feature', 'Enabled'),
-(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled'),
-(5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled'),
-(6, 'testo hotelo', 3999, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'Enabled');
+INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming_Pool`, `Spa`, `Gym`, `Bar`, `Restaurant`, `Full_Board`, `Half_Board`, `Pets`, `featured`, `FeaturedMainSilder`, `Suspended`, `location`) VALUES
+(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', 'Rtiz is in france', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'header', 'TRUE', 'Disabled', 'Paris,France'),
+(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'feature', 'TRUE', 'Disabled', 'Luxor,Egypt'),
+(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'feature', 'TRUE', 'Enabled', 'Luxor,Egypt'),
+(5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Disabled', 'London,England'),
+(6, 'testo hotelo', 3999, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Disabled', 'Havana,Cuba');
 
 -- --------------------------------------------------------
 
@@ -157,19 +205,36 @@ INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `descriptio
 
 CREATE TABLE `inquiries` (
   `InquiryID` int(11) NOT NULL,
-  `EmployeeID` int(11) DEFAULT NULL,
-  `Name` varchar(12) NOT NULL,
+  `Author` varchar(12) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `Inquiry` varchar(600) NOT NULL,
   `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELATIONSHIPS FOR TABLE `inquiries`:
+--
+
+--
 -- Dumping data for table `inquiries`
 --
 
-INSERT INTO `inquiries` (`InquiryID`, `EmployeeID`, `Name`, `Email`, `Inquiry`, `TimeStamp`) VALUES
-(1, 3, 'Robert', 'test@valid', 'some text', '2020-03-16 19:52:30');
+INSERT INTO `inquiries` (`InquiryID`, `Author`, `Email`, `Inquiry`, `TimeStamp`) VALUES
+(1, 'Robert', 'test@valid', 'some text', '2020-03-16 19:52:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inquiryhistory`
+--
+
+CREATE TABLE `inquiryhistory` (
+  `InquiryID` int(11) NOT NULL,
+  `EmployeeID` int(11) NOT NULL,
+  `Inquiry` text NOT NULL,
+  `reply` text NOT NULL,
+  `Timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -182,6 +247,12 @@ CREATE TABLE `languages` (
   `Employee ID` int(11) NOT NULL,
   `LanguageName` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `languages`:
+--   `Employee ID`
+--       `employees` -> `EmployeeID`
+--
 
 --
 -- Dumping data for table `languages`
@@ -198,29 +269,38 @@ INSERT INTO `languages` (`LanguageID`, `Employee ID`, `LanguageName`) VALUES
 
 CREATE TABLE `newswire` (
   `ID` int(11) NOT NULL,
-  `Email` varchar(30) NOT NULL
+  `Email` varchar(30) NOT NULL,
+  `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `newswire`
 --
 
-INSERT INTO `newswire` (`ID`, `Email`) VALUES
-(1, '');
+INSERT INTO `newswire` (`ID`, `Email`, `TimeStamp`) VALUES
+(2, 'ahmed.mahdy1899@gmail.com', '2020-04-22 18:16:21'),
+(3, 'Ramez1700124@miuegypt.edu.eg', '2020-04-22 18:16:21');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `newwirehistory`
+-- Table structure for table `newswirehistory`
 --
 
-CREATE TABLE `newwirehistory` (
-  `ArticleID` int(11) DEFAULT NULL,
+CREATE TABLE `newswirehistory` (
+  `MessageID` int(11) NOT NULL,
   `EmployeeID` int(11) NOT NULL,
-  `ArticleName` varchar(300) NOT NULL,
-  `Article` text NOT NULL,
-  `NewWireID` int(11) NOT NULL
+  `Message` text NOT NULL,
+  `Email` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `newswirehistory`:
+--   `EmployeeID`
+--       `employees` -> `EmployeeID`
+--   `Email`
+--       `newswire` -> `Email`
+--
 
 -- --------------------------------------------------------
 
@@ -232,24 +312,34 @@ CREATE TABLE `packages` (
   `PackageID` int(11) NOT NULL,
   `PackageName` varchar(60) NOT NULL,
   `ReserveLimit` int(11) NOT NULL,
-  `CruiseID` int(11) DEFAULT NULL,
   `HotelID` int(11) DEFAULT NULL,
   `Price` int(11) NOT NULL,
-  `TourGuideID` int(11) DEFAULT NULL,
+  `TourGuide` set('TRUE','FALSE') DEFAULT NULL,
   `Transportation` set('TRUE','FALSE') NOT NULL,
+  `TouristMap` set('TRUE','FALSE') NOT NULL,
+  `BoardType` set('Full','Half') NOT NULL,
   `NumberofDays` int(11) NOT NULL,
   `NumberofNights` int(11) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
-  `DateIn` int(11) NOT NULL,
-  `DateOut` int(11) NOT NULL
+  `DateIn` timestamp NOT NULL DEFAULT current_timestamp(),
+  `DateOut` timestamp NOT NULL DEFAULT current_timestamp(),
+  `Overview` text NOT NULL,
+  `Description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `packages`:
+--   `HotelID`
+--       `hotel` -> `HotelID`
+--
 
 --
 -- Dumping data for table `packages`
 --
 
-INSERT INTO `packages` (`PackageID`, `PackageName`, `ReserveLimit`, `CruiseID`, `HotelID`, `Price`, `TourGuideID`, `Transportation`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`) VALUES
-(3, 'Rome/Milano', 40, 1, 1, 500, 3, 'TRUE', 50, 51, '', 21, 12);
+INSERT INTO `packages` (`PackageID`, `PackageName`, `ReserveLimit`, `HotelID`, `Price`, `TourGuide`, `Transportation`, `TouristMap`, `BoardType`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`, `Overview`, `Description`) VALUES
+(3, 'Rome/Milano', 40, 1, 500, 'FALSE', 'TRUE', 'TRUE', 'Half', 5, 4, 'Disabled', '2020-04-14 22:00:00', '2020-04-29 22:00:00', 'Rome/Milano package overview to test out the first stage', 'Testing Rome'),
+(4, 'Around Europe', 100, 5, 1000, 'TRUE', 'FALSE', 'FALSE', 'Full', 10, 11, 'Enabled', '2020-04-21 22:00:00', '2020-05-05 22:00:00', 'Testing overview', 'Testing europe');
 
 -- --------------------------------------------------------
 
@@ -264,16 +354,33 @@ CREATE TABLE `reserves` (
   `HotelId` int(11) DEFAULT NULL,
   `NoofChildren` int(11) NOT NULL,
   `NoofAdults` int(11) NOT NULL,
-  `Date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
+  `DateIn` timestamp NOT NULL DEFAULT current_timestamp(),
+  `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
+  `DateOut` timestamp NULL DEFAULT NULL,
+  `NoOfSingleRooms` int(11) NOT NULL,
+  `NoOfDoubleRooms` int(11) NOT NULL,
+  `NoOfTripleRooms` int(11) NOT NULL,
+  `NoOfSuits` int(11) NOT NULL,
+  `BoardType` set('Full','Half') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `reserves`:
+--   `GuestId`
+--       `guest` -> `GuestID`
+--   `HotelId`
+--       `hotel` -> `HotelID`
+--   `PackageId`
+--       `packages` -> `PackageID`
+--
 
 --
 -- Dumping data for table `reserves`
 --
 
-INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `Date`, `Suspended`) VALUES
-(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Enabled');
+INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`) VALUES
+(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Enabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Full'),
+(2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Enabled', NULL, 3, 1, 1, 1, 'Half');
 
 -- --------------------------------------------------------
 
@@ -286,8 +393,19 @@ CREATE TABLE `reviews` (
   `GuestID` int(11) DEFAULT NULL,
   `PackageID` int(11) DEFAULT NULL,
   `HotelID` int(11) DEFAULT NULL,
-  `Review` text NOT NULL
+  `Review` text NOT NULL,
+  `Featured` set('TRUE','FALSE') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`ReviewID`, `GuestID`, `PackageID`, `HotelID`, `Review`, `Featured`) VALUES
+(1, 1, 3, NULL, 'I Was Happy to visit Egypt with Speedo Tours', 'TRUE'),
+(2, 2, NULL, 3, 'Winter Palace Hotel in luxor is magnificent', 'TRUE'),
+(3, 1, NULL, 1, 'Ritz Carlton Hotel is real deal in france', 'TRUE'),
+(4, 1, 4, NULL, 'This Package Made me in love with europe', 'FALSE');
 
 -- --------------------------------------------------------
 
@@ -304,6 +422,14 @@ CREATE TABLE `rooms` (
   `GuestID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- RELATIONSHIPS FOR TABLE `rooms`:
+--   `HotelID`
+--       `hotel` -> `HotelID`
+--   `GuestID`
+--       `guest` -> `GuestID`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -316,6 +442,12 @@ CREATE TABLE `stops` (
   `StopName` varchar(60) NOT NULL,
   `CruiseID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `stops`:
+--   `CruiseID`
+--       `cruise` -> `CruiseID`
+--
 
 -- --------------------------------------------------------
 
@@ -331,14 +463,30 @@ CREATE TABLE `visits` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `visits`
+--
+
+INSERT INTO `visits` (`VisitID`, `NameLocation`, `VisitDay`, `PackageID`) VALUES
+(1, 'Colosseum', 26, 3),
+(2, 'Eiffel Tower', 22, 4);
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `blogposts`
+--
+ALTER TABLE `blogposts`
+  ADD PRIMARY KEY (`PostID`),
+  ADD KEY `EmployeeID` (`EmployeeID`);
 
 --
 -- Indexes for table `cruise`
 --
 ALTER TABLE `cruise`
-  ADD PRIMARY KEY (`CruiseID`);
+  ADD PRIMARY KEY (`CruiseID`),
+  ADD KEY `PackageID` (`PackageID`);
 
 --
 -- Indexes for table `employees`
@@ -370,6 +518,12 @@ ALTER TABLE `hotel`
 -- Indexes for table `inquiries`
 --
 ALTER TABLE `inquiries`
+  ADD PRIMARY KEY (`InquiryID`);
+
+--
+-- Indexes for table `inquiryhistory`
+--
+ALTER TABLE `inquiryhistory`
   ADD PRIMARY KEY (`InquiryID`),
   ADD KEY `EmployeeID` (`EmployeeID`);
 
@@ -384,23 +538,24 @@ ALTER TABLE `languages`
 -- Indexes for table `newswire`
 --
 ALTER TABLE `newswire`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `Email` (`Email`);
 
 --
--- Indexes for table `newwirehistory`
+-- Indexes for table `newswirehistory`
 --
-ALTER TABLE `newwirehistory`
-  ADD KEY `EmployeeID` (`EmployeeID`,`NewWireID`),
-  ADD KEY `NewWireID` (`NewWireID`);
+ALTER TABLE `newswirehistory`
+  ADD PRIMARY KEY (`MessageID`),
+  ADD KEY `EmployeeID` (`EmployeeID`),
+  ADD KEY `Email` (`Email`(191)),
+  ADD KEY `Email_2` (`Email`);
 
 --
 -- Indexes for table `packages`
 --
 ALTER TABLE `packages`
   ADD PRIMARY KEY (`PackageID`),
-  ADD KEY `HotelID` (`HotelID`),
-  ADD KEY `CruiseID` (`CruiseID`),
-  ADD KEY `TourGuideID` (`TourGuideID`);
+  ADD KEY `HotelID` (`HotelID`);
 
 --
 -- Indexes for table `reserves`
@@ -447,10 +602,16 @@ ALTER TABLE `visits`
 --
 
 --
+-- AUTO_INCREMENT for table `blogposts`
+--
+ALTER TABLE `blogposts`
+  MODIFY `PostID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `cruise`
 --
 ALTER TABLE `cruise`
-  MODIFY `CruiseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CruiseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `employees`
@@ -480,7 +641,13 @@ ALTER TABLE `hotel`
 -- AUTO_INCREMENT for table `inquiries`
 --
 ALTER TABLE `inquiries`
-  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `inquiryhistory`
+--
+ALTER TABLE `inquiryhistory`
+  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `languages`
@@ -492,25 +659,31 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `newswire`
 --
 ALTER TABLE `newswire`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `newswirehistory`
+--
+ALTER TABLE `newswirehistory`
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `PackageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `PackageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `reserves`
 --
 ALTER TABLE `reserves`
-  MODIFY `ReserveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ReserveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -528,11 +701,23 @@ ALTER TABLE `stops`
 -- AUTO_INCREMENT for table `visits`
 --
 ALTER TABLE `visits`
-  MODIFY `VisitID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `VisitID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `blogposts`
+--
+ALTER TABLE `blogposts`
+  ADD CONSTRAINT `blogposts_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`);
+
+--
+-- Constraints for table `cruise`
+--
+ALTER TABLE `cruise`
+  ADD CONSTRAINT `cruise_ibfk_1` FOREIGN KEY (`PackageID`) REFERENCES `packages` (`PackageID`);
 
 --
 -- Constraints for table `gallery`
@@ -542,10 +727,10 @@ ALTER TABLE `gallery`
   ADD CONSTRAINT `gallery_ibfk_2` FOREIGN KEY (`HotelId`) REFERENCES `hotel` (`HotelID`);
 
 --
--- Constraints for table `inquiries`
+-- Constraints for table `inquiryhistory`
 --
-ALTER TABLE `inquiries`
-  ADD CONSTRAINT `inquiries_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`);
+ALTER TABLE `inquiryhistory`
+  ADD CONSTRAINT `inquiryhistory_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`);
 
 --
 -- Constraints for table `languages`
@@ -554,19 +739,17 @@ ALTER TABLE `languages`
   ADD CONSTRAINT `languages_ibfk_1` FOREIGN KEY (`Employee ID`) REFERENCES `employees` (`EmployeeID`);
 
 --
--- Constraints for table `newwirehistory`
+-- Constraints for table `newswirehistory`
 --
-ALTER TABLE `newwirehistory`
-  ADD CONSTRAINT `newwirehistory_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`),
-  ADD CONSTRAINT `newwirehistory_ibfk_2` FOREIGN KEY (`NewWireID`) REFERENCES `newswire` (`ID`);
+ALTER TABLE `newswirehistory`
+  ADD CONSTRAINT `newswirehistory_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`),
+  ADD CONSTRAINT `newswirehistory_ibfk_2` FOREIGN KEY (`Email`) REFERENCES `newswire` (`Email`);
 
 --
 -- Constraints for table `packages`
 --
 ALTER TABLE `packages`
-  ADD CONSTRAINT `packages_ibfk_1` FOREIGN KEY (`CruiseID`) REFERENCES `cruise` (`CruiseID`),
-  ADD CONSTRAINT `packages_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
-  ADD CONSTRAINT `packages_ibfk_3` FOREIGN KEY (`TourGuideID`) REFERENCES `languages` (`Employee ID`);
+  ADD CONSTRAINT `packages_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`);
 
 --
 -- Constraints for table `reserves`
@@ -580,16 +763,16 @@ ALTER TABLE `reserves`
 -- Constraints for table `reviews`
 --
 ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`),
-  ADD CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`PackageID`) REFERENCES `packages` (`PackageID`),
-  ADD CONSTRAINT `reviews_ibfk_4` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`);
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`),
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
+  ADD CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`PackageID`) REFERENCES `packages` (`PackageID`);
 
 --
 -- Constraints for table `rooms`
 --
 ALTER TABLE `rooms`
-  ADD CONSTRAINT `rooms_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
-  ADD CONSTRAINT `rooms_ibfk_3` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`);
+  ADD CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
+  ADD CONSTRAINT `rooms_ibfk_2` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`);
 
 --
 -- Constraints for table `stops`

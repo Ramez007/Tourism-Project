@@ -73,65 +73,25 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 	<?php
-		include_once "dbconnection.php";
+		require_once("app/model/user.php");
+		require_once("app/controller/UserController.php");
+		require_once("app/view/login_view.php");
+		$usermodel = new User();
+		$usercontrol = new UserController($usermodel);
+		$loginview=new ViewLogin($usercontrol, $usermodel);
 		session_start();
 		if (isset($_POST['submit']))
 		{
-			$user=$_POST['username'];
-			$pass=$_POST['password'];
-			if ($_POST['Selectjob']=="Admin")
-			{
-				$sql="SELECT * From employees where Username='$user'";
-				$result=mysqli_query($conn,$sql);
-				$row=mysqli_fetch_assoc($result);
-				if ($row['JobType']=="ADMIN")
-				{
-				$_SESSION["ID"]=$row["EmployeeID"];
-				$_SESSION["Name"]=$row['Name'];
-				$_SESSION["type"]=$row['JobType'];
-				$_SESSION["Email"]=$row['Email'];
-				header ("Location:Admin.php");
-				}
-				else
-            	{
-                echo '<script> alert("Invalid Username or Password") </script>';
-           		}
-			}
-			else if ($_POST['Selectjob']=="Support")
-			{
-				$sql="SELECT * From employees where Username='$user'";
-				$result=mysqli_query($conn,$sql);
-				$row=mysqli_fetch_assoc($result);
-				if ($row['JobType']=="SUPPORT")
-				{
-				$_SESSION["ID"]=$row["EmployeeID"];
-				$_SESSION["Name"]=$row['Name'];
-				$_SESSION["type"]=$row['JobType'];
-				$_SESSION["Email"]=$row['Email'];
-				header ("Location:Support.php");
-				}
-				else
-            	{
-                echo '<script> alert("Invalid Username or Password") </script>';
-           		}
-			}
-			else if ($_POST['Selectjob']=="Guest")
-			{
-				$sql="SELECT* FROM guest where Username='$user'";
-				$result=mysqli_query($conn,$sql);
-				$row=mysqli_fetch_assoc($result);
-				$_SESSION["ID"]=$row["GuestID"];
-				$_SESSION["fname"]=$row["FirstName"];
-				$_SESSION["lname"]=$row["LastName"];
-				$_SESSION["Email"]=$row["Email"];
-				$_SESSION["Gender"]=$row["Gender"];
-				$_SESSION["type"]="USER";
-				header ("Location:Profile.php");
-				
-			}
+			$usercontrol->login();
 		}
 		
-
+		require_once("app/model/hotelmodel.php");
+		require_once("app/controller/HotelController.php");
+		require_once("app/view/HotelView.php");
+		$model=new Hotel();
+		$controller=new HotelController($model);
+		$controller->listhoteldata();
+		$hotelview=new HotelView($controller,$model);
 		?>
 </head>
 <body> 
@@ -158,23 +118,9 @@
 							<li>
 								<a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
 								<ul class="fh5co-sub-menu">
-									<li><a href="#">Steinberger Hotel</a></li>
-									<li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-									<li><a href="#">Isis Hotel</a></li>
-									<li><a href="#">Ibertol Hotel</a></li>
-									<li><a href="#">Sunset Hotel</a></li>
-									<!-- <li>
-										<a href="#" class="fh5co-sub-ddown">King Hotel</a>
-										<ul class="fh5co-sub-menu">
-											<li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-											<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-											<li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-											<li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-											<li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-											<li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-										</ul>
-									</li> -->
-									<li><a href="#">Emilio Hotel</a></li> 
+									<?php 
+									$hotelview->headerhotellist();
+									?>
 								</ul>
 							</li>
 							<li><a href="services.php">Packages</a></li>
@@ -218,8 +164,8 @@
 					
 						<form class="box" action = "" method ="post">
 							<h1 style="color:Black"><b>Login Form</b></h1>
-							<input type ="text" name= "username" placeholder ="username">
-							<input type ="password" name= "password" placeholder ="password">
+							<input type ="text" name= "username" placeholder ="username" required>
+							<input type ="password" name= "password" placeholder ="password" required>
 							<select class ="Select" name="Selectjob" id="Select">
 							<option value="0"> Select Login Type </option>
 								<option value="Admin"> Admin </option>
