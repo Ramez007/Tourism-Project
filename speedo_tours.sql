@@ -58,6 +58,12 @@ CREATE TABLE `cruise` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELATIONSHIPS FOR TABLE `cruise`:
+--   `PackageID`
+--       `packages` -> `PackageID`
+--
+
+--
 -- Dumping data for table `cruise`
 --
 
@@ -82,6 +88,10 @@ CREATE TABLE `employees` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELATIONSHIPS FOR TABLE `employees`:
+--
+
+--
 -- Dumping data for table `employees`
 --
 
@@ -101,6 +111,14 @@ CREATE TABLE `gallery` (
   `HotelId` int(11) DEFAULT NULL,
   `picture` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `gallery`:
+--   `PackageId`
+--       `packages` -> `PackageID`
+--   `HotelId`
+--       `hotel` -> `HotelID`
+--
 
 -- --------------------------------------------------------
 
@@ -124,6 +142,10 @@ CREATE TABLE `guest` (
   `BankAccount` int(20) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `guest`:
+--
 
 --
 -- Dumping data for table `guest`
@@ -161,6 +183,10 @@ CREATE TABLE `hotel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELATIONSHIPS FOR TABLE `hotel`:
+--
+
+--
 -- Dumping data for table `hotel`
 --
 
@@ -184,6 +210,10 @@ CREATE TABLE `inquiries` (
   `Inquiry` varchar(600) NOT NULL,
   `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `inquiries`:
+--
 
 --
 -- Dumping data for table `inquiries`
@@ -217,6 +247,12 @@ CREATE TABLE `languages` (
   `Employee ID` int(11) NOT NULL,
   `LanguageName` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `languages`:
+--   `Employee ID`
+--       `employees` -> `EmployeeID`
+--
 
 --
 -- Dumping data for table `languages`
@@ -258,6 +294,14 @@ CREATE TABLE `newswirehistory` (
   `Email` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- RELATIONSHIPS FOR TABLE `newswirehistory`:
+--   `EmployeeID`
+--       `employees` -> `EmployeeID`
+--   `Email`
+--       `newswire` -> `Email`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -282,6 +326,12 @@ CREATE TABLE `packages` (
   `Overview` text NOT NULL,
   `Description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `packages`:
+--   `HotelID`
+--       `hotel` -> `HotelID`
+--
 
 --
 -- Dumping data for table `packages`
@@ -313,6 +363,16 @@ CREATE TABLE `reserves` (
   `NoOfSuits` int(11) NOT NULL,
   `BoardType` set('Full','Half') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `reserves`:
+--   `GuestId`
+--       `guest` -> `GuestID`
+--   `HotelId`
+--       `hotel` -> `HotelID`
+--   `PackageId`
+--       `packages` -> `PackageID`
+--
 
 --
 -- Dumping data for table `reserves`
@@ -362,6 +422,14 @@ CREATE TABLE `rooms` (
   `GuestID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- RELATIONSHIPS FOR TABLE `rooms`:
+--   `HotelID`
+--       `hotel` -> `HotelID`
+--   `GuestID`
+--       `guest` -> `GuestID`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -374,6 +442,12 @@ CREATE TABLE `stops` (
   `StopName` varchar(60) NOT NULL,
   `CruiseID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELATIONSHIPS FOR TABLE `stops`:
+--   `CruiseID`
+--       `cruise` -> `CruiseID`
+--
 
 -- --------------------------------------------------------
 
