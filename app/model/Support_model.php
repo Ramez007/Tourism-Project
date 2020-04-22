@@ -75,7 +75,7 @@ function Reply_to_Inquiry(){
         $sql3 = 'DELETE  FROM Inquiries where InquiryID="'.$inquiryid[0].'";'; 
         $result1=mysqli_query($this->dbh->getConn(),$sql2) ;
          $row=$result1->fetch_assoc();
-        $sql1 = 'INSERT INTO InquiryHistory (employeeID,inquiry,Reply,ID) VALUES("'.$ID.'","'. $row['inquiry'].'","'.$message.'","'.$inquiryid[0].'");';
+        $sql1 = 'INSERT INTO InquiryHistory (employeeID,Inquiry,Reply) VALUES("'.$ID.'","'. $row['inquiry'].'","'.$message.'");';
         $result = mysqli_query($this->dbh->getConn(),$sql1) ;
         
         if(mysqli_query($this->dbh->getConn(),$sql3)){
