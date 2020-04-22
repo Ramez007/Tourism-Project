@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2020 at 11:42 PM
+-- Generation Time: Apr 22, 2020 at 09:24 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -30,20 +30,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `blogposts` (
   `PostID` int(11) NOT NULL,
+  `EmployeeID` int(11) NOT NULL,
   `PostTitle` varchar(255) NOT NULL,
   `PostMonth` varchar(255) NOT NULL,
   `PostYear` varchar(255) NOT NULL,
   `PostText` text NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `blogposts`
---
-
-INSERT INTO `blogposts` (`PostID`, `PostTitle`, `PostMonth`, `PostYear`, `PostText`, `Suspended`) VALUES
-(1, 'Establishing the company', 'SEP', '1989', 'Some Text', 'Enabled'),
-(2, 'Our First Bus', 'OCT', '1989', 'Some Text 2', 'Disabled');
 
 -- --------------------------------------------------------
 
@@ -208,7 +201,9 @@ INSERT INTO `inquiries` (`InquiryID`, `Author`, `Email`, `Inquiry`, `TimeStamp`)
 CREATE TABLE `inquiryhistory` (
   `InquiryID` int(11) NOT NULL,
   `EmployeeID` int(11) NOT NULL,
-  `ID` int(11) NOT NULL
+  `Inquiry` text NOT NULL,
+  `reply` text NOT NULL,
+  `Timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -238,16 +233,17 @@ INSERT INTO `languages` (`LanguageID`, `Employee ID`, `LanguageName`) VALUES
 
 CREATE TABLE `newswire` (
   `ID` int(11) NOT NULL,
-  `Email` varchar(30) NOT NULL
+  `Email` varchar(30) NOT NULL,
+  `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `newswire`
 --
 
-INSERT INTO `newswire` (`ID`, `Email`) VALUES
-(2, 'ahmed.mahdy1899@gmail.com'),
-(3, 'Ramez1700124@miuegypt.edu.eg');
+INSERT INTO `newswire` (`ID`, `Email`, `TimeStamp`) VALUES
+(2, 'ahmed.mahdy1899@gmail.com', '2020-04-22 18:16:21'),
+(3, 'Ramez1700124@miuegypt.edu.eg', '2020-04-22 18:16:21');
 
 -- --------------------------------------------------------
 
@@ -258,7 +254,7 @@ INSERT INTO `newswire` (`ID`, `Email`) VALUES
 CREATE TABLE `newswirehistory` (
   `MessageID` int(11) NOT NULL,
   `EmployeeID` int(11) NOT NULL,
-  `MessageContent` text NOT NULL,
+  `Message` text NOT NULL,
   `Email` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -408,7 +404,8 @@ INSERT INTO `visits` (`VisitID`, `NameLocation`, `VisitDay`, `PackageID`) VALUES
 -- Indexes for table `blogposts`
 --
 ALTER TABLE `blogposts`
-  ADD PRIMARY KEY (`PostID`);
+  ADD PRIMARY KEY (`PostID`),
+  ADD KEY `EmployeeID` (`EmployeeID`);
 
 --
 -- Indexes for table `cruise`
@@ -454,8 +451,7 @@ ALTER TABLE `inquiries`
 --
 ALTER TABLE `inquiryhistory`
   ADD PRIMARY KEY (`InquiryID`),
-  ADD KEY `EmployeeID` (`EmployeeID`),
-  ADD KEY `ID` (`ID`);
+  ADD KEY `EmployeeID` (`EmployeeID`);
 
 --
 -- Indexes for table `languages`
@@ -477,15 +473,15 @@ ALTER TABLE `newswire`
 ALTER TABLE `newswirehistory`
   ADD PRIMARY KEY (`MessageID`),
   ADD KEY `EmployeeID` (`EmployeeID`),
-  ADD KEY `Email` (`Email`(191));
+  ADD KEY `Email` (`Email`(191)),
+  ADD KEY `Email_2` (`Email`);
 
 --
 -- Indexes for table `packages`
 --
 ALTER TABLE `packages`
   ADD PRIMARY KEY (`PackageID`),
-  ADD KEY `HotelID` (`HotelID`),
-  ADD KEY `TourGuideID` (`TourGuide`);
+  ADD KEY `HotelID` (`HotelID`);
 
 --
 -- Indexes for table `reserves`
@@ -571,13 +567,13 @@ ALTER TABLE `hotel`
 -- AUTO_INCREMENT for table `inquiries`
 --
 ALTER TABLE `inquiries`
-  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `inquiryhistory`
 --
 ALTER TABLE `inquiryhistory`
-  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `languages`
@@ -638,6 +634,12 @@ ALTER TABLE `visits`
 --
 
 --
+-- Constraints for table `blogposts`
+--
+ALTER TABLE `blogposts`
+  ADD CONSTRAINT `blogposts_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`);
+
+--
 -- Constraints for table `cruise`
 --
 ALTER TABLE `cruise`
@@ -654,8 +656,7 @@ ALTER TABLE `gallery`
 -- Constraints for table `inquiryhistory`
 --
 ALTER TABLE `inquiryhistory`
-  ADD CONSTRAINT `inquiryhistory_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`),
-  ADD CONSTRAINT `inquiryhistory_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `inquiries` (`InquiryID`);
+  ADD CONSTRAINT `inquiryhistory_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`);
 
 --
 -- Constraints for table `languages`
@@ -664,10 +665,25 @@ ALTER TABLE `languages`
   ADD CONSTRAINT `languages_ibfk_1` FOREIGN KEY (`Employee ID`) REFERENCES `employees` (`EmployeeID`);
 
 --
+-- Constraints for table `newswirehistory`
+--
+ALTER TABLE `newswirehistory`
+  ADD CONSTRAINT `newswirehistory_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`),
+  ADD CONSTRAINT `newswirehistory_ibfk_2` FOREIGN KEY (`Email`) REFERENCES `newswire` (`Email`);
+
+--
 -- Constraints for table `packages`
 --
 ALTER TABLE `packages`
   ADD CONSTRAINT `packages_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`);
+
+--
+-- Constraints for table `reserves`
+--
+ALTER TABLE `reserves`
+  ADD CONSTRAINT `reserves_ibfk_1` FOREIGN KEY (`GuestId`) REFERENCES `guest` (`GuestID`),
+  ADD CONSTRAINT `reserves_ibfk_2` FOREIGN KEY (`HotelId`) REFERENCES `hotel` (`HotelID`),
+  ADD CONSTRAINT `reserves_ibfk_3` FOREIGN KEY (`PackageId`) REFERENCES `packages` (`PackageID`);
 
 --
 -- Constraints for table `reviews`
@@ -676,6 +692,19 @@ ALTER TABLE `reviews`
   ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`),
   ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
   ADD CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`PackageID`) REFERENCES `packages` (`PackageID`);
+
+--
+-- Constraints for table `rooms`
+--
+ALTER TABLE `rooms`
+  ADD CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
+  ADD CONSTRAINT `rooms_ibfk_2` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`);
+
+--
+-- Constraints for table `stops`
+--
+ALTER TABLE `stops`
+  ADD CONSTRAINT `stops_ibfk_1` FOREIGN KEY (`CruiseID`) REFERENCES `cruise` (`CruiseID`);
 
 --
 -- Constraints for table `visits`
