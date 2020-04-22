@@ -12,6 +12,11 @@ class MainpageController extends Controller
     {
         $this->model->listdata();
     }
+
+    public function listreviews()
+    {
+        $this->model->listreviews();
+    }
 }
 
 ?>

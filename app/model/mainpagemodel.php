@@ -12,6 +12,10 @@ class mainpage extends Model
     private $overview=array();
     private $featured=array();
 
+    private $guestname=array();
+    private $reviews=array();
+    
+
     function __construct()
     {
         $this->dbh=$this->connect();
@@ -31,6 +35,17 @@ class mainpage extends Model
         }
     }
 
+    function listreviews()
+    {
+        $sql="SELECT guest.FirstName,reviews.Review from reviews join guest on reviews.GuestID=guest.GuestID where reviews.Featured='TRUE' ";
+        $result=mysqli_query($this->dbh->getConn(),$sql);
+        while($row=$result->fetch_assoc())
+        {
+            array_push($this->guestname,$row['FirstName']);
+            array_push($this->reviews,$row['Review']);
+        }
+    }
+
  
     public function getOverview()
     {
@@ -45,6 +60,22 @@ class mainpage extends Model
     public function getFeatured()
     {
         return $this->featured;
+    }
+
+    /**
+     * Get the value of guestname
+     */ 
+    public function getGuestname()
+    {
+        return $this->guestname;
+    }
+
+    /**
+     * Get the value of reviews
+     */ 
+    public function getReviews()
+    {
+        return $this->reviews;
     }
 }
 

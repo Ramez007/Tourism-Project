@@ -9,6 +9,9 @@ class MainpageView extends View
     private $name;
     private $overview;
 
+    private $guestname;
+    private $review;
+
     public function output()
     {
         $this->name=$this->model->getName();
@@ -43,6 +46,52 @@ class MainpageView extends View
                     
     }
     
+    public function outputslider()
+    {
+        $this->name=$this->model->getName();
+        $counter=1;
+        for ($i=0;$i<3;$i++)
+        {
+        echo '
+                    <li style="background-image: url(images/slider'.$counter.'.jpg);">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="col-md-12 col-md-offset-0 text-center slider-text">
+                                <div class="slider-text-inner js-fullheight">
+                                    <div class="desc">
+                                        <p><span>'.$this->name[$i].'</span></p>
+                                        <h2>Reserve Room for Family Vacation</h2>
+                                        <p>
+                                            <a href="single-hotel.php" class="btn btn-primary btn-lg">Book Now</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>';
+        $counter++;
+        }
+    }
+
+    public function outputreviews()
+    {
+        $this->guestname=$this->model->getGuestname();
+        $this->review=$this->model->getReviews();
+
+        for ($i=0;$i<count($this->guestname);$i++)
+        {
+            echo '
+            <div class="col-md-4">
+                <div class="testimony">
+                    <blockquote  style="height: 150px;">
+                        &ldquo;'.$this->review[$i].'&rdquo;
+                    </blockquote>
+                    <p class="author"><cite>'.$this->guestname[$i].'</cite></p>
+                </div>
+            </div>';
+        }
+
+    }
     public function outputdivs()
     {
         $this->name=$this->model->getName();

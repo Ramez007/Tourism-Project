@@ -156,55 +156,7 @@ $hotelview=new HotelView($controller,$model);
 	<aside id="fh5co-hero" class="js-fullheight">
 		<div class="flexslider js-fullheight">
 			<ul class="slides">
-		   	<li style="background-image: url(images/slider1.jpg);">
-		   		<div class="overlay-gradient"></div>
-		   		<div class="container">
-		   			<div class="col-md-12 col-md-offset-0 text-center slider-text">
-		   				<div class="slider-text-inner js-fullheight">
-		   					<div class="desc">
-		   						<p><span>Winter Palace Hotel</span></p>
-		   						<h2>Reserve Room for Family Vacation</h2>
-			   					<p>
-			   						<a href="single-hotel.php" class="btn btn-primary btn-lg">Book Now</a>
-			   					</p>
-		   					</div>
-		   				</div>
-		   			</div>
-		   		</div>
-		   	</li>
-		   	<li style="background-image: url(images/slider2.jpg);">
-		   		<div class="overlay-gradient"></div>
-		   		<div class="container">
-		   			<div class="col-md-12 col-md-offset-0 text-center slider-text">
-		   				<div class="slider-text-inner js-fullheight">
-		   					<div class="desc">
-		   						<p><span>Steinberger Hotel</span></p>
-		   						<h2>Make Your Vacation Comfortable</h2>
-			   					<p>
-			   						<a href="#" class="btn btn-primary btn-lg">Book Now</a>
-			   					</p>
-		   					</div>
-		   				</div>
-		   			</div>
-		   		</div>
-		   	</li>
-		   	<li style="background-image: url(images/slider3.jpg);">
-		   		<div class="overlay-gradient"></div>
-		   		<div class="container">
-		   			<div class="col-md-12 col-md-offset-0 text-center slider-text">
-		   				<div class="slider-text-inner js-fullheight">
-		   					<div class="desc">
-		   						<p><span>Emilio Hotel</span></p>
-		   						<h2>A Best Place To Enjoy Your Life</h2>
-			   					<p>
-			   						<a href="#" class="btn btn-primary btn-lg">Book Now</a>
-			   					</p>
-		   					</div>
-		   				</div>
-		   			</div>
-		   		</div>
-		   	</li>
-		   	
+		   	<?php $pageview->outputslider(); ?>
 		  	</ul>
 	  	</div>
 	</aside>
@@ -468,30 +420,10 @@ $hotelview=new HotelView($controller,$model);
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
-					<div class="testimony">
-						<blockquote>
-							&ldquo;If you’re looking for a top quality hotel look no further. We were upgraded free of charge to the Premium Suite, thanks so much&rdquo;
-						</blockquote>
-						<p class="author"><cite>John Doe</cite></p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="testimony">
-						<blockquote>
-							&ldquo;Me and my wife had a delightful weekend get away here, the staff were so friendly and attentive. Highly Recommended&rdquo;
-						</blockquote>
-						<p class="author"><cite>Rob Smith</cite></p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="testimony">
-						<blockquote>
-							&ldquo;If you’re looking for a top quality hotel look no further. We were upgraded free of charge to the Premium Suite, thanks so much&rdquo;
-						</blockquote>
-						<p class="author"><cite>Jane Doe</cite></p>
-					</div>
-				</div>
+				<?php
+				$pagecontroller->listreviews();
+				$pageview->outputreviews();
+				?>
 			</div>
 		</div>
 	</div>
