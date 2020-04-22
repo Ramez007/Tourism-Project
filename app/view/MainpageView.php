@@ -83,7 +83,7 @@ class MainpageView extends View
             echo '
             <div class="col-md-4">
                 <div class="testimony">
-                    <blockquote>
+                    <blockquote  style="height: 150px;">
                         &ldquo;'.$this->review[$i].'&rdquo;
                     </blockquote>
                     <p class="author"><cite>'.$this->guestname[$i].'</cite></p>
