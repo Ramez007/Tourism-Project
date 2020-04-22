@@ -126,6 +126,14 @@
     $controller=new HotelController($model);
     $controller->listhoteldata();
     $hotelview=new HotelView($controller,$model);
+
+    require_once("app/model/guest.php");
+    require_once("app/controller/GuestController.php");
+    require_once("app/view/GuestView.php");
+    $GuestModel = new Guest();
+    $GuestController = new GuestController($GuestModel);
+    $GuestController->FetchProfileData($_SESSION['ID']);
+    $GuestView = new GuestView($GuestController,$GuestModel);
     ?>
     <div id="fh5co-wrapper">
         <div id="fh5co-page">
@@ -215,7 +223,12 @@
                             </a>
                         </nav>
                         <div class="tab-content-container">
-                            <div class="tab-content active show" data-tab-content="tab1" id="tab1">
+                            <?php
+                            $GuestView -> output();
+                            ?>
+                            <!-- Pesonal data -->
+
+                            <!-- <div class="tab-content active show" data-tab-content="tab1" id="tab1">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -235,8 +248,16 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-content" data-tab-content="tab2" id="tab2">
+                            </div> -->
+
+                            <!-- end of Pesonal data -->
+
+                            <?php
+                            $GuestView -> HistoryOutput();
+                            ?>
+                            <!-- History -->
+
+                            <!-- <div class="tab-content" data-tab-content="tab2" id="tab2">
                                 <div class="container">
                                     <h2>Past reservations</h2>
                                     <table class="table table-hover">
@@ -258,7 +279,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div> -->
+
+                            <!-- end of History -->
+
                             <div class="tab-content" data-tab-content="tab3" id="tab3">
                                 <div class="container">
                                     <h2>Asked questions</h2>
@@ -317,9 +341,6 @@
                     </div>
                 </div>    
             </div>
-
-
-
             <footer id="footer" class="fh5co-bg-color">
                 <?php
     include "Footer.php"
