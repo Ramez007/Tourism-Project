@@ -52,17 +52,19 @@ class Guest extends User {
 
     public function GetProfileData($ID)
     {
-        $SQL = 'SELECT Country,HotelID,PackageID,DateIn,DateOut FROM guest INNER JOIN reserves ON guest.GuestID ='.$ID.' AND reserves.GuestID = '.$ID.'';
-        $Result = mysqli_query($this->dbh->getConn(),$SQL);
-        $row = $Result->fetch_assoc();
-        $this->Country = $row['Country'];
+        $SQL = 'SELECT Country,HotelID,PackageID,DateIn,DateOut,reserves.Suspended FROM guest INNER JOIN reserves ON guest.GuestID ='.$ID.' AND reserves.GuestID = '.$ID.'';
+        $Result = mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);        
+        while ($row = $Result->fetch_assoc())
+        {
         $Res = new Reservation();
         $Res->setHotelID($row['HotelID']);
         $Res->setPackageID($row['PackageID']);
         $Res->setDateIn($row['DateIn']);
         $Res->setDateOut($row['DateOut']);
+        $Res->setSuspended($row['Suspended']);
         array_push($this->reservations,$Res);
-
+        }
+        $this->Country = $row['Country'];
         
     }
 

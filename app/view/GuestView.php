@@ -52,7 +52,7 @@ class GuestView extends View
 
         foreach($Reservations as $Res)
         {
-            if($Res->getPackageID() != NULL && $Res->getHotelID() != NULL)
+            if($Res->getPackageID() != NULL && $Res->getHotelID() != NULL && $Res->getSuspended() == "Enabled")
             {
                 $BodyEcho = 
                 '
@@ -67,7 +67,7 @@ class GuestView extends View
                 ';
 
             }
-            else if($Res->getHotelID() != NULL && $Res->getPackageID() == NULL)
+            else if($Res->getHotelID() != NULL && $Res->getPackageID() == NULL  && $Res->getSuspended() == "Enabled")
             {
                 $BodyEcho = 
                 '
@@ -82,6 +82,17 @@ class GuestView extends View
                 ';
 
             }
+            else 
+            {
+                $BodyEcho = 
+                '
+                <tbody>
+                <tr>
+                </tr>
+            </tbody>
+                
+                ';
+            }
             $InitialEcho .= $BodyEcho;
 
         }
@@ -92,6 +103,85 @@ class GuestView extends View
         ';
         $InitialEcho .= $EndEcho;
         echo $InitialEcho;
+    }
+
+    public function ReservationOutput()
+    {
+        $Reservations = $this->model->getReservations();
+        $Initial = 
+        '
+        <div class="tab-content" data-tab-content="tab4" id="tab4">
+        <div class="container">
+            <h2>Current/Upcoming reservations</h2>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Type of reservation</th>
+                        <th>Date in</th>
+                        <th>Date out</th>
+                        <th>Notes</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+        ';
+        foreach($Reservations as $Res)
+        {
+            if($Res->getPackageID() != NULL && $Res->getHotelID() != NULL && $Res->getSuspended() == "Disabled")
+            {
+                $Body = 
+                '
+                <tbody>
+                <tr>
+                    <td>Package</td>
+                    <td>'.$Res->getDateIn().'</td>
+                    <td>'.$Res->getDateOut().'</td>
+                    <td>None</td>
+                    <td>
+                        <button class="btn btn-danger">Cancel Reservation</button>
+                        <button class="btn btn-success">Track Reservation</button>
+                    </td>
+                </tr>
+            </tbody>
+                ';
+            }
+            else if($Res->getPackageID() == NULL && $Res->getHotelID() != NULL && $Res->getSuspended() == "Disabled")
+            {
+                $Body = 
+                '
+                <tbody>
+                <tr>
+                    <td>Hotel</td>
+                    <td>'.$Res->getDateIn().'</td>
+                    <td>'.$Res->getDateOut().'</td>
+                    <td>None</td>
+                    <td>
+                        <button class="btn btn-danger">Cancel Reservation</button>
+                        <button class="btn btn-success">Track Reservation</button>
+                    </td>
+                </tr>
+            </tbody>
+                ';
+            }
+            else 
+            {
+                $Body = 
+                '
+                <tbody>
+                <tr>
+                </tr>
+            </tbody>
+                ';
+            }
+            $Initial .= $Body;
+        }
+         $End = 
+         '
+         </table>
+         </div>
+     </div>
+         ';
+         $Initial .= $End;
+         echo $Initial;
     }
 }
 

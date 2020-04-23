@@ -62,7 +62,7 @@ class MainpageView extends View
                                         <p><span>'.$this->name[$i].'</span></p>
                                         <h2>Reserve Room for Family Vacation</h2>
                                         <p>
-                                            <a href="single-hotel.php" class="btn btn-primary btn-lg">Book Now</a>
+                                            <a href="single-hotel.php?action='.$this->name[$i].'" class="btn btn-primary btn-lg">Book Now</a>
                                         </p>
                                     </div>
                                 </div>

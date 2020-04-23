@@ -326,7 +326,7 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
 										<div class="desc" >Sunbathing</div>
 									</div> -->
 
-									<a href="single-hotel.php" style="color:orangered"><b>hotel/cruise details here</b></a>
+									<!-- <a href="single-hotel.php" style="color:orangered"><b>hotel/cruise details here</b></a> -->
 								</div>
 							</div>
 						</div>
