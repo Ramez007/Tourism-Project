@@ -108,7 +108,10 @@ class PackageView extends View
         </div>
             ';
         }
-
+        echo 
+        '
+        <a href="single-hotel.php?action='.$this->model->GetHotelName().'" style="color:orangered"><b>hotel/cruise details here</b></a>
+        ';
         
     }
 }
