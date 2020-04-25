@@ -256,16 +256,16 @@ class Admin extends Employee {
 
     function ReadEditEventsSection()
     {
-        $sql="SELECT PostTitle,PostMonth,PostYear,PostText From blogposts";
+        $sql="SELECT PostTitle,PostMonth,PostYear,PostText,PostID From blogposts";
         $Result = mysqli_query($this->db->getConn(),$sql);
 
         $optionString = '';
         while($row=$Result->fetch_assoc())
         {
-          $optionString .= "<option value='".$row['PostTitle']." & ".$row['PostMonth']." & ".$row['PostYear']." & ".$row['PostText']."'>".$row["PostTitle"]."</option>";
+          $optionString .= "<option value='".$row['PostTitle']." & ".$row['PostMonth']." & ".$row['PostYear']." & ".$row['PostText']." & ".$row['PostID']."'>".$row["PostTitle"]."</option>";
         }
 
-        $sql="SELECT PostTitle,PostMonth,PostYear,PostText From blogposts";
+        $sql="SELECT PostTitle,PostMonth,PostYear,PostText,PostID From blogposts";
         $Result = mysqli_query($this->db->getConn(),$sql);
         $row=$Result->fetch_assoc();
 
@@ -282,25 +282,26 @@ class Admin extends Employee {
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="editeventtitle">Edit Event Title</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" value="'.$row['PostTitle'].'" id="editeventtitle">
+                        <input type="text" class="form-control" value="'.$row['PostTitle'].'" id="editeventtitle" name="editeventtitle" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="editeventmonth">Edit Event Month</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" value="'.$row['PostMonth'].'" id="editeventmonth" >
+                        <input type="text" class="form-control" value="'.$row['PostMonth'].'" id="editeventmonth" name="editeventmonth" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="editeventyear">Edit Event Year</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" value="'.$row['PostYear'].'" id="editeventyear" >
+                        <input type="text" class="form-control" value="'.$row['PostYear'].'" id="editeventyear" name="editeventyear" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="eventdetails">Edit Event Details</label>
-                    <textarea rows="4" class="form-control" name="comment" id="blogposttext" form="usrform">'.$row['PostText'].'</textarea>
+                    <textarea rows="4" class="form-control" id="blogposttext" name="blogposttext" required>'.$row['PostText'].'</textarea>
                 </div>
+                <input type="hidden" class="form-control" value="'.$row['PostID'].'" id="postid" name="postid">
                 <br><br><br> Upload Photo of Event <br>
                 <input type="file" name="fileToUpload" id="fileToUpload">
                 <br><br>';
@@ -308,12 +309,12 @@ class Admin extends Employee {
 
     function ReadSuspendEventsSection()
     {
-        $sql="SELECT PostTitle,Suspended From blogposts";
+        $sql="SELECT PostTitle,Suspended,PostID From blogposts";
         $Result = mysqli_query($this->db->getConn(),$sql);
         echo '<ul>';
         while ($row=$Result->fetch_assoc()){
 
-            echo'<li><input type="checkbox" '.($row['Suspended']=="Enabled"?"checked":"").'>  ' .$row['PostTitle'].'</li>';
+            echo'<li><input type="checkbox" name="events[]" value="'.$row['PostID'].'" '.($row['Suspended']=="Enabled"?"checked":"").'>  ' .$row['PostTitle'].'</li>';
         }
         echo '<ul>';
 
@@ -533,6 +534,68 @@ class Admin extends Employee {
                         </script>';
 
                      }       
+    }
+
+    Function AddEvent($Event_Title,$Event_Month,$Event_Year,$Event_Post)
+    {
+        $adminid=$_SESSION["ID"];
+        $disabled="Disabled";
+        $Event_Month1= strtoupper($Event_Month);
+        $sql30="INSERT INTO blogposts (EmployeeID,PostTitle,PostMonth,PostYear,PostText,Suspended) 
+        VALUES ('$adminid','$Event_Title','$Event_Month1','$Event_Year','$Event_Post','$disabled');";
+         $Result = mysqli_query($this->db->getConn(),$sql30);
+         if($Result){
+            echo'<script>swal("Successfully Added Event", "", "success");</script>';
+         }
+         else{
+            echo'<script>
+            swal("Oops","error Adding Event !","error");
+            </script>';
+         }
+    }
+
+    function EditEvent($id)
+    {
+        $sql="UPDATE blogposts SET PostTitle='".$_POST['editeventtitle']."', PostMonth='".$_POST['editeventmonth']."',PostYear='".$_POST['editeventyear']."',PostText='".$_POST['blogposttext']."' where PostID=$id;";
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        if($Result){
+            echo'<script>swal("Successfully Updated Event", "", "success");</script>';
+         }
+         else{
+            echo'<script>
+            swal("Oops","Error Updating Event !","error");
+            </script>';
+         }
+    }
+
+    function SuspendEvent()
+    {
+                    $a=array();
+                    if(!empty($_POST['events']))   
+				     {
+							    foreach($_POST['events'] as $check)
+							    {
+                                        array_push($a,$check);
+                                }   
+                                for($i=0;$i<count($a);$i++)
+					            {
+                                $sql="UPDATE blogposts
+                                SET Suspended='Enabled'
+                                WHERE PostID=".$a[$i].";";
+                                $Result = mysqli_query($this->db->getConn(),$sql);
+
+                                }
+                                echo'<script>swal("Successfully Suspended Events", "", "success");</script>';
+                                  
+                     } 
+                     else 
+                     {
+                        $sql2="UPDATE blogposts
+                                SET Suspended='Disabled';";
+                                $Result2 = mysqli_query($this->db->getConn(),$sql2); 
+                                echo'<script>swal("All Events are now Visible in Blog Page", "", "success");</script>';
+
+                     } 
     }
 
     function AddHotel()

@@ -147,6 +147,27 @@
 		$AdminController->EditFeaturedMainSilder();
     }
 
+    if (isset($_POST['saveaddevent']))
+	{
+		$AdminController->AddEvent();
+    }
+
+    if (isset($_POST['saveeditevent']))
+	{
+		$AdminController->EditEvent();
+    }
+
+    if (isset($_POST['suspendevents']))
+	{
+		$AdminController->SuspendEvent();
+    }
+
+    
+
+    
+
+    
+
 
     ?>
 </head>
@@ -545,33 +566,33 @@
                                     <!-- Add event section -->
                                     <div id="add-event-sec">
                                         <h4 class="text-center">Add Events</h4>
-                                        <form action="">
+                                        <form action="" method="post">
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="eventtitle">Enter Event Title</label>
+                                                <label class="col-sm-2 col-form-label">Enter Event Title</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="eventtitle" >
+                                                    <input type="text" class="form-control" id="eventtitle" name="eventtitle" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="eventmonth">Enter Event Month</label>
+                                                <label class="col-sm-2 col-form-label">Enter Event Month</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="eventmonth">
+                                                    <input type="text" class="form-control" id="eventmonth" name="eventmonth" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="eventyear">Enter Event Year</label>
+                                                <label class="col-sm-2 col-form-label">Enter Event Year</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="eventyear">
+                                                    <input type="number" min="1900" max="3000" class="form-control" id="eventyear" name="eventyear" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="eventdetails">Enter Event Details</label>
-                                                <textarea rows="4" class="form-control" name="comment" form="usrform" placeholder="Enter text here"></textarea>
+                                                <label>Enter Event Details</label>
+                                                <textarea rows="4" class="form-control" name="eventpost" id="eventpost" placeholder="Enter text here" required></textarea>
                                             </div>
                                             <br><br><br> Upload Photo of Event <br>
                                             <input type="file" name="fileToUpload" id="fileToUpload">
                                             <br><br>
-                                            <input type="submit" class="btn btn-primary mb-2" value="Save Event">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Event" name="saveaddevent">
                                         </form>        
                                     </div>
                                     <!-- end event section -->
@@ -579,9 +600,9 @@
                                     <!-- Edit Event Section -->
                                     <div id="edit-event-sec">
                                         <h4 class="text-center">Edit Events</h4>
-                                        <form action="">
+                                        <form action="" method="post">
                                             <?php $AdminView->ReadEditEvents(); ?>
-                                            <input type="submit" class="btn btn-primary mb-2" value="Save Editing Event">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Editing Event" name="saveeditevent">
                                             <script>
                                             document.getElementById("events-editing-dropdown").addEventListener("change",function(){
                                                 var res1=document.getElementById("events-editing-dropdown").value.split("&");
@@ -589,6 +610,7 @@
                                                 document.getElementById("editeventmonth").value=res1[1];
                                                 document.getElementById("editeventyear").value=res1[2];
                                                 document.getElementById("blogposttext").value=res1[3];
+                                                document.getElementById("postid").value=res1[4];
                                                 
                                                 });
                                                 
@@ -600,13 +622,13 @@
                                     <!-- suspend Event Section -->
                                     <div id="suspend-event-sec">
                                         <h4 class="text-center">Suspend Events</h4>
-                                        <form action="">
+                                        <form action="" method="post">
                                             <div id="checkboxes">
                                                 <label for="deletevent">Select Events To Be Suspended</label>
                                                 <?php $AdminView->ReadSuspendEvents(); ?>
                                             </div>
                                             <br><br>
-                                            <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Suspension" name="suspendevents">
                                         </form>
                                     </div>    
 								</div>
