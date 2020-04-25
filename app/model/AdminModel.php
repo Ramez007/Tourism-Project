@@ -1,3 +1,6 @@
+<html>
+<head><script src="js/sweetalert.min.js"></script></head>
+<body>
 <?php
   require_once("app/model/model.php");
   require_once("app/model/employee.php");
@@ -317,23 +320,23 @@ class Admin extends Employee {
     }
 
     function ReadMainSliderHotelsSection(){
-        $sql="SELECT Name,FeaturedMainSilder From hotel";
+        $sql="SELECT Name,FeaturedMainSilder,HotelID From hotel";
         $Result = mysqli_query($this->db->getConn(),$sql);
         echo '<ul>';
         while ($row=$Result->fetch_assoc()){
 
-            echo'<li><input class="single-checkbox" name="hotel" type="checkbox" '.($row['FeaturedMainSilder']=="TRUE"?"checked":"").'> '.$row['Name'].'</li>';
+            echo'<li><input class="single-checkbox" name="hotel[]" id="hotelscheck" value="'.$row['HotelID'].'" type="checkbox" '.($row['FeaturedMainSilder']=="TRUE"?"checked":"").'> '.$row['Name'].'</li>';
         }
         echo '</ul>';
     }
 
     function ReadFeaturedHotelsSection(){
-        $sql="SELECT Name,featured From hotel";
+        $sql="SELECT Name,featured,HotelID From hotel";
         $Result = mysqli_query($this->db->getConn(),$sql);
         echo '<ul>';
         while ($row=$Result->fetch_assoc()){
 
-            echo'<li><input class="single-checkbox" name="headerhotel" type="checkbox" '.($row['featured']=="header"?"checked":"").'> '.$row['Name'].'</li>';
+            echo'<li><input class="single-checkbox" name="headerhotel[]" id="headerhotelcheck" value="'.$row['HotelID'].'" type="checkbox" '.($row['featured']=="header"?"checked":"").'> '.$row['Name'].'</li>';
         }
         echo '</ul>';
         echo'<label>Select Two Hotels To Be Shown in Featured Hotels Section in Main Page</label>';
@@ -341,32 +344,195 @@ class Admin extends Employee {
         $Result2 = mysqli_query($this->db->getConn(),$sql);
         while ($row2=$Result2->fetch_assoc()){
 
-            echo'<li><input class="single-checkbox" name="fhotel" type="checkbox" '.($row2['featured']=="feature"?"checked":"").'> '.$row2['Name'].'</li>';
+            echo'<li><input class="single-checkbox" name="fhotel[]" id="fhotelcheck" value="'.$row2['HotelID'].'" type="checkbox" '.($row2['featured']=="feature"?"checked":"").'> '.$row2['Name'].'</li>';
         }
         echo '</ul>';
 
     }
 
     function ReadPackagesReviews(){
-        $sql="SELECT guest.LastName, packages.PackageName ,reviews.review,Featured from reviews
+        $sql="SELECT guest.LastName, packages.PackageName ,reviews.review,Featured,reviews.ReviewID from reviews
         INNER JOIN guest ON guest.GuestID=reviews.GuestID
         INNER JOIN packages ON reviews.PackageID=packages.PackageID;"; 
         $Result = mysqli_query($this->db->getConn(),$sql);
         while ($row=$Result->fetch_assoc()){
-            echo'<li><input class="single-checkbox" name="review" type="checkbox" '.($row['Featured']=="TRUE"?"checked":"").'> MR. '.$row['LastName'].' revwied '.$row['PackageName'].' Package. Review: '.$row['review'].' </li>';
+            echo'<li><input class="single-checkbox" name="review[]" id="reviewcheck" value="'.$row['ReviewID'].'" type="checkbox" '.($row['Featured']=="TRUE"?"checked":"").'> MR. '.$row['LastName'].' revwied '.$row['PackageName'].' Package. Review: '.$row['review'].' </li>';
         }
         
     }
 
     function ReadHotelsReviews(){
-        $sql="SELECT guest.LastName,hotel.Name,reviews.review,reviews.Featured from reviews
+        $sql="SELECT guest.LastName,hotel.Name,reviews.review,reviews.Featured,reviews.ReviewID from reviews
         INNER JOIN guest ON guest.GuestID=reviews.GuestID
         INNER JOIN hotel ON reviews.HotelID=hotel.HotelID;"; 
         $Result = mysqli_query($this->db->getConn(),$sql);
         while ($row=$Result->fetch_assoc()){
-            echo'<li><input class="single-checkbox" name="review" type="checkbox" '.($row['Featured']=="TRUE"?"checked":"").'> MR. '.$row['LastName'].' revwied '.$row['Name'].' Hotel. Review: '.$row['review'].' </li>';
+            echo'<li><input class="single-checkbox" name="review[]" id="reviewcheck" value="'.$row['ReviewID'].'" type="checkbox" '.($row['Featured']=="TRUE"?"checked":"").'> MR. '.$row['LastName'].' revwied '.$row['Name'].' Hotel. Review: '.$row['review'].' </li>';
+            // echo'<input type="hidden" name="reviewid" value="'.$row['ReviewID'].'"> ';
         }
         
+    }
+
+    function EditReviews()
+    {
+        $a=array();
+        if(!empty($_POST['review']))   
+				     {
+							    foreach($_POST['review'] as $check)
+							    {
+                                        array_push($a,$check);
+                                        // echo'<script>alert('.$a.')</script>'; 
+                                }
+                            
+                                
+                                if(count($a)<3 || empty($a) || count($a)==0)
+                                {
+                                    echo'<script>
+                                    swal("Oops","You Need To Choose Exactly 3 Reviews !","error");
+                                    </script>';
+                                }
+                                else
+                                {
+
+                                $sql2="UPDATE reviews SET Featured='False'";
+                                $Result = mysqli_query($this->db->getConn(),$sql2);
+                                for($i=0;$i<count($a);$i++)
+					            {
+                                $sql="UPDATE reviews
+                                SET Featured='TRUE'
+                                WHERE ReviewID=".$a[$i].";";
+                                $Result = mysqli_query($this->db->getConn(),$sql);
+
+                                }
+                                }   
+
+                     } 
+                     else {
+                        echo'<script>
+                        swal("Oops","You Need To Choose Exactly 3 Reviews !","error");
+                        </script>';
+
+                     }       
+    }
+
+    function EditFeaturedHotels()
+    {
+        $a=array();
+        if(!empty($_POST['headerhotel']))   
+				     {
+							    foreach($_POST['headerhotel'] as $check)
+							    {
+                                        array_push($a,$check);
+                                }
+                                
+                                if(empty($a) || count($a)<1)
+                                {
+                                    echo'<script>
+                                    swal("Oops","You Need To Choose Exactly 1 Hotel to be featured as header !","error");
+                                    </script>';
+                                }
+                                else
+                            {
+
+                                $sql2="UPDATE hotel SET featured='false'";
+                                $Result = mysqli_query($this->db->getConn(),$sql2);
+                                for($i=0;$i<count($a);$i++)
+					            {
+                                $sql="UPDATE hotel
+                                SET featured='header'
+                                WHERE HotelID=".$a[$i].";";
+                                $Result = mysqli_query($this->db->getConn(),$sql);
+                                }
+                                
+                                $b=array();
+                                if(!empty($_POST['fhotel']))   
+                                  {
+                                             foreach($_POST['fhotel'] as $check)
+                                             {
+                                                     array_push($b,$check);
+                                                     // echo'<script>alert('.$a.')</script>'; 
+                                             }
+                                             
+                                             if(count($b)<2)
+                                             {
+                                                 echo'<script>
+                                                 swal("Oops","You Need To Choose Exactly 2 Hotels to be featured !","error");
+                                                 </script>';
+                                             }
+                                             else
+                                        {
+                                            $index="0";
+                                             $sql3="UPDATE hotel SET featured='false' where HotelID !=".$a[$index]."";
+                                             $Result = mysqli_query($this->db->getConn(),$sql3);
+                                             for($i=0;$i<count($b);$i++)
+                                             {
+                                             $sql4="UPDATE hotel
+                                             SET featured='feature'
+                                             WHERE HotelID=".$b[$i].";";
+                                             $Result = mysqli_query($this->db->getConn(),$sql4);
+             
+                                             }
+                                         }
+             
+                                  }
+                                  else{
+                                    echo'<script>
+                                    swal("Oops","You Need To Choose Exactly 2 Hotels to be featured !","error");
+                                    </script>';
+                                  }       
+                            }
+                            echo'<script>swal("Successfully Updated", "", "success");</script>';
+
+                     } 
+                     else{
+                        echo'<script>
+                        swal("Oops","You Need To Choose Exactly 1 Hotel to be featured as header !","error");
+                        </script>';
+                     } 
+                                 
+    }
+
+    function EditFeaturedMainSilder()
+    {
+        $a=array();
+        if(!empty($_POST['hotel']))   
+				     {
+							    foreach($_POST['hotel'] as $check)
+							    {
+                                        array_push($a,$check);
+                                        // echo'<script>alert('.$a.')</script>'; 
+                                }
+                            
+                                
+                                if(count($a)<3 || empty($a) || count($a)==0)
+                                {
+                                    echo'<script>
+                                    swal("Oops","You Need To Choose Exactly 3 Hotels !","error");
+                                    </script>';
+                                }
+                                else
+                                {
+
+                                $sql2="UPDATE hotel SET FeaturedMainSilder='FALSE'";
+                                $Result = mysqli_query($this->db->getConn(),$sql2);
+                                for($i=0;$i<count($a);$i++)
+					            {
+                                $sql="UPDATE hotel
+                                SET FeaturedMainSilder='TRUE'
+                                WHERE HotelID=".$a[$i].";";
+                                $Result = mysqli_query($this->db->getConn(),$sql);
+
+                                }
+                                echo'<script>swal("Successfully Updated", "", "success");</script>';
+                                }   
+
+                     } 
+                     else {
+                        echo'<script>
+                        swal("Oops","You Need To Choose Exactly 3 Hotels !","error");
+                        </script>';
+
+                     }       
     }
 
     function AddHotel()
@@ -391,3 +557,5 @@ class Admin extends Employee {
 }
 
 ?>
+</body>
+</html>

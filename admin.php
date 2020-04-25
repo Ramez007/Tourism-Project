@@ -130,7 +130,23 @@
     if (isset($_POST['saveAddingHotel']))
 	{
 		$AdminController->Addhotel();
-	}
+    }
+    
+    if (isset($_POST['saveditreviews']))
+	{
+		$AdminController->EditReviews();
+    }
+    
+    if (isset($_POST['saveeditfeaturedhotels']))
+	{
+		$AdminController->EditFeaturedHotels();
+    }
+
+    if (isset($_POST['saveeditmainslider']))
+	{
+		$AdminController->EditFeaturedMainSilder();
+    }
+
 
     ?>
 </head>
@@ -605,33 +621,33 @@
                                     <hr style="border-top: 1px solid black">
                                     <!-- editing main slider section -->
                                     <div id="edit-main-slider">
-                                        <form action="">
+                                        <form action="" method="post">
                                             <div id="checkboxes">
                                                 <label>Select Three Hotels To Be Feautred in Main Slider</label>
                                                 <?php $AdminView->ReadMainSliderHotels(); ?>
                                             </div>
                                             <br><br>
-                                            <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Changes" name="saveeditmainslider">
                                         </form>    
                                     </div>
                                     <!-- end editing main slider section -->
                                     <hr style="border-top: 1px solid black">
                                     <!-- editing featured hotels section -->
                                     <div id="edit-featured-hotels-section">
-                                        <form action="">
+                                        <form action="" method="post">
                                             <div id="checkboxes">
                                                 <label>Select One Hotel To Be Shown in Featured Hotels Section's Header in Main Page</label>
                                                 <?php $AdminView->ReadFeaturedHotels(); ?>
                                             </div>
                                             <br><br>
-                                            <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Changes" name="saveeditfeaturedhotels">
                                         </form>
                                     </div>
                                     <!-- end editing featured hotels section -->
                                     <hr style="border-top: 1px solid black">
                                     <!-- editing happy customer says section -->
                                     <div id="edit-reviews-section">
-                                        <form action="">
+                                        <form action="" method="post">
                                             <div id="checkboxes">
                                                 <label>Select Three Reviews To Be Shown in Reviews Section in Main Page</label>
                                                 <ul>
@@ -640,7 +656,7 @@
                                                 </ul>
                                             </div>
                                             <br><br>
-                                            <input type="submit" class="btn btn-primary mb-2" value="Save Changes">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Changes" name="saveditreviews">
                                         </form>
                                     </div>
                                     <!-- end editing happy customer says section -->
@@ -722,6 +738,8 @@
 	<!-- Flexslider -->
 	<script src="js/jquery.flexslider-min.js"></script>
 
+    <script src="js/sweetalert.min.js"></script>
+
 	<script src="js/custom.js"></script>
 
     <script>
@@ -729,25 +747,25 @@
         var limit2 = 3;
         var limit3 = 2;
                 $('input.single-checkbox').on('change', function(evt) {
-                if($("input[name='hotel']:checked").length >= limit) {
+                if($("input[id='hotelscheck']:checked").length >= limit) {
                     this.checked = false;
                 }
                 });
 
                 $('input.single-checkbox').on('change', function(evt) {
-                if($("input[name='fhotel']:checked").length >= limit2) {
+                if($("input[id='fhotelcheck']:checked").length >= limit2) {
                     this.checked = false;
                 }
                 });
 
                 $('input.single-checkbox').on('change', function(evt) {
-                if($("input[name='review']:checked").length >= limit) {
+                if($("input[id='reviewcheck']:checked").length >= limit) {
                     this.checked = false;
                 }
                 });
 
                 $('input.single-checkbox').on('change', function(evt) {
-                if($("input[name='headerhotel']:checked").length >= limit3) {
+                if($("input[id='headerhotelcheck']:checked").length >= limit3) {
                     this.checked = false;
                 }
                 });

@@ -8,6 +8,19 @@ class AdminController extends Controller{
         $this->model->AddHotel();
     }
 
+    function EditReviews(){
+      $this->model->EditReviews();
+    }
+
+    function EditFeaturedHotels(){
+      $this->model->EditFeaturedHotels();
+    }
+
+    function EditFeaturedMainSilder(){
+      $this->model->EditFeaturedMainSilder();
+    }
+
+    
     
    }
 ?>
