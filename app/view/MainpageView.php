@@ -49,8 +49,11 @@ class MainpageView extends View
     public function outputslider()
     {
         $this->name=$this->model->getName();
+        $this->featured=$this->model->getMainslider();
         $counter=1;
-        for ($i=0;$i<3;$i++)
+        for ($i=0;$i<count($this->name);$i++)
+        {
+        if($this->featured[$i]=="TRUE")
         {
         echo '
                     <li style="background-image: url(images/slider'.$counter.'.jpg);">
@@ -70,6 +73,7 @@ class MainpageView extends View
                         </div>
                     </li>';
         $counter++;
+        }
         }
     }
 

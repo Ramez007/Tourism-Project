@@ -11,6 +11,7 @@ class mainpage extends Model
     private $name=array();
     private $overview=array();
     private $featured=array();
+    private $mainslider=array();
 
     private $guestname=array();
     private $reviews=array();
@@ -25,13 +26,14 @@ class mainpage extends Model
 
     function listdata()
     {
-        $sql="select Name,overview,featured from hotel ";
+        $sql="select Name,overview,featured,FeaturedMainSilder from hotel ";
         $result=mysqli_query($this->dbh->getConn(),$sql);
         while($row=$result->fetch_assoc())
         {
             array_push($this->name,$row['Name']);
             array_push($this->overview,$row['overview']);
             array_push($this->featured,$row['featured']);
+            array_push($this->mainslider,$row['FeaturedMainSilder']);
         }
     }
 
@@ -76,6 +78,14 @@ class mainpage extends Model
     public function getReviews()
     {
         return $this->reviews;
+    }
+
+    /**
+     * Get the value of mainslider
+     */ 
+    public function getMainslider()
+    {
+        return $this->mainslider;
     }
 }
 
