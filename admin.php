@@ -77,7 +77,7 @@
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script>
         function hide(jquery) {
-            var idarr = ["tab1", "tab2","tab3","tab4","tab5","tab6"];
+            var idarr = ["tab1", "tab2","tab3","tab4","tab5"];
             var count = 0;
 
             for (var i = 0; i < idarr.length; i++) {
@@ -92,7 +92,7 @@
 
 	<script>
         function ShowTab(y) {
-            var idarr = ["tab1", "tab2","tab3","tab4","tab5","tab6"]
+            var idarr = ["tab1", "tab2","tab3","tab4","tab5"]
             y += "";
             var x = document.getElementById(y);
             var count = 0;
@@ -281,10 +281,10 @@
                     <img id="News" src="images\home.png" width="50" height="50">
 					<span>Mainpage content</span>
 					</a>
-                    <a href="#"  onclick="ShowTab('tab6')" data-tab="tab6">
+                    <!-- <a href="#"  onclick="ShowTab('tab6')" data-tab="tab6">
                     <img id="News" src="images\mail.png" width="50" height="50">
 					<span>Contact page content</span>
-					</a>
+					</a> -->
                 </nav>
                 <!-- end of the nav tabs -->
 
@@ -691,7 +691,7 @@
 							</div>
 						</div>
 					</div>
-                    <div class="tab-content" id="tab6" data-tab-content="tab6">
+                    <!-- <div class="tab-content" id="tab6" data-tab-content="tab6">
 						<div class="container">
 							<div class="row">
 								<div class="col-md-12">
@@ -715,7 +715,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
                 <!-- end of data content class -->
 				</div>				
