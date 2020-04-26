@@ -5,6 +5,10 @@
   require_once("app/model/model.php");
   require_once("app/model/employee.php");
   require_once("app/model/hotelmodel.php");
+
+  use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require 'C:\xampp\composer\vendor\autoload.php';
   
 ?>
 
@@ -27,7 +31,7 @@ class Admin extends Employee {
         // INNER JOIN packages ON reserves.Packageid=packages.PackageID;";
 
         $sql="SELECT guest.LastName, Hotel.Name, reserves.NoofChildren ,reserves.NoofAdults ,reserves.DateIn ,reserves.DateOut, reserves.NoOfSingleRooms ,reserves.NoOfDoubleRooms
-        ,reserves.NoOfTripleRooms, reserves.NoOfSuits ,reserves.BoardType 
+        ,reserves.NoOfTripleRooms, reserves.NoOfSuits ,reserves.BoardType,reserves.ReserveID 
           from reserves
         INNER JOIN guest ON guest.GuestID=reserves.Guestid
         INNER JOIN Hotel ON reserves.HotelId=Hotel.HotelID
@@ -38,7 +42,10 @@ class Admin extends Employee {
             echo'  <span>Mr. '.$row["LastName"].' reserving '.$row["Name"].' Hotel for '.$row["NoofAdults"].' Adults and '.$row["NoofChildren"].' Children Rooms:  '.$row["NoOfSingleRooms"].' Single Rooms , '.$row["NoOfDoubleRooms"].' Double Rooms  
             , '.$row["NoOfTripleRooms"].' Triple Rooms and '.$row["NoOfSuits"].' Suits. Board : '.$row["BoardType"].' From '.$row["DateIn"].' to '.$row["DateOut"].'
             </span>
-            <button class="btn btn-primary mb-2" style="margin-left:20px;">Confirm Book</button>
+            <form action="" method="post">
+            <input type="hidden" class="form-control" value="'.$row['ReserveID'].'" id="reserveid" name="reserveid"> 
+            <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
+            </form>
             <br>
             <br>
             ';
@@ -52,7 +59,7 @@ class Admin extends Employee {
     {
 
         $sql1="SELECT guest.LastName, packages.PackageName , reserves.NoofChildren ,reserves.NoofAdults ,packages.DateIn ,packages.DateOut, reserves.NoOfSingleRooms ,reserves.NoOfDoubleRooms
-        ,reserves.NoOfTripleRooms, reserves.NoOfSuits ,reserves.BoardType 
+        ,reserves.NoOfTripleRooms, reserves.NoOfSuits ,reserves.BoardType,reserves.ReserveID  
           from reserves
         INNER JOIN guest ON guest.GuestID=reserves.Guestid
         INNER JOIN packages ON reserves.PackageId=packages.PackageID
@@ -63,7 +70,10 @@ class Admin extends Employee {
             echo'  <span>Mr. '.$row1["LastName"].' reserving '.$row1["PackageName"].' Hotel for '.$row1["NoofAdults"].' Adults and '.$row1["NoofChildren"].' Children Rooms:  '.$row1["NoOfSingleRooms"].' Single Rooms , '.$row1["NoOfDoubleRooms"].' Double Rooms  
             , '.$row1["NoOfTripleRooms"].' Triple Rooms and '.$row1["NoOfSuits"].' Suits. Board : '.$row1["BoardType"].' From '.$row1["DateIn"].' to '.$row1["DateOut"].'
             </span>
-            <button class="btn btn-primary mb-2" style="margin-left:20px;">Confirm Book</button>
+            <form action="" method="post">
+            <input type="hidden" class="form-control" value="'.$row1['ReserveID'].'" id="reserveid" name="reserveid"> 
+            <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
+            </form>
             <br>
             <br>
             ';
@@ -596,6 +606,40 @@ class Admin extends Employee {
                                 echo'<script>swal("All Events are now Visible in Blog Page", "", "success");</script>';
 
                      } 
+    }
+
+    function ConfirmReserve($reserveid)
+    {
+        $sql2="UPDATE reserves SET Suspended='Disabled' where ReserveID=$reserveid;";
+        $Result3 = mysqli_query($this->db->getConn(),$sql2); 
+        if($Result3)
+        {
+            $sql3="Select GuestId from reserves where ReserveID=$reserveid;";
+            $Result4 = mysqli_query($this->db->getConn(),$sql3);
+            $row=$Result4->fetch_assoc();
+            $sql4="Select Email from guest where GuestID='".$row['GuestId']."'";
+            $Result5=mysqli_query($this->db->getConn(),$sql4);
+            $row2=$Result5->fetch_assoc();
+            // echo'<script>alert("'.$row2['Email'].'");</script>';
+            include_once "serverdetails.php";
+            try{
+            $email->Subject="Confirm Book";
+            $email->Body="Your Booking is Confirmed";
+            $email->addAddress($row2["Email"]);
+            $email->send();
+            }
+            catch(Exception $e)
+            {
+                echo $e->errorMessage();
+            }
+            echo'<script>swal("Reserve Confirmed", "", "success");</script>';
+        }
+        else
+        {
+            echo'<script>
+                        swal("Oops","Error Confirming Book !","error");
+                        </script>';
+        }
     }
 
     function AddHotel()

@@ -162,6 +162,11 @@
 		$AdminController->SuspendEvent();
     }
 
+    if (isset($_POST['confirmbook']))
+	{
+		$AdminController->ConfirmBook();
+    }
+
     
 
     

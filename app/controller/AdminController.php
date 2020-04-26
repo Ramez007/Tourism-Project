@@ -39,6 +39,12 @@ class AdminController extends Controller{
       $this->model->SuspendEvent();
     }
 
+    function ConfirmBook()
+    {
+      $reserveid = $_REQUEST['reserveid'];
+      $this->model->ConfirmReserve($reserveid);
+    }
+
     
 
     
