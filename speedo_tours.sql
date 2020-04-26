@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2020 at 09:24 PM
+-- Generation Time: Apr 26, 2020 at 10:09 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -38,6 +38,15 @@ CREATE TABLE `blogposts` (
   `Suspended` set('Enabled','Disabled') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `blogposts`
+--
+
+INSERT INTO `blogposts` (`PostID`, `EmployeeID`, `PostTitle`, `PostMonth`, `PostYear`, `PostText`, `Suspended`) VALUES
+(3, 3, 'Company Establishment', 'SEP', '1989', 'ahsbdhjdadvhuiwbvewjfw', 'Disabled'),
+(4, 3, 'First Aniversairy', 'SEP', '1990', 'dkfnjwkfjkwbjekfjwebdfwed', 'Disabled'),
+(12, 3, '10 Years of Speedo Tours   ', 'OCT', '1977', 'kgujgjglukglk kjbjkbkj\r\nahsijanoanoi', 'Disabled');
+
 -- --------------------------------------------------------
 
 --
@@ -56,12 +65,6 @@ CREATE TABLE `cruise` (
   `Pool` set('TRUE','FALSE') NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONSHIPS FOR TABLE `cruise`:
---   `PackageID`
---       `packages` -> `PackageID`
---
 
 --
 -- Dumping data for table `cruise`
@@ -88,10 +91,6 @@ CREATE TABLE `employees` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `employees`:
---
-
---
 -- Dumping data for table `employees`
 --
 
@@ -112,14 +111,6 @@ CREATE TABLE `gallery` (
   `picture` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- RELATIONSHIPS FOR TABLE `gallery`:
---   `PackageId`
---       `packages` -> `PackageID`
---   `HotelId`
---       `hotel` -> `HotelID`
---
-
 -- --------------------------------------------------------
 
 --
@@ -134,6 +125,7 @@ CREATE TABLE `guest` (
   `Age` int(3) NOT NULL,
   `NationalID` int(11) NOT NULL,
   `PassportNumber` int(9) NOT NULL,
+  `Phone` int(11) NOT NULL,
   `City` varchar(15) NOT NULL,
   `Country` varchar(15) NOT NULL,
   `Email` varchar(50) NOT NULL,
@@ -144,16 +136,12 @@ CREATE TABLE `guest` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `guest`:
---
-
---
 -- Dumping data for table `guest`
 --
 
-INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`, `Suspended`) VALUES
-(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 'Corleone', 'Italy', 'test', 'test', 'test', 2112, 'Enabled'),
-(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 'London', 'England', 'test@dsafsda', 'ramez', 'test', 0, 'Enabled');
+INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`, `Suspended`) VALUES
+(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'ramez1700124@miuegypt.edu.eg', 'test', 'test', 2112, 'Enabled'),
+(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 0, 'Enabled');
 
 -- --------------------------------------------------------
 
@@ -183,19 +171,15 @@ CREATE TABLE `hotel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `hotel`:
---
-
---
 -- Dumping data for table `hotel`
 --
 
 INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming_Pool`, `Spa`, `Gym`, `Bar`, `Restaurant`, `Full_Board`, `Half_Board`, `Pets`, `featured`, `FeaturedMainSilder`, `Suspended`, `location`) VALUES
-(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', 'Rtiz is in france', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'header', 'TRUE', 'Disabled', 'Paris,France'),
-(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'feature', 'TRUE', 'Disabled', 'Luxor,Egypt'),
-(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'feature', 'TRUE', 'Enabled', 'Luxor,Egypt'),
+(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', 'Rtiz is in france', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'feature', 'TRUE', 'Disabled', 'Paris,France'),
+(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'header', 'TRUE', 'Disabled', 'Luxor,Egypt'),
+(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Enabled', 'Luxor,Egypt'),
 (5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Disabled', 'London,England'),
-(6, 'testo hotelo', 3999, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Disabled', 'Havana,Cuba');
+(6, 'testo hotelo', 3999, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'feature', 'TRUE', 'Disabled', 'Havana,Cuba');
 
 -- --------------------------------------------------------
 
@@ -212,15 +196,15 @@ CREATE TABLE `inquiries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `inquiries`:
---
-
---
 -- Dumping data for table `inquiries`
 --
 
 INSERT INTO `inquiries` (`InquiryID`, `Author`, `Email`, `Inquiry`, `TimeStamp`) VALUES
-(1, 'Robert', 'test@valid', 'some text', '2020-03-16 19:52:30');
+(4, 'asbkjabf', 'adfakuf@jsbafkb.com', 'asdgagg', '2020-04-24 17:41:05'),
+(5, 'Ramez', 'ramez1700124.miuegypt.edu.eg', 'DgdgDGsdgD', '2020-04-24 17:42:31'),
+(44, 'Ramez', 'ramez1700124@miuegypt.edu.eg', 'asaddaa', '2020-04-24 19:56:58'),
+(45, 'Ramez', 'ramez1700124@miuegypt.edu.eg', 'sdsfss', '2020-04-24 19:58:59'),
+(46, 'Ramez', 'ramez1700124@miuegypt.edu.eg', 'sgsgdgdg', '2020-04-25 14:32:51');
 
 -- --------------------------------------------------------
 
@@ -236,6 +220,13 @@ CREATE TABLE `inquiryhistory` (
   `Timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `inquiryhistory`
+--
+
+INSERT INTO `inquiryhistory` (`InquiryID`, `EmployeeID`, `Inquiry`, `reply`, `Timestamp`) VALUES
+(3, 4, 'some text', 'adsgasga', '2020-04-24 19:36:20');
+
 -- --------------------------------------------------------
 
 --
@@ -247,12 +238,6 @@ CREATE TABLE `languages` (
   `Employee ID` int(11) NOT NULL,
   `LanguageName` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONSHIPS FOR TABLE `languages`:
---   `Employee ID`
---       `employees` -> `EmployeeID`
---
 
 --
 -- Dumping data for table `languages`
@@ -279,7 +264,8 @@ CREATE TABLE `newswire` (
 
 INSERT INTO `newswire` (`ID`, `Email`, `TimeStamp`) VALUES
 (2, 'ahmed.mahdy1899@gmail.com', '2020-04-22 18:16:21'),
-(3, 'Ramez1700124@miuegypt.edu.eg', '2020-04-22 18:16:21');
+(3, 'Ramez1700124@miuegypt.edu.eg', '2020-04-22 18:16:21'),
+(4, 'adfadfkb@hotmail.com', '2020-04-24 17:41:56');
 
 -- --------------------------------------------------------
 
@@ -293,14 +279,6 @@ CREATE TABLE `newswirehistory` (
   `Message` text NOT NULL,
   `Email` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONSHIPS FOR TABLE `newswirehistory`:
---   `EmployeeID`
---       `employees` -> `EmployeeID`
---   `Email`
---       `newswire` -> `Email`
---
 
 -- --------------------------------------------------------
 
@@ -326,12 +304,6 @@ CREATE TABLE `packages` (
   `Overview` text NOT NULL,
   `Description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONSHIPS FOR TABLE `packages`:
---   `HotelID`
---       `hotel` -> `HotelID`
---
 
 --
 -- Dumping data for table `packages`
@@ -365,22 +337,13 @@ CREATE TABLE `reserves` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `reserves`:
---   `GuestId`
---       `guest` -> `GuestID`
---   `HotelId`
---       `hotel` -> `HotelID`
---   `PackageId`
---       `packages` -> `PackageID`
---
-
---
 -- Dumping data for table `reserves`
 --
 
 INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`) VALUES
 (1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Enabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Full'),
-(2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Enabled', NULL, 3, 1, 1, 1, 'Half');
+(2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Enabled', NULL, 3, 1, 1, 1, 'Half'),
+(3, 1, NULL, 3, 5, 2, '2020-04-27 22:00:00', 'Enabled', '2020-04-29 22:00:00', 1, 2, 0, 0, 'Half');
 
 -- --------------------------------------------------------
 
@@ -404,8 +367,8 @@ CREATE TABLE `reviews` (
 INSERT INTO `reviews` (`ReviewID`, `GuestID`, `PackageID`, `HotelID`, `Review`, `Featured`) VALUES
 (1, 1, 3, NULL, 'I Was Happy to visit Egypt with Speedo Tours', 'TRUE'),
 (2, 2, NULL, 3, 'Winter Palace Hotel in luxor is magnificent', 'TRUE'),
-(3, 1, NULL, 1, 'Ritz Carlton Hotel is real deal in france', 'TRUE'),
-(4, 1, 4, NULL, 'This Package Made me in love with europe', 'FALSE');
+(3, 1, NULL, 1, 'Ritz Carlton Hotel is real deal in france', 'FALSE'),
+(4, 1, 4, NULL, 'This Package Made me in love with europe', 'TRUE');
 
 -- --------------------------------------------------------
 
@@ -422,14 +385,6 @@ CREATE TABLE `rooms` (
   `GuestID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- RELATIONSHIPS FOR TABLE `rooms`:
---   `HotelID`
---       `hotel` -> `HotelID`
---   `GuestID`
---       `guest` -> `GuestID`
---
-
 -- --------------------------------------------------------
 
 --
@@ -442,12 +397,6 @@ CREATE TABLE `stops` (
   `StopName` varchar(60) NOT NULL,
   `CruiseID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONSHIPS FOR TABLE `stops`:
---   `CruiseID`
---       `cruise` -> `CruiseID`
---
 
 -- --------------------------------------------------------
 
@@ -605,7 +554,7 @@ ALTER TABLE `visits`
 -- AUTO_INCREMENT for table `blogposts`
 --
 ALTER TABLE `blogposts`
-  MODIFY `PostID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `PostID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `cruise`
@@ -641,13 +590,13 @@ ALTER TABLE `hotel`
 -- AUTO_INCREMENT for table `inquiries`
 --
 ALTER TABLE `inquiries`
-  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `inquiryhistory`
 --
 ALTER TABLE `inquiryhistory`
-  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `languages`
@@ -659,7 +608,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `newswire`
 --
 ALTER TABLE `newswire`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `newswirehistory`
@@ -677,7 +626,7 @@ ALTER TABLE `packages`
 -- AUTO_INCREMENT for table `reserves`
 --
 ALTER TABLE `reserves`
-  MODIFY `ReserveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ReserveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `reviews`

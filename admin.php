@@ -294,9 +294,9 @@
 							<div class="row">
 								<div class="col-md-12">
                                     <h3 class="text-center">Pending Reservations</h3>
-                                    <h4>Hotels Pending Reservations</h4>
+                                    <h4><strong>Hotels Pending Reservations</strong></h4>
                                     <?php $AdminView->output();?>
-                                    <h4>Packages Pending Reservations</h4>
+                                    <h4><strong>Packages Pending Reservations</strong></h4>
                                     <?php $AdminView->OutofPendingPackagesReservations();?>
 
 								</div>

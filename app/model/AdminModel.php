@@ -30,7 +30,7 @@ class Admin extends Employee {
         // INNER JOIN Hotel ON reserves.HotelId=Hotel.HotelID
         // INNER JOIN packages ON reserves.Packageid=packages.PackageID;";
 
-        $sql="SELECT guest.LastName, Hotel.Name, reserves.NoofChildren ,reserves.NoofAdults ,reserves.DateIn ,reserves.DateOut, reserves.NoOfSingleRooms ,reserves.NoOfDoubleRooms
+        $sql="SELECT guest.LastName,guest.NationalID ,guest.PassportNumber,guest.Phone,guest.Email,Hotel.Name, reserves.NoofChildren ,reserves.NoofAdults ,reserves.DateIn ,reserves.DateOut, reserves.NoOfSingleRooms ,reserves.NoOfDoubleRooms
         ,reserves.NoOfTripleRooms, reserves.NoOfSuits ,reserves.BoardType,reserves.ReserveID 
           from reserves
         INNER JOIN guest ON guest.GuestID=reserves.Guestid
@@ -42,6 +42,17 @@ class Admin extends Employee {
             echo'  <span>Mr. '.$row["LastName"].' reserving '.$row["Name"].' Hotel for '.$row["NoofAdults"].' Adults and '.$row["NoofChildren"].' Children Rooms:  '.$row["NoOfSingleRooms"].' Single Rooms , '.$row["NoOfDoubleRooms"].' Double Rooms  
             , '.$row["NoOfTripleRooms"].' Triple Rooms and '.$row["NoOfSuits"].' Suits. Board : '.$row["BoardType"].' From '.$row["DateIn"].' to '.$row["DateOut"].'
             </span>
+            <br><br>
+            <h5><Strong>Client Detalis</strong></span>
+            <br><br>
+            <span>NationalID : '.$row["NationalID"].' </span>
+            <br><br>
+            <span>PassportNumber : '.$row["PassportNumber"].' </span>
+            <br><br>
+            <span>Phone : '.$row["Phone"].' </span>
+            <br><br>
+            <span>Email : '.$row["Email"].' </span>
+            <br><br>
             <form action="" method="post">
             <input type="hidden" class="form-control" value="'.$row['ReserveID'].'" id="reserveid" name="reserveid"> 
             <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
@@ -620,11 +631,36 @@ class Admin extends Employee {
             $sql4="Select Email from guest where GuestID='".$row['GuestId']."'";
             $Result5=mysqli_query($this->db->getConn(),$sql4);
             $row2=$Result5->fetch_assoc();
-            // echo'<script>alert("'.$row2['Email'].'");</script>';
+            $sql5="Select PackageId,HotelId,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,DateIn,DateOut from reserves where ReserveID=$reserveid;";
+            $Result6=mysqli_query($this->db->getConn(),$sql5);
+            $row3=$Result6->fetch_assoc();
+            $Email_Body="<h2>Your Booking Has been confimed and successfully booked</h2>
+            <br>
+            Booking Detalis:
+            <br>
+            '".$row3['NoOfSingleRooms']."' Single Rooms
+            <br>
+            '".$row3['NoOfDoubleRooms']."' Double Rooms
+            <br>
+            '".$row3['NoOfTripleRooms']."' Triple Rooms
+            <br>
+            '".$row3['NoOfSuits']."' Suits
+            <br>
+            '".$row3['BoardType']."' Board
+            <br>
+            '".$row3['DateIn']."' : Check In Date
+            <br>
+            '".$row3['DateOut']."' : Check Out Date
+            <br>
+            
+            <h4> May You Have A Pleasent Stay </h4>
+            <br>
+            <h4> Best Regards From Speedo Tours </h4>";
+            
             include_once "serverdetails.php";
             try{
             $email->Subject="Confirm Book";
-            $email->Body="Your Booking is Confirmed";
+            $email->Body=$Email_Body;
             $email->addAddress($row2["Email"]);
             $email->send();
             }
