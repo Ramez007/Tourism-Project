@@ -69,7 +69,7 @@ class Admin extends Employee {
     function ReadPendingReservations2()
     {
 
-        $sql1="SELECT guest.LastName, packages.PackageName , reserves.NoofChildren ,reserves.NoofAdults ,packages.DateIn ,packages.DateOut, reserves.NoOfSingleRooms ,reserves.NoOfDoubleRooms
+        $sql1="SELECT guest.LastName,guest.NationalID ,guest.PassportNumber,guest.Phone,guest.Email, packages.PackageName , reserves.NoofChildren ,reserves.NoofAdults ,packages.DateIn ,packages.DateOut, reserves.NoOfSingleRooms ,reserves.NoOfDoubleRooms
         ,reserves.NoOfTripleRooms, reserves.NoOfSuits ,reserves.BoardType,reserves.ReserveID  
           from reserves
         INNER JOIN guest ON guest.GuestID=reserves.Guestid
@@ -81,6 +81,17 @@ class Admin extends Employee {
             echo'  <span>Mr. '.$row1["LastName"].' reserving '.$row1["PackageName"].' Hotel for '.$row1["NoofAdults"].' Adults and '.$row1["NoofChildren"].' Children Rooms:  '.$row1["NoOfSingleRooms"].' Single Rooms , '.$row1["NoOfDoubleRooms"].' Double Rooms  
             , '.$row1["NoOfTripleRooms"].' Triple Rooms and '.$row1["NoOfSuits"].' Suits. Board : '.$row1["BoardType"].' From '.$row1["DateIn"].' to '.$row1["DateOut"].'
             </span>
+            <br><br>
+            <h5><Strong>Client Detalis</strong></span>
+            <br><br>
+            <span>NationalID : '.$row1["NationalID"].' </span>
+            <br><br>
+            <span>PassportNumber : '.$row1["PassportNumber"].' </span>
+            <br><br>
+            <span>Phone : '.$row1["Phone"].' </span>
+            <br><br>
+            <span>Email : '.$row1["Email"].' </span>
+            <br><br>
             <form action="" method="post">
             <input type="hidden" class="form-control" value="'.$row1['ReserveID'].'" id="reserveid" name="reserveid"> 
             <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
@@ -634,7 +645,7 @@ class Admin extends Employee {
             $sql5="Select PackageId,HotelId,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,DateIn,DateOut from reserves where ReserveID=$reserveid;";
             $Result6=mysqli_query($this->db->getConn(),$sql5);
             $row3=$Result6->fetch_assoc();
-            $Email_Body="<h2>Your Booking Has been confimed and successfully booked</h2>
+            $Email_Body="<h2>Your Booking Has been confirmed and successfully booked</h2>
             <br>
             Booking Detalis:
             <br>
