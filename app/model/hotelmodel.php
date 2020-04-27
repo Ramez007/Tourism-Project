@@ -7,10 +7,12 @@ require_once("app/model/rooms.php");
 
 class Hotel extends Model
 {
-    protected static $id=1;
+    protected $id;
     protected $name;
     protected $services;
     protected $Room=array();
+    protected $description;
+    protected $overview;
     protected $Location;
     protected $ViewNames=array();
     protected $ViewOverview=array();
@@ -18,25 +20,29 @@ class Hotel extends Model
     private $dbh;
     
     
-    function __construct($name=null,$services=null,$location=null,$type=null)
+    function __construct($id=null,$name=null,$services=null,$location=null,$type=null,$description=null,$overview=null)
     {
         $this->dbh=$this->connect();
-        if($name!=null || $services!=null||$location!=null||$type!=null)
+        if($id!=null||$name!=null || $services!=null||$location!=null||$type!=null||$description!=null||$overview!=null)
         {
-        $this->id+=1;
+        $this->id=$id;
         $this->name=$name;
         $this->services=$services;
         $this->location=$location;
+        $this->description=$description;
+        $this->overview=$overview;
 
         $wifi="FALSE";
         $swimming="FALSE";
-        $resort="FALSE";
+        $Spa="FALSE";
         $gym="FALSE";
         $pets="FALSE";
+        $bar="FALSE";
+        $restaurant="FALSE";
 
         for ($i=0;$i<count($services);$i++)
         {
-            if($services[$i]=="WiFi")
+            if($services[$i]=="Wifi")
             {
                 $wifi="TRUE";
             }
@@ -44,13 +50,21 @@ class Hotel extends Model
             {   
                 $swimming="TRUE";
             }
-            else if($services[$i]=="Resort")
+            else if($services[$i]=="Spa")
             {   
-                $resort="TRUE";
+                $Spa="TRUE";
             }
             else if($services[$i]=="Gym")
             {   
                 $gym="TRUE";
+            }
+            else if($services[$i]=="Bar")
+            {   
+                $bar="TRUE";
+            }
+            else if($services[$i]=="Restaurant")
+            {   
+                $restaurant="TRUE";
             }
             else if($services[$i]=="Pets")
             {   
@@ -58,10 +72,14 @@ class Hotel extends Model
             }
         }
 
-        $roomcount=$type[0]+$type[1]+$type[2];
+        $single=(int)$type[0];
+        $double=(int)$type[1];
+        $triple=(int)$type[2];
+        $suites=(int)$type[3];
+        $roomcount=$single+$double+$triple+$suites;
 
         $this->addrooms($type);
-        $sql="insert into hotel(Name,NumberofRooms,WiFi,Swimming Pool,RESORT,Gym,Pets) values($name,$roomcount,$wifi,$swimming,$resort,$gym,$pets)";
+        $sql="insert into hotel(HotelID,Name,location,NumberofRooms,WiFI,Swimming_Pool,Spa,Gym,Pets,Bar,Restaurant,description,overview,featured,FeaturedMainSilder,Suspended) values('$id','$name','$location','$roomcount','$wifi','$swimming','$Spa','$gym','$pets','$bar','$restaurant','$description','$overview','false','FALSE','Disabled')";
         $result=mysqli_query($this->dbh->getConn(),$sql);
         }
     }
@@ -81,38 +99,54 @@ class Hotel extends Model
     
     private function addrooms($type)
     {
-        $roomcount=$type[0]+$type[1]+$type[2];
+        $single=(int)$type[0];
+        $double=(int)$type[1];
+        $triple=(int)$type[2];
+        $suites=(int)$type[3];
+        $roomcount=$single+$double+$triple+$suites;
         $counter=0;
 
         for($i=1;$i<=$roomcount;$i++)
         {
             if ($counter==0)
             {
-                $room=new Rooms($i,"single",true);
-                array_push($Room,$room);
-                $sql="insert into rooms(RoomNumber,RoomType,HotelID,status)values(".$i.",'Single',".$this->id.",'free')";
+               
+                //array_push($this->Room,$room);
+                $sql="insert into rooms(RoomNumber,RoomType,HotelID,Status)values('".$i."','Single','".$this->id."','free')";
                 $result=mysqli_query($this->dbh->getConn(),$sql); 
             }
             else if ($counter==1)
             {
-                $room=new Rooms($i,"double",true);
-                array_push($Room,$room);
-                $sql="insert into rooms(RoomNumber,RoomType,HotelID,status)values(".$i.",'Double',".$this->id.",'free')";
+                
+                //array_push($this->Room,$room);
+                $sql="insert into rooms(RoomNumber,RoomType,HotelID,Status)values('".$i."','Double','".$this->id."','free')";
                 $result=mysqli_query($this->dbh->getConn(),$sql); 
             }
-            else 
+            else if ($counter==2)
             {
-                $room=new Rooms($i,"triple",true);
-                array_push($Room,$room);
-                $sql="insert into rooms(RoomNumber,RoomType,HotelID,status)values(".$i.",'Triple',".$this->id.",'free')";
+                
+                //array_push($this->Room,$room);
+                $sql="insert into rooms(RoomNumber,RoomType,HotelID,Status)values('".$i."','Triple','".$this->id."','free')";
                 $result=mysqli_query($this->dbh->getConn(),$sql); 
+            }
+            else
+            {
+                
+                //array_push($this->Room,$room);
+                $sql="insert into rooms(RoomNumber,RoomType,HotelID,Status)values('".$i."','Suites','".$this->id."','free')";
+                $result=mysqli_query($this->dbh->getConn(),$sql); 
+
             }
             
-            if($i==$type[0])
+            if($i==$single)
             {
                 $counter++;
             }
-            else if ($i==$type[1])
+            else if ($i==$single+$double)
+            {
+                $counter++;
+            }
+            else if($i==$single+$double+$triple)
             {
                 $counter++;
             }
@@ -160,7 +194,7 @@ class Hotel extends Model
 
     function listdata()
     {
-        $sql="select Name,overview from hotel ";
+        $sql="select Name,overview from hotel where Suspended='Disabled' ";
         $result=mysqli_query($this->db->getConn(),$sql);
         while($row=$result->fetch_assoc())
         {

@@ -15,7 +15,6 @@ class Rooms extends Model
     function __construct($number,$type,$availabilty)
     {
         $this->dbh=$this->connect();
-        $this->RoomID=$id;
         $this->RoomNumber=$number;
         $this->type=$type;
         $this->Availabilty=$availabilty;

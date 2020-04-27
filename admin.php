@@ -131,6 +131,11 @@
 	{
 		$AdminController->Addhotel();
     }
+
+    if (isset($_POST['submit-edit-hotel']))
+    {
+        $AdminController->Edithotel();
+    }
     
     if (isset($_POST['saveditreviews']))
 	{
@@ -332,19 +337,37 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterhotel">Enter Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="enterhotel" placeholder="Hotel Name">
+                                                    <input type="text" class="form-control" name="enterhotel" placeholder="Hotel Name" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterlocation">Enter Hotel Location</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="enterlocation" placeholder="Hotel Name">
+                                                    <input type="text" class="form-control" name="enterlocation" placeholder="Hotel Name"required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of Rooms</label>
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of single Rooms</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" name="numberofrooms" placeholder="1">
+                                                    <input type="number" class="form-control" min='1' name="numberofsingle" placeholder="1" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of double Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min='1' name="numberofdouble" placeholder="1" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of triple Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min='1' name="numberoftriple" placeholder="1" required >
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of suites Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min='1' name="numberofsuites" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div id="checkboxes">
@@ -355,18 +378,17 @@
                                                     <li><input type="checkbox" name="check_list[]" Value="Bar"> Bar</li>
                                                     <li><input type="checkbox" name="check_list[]" Value="Spa"> Spa</li>
                                                     <li><input type="checkbox" name="check_list[]" Value="Swimming Pool"> Swimming Pool</li>
-                                                    <li><input type="checkbox" name="check_list[]" Value="Resturant"> Resturant</li>
-                                                    <li><input type="checkbox" name="check_list[]" Value="Resort"> Resort</li>
+                                                    <li><input type="checkbox" name="check_list[]" Value="Restaurant"> Resturant</li>
                                                     <li><input type="checkbox" name="check_list[]" Value="Pets"> Pets</li>
                                                 </ul>
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoteldescription">Enter Hotel Description</label>
-                                                <textarea class="form-control" id="hoteldescription" rows="4" name="comment" form="usrform" placeholder="Enter text here..."></textarea>
+                                                <textarea class="form-control" id="hoteldescription" rows="4" name="description" placeholder="Enter text here..."></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoteloverview">Enter Hotel Overview</label>
-                                                <textarea class="form-control" id="hoteloverview" rows="4" name="comment" form="usrform" placeholder="Enter text here..."></textarea>
+                                                <textarea class="form-control" id="hoteloverview" rows="4" name="overview" placeholder="Enter text here..."></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="fileToUpload">Upload Gallery of Hotel</label>
@@ -386,7 +408,8 @@
                                         <form action="" method="post">
                                             <h4 class="text-center">Edit Hotel</h4>
                                             <?php $AdminView->ReadEditHotels(); ?>
-                                            <input class="btn btn-primary mb-2" type="submit" value="Save Editing Hotel">
+                                            <input class="btn btn-primary mb-2" type="submit" name='submit-edit-hotel' value="Save Editing Hotel">
+
                                             <script>
 
                                             document.getElementById("hotels-editing-dropdown").addEventListener("change",function(){
@@ -406,8 +429,9 @@
                                                     }
                                                     val++
                                                 } 
-                                                document.getElementById("edithoteldescription").value=res[8];
-                                                document.getElementById("edithoteloverview").value=res[9];
+                                                document.getElementById("edithoteldescription").value=res[9];
+                                                document.getElementById("edithoteloverview").value=res[10];
+                                                document.getElementById("HotelId").value=res[11]
                                                 
                                                 });
                                                 

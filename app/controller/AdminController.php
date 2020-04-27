@@ -7,6 +7,11 @@ class AdminController extends Controller{
     function Addhotel(){
         $this->model->AddHotel();
     }
+    function Edithotel()
+    {
+      $id = $_REQUEST['HotelId'];
+      $this->model->Edithotel($id);
+    }
 
     function EditReviews(){
       $this->model->EditReviews();

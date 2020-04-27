@@ -26,7 +26,7 @@ class mainpage extends Model
 
     function listdata()
     {
-        $sql="select Name,overview,featured,FeaturedMainSilder from hotel ";
+        $sql="select Name,overview,featured,FeaturedMainSilder from hotel where suspended='disabled'";
         $result=mysqli_query($this->dbh->getConn(),$sql);
         while($row=$result->fetch_assoc())
         {

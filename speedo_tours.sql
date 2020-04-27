@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2020 at 08:48 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Apr 27, 2020 at 11:49 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -138,7 +138,7 @@ CREATE TABLE `guest` (
 --
 
 INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`, `Suspended`) VALUES
-(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'ramez1700124@miuegypt.edu.eg', 'test', 'test', 2112, 'Enabled'),
+(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'khaled1701294@miuegypt.edu.eg', 'test', 'test', 2112, 'Enabled'),
 (2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 0, 'Enabled');
 
 -- --------------------------------------------------------
@@ -177,7 +177,9 @@ INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `descriptio
 (3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'header', 'FALSE', 'Disabled', 'Luxor,Egypt'),
 (4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'TRUE', 'Disabled', 'Luxor,Egypt'),
 (5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'TRUE', 'Enabled', 'London,England'),
-(6, 'testo hotelo', 3999, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'feature', 'FALSE', 'Enabled', 'Havana,Cuba');
+(6, ' new hotelsasdfas', 3999, ' dsafsdfa ', '   atafadsfasd ', 'TRUE', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Enabled', 'Havana,Cuba'),
+(7, 'Emillio', 8, 'overview', 'emilio hotel', 'FALSE', 'FALSE', 'TRUE', 'FALSE', 'TRUE', 'FALSE', '', '', 'FALSE', 'feature', 'FALSE', 'Disabled', 'Luxor,Egypt'),
+(8, 'test', 8, 'test', 'test', 'TRUE', 'FALSE', 'FALSE', 'FALSE', 'TRUE', 'TRUE', '', '', 'FALSE', 'false', 'FALSE', 'Disabled', 'test');
 
 -- --------------------------------------------------------
 
@@ -321,8 +323,8 @@ CREATE TABLE `reserves` (
 --
 
 INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`) VALUES
-(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Enabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Full'),
-(2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Enabled', NULL, 3, 1, 1, 1, 'Half'),
+(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Disabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Full'),
+(2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Disabled', NULL, 3, 1, 1, 1, 'Half'),
 (3, 1, NULL, 3, 5, 2, '2020-04-27 22:00:00', 'Enabled', '2020-04-29 22:00:00', 1, 2, 0, 0, 'Half');
 
 -- --------------------------------------------------------
@@ -359,11 +361,33 @@ INSERT INTO `reviews` (`ReviewID`, `GuestID`, `PackageID`, `HotelID`, `Review`, 
 CREATE TABLE `rooms` (
   `RoomID` int(11) NOT NULL,
   `RoomNumber` int(11) NOT NULL,
-  `RoomType` set('Single','Double','Triple','Royal','Bridal') NOT NULL,
+  `RoomType` set('Single','Double','Triple','Suites') NOT NULL,
   `Status` set('Free','Not') NOT NULL,
   `HotelID` int(11) DEFAULT NULL,
   `GuestID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rooms`
+--
+
+INSERT INTO `rooms` (`RoomID`, `RoomNumber`, `RoomType`, `Status`, `HotelID`, `GuestID`) VALUES
+(200, 1, 'Single', 'Free', 7, NULL),
+(201, 2, 'Single', 'Free', 7, NULL),
+(202, 3, 'Double', 'Free', 7, NULL),
+(203, 4, 'Double', 'Free', 7, NULL),
+(204, 5, 'Triple', 'Free', 7, NULL),
+(205, 6, 'Triple', 'Free', 7, NULL),
+(206, 7, 'Suites', 'Free', 7, NULL),
+(207, 8, 'Suites', 'Free', 7, NULL),
+(208, 1, 'Single', 'Free', 8, NULL),
+(209, 2, 'Single', 'Free', 8, NULL),
+(210, 3, 'Double', 'Free', 8, NULL),
+(211, 4, 'Double', 'Free', 8, NULL),
+(212, 5, 'Triple', 'Free', 8, NULL),
+(213, 6, 'Triple', 'Free', 8, NULL),
+(214, 7, 'Suites', 'Free', 8, NULL),
+(215, 8, 'Suites', 'Free', 8, NULL);
 
 --
 -- Indexes for dumped tables
@@ -506,12 +530,6 @@ ALTER TABLE `guest`
   MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `hotel`
---
-ALTER TABLE `hotel`
-  MODIFY `HotelID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- AUTO_INCREMENT for table `inquiries`
 --
 ALTER TABLE `inquiries`
@@ -557,7 +575,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 
 --
 -- Constraints for dumped tables

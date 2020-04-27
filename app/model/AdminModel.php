@@ -107,17 +107,17 @@ class Admin extends Employee {
     function ReadEditHotelsSection()
     {
         
-        $sql="SELECT Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,description,overview From Hotel";
+        $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview From Hotel";
         $Result = mysqli_query($this->db->getConn(),$sql);
 
                 $optionString = '';
                 while($row=$Result->fetch_assoc())
                 {
-                    $optionString .= "<option value='".$row['Name']." & ".$row['location']." & ".$row['WiFI']." & ".$row['Gym']." & ".$row['Bar']." & ".$row['Spa']." & ".$row['Swimming_Pool']." & ".$row['Restaurant']." & ".$row['description']." & ".$row['overview']."'>".$row["Name"]."</option>";
+                    $optionString .= "<option value='".$row['Name']." & ".$row['location']." & ".$row['WiFI']." & ".$row['Gym']." & ".$row['Bar']." & ".$row['Spa']." & ".$row['Swimming_Pool']." & ".$row['Restaurant']." & ".$row['Pets']." & ".$row['description']." & ".$row['overview']." & ".$row['HotelID']."'>".$row["Name"]."</option>";
 
                 }
 
-            $sql="SELECT Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,description,overview From Hotel";
+            $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview From Hotel";
             $Result = mysqli_query($this->db->getConn(),$sql);
             $row=$Result->fetch_assoc();
             echo'<div class="form-group row">
@@ -132,40 +132,42 @@ class Admin extends Employee {
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="edithotelname">Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="edithotelname" value="'.$row['Name'].'">
+                                                    <input type="text" class="form-control" name="edithotelname" id="edithotelname" value="'.$row['Name'].'" required>
                                                 </div>
                                             </div> 
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="edithotellocation">Hotel Location</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="edithotellocation" value="'.$row['location'].'">
+                                                    <input type="text" class="form-control" name="edithotellocation" id="edithotellocation" value="'.$row['location'].'"required>
                                                 </div>
                                             </div>
                                             <div id="checkboxes">
                                                 <label>Edit List of services offered by the hotel</label>
                                                 <ul>
-                                                    <li><input type="checkbox" class="check" '.($row['WiFI']=="TRUE"?"checked":"").'> Wifi</li>
-                                                    <li><input type="checkbox" class="check" '.($row['Gym']=="TRUE"?"checked":"").'> Gym</li>
-                                                    <li><input type="checkbox" class="check" '.($row['Bar']=="TRUE"?"checked":"").'> Bar</li>
-                                                    <li><input type="checkbox" class="check" '.($row['Spa']=="TRUE"?"checked":"").'> Spa</li>
-                                                    <li><input type="checkbox" class="check" '.($row['Swimming_Pool']=="TRUE"?"checked":"").'> Swimming Pool</li>
-                                                    <li><input type="checkbox" class="check" '.($row['Restaurant']=="TRUE"?"checked":"").'> Resturant</li>
+                                                    <li><input type="checkbox" value="Wifi" name="check[]" class="check" '.($row['WiFI']=="TRUE"?"checked":"").'> Wifi</li>
+                                                    <li><input type="checkbox" value="Gym" name="check[]" class="check" '.($row['Gym']=="TRUE"?"checked":"").'> Gym</li>
+                                                    <li><input type="checkbox" value="Bar" name="check[]" class="check" '.($row['Bar']=="TRUE"?"checked":"").'> Bar</li>
+                                                    <li><input type="checkbox" value="Spa" name="check[]" class="check" '.($row['Spa']=="TRUE"?"checked":"").'> Spa</li>
+                                                    <li><input type="checkbox" value="Swimming" name="check[]" class="check" '.($row['Swimming_Pool']=="TRUE"?"checked":"").'> Swimming Pool</li>
+                                                    <li><input type="checkbox" value="Restaurant" name="check[]" class="check" '.($row['Restaurant']=="TRUE"?"checked":"").'> Resturant</li>
+                                                    <li><input type="checkbox" value="Pets" name="check[]" class="check" '.($row['Pets']=="TRUE"?"checked":"").'> Pets</li>
                                                 </ul>
                                             </div>
                                             <br><br>
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Hotel Description</label>
-                                                <textarea class="form-control" id="edithoteldescription" rows="15" name="comment" form="usrform">'.$row['description'].'</textarea>
+                                                <textarea class="form-control" id="edithoteldescription" rows="15" name="description" required>'.$row['description'].'</textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="edithoteloverview">Enter Hotel Overview</label>
-                                                <textarea class="form-control" id="edithoteloverview" rows="15" name="comment" form="usrform">'.$row['overview'].'</textarea>
+                                                <textarea class="form-control" id="edithoteloverview" rows="15" name="overview" required>'.$row['overview'].'</textarea>
                                             </div>
                                             <a href="#">Show Gallery</a><br>
                                             <div class="form-group">
                                                 <label for="fileToUpload">Upload Gallery of Hotel</label>
                                                 <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
                                             </div>
+                                            <input type="hidden" class="form-control" value="'.$row['HotelID'].'" id="HotelId" name="HotelId">
                                             <br><br>
                                             ';
         
@@ -793,22 +795,88 @@ class Admin extends Employee {
     }
 
     function AddHotel()
-    {
-                    //     $hotelname = $_POST["enterhotel"];
-                    //     $hotellocation = $_POST["enterlocation"];
-                    //     $servicesarray=array();
-                        
-                    //     if(!empty($_POST['check_list']))   
-				    //  {
-					// 		    foreach($_POST['check_list'] as $check)
-					// 		    {
-                    //                     array_push($servicesarray,$check); 
-					// 				//check what is checked in checkboxes
-					// 		    }
+    {   
+        $sql="SELECT MAX(HotelID) from hotel";
+        $result=mysqli_query($this->db->getConn(),$sql);
+        $row=mysqli_fetch_assoc($result);
+        $id=$row['MAX(HotelID)']+1;
+        $services=array();
+           if(!empty($_POST['check_list']))
+           {
+                foreach($_POST['check_list'] as $check)
+                {
+                    array_push($services,$check);
+                }
+           }
 
-                    //  }
-                    //  $NewHotel = New Hotel($hotelname,$servicesarray,$hotellocation);
+        $types=[$_POST['numberofsingle'],$_POST['numberofdouble'],$_POST['numberoftriple'],$_POST['numberofsuites']];
+        
+        $hotel=new Hotel($id,$_POST['enterhotel'],$services,$_POST['enterlocation'],$types,$_POST['description'],$_POST['overview']);
+
+        echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
+        
                               
+    }
+
+    function Edithotel($id)
+    {
+
+        $wifi="FALSE";
+        $swimming="FALSE";
+        $Spa="FALSE";
+        $gym="FALSE";
+        $pets="FALSE";
+        $bar="FALSE";
+        $restaurant="FALSE";
+        
+        $values=array();
+        foreach($_POST['check'] as $check)
+        {
+            array_push($values,$check);
+        }
+
+        for ($i=0;$i<count($values);$i++)
+        {
+            if($values[$i]=="Wifi")
+            {
+                $wifi="TRUE";
+            }
+            else if($values[$i]=="Swimming")
+            {   
+                $swimming="TRUE";
+            }
+            else if($values[$i]=="Spa")
+            {   
+                $Spa="TRUE";
+            }
+            else if($values[$i]=="Gym")
+            {   
+                $gym="TRUE";
+            }
+            else if($values[$i]=="Bar")
+            {   
+                $bar="TRUE";
+            }
+            else if($values[$i]=="Restaurant")
+            {   
+                $restaurant="TRUE";
+            }
+            else if($values[$i]=="Pets")
+            {   
+                $pets="TRUE";
+            }
+        }
+
+        $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$_POST['edithotellocation']."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='".$_POST['description']."',overview='".$_POST['overview']."'where HotelID=$id;";
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        if($Result){
+            echo'<script>swal("Successfully Updated Hotel", "", "success");</script>';
+         }
+         else{
+            echo'<script>
+            swal("Oops","Error Updating Hotel !","error");
+            </script>';
+         }
     }
 
 }
