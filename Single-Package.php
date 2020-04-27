@@ -137,7 +137,7 @@ require_once("app/view/PackageView.php");
 $PKModel = new Package();
 $PkController = new PackageController($PKModel);
 $PkController->ListSinglePackage($_GET['action']);
-$PkController->ListPackageServices($_GET['action']);
+$PkController->ListPackageServices();
 $PKView = new PackageView($PkController,$PKModel);
 
 require_once("app/model/singlehotelmodel.php");
@@ -311,8 +311,8 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                                         <span><i class="flaticon-restaurant icon"></i></span>
 										<div class="desc" >Resturant</div>
 									</div> -->
-									<h3 class="heading">Cruise includes</h3>
 									<?php $PKView->CruiseServicesOutput(); ?>
+									<?php $PKView->HotelHyperlink(); ?>
 									<!-- <div class="services">
                                         <span><i class="ti-medall"></i></span>
 										<div class="desc" >Pets</div>
