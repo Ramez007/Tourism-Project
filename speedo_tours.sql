@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2020 at 10:09 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Apr 27, 2020 at 02:28 PM
+-- Server version: 10.1.40-MariaDB
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -45,7 +45,7 @@ CREATE TABLE `blogposts` (
 INSERT INTO `blogposts` (`PostID`, `EmployeeID`, `PostTitle`, `PostMonth`, `PostYear`, `PostText`, `Suspended`) VALUES
 (3, 3, 'Company Establishment', 'SEP', '1989', 'ahsbdhjdadvhuiwbvewjfw', 'Disabled'),
 (4, 3, 'First Aniversairy', 'SEP', '1990', 'dkfnjwkfjkwbjekfjwebdfwed', 'Disabled'),
-(12, 3, '10 Years of Speedo Tours   ', 'OCT', '1977', 'kgujgjglukglk kjbjkbkj\r\nahsijanoanoi', 'Disabled');
+(12, 3, '10 Years of Speedo Tours   ', 'OCT', '1977', 'kgujgjglukglk kjbjkbkj\r\nahsijanoanoi', 'Enabled');
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,6 @@ INSERT INTO `blogposts` (`PostID`, `EmployeeID`, `PostTitle`, `PostMonth`, `Post
 
 CREATE TABLE `cruise` (
   `CruiseID` int(11) NOT NULL,
-  `PackageID` int(11) NOT NULL,
   `CruiseName` varchar(30) NOT NULL,
   `NumberofCabins` int(11) NOT NULL,
   `Captain` varchar(50) NOT NULL,
@@ -70,9 +69,8 @@ CREATE TABLE `cruise` (
 -- Dumping data for table `cruise`
 --
 
-INSERT INTO `cruise` (`CruiseID`, `PackageID`, `CruiseName`, `NumberofCabins`, `Captain`, `Pets`, `Fishing`, `SunBathing`, `Pool`, `Suspended`) VALUES
-(2, 3, 'RMS Dauntless', 250, 'Edward Smith', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'Disabled'),
-(3, 4, 'RMS Titanic', 300, 'John Doe', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'Disabled');
+INSERT INTO `cruise` (`CruiseID`, `CruiseName`, `NumberofCabins`, `Captain`, `Pets`, `Fishing`, `SunBathing`, `Pool`, `Suspended`) VALUES
+(4, 'RMS Titanic', 250, 'Edward Smith', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'Disabled');
 
 -- --------------------------------------------------------
 
@@ -192,7 +190,7 @@ CREATE TABLE `inquiries` (
   `Author` varchar(12) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `Inquiry` varchar(600) NOT NULL,
-  `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
+  `TimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -217,7 +215,7 @@ CREATE TABLE `inquiryhistory` (
   `EmployeeID` int(11) NOT NULL,
   `Inquiry` text NOT NULL,
   `reply` text NOT NULL,
-  `Timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -255,7 +253,7 @@ INSERT INTO `languages` (`LanguageID`, `Employee ID`, `LanguageName`) VALUES
 CREATE TABLE `newswire` (
   `ID` int(11) NOT NULL,
   `Email` varchar(30) NOT NULL,
-  `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
+  `TimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -288,6 +286,7 @@ CREATE TABLE `newswirehistory` (
 
 CREATE TABLE `packages` (
   `PackageID` int(11) NOT NULL,
+  `CruiseID` int(11) DEFAULT NULL,
   `PackageName` varchar(60) NOT NULL,
   `ReserveLimit` int(11) NOT NULL,
   `HotelID` int(11) DEFAULT NULL,
@@ -299,8 +298,8 @@ CREATE TABLE `packages` (
   `NumberofDays` int(11) NOT NULL,
   `NumberofNights` int(11) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
-  `DateIn` timestamp NOT NULL DEFAULT current_timestamp(),
-  `DateOut` timestamp NOT NULL DEFAULT current_timestamp(),
+  `DateIn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `DateOut` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Overview` text NOT NULL,
   `Description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -309,9 +308,9 @@ CREATE TABLE `packages` (
 -- Dumping data for table `packages`
 --
 
-INSERT INTO `packages` (`PackageID`, `PackageName`, `ReserveLimit`, `HotelID`, `Price`, `TourGuide`, `Transportation`, `TouristMap`, `BoardType`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`, `Overview`, `Description`) VALUES
-(3, 'Rome/Milano', 40, 1, 500, 'FALSE', 'TRUE', 'TRUE', 'Half', 5, 4, 'Disabled', '2020-04-14 22:00:00', '2020-04-29 22:00:00', 'Rome/Milano package overview to test out the first stage', 'Testing Rome'),
-(4, 'Around Europe', 100, 5, 1000, 'TRUE', 'FALSE', 'FALSE', 'Full', 10, 11, 'Enabled', '2020-04-21 22:00:00', '2020-05-05 22:00:00', 'Testing overview', 'Testing europe');
+INSERT INTO `packages` (`PackageID`, `CruiseID`, `PackageName`, `ReserveLimit`, `HotelID`, `Price`, `TourGuide`, `Transportation`, `TouristMap`, `BoardType`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`, `Overview`, `Description`) VALUES
+(5, 4, 'Rome/Milano', 100, 1, 1000, 'TRUE', 'TRUE', 'TRUE', 'Full', 10, 11, 'Disabled', '2020-04-22 07:35:00', '2020-05-07 10:00:00', 'Overview test', 'Description test'),
+(7, NULL, 'Around Europe', 40, 5, 500, 'TRUE', 'TRUE', 'TRUE', 'Half', 5, 6, 'Disabled', '2020-04-27 11:34:46', '2020-04-27 11:34:46', 'testing overview', 'testing desc');
 
 -- --------------------------------------------------------
 
@@ -326,7 +325,7 @@ CREATE TABLE `reserves` (
   `HotelId` int(11) DEFAULT NULL,
   `NoofChildren` int(11) NOT NULL,
   `NoofAdults` int(11) NOT NULL,
-  `DateIn` timestamp NOT NULL DEFAULT current_timestamp(),
+  `DateIn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
   `DateOut` timestamp NULL DEFAULT NULL,
   `NoOfSingleRooms` int(11) NOT NULL,
@@ -416,8 +415,8 @@ CREATE TABLE `visits` (
 --
 
 INSERT INTO `visits` (`VisitID`, `NameLocation`, `VisitDay`, `PackageID`) VALUES
-(1, 'Colosseum', 26, 3),
-(2, 'Eiffel Tower', 22, 4);
+(1, 'Colosseum', 26, 5),
+(2, 'Eiffel Tower', 22, 7);
 
 --
 -- Indexes for dumped tables
@@ -434,8 +433,7 @@ ALTER TABLE `blogposts`
 -- Indexes for table `cruise`
 --
 ALTER TABLE `cruise`
-  ADD PRIMARY KEY (`CruiseID`),
-  ADD KEY `PackageID` (`PackageID`);
+  ADD PRIMARY KEY (`CruiseID`);
 
 --
 -- Indexes for table `employees`
@@ -497,14 +495,15 @@ ALTER TABLE `newswirehistory`
   ADD PRIMARY KEY (`MessageID`),
   ADD KEY `EmployeeID` (`EmployeeID`),
   ADD KEY `Email` (`Email`(191)),
-  ADD KEY `Email_2` (`Email`);
+  ADD KEY `Email_2` (`Email`(191));
 
 --
 -- Indexes for table `packages`
 --
 ALTER TABLE `packages`
   ADD PRIMARY KEY (`PackageID`),
-  ADD KEY `HotelID` (`HotelID`);
+  ADD KEY `HotelID` (`HotelID`),
+  ADD KEY `CruiseID` (`CruiseID`);
 
 --
 -- Indexes for table `reserves`
@@ -560,7 +559,7 @@ ALTER TABLE `blogposts`
 -- AUTO_INCREMENT for table `cruise`
 --
 ALTER TABLE `cruise`
-  MODIFY `CruiseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CruiseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `employees`
@@ -620,7 +619,7 @@ ALTER TABLE `newswirehistory`
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `PackageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `PackageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `reserves`
@@ -663,12 +662,6 @@ ALTER TABLE `blogposts`
   ADD CONSTRAINT `blogposts_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`);
 
 --
--- Constraints for table `cruise`
---
-ALTER TABLE `cruise`
-  ADD CONSTRAINT `cruise_ibfk_1` FOREIGN KEY (`PackageID`) REFERENCES `packages` (`PackageID`);
-
---
 -- Constraints for table `gallery`
 --
 ALTER TABLE `gallery`
@@ -688,52 +681,11 @@ ALTER TABLE `languages`
   ADD CONSTRAINT `languages_ibfk_1` FOREIGN KEY (`Employee ID`) REFERENCES `employees` (`EmployeeID`);
 
 --
--- Constraints for table `newswirehistory`
---
-ALTER TABLE `newswirehistory`
-  ADD CONSTRAINT `newswirehistory_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`),
-  ADD CONSTRAINT `newswirehistory_ibfk_2` FOREIGN KEY (`Email`) REFERENCES `newswire` (`Email`);
-
---
 -- Constraints for table `packages`
 --
 ALTER TABLE `packages`
-  ADD CONSTRAINT `packages_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`);
-
---
--- Constraints for table `reserves`
---
-ALTER TABLE `reserves`
-  ADD CONSTRAINT `reserves_ibfk_1` FOREIGN KEY (`GuestId`) REFERENCES `guest` (`GuestID`),
-  ADD CONSTRAINT `reserves_ibfk_2` FOREIGN KEY (`HotelId`) REFERENCES `hotel` (`HotelID`),
-  ADD CONSTRAINT `reserves_ibfk_3` FOREIGN KEY (`PackageId`) REFERENCES `packages` (`PackageID`);
-
---
--- Constraints for table `reviews`
---
-ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`),
-  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
-  ADD CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`PackageID`) REFERENCES `packages` (`PackageID`);
-
---
--- Constraints for table `rooms`
---
-ALTER TABLE `rooms`
-  ADD CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
-  ADD CONSTRAINT `rooms_ibfk_2` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`);
-
---
--- Constraints for table `stops`
---
-ALTER TABLE `stops`
-  ADD CONSTRAINT `stops_ibfk_1` FOREIGN KEY (`CruiseID`) REFERENCES `cruise` (`CruiseID`);
-
---
--- Constraints for table `visits`
---
-ALTER TABLE `visits`
-  ADD CONSTRAINT `visits_ibfk_1` FOREIGN KEY (`PackageID`) REFERENCES `packages` (`PackageID`);
+  ADD CONSTRAINT `packages_ibfk_2` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
+  ADD CONSTRAINT `packages_ibfk_3` FOREIGN KEY (`CruiseID`) REFERENCES `cruise` (`CruiseID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

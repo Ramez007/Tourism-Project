@@ -54,10 +54,6 @@ class PackageView extends View
                     <div class="desc"style=""> Number of nights:'.$this->model->getNumberOfNights().'</div>
                 </div>
                 <div class="services">
-                <span style="margin-bottom:20px;top: 5px;"><img id="News" src="images\city.png" width="50" height="50"style="margin-bottom:40px"></span>
-                    <div class="desc" style="margin-top: 0px;padding-top: 30px;">Landmarks to visit: '.$this->model->ListCities().'</div>
-                </div>
-                <div class="services">
                 <span><img id="News" src="images\dollar.png" width="50" height="50"style="margin-bottom:40px"></span>
                     <div class="desc"style="padding-top: 45px;"> Basic cost:'.$this->model->getPrice().'</div>
                 </div>
@@ -68,6 +64,13 @@ class PackageView extends View
     public function CruiseServicesOutput()
     {
         $services = $this->model->GetCruiseServices();
+        if($services == false)
+        {
+            echo '';
+        }
+        else
+        {
+        echo '<h3 class="heading">Cruise includes</h3>';
         if($services[0] == "TRUE")
         {
             echo 
@@ -108,11 +111,16 @@ class PackageView extends View
         </div>
             ';
         }
+
+        
+        }
+    }
+    public function HotelHyperlink()
+    {
         echo 
         '
         <a href="single-hotel.php?action='.$this->model->GetHotelName().'" style="color:orangered"><b>hotel/cruise details here</b></a>
         ';
-        
     }
 }
 
