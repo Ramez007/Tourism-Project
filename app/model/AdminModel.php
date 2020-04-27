@@ -411,7 +411,7 @@ class Admin extends Employee {
                     $Result = mysqli_query($this->db->getConn(),$sql);
                     while ($row=$Result->fetch_assoc()){
                         echo'
-                    <input type="radio" name="cruise" value=""> '.$row['CruiseName'].' <br>
+                    <input type="radio" name="cruise" value="'.$row['CruiseName'].'"> '.$row['CruiseName'].' <br>
                     <input type="hidden" name="cruiseid" value="'.$row['CruiseID'].'">
                     ';
                     }
