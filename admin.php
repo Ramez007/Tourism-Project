@@ -480,6 +480,13 @@
                                                 <input type="radio" name="boardtype" value="fullboard"> Full Board <br>
                                                 <input type="radio" name="boardtype" value="halfboard"> Half Board<br>
                                             </div>
+
+                                            <div class="assigncruise">
+                                                <label for="">Assign Cruise</label><br>
+                                                <input type="radio" name="cruise" value=""> None <br>
+                                                <?php $AdminView->ReadCruises(); ?>
+                                            </div>
+                                            
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Package Visits/Details</label>
                                                 <textarea class="form-control" id="edithoteldescription" rows="4" name="comment" Placeholder="Enter Text Here..." form="usrform"></textarea>
