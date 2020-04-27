@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2020 at 02:28 PM
+-- Generation Time: Apr 27, 2020 at 03:33 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.3.5
 
@@ -228,25 +228,6 @@ INSERT INTO `inquiryhistory` (`InquiryID`, `EmployeeID`, `Inquiry`, `reply`, `Ti
 -- --------------------------------------------------------
 
 --
--- Table structure for table `languages`
---
-
-CREATE TABLE `languages` (
-  `LanguageID` int(11) NOT NULL,
-  `Employee ID` int(11) NOT NULL,
-  `LanguageName` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `languages`
---
-
-INSERT INTO `languages` (`LanguageID`, `Employee ID`, `LanguageName`) VALUES
-(1, 3, 'English');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `newswire`
 --
 
@@ -384,40 +365,6 @@ CREATE TABLE `rooms` (
   `GuestID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `stops`
---
-
-CREATE TABLE `stops` (
-  `StopsID` int(11) NOT NULL,
-  `StopNumber` int(11) NOT NULL,
-  `StopName` varchar(60) NOT NULL,
-  `CruiseID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `visits`
---
-
-CREATE TABLE `visits` (
-  `VisitID` int(11) NOT NULL,
-  `NameLocation` varchar(60) NOT NULL,
-  `VisitDay` int(11) NOT NULL,
-  `PackageID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `visits`
---
-
-INSERT INTO `visits` (`VisitID`, `NameLocation`, `VisitDay`, `PackageID`) VALUES
-(1, 'Colosseum', 26, 5),
-(2, 'Eiffel Tower', 22, 7);
-
 --
 -- Indexes for dumped tables
 --
@@ -475,13 +422,6 @@ ALTER TABLE `inquiryhistory`
   ADD KEY `EmployeeID` (`EmployeeID`);
 
 --
--- Indexes for table `languages`
---
-ALTER TABLE `languages`
-  ADD PRIMARY KEY (`LanguageID`),
-  ADD KEY `Employee ID` (`Employee ID`);
-
---
 -- Indexes for table `newswire`
 --
 ALTER TABLE `newswire`
@@ -530,20 +470,6 @@ ALTER TABLE `rooms`
   ADD PRIMARY KEY (`RoomID`),
   ADD KEY `GuestID` (`GuestID`),
   ADD KEY `HotelID` (`HotelID`);
-
---
--- Indexes for table `stops`
---
-ALTER TABLE `stops`
-  ADD PRIMARY KEY (`StopsID`),
-  ADD KEY `CruiseID` (`CruiseID`);
-
---
--- Indexes for table `visits`
---
-ALTER TABLE `visits`
-  ADD PRIMARY KEY (`VisitID`),
-  ADD KEY `PackageID` (`PackageID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -598,12 +524,6 @@ ALTER TABLE `inquiryhistory`
   MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `languages`
---
-ALTER TABLE `languages`
-  MODIFY `LanguageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `newswire`
 --
 ALTER TABLE `newswire`
@@ -640,18 +560,6 @@ ALTER TABLE `rooms`
   MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `stops`
---
-ALTER TABLE `stops`
-  MODIFY `StopsID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `visits`
---
-ALTER TABLE `visits`
-  MODIFY `VisitID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- Constraints for dumped tables
 --
 
@@ -673,12 +581,6 @@ ALTER TABLE `gallery`
 --
 ALTER TABLE `inquiryhistory`
   ADD CONSTRAINT `inquiryhistory_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`);
-
---
--- Constraints for table `languages`
---
-ALTER TABLE `languages`
-  ADD CONSTRAINT `languages_ibfk_1` FOREIGN KEY (`Employee ID`) REFERENCES `employees` (`EmployeeID`);
 
 --
 -- Constraints for table `packages`
