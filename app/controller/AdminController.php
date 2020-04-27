@@ -45,6 +45,18 @@ class AdminController extends Controller{
       $this->model->ConfirmReserve($reserveid);
     }
 
+    function SuspendPackage()
+    {
+      $this->model->SuspendPackage();
+    }
+
+    function SuspendHotel()
+    {
+      $this->model->SuspendHotel();
+    }
+
+    
+
     
 
     

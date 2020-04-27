@@ -167,6 +167,18 @@
 		$AdminController->ConfirmBook();
     }
 
+    if (isset($_POST['suspendpac']))
+	{
+		$AdminController->SuspendPackage();
+    }
+
+    if (isset($_POST['suspendhtl']))
+	{
+		$AdminController->SuspendHotel();
+    }
+    
+
+
     
 
     
@@ -408,12 +420,14 @@
                                     <!-- Suspend Hotel Section -->
                                     <div id="suspend-hotel-sec">
                                         <h4 class="text-center">Suspend Hotels</h4>
+                                        <form action="" method="post">
                                         <div id="checkboxes">
                                             <label>Select Hotels To Suspended</label>
                                             <?php $AdminView->ReadSuspendHotels(); ?>
                                         </div>
                                         <br><br>
-                                        <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">
+                                        <input type="submit" class="btn btn-primary mb-2" value="Save Suspension" name="suspendhtl">
+                                        </form>
                                     </div>    
 
 								</div>
@@ -556,12 +570,15 @@
                                     <!-- Suspend Pakage Section -->
                                     <div id="suspend-package-sec">
                                         <h4 class="text-center">Suspend Pacakges</h4>
-                                        <div id="checkboxes">
-                                            <label>Select Packages To Be Suspended</label>
-                                            <?php $AdminView->ReadSuspendPackages(); ?>
-                                        </div>
-                                        <br><br>
-                                        <input type="submit" class="btn btn-primary mb-2" value="Save Suspension">
+                                        <form action="" method="post">
+                                            <div id="checkboxes">
+                                                <label>Select Packages To Be Suspended</label>
+                                                <?php $AdminView->ReadSuspendPackages(); ?>
+                                            </div>
+                                            <br><br>
+                                            
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Suspension" name="suspendpac">
+                                        </form>
                                     </div>    
 
                                     <!-- end of packages -->

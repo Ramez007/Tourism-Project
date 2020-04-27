@@ -175,12 +175,12 @@ class Admin extends Employee {
 
     function ReadSuspendHotelsSection()
     {
-        $sql="SELECT Name,Suspended From Hotel";
+        $sql="SELECT Name,Suspended,HotelID From Hotel";
         $Result = mysqli_query($this->db->getConn(),$sql);
         echo '<ul>';
         while ($row=$Result->fetch_assoc()){
 
-            echo'<li><input type="checkbox" '.($row['Suspended']=="Enabled"?"checked":"").'>  ' .$row['Name'].'</li>';
+            echo'<li><input type="checkbox" name="suspendhtls[]" value="'.$row['HotelID'].'"  '.($row['Suspended']=="Enabled"?"checked":"").'>  ' .$row['Name'].'</li>';
         }
         echo '<ul>';
 
@@ -275,12 +275,12 @@ class Admin extends Employee {
 
     function ReadSuspendPackagesSection()
     {
-        $sql="SELECT PackageName,Suspended From packages";
+        $sql="SELECT PackageName,Suspended,PackageID From packages";
         $Result = mysqli_query($this->db->getConn(),$sql);
         echo '<ul>';
         while ($row=$Result->fetch_assoc()){
 
-            echo'<li><input type="checkbox" '.($row['Suspended']=="Enabled"?"checked":"").'>  ' .$row['PackageName'].'</li>';
+            echo'<li><input type="checkbox" name="suspendpkgs[]" value="'.$row['PackageID'].'" '.($row['Suspended']=="Enabled"?"checked":"").'>  ' .$row['PackageName'].'</li>';
         }
         echo '<ul>';
 
@@ -619,7 +619,16 @@ class Admin extends Employee {
 							    foreach($_POST['events'] as $check)
 							    {
                                         array_push($a,$check);
-                                }   
+                                } 
+                                
+                                for($i=0;$i<count($a);$i++)
+					            {
+                                $sql99="UPDATE blogposts
+                                SET Suspended='Disabled'
+                                WHERE PostID!=".$a[$i].";";
+                                $Result99 = mysqli_query($this->db->getConn(),$sql99);
+                                }
+                                
                                 for($i=0;$i<count($a);$i++)
 					            {
                                 $sql="UPDATE blogposts
@@ -698,6 +707,89 @@ class Admin extends Employee {
                         swal("Oops","Error Confirming Book !","error");
                         </script>';
         }
+    }
+
+    function SuspendPackage()
+    {
+                    $a=array();
+                    if(!empty($_POST['suspendpkgs']))   
+				     {
+							    foreach($_POST['suspendpkgs'] as $check)
+							    {
+                                        array_push($a,$check);
+                                } 
+                                
+                                for($i=0;$i<count($a);$i++)
+					            {
+                                $sql99="UPDATE packages
+                                SET Suspended='Disabled'
+                                WHERE PackageID!=".$a[$i].";";
+                                $Result99 = mysqli_query($this->db->getConn(),$sql99);
+                                }
+
+                                for($i=0;$i<count($a);$i++)
+					            {
+                                $sql="UPDATE packages
+                                SET Suspended='Enabled'
+                                WHERE PackageID=".$a[$i].";";
+                                $Result = mysqli_query($this->db->getConn(),$sql);
+
+                                }
+                                echo'<script>swal("Successfully Suspended Packages", "", "success");</script>';
+                                  
+                     } 
+                     else 
+                     {
+                        $sql2="UPDATE packages
+                                SET Suspended='Disabled';";
+                                $Result2 = mysqli_query($this->db->getConn(),$sql2); 
+                                echo'<script>swal("All Packages are now Visible in Packages Page", "", "success");</script>';
+
+                     }
+    }
+
+    function SuspendHotel()
+    {
+        $a=array();
+
+                    if(!empty($_POST['suspendhtls']))   
+				     {
+							    foreach($_POST['suspendhtls'] as $check)
+							    {
+                                        array_push($a,$check);
+                                }
+                                
+                                for($i=0;$i<count($a);$i++)
+					            {
+                                $sql99="UPDATE hotel
+                                SET Suspended='Disabled'
+                                WHERE HotelID!=".$a[$i].";";
+                                $Result99 = mysqli_query($this->db->getConn(),$sql99);
+                                }
+
+                                for($i=0;$i<count($a);$i++)
+					            {
+                                echo'<script>alert("'.$a[$i].'");</script>';    
+                                $sql="UPDATE hotel
+                                SET Suspended='Enabled'
+                                WHERE HotelID=".$a[$i].";";
+                                $Result = mysqli_query($this->db->getConn(),$sql);
+
+                                }
+                                
+                                
+                                echo'<script>swal("Successfully Suspended Hotels", "", "success");</script>';
+                                  
+                     }
+                    
+                     else 
+                     {
+                        $sql2="UPDATE hotel
+                                SET Suspended='Disabled';";
+                                $Result2 = mysqli_query($this->db->getConn(),$sql2); 
+                                echo'<script>swal("All Hotels are now Visible in Hotels Page", "", "success");</script>';
+
+                     }
     }
 
     function AddHotel()
