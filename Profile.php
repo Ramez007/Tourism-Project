@@ -383,7 +383,6 @@
     <script src="js/jquery.flexslider-min.js"></script>
 
     <script src="js/custom.js"></script>
-
 </body>
 
 </html>

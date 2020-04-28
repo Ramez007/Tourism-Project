@@ -68,7 +68,7 @@ class User extends Model {
 			}
 			else if ($_POST['Selectjob']=="Guest")
 			{
-				$sql="SELECT* FROM guest where Username='$user'";
+				$sql="SELECT * FROM guest where Username='$user'";
 				$result=mysqli_query($this->dbh->getConn(),$sql);
 				$row=mysqli_fetch_assoc($result);
 				$_SESSION["ID"]=$row["GuestID"];
@@ -82,6 +82,46 @@ class User extends Model {
 			}
 		}	
     }
+
+	/**
+	 * Get the value of username
+	 */ 
+	public function getUsername()
+	{
+		return $this->username;
+	}
+
+	/**
+	 * Set the value of username
+	 *
+	 * @return  self
+	 */ 
+	public function setUsername($username)
+	{
+		$this->username = $username;
+
+		return $this;
+	}
+
+	/**
+	 * Get the value of password
+	 */ 
+	public function getPassword()
+	{
+		return $this->password;
+	}
+
+	/**
+	 * Set the value of password
+	 *
+	 * @return  self
+	 */ 
+	public function setPassword($password)
+	{
+		$this->password = $password;
+
+		return $this;
+	}
 }
 
 ?>
