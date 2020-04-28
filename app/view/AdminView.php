@@ -58,6 +58,10 @@ class AdminView extends View
     public function ReadCruises(){
         $this->model->ReadCruises();
     }
+
+    public function ReadHotels(){
+        $this->model->ReadHotels();
+    }
 }
 
 ?>

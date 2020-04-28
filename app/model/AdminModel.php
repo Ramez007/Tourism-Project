@@ -190,39 +190,49 @@ class Admin extends Employee {
 
     function ReadEditPackagesSection()
     {
-        $sql="SELECT PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn,CruiseID From packages";
+        $sql="SELECT PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn,CruiseID,HotelID From packages";
         $Result = mysqli_query($this->db->getConn(),$sql);
 
                 $optionString = '';
                 while($row=$Result->fetch_assoc())
                 {
-                    $optionString .= "<option value='".$row['PackageName']." & ".$row['ReserveLimit']." & ".$row['Price']." & ".$row['TourGuide']." & ".$row['Transportation']." & ".$row['TouristMap']." & ".$row['BoardType']." & ".$row['NumberofDays']." & ".$row['NumberofNights']." & ".$row['DateOut']." & ".$row['Description']." & ".$row['DateIn']. " & ".$row['CruiseID']. "'>".$row["PackageName"]."</option>";
-
+                    if ($row['CruiseID'] =='')
+                    {
+                        $optionString .= "<option value='".$row['PackageName']." & ".$row['ReserveLimit']." & ".$row['Price']." & ".$row['TourGuide']." & ".$row['Transportation']." & ".$row['TouristMap']." & ".$row['BoardType']." & ".$row['NumberofDays']." & ".$row['NumberofNights']." & ".$row['DateOut']." & ".$row['Description']." & ".$row['DateIn']. " & empty & h".$row['HotelID']."'>".$row["PackageName"]."</option>";
+                    }
+                    else
+                    {
+                    $optionString .= "<option value='".$row['PackageName']." & ".$row['ReserveLimit']." & ".$row['Price']." & ".$row['TourGuide']." & ".$row['Transportation']." & ".$row['TouristMap']." & ".$row['BoardType']." & ".$row['NumberofDays']." & ".$row['NumberofNights']." & ".$row['DateOut']." & ".$row['Description']." & ".$row['DateIn']. " & ".$row['CruiseID']." & h".$row['HotelID']."'>".$row["PackageName"]."</option>";
+                    }
                 }
         
-        $sql="SELECT PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn,CruiseID From packages";
+        $sql="SELECT PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn,CruiseID,HotelID From packages";
         $Result = mysqli_query($this->db->getConn(),$sql);
         $row=$Result->fetch_assoc();
 
-       
-        // $cruises = '';
-        // $sql2="SELECT CruiseName from cruise;";
-        // $Result2 = mysqli_query($this->db->getConn(),$sql2);
-        // while ($row2=$Result2->fetch_assoc())
-        // {
+       //for cruises radio buttons
+        $cruises = '';
+        $sql2="SELECT CruiseName,CruiseID from cruise;";
+        $Result2 = mysqli_query($this->db->getConn(),$sql2);
+        while ($row2=$Result2->fetch_assoc())
+        {
                     
-        //             $cruises .="<input type='radio' name='cruise' ".($row['CruiseID']==""?"checked":"")."> '".$row2['CruiseName']."' <br>";
+            $cruises .="<input type='radio' name='cruise' id='".$row2['CruiseID']."' ".($row['CruiseID']=="".$row2['CruiseID'].""?"checked":"")."> ".$row2['CruiseName']." <br>";
                     
-                    
-        // }
+        }
 
-        //inside echo
-        // <div class="assigncruise">
-        //         <label for="">Assign Cruise</label><br>
-        //         <input type="radio" name="cruise" value=""> None <br>
-        //         '.$cruises.'
-        //     </div>
+        //for hotels radio buttons
+        $hotels = '';
+        $sql3="SELECT Name,HotelID from hotel;";
+        $Result3 = mysqli_query($this->db->getConn(),$sql3);
+        while ($row3=$Result3->fetch_assoc())
+        {
+                    
+            $hotels .="<input type='radio' name='hotel' id='h".$row3['HotelID']."' ".($row['HotelID']=="".$row3['HotelID'].""?"checked":"")."> ".$row3['Name']." <br>";
+                    
+        }
 
+    
 
 
 
@@ -266,11 +276,11 @@ class Admin extends Employee {
             </div>
             <div class="input-field">
                 <label for="date-start">Start Date</label>
-                <input type="text" class="form-control" id="date-start" value="'.$row['DateIn'].'" />
+                <input type="text" class="form-control" id="date-start-pkg" value="'.$row['DateIn'].'" />
             </div>
             <div class="input-field">
                 <label for="date-start">End Date</label>
-                <input type="text" class="form-control" id="date-end" value="'.$row['DateOut'].'" />
+                <input type="text" class="form-control" id="date-end-pkg" value="'.$row['DateOut'].'" />
             </div>
             <div id="checkboxes">
                 <label>Edit List of services offered</label>
@@ -285,7 +295,16 @@ class Admin extends Employee {
                 <input type="radio" name="boardtype"  id="half"  '.($row['BoardType']=="Half"?"checked":"").'> Half Board<br>
             </div>
 
-            
+            <div class="assigncruise">
+                <label for="">Assign Cruise</label><br>
+                <input type="radio" name="cruise" id="cruisenone" value=""> None <br>
+                '.$cruises.'
+            </div>
+
+            <div class="assignhotel">
+                <label for="">Assign Hotel</label><br>
+                '.$hotels.'
+            </div>
             
             <label class="col-sm-4 col-form-label" for="packagedetails">Edit Package Visits/Details</label>
             <textarea rows="15" class="form-control" id="packagedetails" name="comment">
@@ -438,6 +457,17 @@ class Admin extends Employee {
                         echo'
                     <input type="radio" name="cruise" value="'.$row['CruiseName'].'"> '.$row['CruiseName'].' <br>
                     <input type="hidden" name="cruiseid" value="'.$row['CruiseID'].'">
+                    ';
+                    }
+    }
+
+    function ReadHotels(){
+        $sql="SELECT Name,HotelID from hotel where Suspended='Disabled';";
+                    $Result = mysqli_query($this->db->getConn(),$sql);
+                    while ($row=$Result->fetch_assoc()){
+                        echo'
+                    <input type="radio" name="hotels" value="'.$row['Name'].'"> '.$row['Name'].' <br>
+                    <input type="hidden" name="cruiseid" value="'.$row['HotelID'].'">
                     ';
                     }
     }

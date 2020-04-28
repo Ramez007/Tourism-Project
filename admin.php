@@ -494,13 +494,13 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Enter Package Reserve Limit</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="reservelimit" name="reservelimit" placeholder="1" required>
+                                                    <input type="number" class="form-control" min="1" id="reservelimit" name="reservelimit" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Enter Package Total Price/Person</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="totalprice" name="totalprice" placeholder="1" required>
+                                                    <input type="number" class="form-control" min="100" id="totalprice" name="totalprice" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="input-field">
@@ -524,11 +524,19 @@
                                                 <input type="radio" name="boardtype" value="halfboard"> Half Board<br>
                                             </div>
 
+                                               
+
                                             <div class="assigncruise">
                                                 <label for="">Assign Cruise</label><br>
                                                 <input type="radio" name="cruise" value=""> None <br>
                                                 <?php $AdminView->ReadCruises(); ?>
                                             </div>
+
+                                            <!-- readhotelshere -->
+                                            <div class="assignhotel">
+                                                <label for="">Assign Hotel</label><br>
+                                                <?php $AdminView->ReadHotels(); ?>
+                                            </div> 
                                             
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Package Visits/Details</label>
@@ -546,7 +554,7 @@
                                         <h4 class="text-center">Edit Package</h4>
                                         <form action="" method="post">
                                             <?php $AdminView->ReadEditPackages(); ?>
-                                            <input type="submit" class="btn btn-primary mb-2" value="Save Editing Package">
+                                            <input type="submit" class="btn btn-primary mb-2" value="Save Editing Package" name="SubmitEditPackage">
                                             <script>
                                             document.getElementById("Packages-editing-dropdown").addEventListener("change",function(){
                                                 var res1=document.getElementById("Packages-editing-dropdown").value.split("&");
@@ -555,19 +563,39 @@
                                                 document.getElementById("packagenights").value=res1[8];
                                                 document.getElementById("packagelimit").value=res1[1];
                                                 document.getElementById("packageprice").value=res1[2];
-                                                document.getElementById("date-start").value=res1[11];
-                                                document.getElementById("date-end").value=res1[9];
+                                                document.getElementById("date-start-pkg").value=res1[11];
+                                                document.getElementById("date-end-pkg").value=res1[9];
                                                 document.getElementById("packagedetails").value=res1[10];
+
+                                                alert(res[12]);
+                                                // document.getElementById(res1[13]).checked=true;
+
+                                                
 
                                                 if(res1[6]==" Full ")
                                                 {
                                                     document.getElementById("full").checked=true;
-                                                    document.getElementById("half").checked=false;
+                                                    // document.getElementById("half").checked=false;
                                                 }
                                                 else
                                                 {
-                                                    document.getElementById("full").checked=false;
+                                                    // document.getElementById("full").checked=false;
                                                     document.getElementById("half").checked=true;
+                                                }
+
+                                                if(res1[12]==" empty ")
+                                                {
+                                                    document.getElementById("cruisenone").checked=true;
+                                                    // document.getElementById("cruischeck").checked=false;
+                                                    // document.getElementsByName("cruise").checked=false;
+                                                }
+                                                else
+                                                {
+                                                    // alert(res1[12]);
+                                                    
+                                                    var x = parseInt(res1[12]);
+                                                    document.getElementById(x).checked=true;
+                                                    // document.getElementById("cruisenone").checked=false;
                                                 }
                                                 
                                                 var inputsp = document.querySelectorAll('.checkp'); 
@@ -586,7 +614,13 @@
                                                 } 
                                                 
                                                 
-
+                                                
+                                                // var y = res1[13];
+                                                // var yy = y.toString();
+                                                // var z = "+h";
+                                                // var hid = yy.concat(z);
+                                                // var n = hid.toString();
+                                                // alert(n);
                                                 
                                                 
                                                 });
