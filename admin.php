@@ -136,6 +136,11 @@
     {
         $AdminController->Edithotel();
     }
+
+    if (isset($_POST['SubmitAddPackage']))
+    {
+        $AdminController->AddPackage();
+    }
     
     if (isset($_POST['saveditreviews']))
 	{
@@ -467,51 +472,51 @@
                                     <!-- Add Package SubSection -->
                                     <div id="add-package-subsec">
                                         <h4 class="text-center">Add Package</h4>
-                                        <form action="">
+                                        <form action="" method="post">
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="packagename">Enter Package Name</label>
+                                                <label class="col-sm-2 col-form-label">Enter Package Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="packagename" placeholder="Package Name ...">
+                                                    <input type="text" class="form-control" id="packagename" name="packagename" placeholder="Package Name ..." required>
                                                 </div>
                                             </div> 
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="numberofdays">Enter Package Number of Days</label>
+                                                <label class="col-sm-2 col-form-label">Enter Package Number of Days</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="numberofdays" placeholder="1">
+                                                    <input type="number" class="form-control" min="1" id="numberofdays" name="numberofdays" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="numberofdays">Enter Package Number of Nights</label>
+                                                <label class="col-sm-2 col-form-label">Enter Package Number of Nights</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="numberofnights" placeholder="1">
+                                                    <input type="number" class="form-control" min="1" id="numberofnights" name="numberofnights" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="reservelimit">Enter Package Reserve Limit</label>
+                                                <label class="col-sm-2 col-form-label">Enter Package Reserve Limit</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="reservelimit" placeholder="1">
+                                                    <input type="number" class="form-control" id="reservelimit" name="reservelimit" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="totalprice">Enter Package Total Price</label>
+                                                <label class="col-sm-2 col-form-label">Enter Package Total Price/Person</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" id="totalprice" placeholder="1">
+                                                    <input type="number" class="form-control" id="totalprice" name="totalprice" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="input-field">
-                                                <label for="date-start">Start Date</label>
-                                                <input type="text" class="form-control" id="date-start" />
+                                                <label>Start Date</label>
+                                                <input type="text" class="form-control" id="date-start" name="date-start" required />
                                             </div>
                                             <div class="input-field">
-                                                <label for="date-start">End Date</label>
-                                                <input type="text" class="form-control" id="date-start" />
+                                                <label>End Date</label>
+                                                <input type="text" class="form-control" id="date-end" name="date-end" required />
                                             </div>
                                             <div id="checkboxes">
                                                 <label>Enter List of services offered</label>
                                                 <ul>
-                                                    <li><input type="checkbox"> Transportation</li>
-                                                    <li><input type="checkbox"> Tour Guide</li>
-                                                    <li><input type="checkbox"> Tourist Map</li>
+                                                    <li><input type="checkbox" name="pkg_service[]" value="trans"> Transportation</li>
+                                                    <li><input type="checkbox" name="pkg_service[]" value="guide"> Tour Guide</li>
+                                                    <li><input type="checkbox" name="pkg_service[]" value="map"> Tourist Map</li>
                                                 </ul>
                                             </div>                
                                             <div class="boardtype">
@@ -527,12 +532,12 @@
                                             
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Package Visits/Details</label>
-                                                <textarea class="form-control" id="edithoteldescription" rows="4" name="comment" Placeholder="Enter Text Here..." form="usrform"></textarea>
+                                                <textarea class="form-control" id="edithoteldescription" name="edithoteldescription" rows="4" name="comment" Placeholder="Enter Text Here..." required></textarea>
                                             </div>
-                                            <label for="fileToUpload">Enter Package Visits/Details</label>
+                                            <label for="fileToUpload">Upload Pictures</label>
                                             <input type="file" name="fileToUpload" id="fileToUpload">
                                             <br><br>
-                                            <input type="submit"  class="btn btn-primary mb-2" value="Save Package">
+                                            <input type="submit"  class="btn btn-primary mb-2" value="Save Package" name="SubmitAddPackage">
                                         </form>
                                     </div>
                                     <hr style="border-top: 1px solid black">

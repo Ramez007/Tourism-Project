@@ -190,19 +190,40 @@ class Admin extends Employee {
 
     function ReadEditPackagesSection()
     {
-        $sql="SELECT PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn From packages";
+        $sql="SELECT PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn,CruiseID From packages";
         $Result = mysqli_query($this->db->getConn(),$sql);
 
                 $optionString = '';
                 while($row=$Result->fetch_assoc())
                 {
-                    $optionString .= "<option value='".$row['PackageName']." & ".$row['ReserveLimit']." & ".$row['Price']." & ".$row['TourGuide']." & ".$row['Transportation']." & ".$row['TouristMap']." & ".$row['BoardType']." & ".$row['NumberofDays']." & ".$row['NumberofNights']." & ".$row['DateOut']." & ".$row['Description']." & ".$row['DateIn']. "'>".$row["PackageName"]."</option>";
+                    $optionString .= "<option value='".$row['PackageName']." & ".$row['ReserveLimit']." & ".$row['Price']." & ".$row['TourGuide']." & ".$row['Transportation']." & ".$row['TouristMap']." & ".$row['BoardType']." & ".$row['NumberofDays']." & ".$row['NumberofNights']." & ".$row['DateOut']." & ".$row['Description']." & ".$row['DateIn']. " & ".$row['CruiseID']. "'>".$row["PackageName"]."</option>";
 
                 }
         
-        $sql="SELECT PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn From packages";
+        $sql="SELECT PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn,CruiseID From packages";
         $Result = mysqli_query($this->db->getConn(),$sql);
         $row=$Result->fetch_assoc();
+
+       
+        // $cruises = '';
+        // $sql2="SELECT CruiseName from cruise;";
+        // $Result2 = mysqli_query($this->db->getConn(),$sql2);
+        // while ($row2=$Result2->fetch_assoc())
+        // {
+                    
+        //             $cruises .="<input type='radio' name='cruise' ".($row['CruiseID']==""?"checked":"")."> '".$row2['CruiseName']."' <br>";
+                    
+                    
+        // }
+
+        //inside echo
+        // <div class="assigncruise">
+        //         <label for="">Assign Cruise</label><br>
+        //         <input type="radio" name="cruise" value=""> None <br>
+        //         '.$cruises.'
+        //     </div>
+
+
 
 
         echo'<div class="form-group row">
@@ -263,9 +284,11 @@ class Admin extends Employee {
                 <input type="radio" name="boardtype"  id="full"  '.($row['BoardType']=="Full"?"checked":"").'> Full Board <br>
                 <input type="radio" name="boardtype"  id="half"  '.($row['BoardType']=="Half"?"checked":"").'> Half Board<br>
             </div>
+
+            
             
             <label class="col-sm-4 col-form-label" for="packagedetails">Edit Package Visits/Details</label>
-            <textarea rows="15" class="form-control" id="packagedetails" name="comment" form="usrform">
+            <textarea rows="15" class="form-control" id="packagedetails" name="comment">
             '.$row['Description'].'
             </textarea>                                                        
             <br><br><br><a href="#">Show Gallery of Pacakage</a><br>
@@ -877,6 +900,11 @@ class Admin extends Employee {
             swal("Oops","Error Updating Hotel !","error");
             </script>';
          }
+    }
+
+    Function AddPackage()
+    {
+
     }
 
 }

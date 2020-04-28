@@ -13,6 +13,10 @@ class AdminController extends Controller{
       $this->model->Edithotel($id);
     }
 
+    function AddPackage(){
+      $this->model->AddPackage();
+  }
+
     function EditReviews(){
       $this->model->EditReviews();
     }
