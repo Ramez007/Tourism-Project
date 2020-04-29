@@ -24,6 +24,7 @@ class Package extends Model
     protected $PackageViewName = array();
     protected $PackageViewOverview = array();
     protected $PackageIDs = array();
+    protected $PackagePrices = array();
 
     public function __construct()
     {
@@ -40,6 +41,7 @@ class Package extends Model
             array_push($this->PackageViewName,$row['PackageName']);
             array_push($this->PackageViewOverview,$row['Overview']);
             array_push($this->PackageIDs,$row['PackageID']);
+            array_push($this->PackagePrices,$row['Price']);
         }
 
     }
@@ -367,6 +369,26 @@ class Package extends Model
     public function setDescription($Description)
     {
         $this->Description = $Description;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of PackagePrices
+     */ 
+    public function getPackagePrices()
+    {
+        return $this->PackagePrices;
+    }
+
+    /**
+     * Set the value of PackagePrices
+     *
+     * @return  self
+     */ 
+    public function setPackagePrices($PackagePrices)
+    {
+        $this->PackagePrices = $PackagePrices;
 
         return $this;
     }
