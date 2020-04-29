@@ -94,6 +94,16 @@ class Guest extends User {
         $SQL = 'UPDATE guest SET Image="'.$file.'" WHERE GuestID='.$_SESSION["ID"].'';
         mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
     }
+    public function CancelPackage($PackageID)
+    {
+        $SQL = 'DELETE FROM reserves WHERE PackageID='.$PackageID.' AND GuestID='.$_SESSION["ID"].'';
+        return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
+    }
+    public function CancelHotel($HotelID)
+    {
+        $SQL = 'DELETE FROM reserves WHERE HotelID='.$HotelID.' AND GuestID='.$_SESSION["ID"].'';
+        return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
+    }
 
 
     /**

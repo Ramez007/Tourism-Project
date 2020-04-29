@@ -1,3 +1,5 @@
+<script src="js/sweetalert.min.js"></script>
+<script src="js/refresh.js"></script>
 <style>
 #inputBox {
     border-radius: 25px;
@@ -473,8 +475,11 @@ class GuestView extends View
                     <td>'.$Res->getDateOut().'</td>
                     <td>None</td>
                     <td>
-                        <button class="btn btn-danger">Cancel Reservation</button>
-                        <button class="btn btn-success">Track Reservation</button>
+                    <form method="post">
+                        <input type="submit" name="CancelPackage" class="btn btn-danger" value="Cancel Reservation">
+                        <input type="submit" name="TrackPackage" class="btn btn-success" value="Track Reservation">
+                        <input type="hidden" name="PackageID" value="'.$Res->getPackageID().'">
+                    </form>
                     </td>
                 </tr>
             </tbody>
@@ -491,8 +496,11 @@ class GuestView extends View
                     <td>'.$Res->getDateOut().'</td>
                     <td>None</td>
                     <td>
-                        <button class="btn btn-danger">Cancel Reservation</button>
-                        <button class="btn btn-success">Track Reservation</button>
+                    <form method="post">
+                        <input type="submit" name="CancelHotel" class="btn btn-danger" value="Cancel Reservation">
+                        <input type="submit" name="TrackHotel" class="btn btn-success" value="Track Reservation">
+                        <input type="hidden" name="HotelID" value="'.$Res->getHotelID().'">
+                    </form>
                     </td>
                 </tr>
             </tbody>
@@ -518,6 +526,55 @@ class GuestView extends View
          ';
          $Initial .= $End;
          echo $Initial;
+
+         if(isset($_POST['CancelPackage']))
+         {
+            echo 
+            '
+            <script>
+            swal({
+                title: "Are you sure?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((WillDelete) => {
+                if ('.$this->model->CancelPackage($_POST['PackageID']).') {
+                  swal("Your reservation has been canceled!", {
+                    icon: "success",
+                  });
+                } else {
+                    swal("Your reservation is safe!");
+                }
+              });
+            </script>
+            ';
+         }
+        
+         if(isset($_POST['CancelHotel']))
+         {
+            echo 
+            '
+            <script>
+            swal({
+                title: "Are you sure?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((WillDelete) => {
+                if ('.$this->model->CancelHotel($_POST['HotelID']).') {
+                  swal("Your reservation has been canceled!", {
+                    icon: "success",
+                  });
+                } else {
+                    swal("Your reservation is safe!");
+                }
+              });
+            </script>
+            ';
+         }
+
     }
 }
 
