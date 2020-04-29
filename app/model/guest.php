@@ -55,11 +55,12 @@ class Guest extends User {
 
     public function GetProfileData($ID)
     {
-        $SQL = 'SELECT HotelID,PackageID,DateIn,DateOut,reserves.Suspended FROM guest INNER JOIN reserves ON guest.GuestID ='.$ID.' AND reserves.GuestID = '.$ID.'';
+        $SQL = 'SELECT ReserveID,HotelID,PackageID,DateIn,DateOut,reserves.Suspended FROM guest INNER JOIN reserves ON guest.GuestID ='.$ID.' AND reserves.GuestID = '.$ID.'';
         $Result = mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);        
         while ($row = $Result->fetch_assoc())
         {
         $Res = new Reservation();
+        $Res->setReserveID($row['ReserveID']);
         $Res->setHotelID($row['HotelID']);
         $Res->setPackageID($row['PackageID']);
         $Res->setDateIn($row['DateIn']);
@@ -84,24 +85,24 @@ class Guest extends User {
     public function EditProfile($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Country)
     {
         $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Username="'.$User.'", Password="'.$Pass.'" WHERE GuestID='.$_SESSION["ID"].'';
-        mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
         $_SESSION["fname"]=$Fname;
         $_SESSION["lname"]=$Lname;
         $_SESSION["Email"]=$Email;
+        return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
     }
     public function EditProfilePic($file)
     {
         $SQL = 'UPDATE guest SET Image="'.$file.'" WHERE GuestID='.$_SESSION["ID"].'';
-        mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
-    }
-    public function CancelPackage($PackageID)
-    {
-        $SQL = 'DELETE FROM reserves WHERE PackageID='.$PackageID.' AND GuestID='.$_SESSION["ID"].'';
         return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
     }
-    public function CancelHotel($HotelID)
+    public function CancelPackage($PackageID,$ReserveID)
     {
-        $SQL = 'DELETE FROM reserves WHERE HotelID='.$HotelID.' AND GuestID='.$_SESSION["ID"].'';
+        $SQL = 'DELETE FROM reserves WHERE PackageID='.$PackageID.' AND GuestID='.$_SESSION["ID"].' AND ReserveID='.$ReserveID.'';
+        return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
+    }
+    public function CancelHotel($HotelID,$ReserveID)
+    {
+        $SQL = 'DELETE FROM reserves WHERE HotelID='.$HotelID.' AND GuestID='.$_SESSION["ID"].' AND ReserveID='.$ReserveID.'';
         return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
     }
 

@@ -357,7 +357,10 @@ class GuestView extends View
             {
                 $_POST['Country'] = $this->model->getCountry();
             }
-            $this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$_POST['password'],$_POST['Country']);
+            if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$_POST['password'],$_POST['Country']))
+            {
+                echo '<script>swal("Edited profile successfully","","success")</script>';
+            }
         }
         if(isset($_POST['submitpp']))
         {
@@ -365,7 +368,10 @@ class GuestView extends View
             $target_file = basename($_FILES["filename"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
             $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
-            $this->model->EditProfilePic($image);
+            if($this->model->EditProfilePic($image))
+            {
+                echo '<script>swal("uploaded photo successfully","","success")</script>';
+            }
         }
     }
 
@@ -475,14 +481,33 @@ class GuestView extends View
                     <td>'.$Res->getDateOut().'</td>
                     <td>None</td>
                     <td>
-                    <form method="post">
-                        <input type="submit" name="CancelPackage" class="btn btn-danger" value="Cancel Reservation">
-                        <input type="submit" name="TrackPackage" class="btn btn-success" value="Track Reservation">
-                        <input type="hidden" name="PackageID" value="'.$Res->getPackageID().'">
-                    </form>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelPackage'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
+                        <button class="btn btn-success">Track Reservation</button>
                     </td>
                 </tr>
             </tbody>
+
+            <div id="ModalCancelPackage'.$Res->getReserveID().'" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+          
+              
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title" style="text-align:center;">Are you sure?</h4>
+                </div>
+                <div class="modal-body">
+                <form method="post">
+                <input type="submit" name="CancelPackage" value="Yes" class="btn btn-success" style="margin-left: 25%;">
+                <input type="hidden" name="PackageID" value="'.$Res->getPackageID().'">
+                <input type="hidden" name="ReserveID" value="'.$Res->getReserveID().'">
+                </form>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;">No</button>
+                </div>
+              </div>
+          
+            </div>
+            </div>
                 ';
             }
             else if($Res->getPackageID() == NULL && $Res->getHotelID() != NULL && $Res->getSuspended() == "Disabled")
@@ -496,14 +521,33 @@ class GuestView extends View
                     <td>'.$Res->getDateOut().'</td>
                     <td>None</td>
                     <td>
-                    <form method="post">
-                        <input type="submit" name="CancelHotel" class="btn btn-danger" value="Cancel Reservation">
-                        <input type="submit" name="TrackHotel" class="btn btn-success" value="Track Reservation">
-                        <input type="hidden" name="HotelID" value="'.$Res->getHotelID().'">
-                    </form>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelHotel'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
+                        <button class="btn btn-success">Track Reservation</button>
                     </td>
                 </tr>
             </tbody>
+
+            <div id="ModalCancelHotel'.$Res->getReserveID().'" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+          
+              
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title" style="text-align:center;">Are you sure?</h4>
+                </div>
+                <div class="modal-body">
+                <form method="post">
+                <input type="submit" name="CancelHotel" value="Yes" class="btn btn-success" style="margin-left: 25%;">
+                <input type="hidden" name="HotelID" value="'.$Res->getHotelID().'">
+                <input type="hidden" name="ReserveID" value="'.$Res->getReserveID().'">
+                </form>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;">No</button>
+                </div>
+              </div>
+          
+            </div>
+            </div>
                 ';
             }
             else 
@@ -529,50 +573,26 @@ class GuestView extends View
 
          if(isset($_POST['CancelPackage']))
          {
-            echo 
-            '
-            <script>
-            swal({
-                title: "Are you sure?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-              })
-              .then((WillDelete) => {
-                if ('.$this->model->CancelPackage($_POST['PackageID']).') {
-                  swal("Your reservation has been canceled!", {
-                    icon: "success",
-                  });
-                } else {
-                    swal("Your reservation is safe!");
-                }
-              });
-            </script>
-            ';
+             if($this->model->CancelPackage($_POST['PackageID'], $_POST['ReserveID']))
+             {
+                 echo '<script>swal("Canceled Successfully!","","success")</script>';
+             }
+             else
+             {
+                 echo '<script>swal("Something went wrong, please try again")</script>';
+             }
          }
-        
+
          if(isset($_POST['CancelHotel']))
          {
-            echo 
-            '
-            <script>
-            swal({
-                title: "Are you sure?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-              })
-              .then((WillDelete) => {
-                if ('.$this->model->CancelHotel($_POST['HotelID']).') {
-                  swal("Your reservation has been canceled!", {
-                    icon: "success",
-                  });
-                } else {
-                    swal("Your reservation is safe!");
-                }
-              });
-            </script>
-            ';
+            if($this->model->CancelHotel($_POST['HotelID'], $_POST['ReserveID']))
+            {
+                echo '<script>swal("Canceled Successfully!","","success")</script>';
+            }
+            else
+            {
+                echo '<script>swal("Something went wrong, please try again")</script>';
+            }
          }
 
     }
