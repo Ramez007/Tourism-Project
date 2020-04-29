@@ -91,7 +91,7 @@ class Guest extends User {
     }
     public function EditProfilePic($file)
     {
-        $SQL = 'UPDATE guest SET Image='.$file.'';
+        $SQL = 'UPDATE guest SET Image="'.$file.'" WHERE GuestID='.$_SESSION["ID"].'';
         mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
     }
 

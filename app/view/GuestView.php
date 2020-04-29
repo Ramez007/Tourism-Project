@@ -23,7 +23,7 @@ class GuestView extends View
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <img id="Profile-Picture" src="data:image/jpeg;base64,'.base64_encode($this->model->getImg()).'" width="250" height="300">
+                    <img id="Profile-Picture" src="'.$this->model->getImg().'" width="250" height="300">
                     <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-primary mb-2" style="margin-left: 50px; margin-top: 20px;" data-toggle="modal" data-target="#ModalPP" type="button"> Change Picture </button>
@@ -359,8 +359,11 @@ class GuestView extends View
         }
         if(isset($_POST['submitpp']))
         {
-            $file = addslashes(file_get_contents($_FILES["filename"]["tmp_name"]));
-            $this->model->EditProfilePic($file);
+            $image_base64 = base64_encode(file_get_contents($_FILES['filename']['tmp_name']) );
+            $target_file = basename($_FILES["filename"]["name"]);
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+            $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+            $this->model->EditProfilePic($image);
         }
     }
 
