@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2020 at 11:55 PM
+-- Generation Time: Apr 30, 2020 at 01:15 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -177,17 +177,9 @@ CREATE TABLE `hotel` (
 --
 
 INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming_Pool`, `Spa`, `Gym`, `Bar`, `Restaurant`, `Pets`, `featured`, `FeaturedMainSilder`, `Suspended`, `location`, `PriceSingle`, `PriceDouble`, `PriceTriple`, `PriceSuites`, `stars`) VALUES
-(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', 'Rtiz is in france', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'feature', 'TRUE', 'Disabled', 'Paris,France', 500, 600, 700, 800, 4),
-(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'TRUE', 'TRUE', 'header', 'FALSE', 'Disabled', 'Luxor,Egypt', 0, 0, 0, 0, 0),
-(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'FALSE', 'TRUE', 'false', 'TRUE', 'Disabled', 'Luxor,Egypt', 0, 0, 0, 0, 0),
-(5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'TRUE', 'Enabled', 'London,England', 0, 0, 0, 0, 0),
-(6, ' new hotelsasdfas', 3999, ' dsafsdfa ', '   atafadsfasd ', 'TRUE', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Enabled', 'Havana,Cuba', 0, 0, 0, 0, 0),
-(7, 'Emillio', 8, 'overview', 'emilio hotel', 'FALSE', 'FALSE', 'TRUE', 'FALSE', 'TRUE', 'FALSE', 'FALSE', 'feature', 'FALSE', 'Disabled', 'Luxor,Egypt', 0, 0, 0, 0, 0),
-(8, 'test', 8, 'test', 'test', 'TRUE', 'FALSE', 'FALSE', 'FALSE', 'TRUE', 'TRUE', 'FALSE', 'false', 'FALSE', 'Disabled', 'test', 0, 0, 0, 0, 0),
-(9, 'test15', 4, 'elshanselsel', 'elshanselsel', 'FALSE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'false', 'FALSE', 'Disabled', 'embaba', 0, 0, 0, 0, 0),
-(10, 'test161', 11, 'test', 'test', 'TRUE', 'FALSE', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Disabled', 'tests', 166, 200, 300, 400, 0),
-(11, 'test5135', 375, 'test', 'test', 'TRUE', 'TRUE', 'FALSE', 'FALSE', 'FALSE', 'FALSE', 'FALSE', 'false', 'FALSE', 'Disabled', '123', 120, 24, 100, 54, 0),
-(12, 'test', 8, 'test', 'test', 'TRUE', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'FALSE', 'FALSE', 'false', 'FALSE', 'Disabled', 'test', 200, 523, 200, 5345, 3);
+(1, 'hotel 1', 80, 'test', 'test', 'TRUE', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'FALSE', 'FALSE', 'header', 'TRUE', 'Disabled', 'location 1', 20, 20, 20, 20, 2),
+(2, 'hotel 2', 80, 'test', 'test', 'TRUE', 'FALSE', 'TRUE', 'FALSE', 'FALSE', 'FALSE', 'TRUE', 'feature', 'TRUE', 'Disabled', 'location 2', 20, 20, 20, 20, 4),
+(3, 'test', 48, '21', '21', 'TRUE', 'TRUE', 'FALSE', 'FALSE', 'FALSE', 'FALSE', 'FALSE', 'feature', 'TRUE', 'Disabled', 'test', 12, 12, 12, 12, 2);
 
 -- --------------------------------------------------------
 
@@ -300,13 +292,8 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`PackageID`, `CruiseID`, `PackageName`, `ReserveLimit`, `HotelID`, `Price`, `TourGuide`, `Transportation`, `TouristMap`, `BoardType`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`, `Overview`, `Description`) VALUES
-(3, 4, 'Rome/Milano', 100, 4, 1000, 'FALSE', 'FALSE', 'FALSE', 'Full', 10, 11, 'Disabled', '2020-04-22', '2020-05-07', 'Overview test', 'asd'),
-(4, 5, 'Around Europe    ', 40, 7, 500, 'FALSE', 'FALSE', 'TRUE', 'Full', 5, 6, 'Disabled', '2020-04-14', '2020-05-28', 'text', 'testing desc    '),
-(15, 5, 'Around Egypt ', 25, 7, 20000, 'FALSE', 'FALSE', 'FALSE', 'Half', 15, 14, 'Disabled', '2020-04-29', '2020-05-29', 'test', ' We will take you around imbaba and el houssain '),
-(26, NULL, 'test123', 1, 4, 1000, 'FALSE', 'FALSE', 'FALSE', 'Full', 1, 1, 'Disabled', '2020-04-20', '2020-04-21', 'test', 'test'),
-(27, NULL, 'be5', 1521, 4, 15215, 'TRUE', 'TRUE', 'FALSE', 'Full', 124, 123, 'Disabled', '2020-04-22', '2020-04-30', 'twa', 'twa'),
-(28, NULL, '99test', 51251, 3, 1525125, 'FALSE', 'FALSE', 'FALSE', 'Full', 234, 125, 'Disabled', '2020-04-13', '2020-04-22', 'test', 'test'),
-(29, NULL, 'tewa', 234, 4, 423, 'FALSE', 'TRUE', 'TRUE', 'Half', 4234, 32423, 'Disabled', '2020-04-29', '2020-04-23', 'weta', 'teat');
+(1, 4, 'pkg 1', 60, 1, 500, 'TRUE', 'TRUE', 'FALSE', 'Full', 3, 3, 'Disabled', '2020-04-22', '2020-04-30', 'test', 'test'),
+(2, NULL, 'pkg 2', 15, 2, 150, 'FALSE', 'TRUE', 'FALSE', 'Full', 3, 2, 'Disabled', '2020-04-01', '2020-04-07', 'test', 'yet');
 
 -- --------------------------------------------------------
 
@@ -337,9 +324,9 @@ CREATE TABLE `reserves` (
 --
 
 INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`, `price`) VALUES
-(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Disabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Full', 0),
+(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Disabled', '2020-04-29 22:00:00', 5, 5, 5, 5, 'Full', 0),
 (2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Disabled', NULL, 3, 1, 1, 1, 'Half', 0),
-(3, 1, NULL, 3, 5, 2, '2020-04-27 22:00:00', 'Enabled', '2020-04-29 22:00:00', 1, 2, 0, 0, 'Half', 0);
+(3, 1, NULL, 2, 5, 2, '2020-04-27 22:00:00', 'Disabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Half', 0);
 
 -- --------------------------------------------------------
 
@@ -361,10 +348,10 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`ReviewID`, `GuestID`, `PackageID`, `HotelID`, `Review`, `Featured`) VALUES
-(1, 1, 3, NULL, 'I Was Happy to visit Egypt with Speedo Tours', 'TRUE'),
+(1, 1, 3, 2, 'I Was Happy to visit Egypt with Speedo Tours', 'TRUE'),
 (2, 2, NULL, 3, 'Winter Palace Hotel in luxor is magnificent', 'TRUE'),
-(3, 1, NULL, 1, 'Ritz Carlton Hotel is real deal in france', 'FALSE'),
-(4, 1, 4, NULL, 'This Package Made me in love with europe', 'TRUE');
+(3, 1, NULL, 1, 'Ritz Carlton Hotel is real deal in france', 'TRUE'),
+(4, 1, 4, 1, 'This Package Made me in love with europe', 'FALSE');
 
 -- --------------------------------------------------------
 
@@ -386,14 +373,214 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`RoomID`, `RoomNumber`, `RoomType`, `Status`, `HotelID`, `GuestID`) VALUES
-(376, 1, 'Single', 'Free', 12, NULL),
-(377, 2, 'Single', 'Free', 12, NULL),
-(378, 3, 'Double', 'Free', 12, NULL),
-(379, 4, 'Double', 'Free', 12, NULL),
-(380, 5, 'Triple', 'Free', 12, NULL),
-(381, 6, 'Triple', 'Free', 12, NULL),
-(382, 7, 'Suites', 'Free', 12, NULL),
-(383, 8, 'Suites', 'Free', 12, NULL);
+(384, 1, 'Single', 'Not', 1, 1),
+(385, 2, 'Single', 'Not', 1, 1),
+(386, 3, 'Single', 'Not', 1, 1),
+(387, 4, 'Single', 'Not', 1, 1),
+(388, 5, 'Single', 'Not', 1, 1),
+(389, 6, 'Single', 'Not', 1, 1),
+(390, 7, 'Single', 'Not', 1, 1),
+(391, 8, 'Single', 'Not', 1, 1),
+(392, 9, 'Single', 'Not', 1, 1),
+(393, 10, 'Single', 'Not', 1, 1),
+(394, 11, 'Single', 'Free', 1, NULL),
+(395, 12, 'Single', 'Free', 1, NULL),
+(396, 13, 'Single', 'Free', 1, NULL),
+(397, 14, 'Single', 'Free', 1, NULL),
+(398, 15, 'Single', 'Free', 1, NULL),
+(399, 16, 'Single', 'Free', 1, NULL),
+(400, 17, 'Single', 'Free', 1, NULL),
+(401, 18, 'Single', 'Free', 1, NULL),
+(402, 19, 'Single', 'Free', 1, NULL),
+(403, 20, 'Single', 'Free', 1, NULL),
+(404, 21, 'Double', 'Not', 1, 1),
+(405, 22, 'Double', 'Not', 1, 1),
+(406, 23, 'Double', 'Not', 1, 1),
+(407, 24, 'Double', 'Not', 1, 1),
+(408, 25, 'Double', 'Not', 1, 1),
+(409, 26, 'Double', 'Not', 1, 1),
+(410, 27, 'Double', 'Not', 1, 1),
+(411, 28, 'Double', 'Not', 1, 1),
+(412, 29, 'Double', 'Not', 1, 1),
+(413, 30, 'Double', 'Not', 1, 1),
+(414, 31, 'Double', 'Free', 1, NULL),
+(415, 32, 'Double', 'Free', 1, NULL),
+(416, 33, 'Double', 'Free', 1, NULL),
+(417, 34, 'Double', 'Free', 1, NULL),
+(418, 35, 'Double', 'Free', 1, NULL),
+(419, 36, 'Double', 'Free', 1, NULL),
+(420, 37, 'Double', 'Free', 1, NULL),
+(421, 38, 'Double', 'Free', 1, NULL),
+(422, 39, 'Double', 'Free', 1, NULL),
+(423, 40, 'Double', 'Free', 1, NULL),
+(424, 41, 'Triple', 'Not', 1, 1),
+(425, 42, 'Triple', 'Not', 1, 1),
+(426, 43, 'Triple', 'Not', 1, 1),
+(427, 44, 'Triple', 'Not', 1, 1),
+(428, 45, 'Triple', 'Not', 1, 1),
+(429, 46, 'Triple', 'Not', 1, 1),
+(430, 47, 'Triple', 'Not', 1, 1),
+(431, 48, 'Triple', 'Not', 1, 1),
+(432, 49, 'Triple', 'Not', 1, 1),
+(433, 50, 'Triple', 'Not', 1, 1),
+(434, 51, 'Triple', 'Free', 1, NULL),
+(435, 52, 'Triple', 'Free', 1, NULL),
+(436, 53, 'Triple', 'Free', 1, NULL),
+(437, 54, 'Triple', 'Free', 1, NULL),
+(438, 55, 'Triple', 'Free', 1, NULL),
+(439, 56, 'Triple', 'Free', 1, NULL),
+(440, 57, 'Triple', 'Free', 1, NULL),
+(441, 58, 'Triple', 'Free', 1, NULL),
+(442, 59, 'Triple', 'Free', 1, NULL),
+(443, 60, 'Triple', 'Free', 1, NULL),
+(444, 61, 'Suites', 'Not', 1, 1),
+(445, 62, 'Suites', 'Not', 1, 1),
+(446, 63, 'Suites', 'Not', 1, 1),
+(447, 64, 'Suites', 'Not', 1, 1),
+(448, 65, 'Suites', 'Not', 1, 1),
+(449, 66, 'Suites', 'Not', 1, 1),
+(450, 67, 'Suites', 'Not', 1, 1),
+(451, 68, 'Suites', 'Not', 1, 1),
+(452, 69, 'Suites', 'Not', 1, 1),
+(453, 70, 'Suites', 'Not', 1, 1),
+(454, 71, 'Suites', 'Free', 1, NULL),
+(455, 72, 'Suites', 'Free', 1, NULL),
+(456, 73, 'Suites', 'Free', 1, NULL),
+(457, 74, 'Suites', 'Free', 1, NULL),
+(458, 75, 'Suites', 'Free', 1, NULL),
+(459, 76, 'Suites', 'Free', 1, NULL),
+(460, 77, 'Suites', 'Free', 1, NULL),
+(461, 78, 'Suites', 'Free', 1, NULL),
+(462, 79, 'Suites', 'Free', 1, NULL),
+(463, 80, 'Suites', 'Free', 1, NULL),
+(464, 1, 'Single', 'Free', 2, NULL),
+(465, 2, 'Single', 'Free', 2, NULL),
+(466, 3, 'Single', 'Free', 2, NULL),
+(467, 4, 'Single', 'Free', 2, NULL),
+(468, 5, 'Single', 'Free', 2, NULL),
+(469, 6, 'Single', 'Free', 2, NULL),
+(470, 7, 'Single', 'Free', 2, NULL),
+(471, 8, 'Single', 'Free', 2, NULL),
+(472, 9, 'Single', 'Free', 2, NULL),
+(473, 10, 'Single', 'Free', 2, NULL),
+(474, 11, 'Single', 'Free', 2, NULL),
+(475, 12, 'Single', 'Free', 2, NULL),
+(476, 13, 'Single', 'Free', 2, NULL),
+(477, 14, 'Single', 'Free', 2, NULL),
+(478, 15, 'Single', 'Free', 2, NULL),
+(479, 16, 'Single', 'Free', 2, NULL),
+(480, 17, 'Single', 'Free', 2, NULL),
+(481, 18, 'Single', 'Free', 2, NULL),
+(482, 19, 'Single', 'Free', 2, NULL),
+(483, 20, 'Single', 'Free', 2, NULL),
+(484, 21, 'Double', 'Free', 2, NULL),
+(485, 22, 'Double', 'Free', 2, NULL),
+(486, 23, 'Double', 'Free', 2, NULL),
+(487, 24, 'Double', 'Free', 2, NULL),
+(488, 25, 'Double', 'Free', 2, NULL),
+(489, 26, 'Double', 'Free', 2, NULL),
+(490, 27, 'Double', 'Free', 2, NULL),
+(491, 28, 'Double', 'Free', 2, NULL),
+(492, 29, 'Double', 'Free', 2, NULL),
+(493, 30, 'Double', 'Free', 2, NULL),
+(494, 31, 'Double', 'Free', 2, NULL),
+(495, 32, 'Double', 'Free', 2, NULL),
+(496, 33, 'Double', 'Free', 2, NULL),
+(497, 34, 'Double', 'Free', 2, NULL),
+(498, 35, 'Double', 'Free', 2, NULL),
+(499, 36, 'Double', 'Free', 2, NULL),
+(500, 37, 'Double', 'Free', 2, NULL),
+(501, 38, 'Double', 'Free', 2, NULL),
+(502, 39, 'Double', 'Free', 2, NULL),
+(503, 40, 'Double', 'Free', 2, NULL),
+(504, 41, 'Triple', 'Free', 2, NULL),
+(505, 42, 'Triple', 'Free', 2, NULL),
+(506, 43, 'Triple', 'Free', 2, NULL),
+(507, 44, 'Triple', 'Free', 2, NULL),
+(508, 45, 'Triple', 'Free', 2, NULL),
+(509, 46, 'Triple', 'Free', 2, NULL),
+(510, 47, 'Triple', 'Free', 2, NULL),
+(511, 48, 'Triple', 'Free', 2, NULL),
+(512, 49, 'Triple', 'Free', 2, NULL),
+(513, 50, 'Triple', 'Free', 2, NULL),
+(514, 51, 'Triple', 'Free', 2, NULL),
+(515, 52, 'Triple', 'Free', 2, NULL),
+(516, 53, 'Triple', 'Free', 2, NULL),
+(517, 54, 'Triple', 'Free', 2, NULL),
+(518, 55, 'Triple', 'Free', 2, NULL),
+(519, 56, 'Triple', 'Free', 2, NULL),
+(520, 57, 'Triple', 'Free', 2, NULL),
+(521, 58, 'Triple', 'Free', 2, NULL),
+(522, 59, 'Triple', 'Free', 2, NULL),
+(523, 60, 'Triple', 'Free', 2, NULL),
+(524, 61, 'Suites', 'Free', 2, NULL),
+(525, 62, 'Suites', 'Free', 2, NULL),
+(526, 63, 'Suites', 'Free', 2, NULL),
+(527, 64, 'Suites', 'Free', 2, NULL),
+(528, 65, 'Suites', 'Free', 2, NULL),
+(529, 66, 'Suites', 'Free', 2, NULL),
+(530, 67, 'Suites', 'Free', 2, NULL),
+(531, 68, 'Suites', 'Free', 2, NULL),
+(532, 69, 'Suites', 'Free', 2, NULL),
+(533, 70, 'Suites', 'Free', 2, NULL),
+(534, 71, 'Suites', 'Free', 2, NULL),
+(535, 72, 'Suites', 'Free', 2, NULL),
+(536, 73, 'Suites', 'Free', 2, NULL),
+(537, 74, 'Suites', 'Free', 2, NULL),
+(538, 75, 'Suites', 'Free', 2, NULL),
+(539, 76, 'Suites', 'Free', 2, NULL),
+(540, 77, 'Suites', 'Free', 2, NULL),
+(541, 78, 'Suites', 'Free', 2, NULL),
+(542, 79, 'Suites', 'Free', 2, NULL),
+(543, 80, 'Suites', 'Free', 2, NULL),
+(544, 1, 'Single', 'Free', 3, NULL),
+(545, 2, 'Single', 'Free', 3, NULL),
+(546, 3, 'Single', 'Free', 3, NULL),
+(547, 4, 'Single', 'Free', 3, NULL),
+(548, 5, 'Single', 'Free', 3, NULL),
+(549, 6, 'Single', 'Free', 3, NULL),
+(550, 7, 'Single', 'Free', 3, NULL),
+(551, 8, 'Single', 'Free', 3, NULL),
+(552, 9, 'Single', 'Free', 3, NULL),
+(553, 10, 'Single', 'Free', 3, NULL),
+(554, 11, 'Single', 'Free', 3, NULL),
+(555, 12, 'Single', 'Free', 3, NULL),
+(556, 13, 'Double', 'Free', 3, NULL),
+(557, 14, 'Double', 'Free', 3, NULL),
+(558, 15, 'Double', 'Free', 3, NULL),
+(559, 16, 'Double', 'Free', 3, NULL),
+(560, 17, 'Double', 'Free', 3, NULL),
+(561, 18, 'Double', 'Free', 3, NULL),
+(562, 19, 'Double', 'Free', 3, NULL),
+(563, 20, 'Double', 'Free', 3, NULL),
+(564, 21, 'Double', 'Free', 3, NULL),
+(565, 22, 'Double', 'Free', 3, NULL),
+(566, 23, 'Double', 'Free', 3, NULL),
+(567, 24, 'Double', 'Free', 3, NULL),
+(568, 25, 'Triple', 'Free', 3, NULL),
+(569, 26, 'Triple', 'Free', 3, NULL),
+(570, 27, 'Triple', 'Free', 3, NULL),
+(571, 28, 'Triple', 'Free', 3, NULL),
+(572, 29, 'Triple', 'Free', 3, NULL),
+(573, 30, 'Triple', 'Free', 3, NULL),
+(574, 31, 'Triple', 'Free', 3, NULL),
+(575, 32, 'Triple', 'Free', 3, NULL),
+(576, 33, 'Triple', 'Free', 3, NULL),
+(577, 34, 'Triple', 'Free', 3, NULL),
+(578, 35, 'Triple', 'Free', 3, NULL),
+(579, 36, 'Triple', 'Free', 3, NULL),
+(580, 37, 'Suites', 'Free', 3, NULL),
+(581, 38, 'Suites', 'Free', 3, NULL),
+(582, 39, 'Suites', 'Free', 3, NULL),
+(583, 40, 'Suites', 'Free', 3, NULL),
+(584, 41, 'Suites', 'Free', 3, NULL),
+(585, 42, 'Suites', 'Free', 3, NULL),
+(586, 43, 'Suites', 'Free', 3, NULL),
+(587, 44, 'Suites', 'Free', 3, NULL),
+(588, 45, 'Suites', 'Free', 3, NULL),
+(589, 46, 'Suites', 'Free', 3, NULL),
+(590, 47, 'Suites', 'Free', 3, NULL),
+(591, 48, 'Suites', 'Free', 3, NULL);
 
 --
 -- Indexes for dumped tables
@@ -563,7 +750,7 @@ ALTER TABLE `newswirehistory`
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `PackageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `PackageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `reserves`
@@ -581,7 +768,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=384;
+  MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=592;
 
 --
 -- Constraints for dumped tables
