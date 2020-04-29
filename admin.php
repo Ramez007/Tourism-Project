@@ -141,7 +141,10 @@
     {
         $AdminController->AddPackage();
     }
-    
+    if (isset($_POST['SubmitEditPackage']))
+    {
+        $AdminController->EditPackage();
+    }
     if (isset($_POST['saveditreviews']))
 	{
 		$AdminController->EditReviews();
@@ -352,27 +355,51 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of single Rooms</label>
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number Of Single Rooms</label>
                                                 <div class="col-sm-3">
                                                     <input type="number" class="form-control" min='1' name="numberofsingle" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of double Rooms</label>
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Price Of Single Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min='1' name="priceofsingle" placeholder="1" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number Of Double Rooms</label>
                                                 <div class="col-sm-3">
                                                     <input type="number" class="form-control" min='1' name="numberofdouble" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of triple Rooms</label>
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Price Of Double Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min='1' name="priceofdouble" placeholder="1" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number Of Triple Rooms</label>
                                                 <div class="col-sm-3">
                                                     <input type="number" class="form-control" min='1' name="numberoftriple" placeholder="1" required >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number of suites Rooms</label>
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Price Of Triple Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min='1' name="priceoftriple" placeholder="1" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number Of Suites</label>
                                                 <div class="col-sm-3">
                                                     <input type="number" class="form-control" min='1' name="numberofsuites" placeholder="1" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Price Of Suites</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min='1' name="priceofsuites" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div id="checkboxes">
@@ -424,7 +451,7 @@
                                                 var inputs = document.querySelectorAll('.check'); 
                                                 var val=2;
                                                 for (var i = 0; i < inputs.length; i++) {
-                                                    if(res[val]==" TRUE ")
+                                                    if(res[val]=="TRUE")
                                                     { 
                                                     inputs[i].checked = true;
                                                     }
@@ -436,7 +463,11 @@
                                                 } 
                                                 document.getElementById("edithoteldescription").value=res[9];
                                                 document.getElementById("edithoteloverview").value=res[10];
-                                                document.getElementById("HotelId").value=res[11]
+                                                document.getElementById("HotelId").value=res[11];
+                                                document.getElementById("pricesingle").value=res[12];
+                                                document.getElementById("pricedouble").value=res[13];
+                                                document.getElementById("pricetriple").value=res[14];
+                                                document.getElementById("pricesuites").value=res[15];
                                                 
                                                 });
                                                 
@@ -505,11 +536,11 @@
                                             </div>
                                             <div class="input-field">
                                                 <label>Start Date</label>
-                                                <input type="text" class="form-control" id="date-start" name="date-start" required />
+                                                <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="date-start" name="date-start" required >
                                             </div>
                                             <div class="input-field">
                                                 <label>End Date</label>
-                                                <input type="text" class="form-control" id="date-end" name="date-end" required />
+                                                <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="date-end" name="date-end" required>
                                             </div>
                                             <div id="checkboxes">
                                                 <label>Enter List of services offered</label>
@@ -520,15 +551,15 @@
                                                 </ul>
                                             </div>                
                                             <div class="boardtype">
-                                                <input type="radio" name="boardtype" value="fullboard"> Full Board <br>
-                                                <input type="radio" name="boardtype" value="halfboard"> Half Board<br>
+                                                <input type="radio" name="boardtype" value="Full"> Full Board <br>
+                                                <input type="radio" name="boardtype" value="Half"> Half Board<br>
                                             </div>
 
                                                
 
                                             <div class="assigncruise">
                                                 <label for="">Assign Cruise</label><br>
-                                                <input type="radio" name="cruise" value=""> None <br>
+                                                <input type="radio" name="cruise" value="None"> None <br>
                                                 <?php $AdminView->ReadCruises(); ?>
                                             </div>
 
@@ -540,7 +571,11 @@
                                             
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Package Visits/Details</label>
-                                                <textarea class="form-control" id="edithoteldescription" name="edithoteldescription" rows="4" name="comment" Placeholder="Enter Text Here..." required></textarea>
+                                                <textarea class="form-control" id="edithoteldescription" name="addpackagedescription" rows="4"  Placeholder="Enter Text Here..." required></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="edithoteldescription">Enter Package overview</label>
+                                                <textarea class="form-control" id="edithoteldescription" name="addpackageoverview" rows="4"  Placeholder="Enter Text Here..." required></textarea>
                                             </div>
                                             <label for="fileToUpload">Upload Pictures</label>
                                             <input type="file" name="fileToUpload" id="fileToUpload">
@@ -563,16 +598,17 @@
                                                 document.getElementById("packagenights").value=res1[8];
                                                 document.getElementById("packagelimit").value=res1[1];
                                                 document.getElementById("packageprice").value=res1[2];
-                                                document.getElementById("date-start-pkg").value=res1[11];
-                                                document.getElementById("date-end-pkg").value=res1[9];
+                                                document.getElementsByName("edit-date-start")[0].value=res1[11];
+                                                document.getElementsByName("edit-date-end")[0].value=res1[9];
                                                 document.getElementById("packagedetails").value=res1[10];
-
-                                                alert(res[12]);
-                                                // document.getElementById(res1[13]).checked=true;
+                                                document.getElementById("packageID").value=res1[14];
+                                                document.getElementById("editpackageoverview").value=res1[15];
+                                                
+                                                document.getElementById(res1[13]).checked=true;
 
                                                 
 
-                                                if(res1[6]==" Full ")
+                                                if(res1[6]=="Full")
                                                 {
                                                     document.getElementById("full").checked=true;
                                                     // document.getElementById("half").checked=false;
@@ -583,7 +619,7 @@
                                                     document.getElementById("half").checked=true;
                                                 }
 
-                                                if(res1[12]==" empty ")
+                                                if(res1[12]=="empty")
                                                 {
                                                     document.getElementById("cruisenone").checked=true;
                                                     // document.getElementById("cruischeck").checked=false;
@@ -600,9 +636,9 @@
                                                 
                                                 var inputsp = document.querySelectorAll('.checkp'); 
                                                 var valp=3;
-                                                for (var i = 0; i <= inputsp.length; i++) 
+                                                for (var i = 0; i < inputsp.length; i++) 
                                                 {
-                                                    if(res1[valp]==" TRUE ")
+                                                    if(res1[valp]=="TRUE")
                                                     { 
                                                     inputsp[i].checked = true;
                                                     }

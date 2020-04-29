@@ -12,6 +12,7 @@ class mainpage extends Model
     private $overview=array();
     private $featured=array();
     private $mainslider=array();
+    private $price=array();
 
     private $guestname=array();
     private $reviews=array();
@@ -26,7 +27,7 @@ class mainpage extends Model
 
     function listdata()
     {
-        $sql="select Name,overview,featured,FeaturedMainSilder from hotel where suspended='disabled'";
+        $sql="select Name,overview,featured,FeaturedMainSilder,PriceSingle from hotel where suspended='disabled'";
         $result=mysqli_query($this->dbh->getConn(),$sql);
         while($row=$result->fetch_assoc())
         {
@@ -34,6 +35,7 @@ class mainpage extends Model
             array_push($this->overview,$row['overview']);
             array_push($this->featured,$row['featured']);
             array_push($this->mainslider,$row['FeaturedMainSilder']);
+            array_push($this->price,$row['PriceSingle']);
         }
     }
 
@@ -86,6 +88,14 @@ class mainpage extends Model
     public function getMainslider()
     {
         return $this->mainslider;
+    }
+
+    /**
+     * Get the value of price
+     */ 
+    public function getPrice()
+    {
+        return $this->price;
     }
 }
 

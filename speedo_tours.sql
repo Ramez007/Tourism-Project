@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2020 at 11:49 PM
+-- Generation Time: Apr 29, 2020 at 04:24 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -70,7 +70,8 @@ CREATE TABLE `cruise` (
 --
 
 INSERT INTO `cruise` (`CruiseID`, `CruiseName`, `NumberofCabins`, `Captain`, `Pets`, `Fishing`, `SunBathing`, `Pool`, `Suspended`) VALUES
-(4, 'RMS Titanic', 250, 'Edward Smith', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'Disabled');
+(4, 'RMS Titanic', 250, 'Edward Smith', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'Disabled'),
+(5, 'RMS Olympic', 200, 'Walter White', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'Disabled');
 
 -- --------------------------------------------------------
 
@@ -159,27 +160,31 @@ CREATE TABLE `hotel` (
   `Gym` set('TRUE','FALSE') NOT NULL,
   `Bar` set('TRUE','FALSE') NOT NULL,
   `Restaurant` set('TRUE','FALSE') NOT NULL,
-  `Full_Board` set('TRUE','FALSE') NOT NULL,
-  `Half_Board` set('TRUE','FALSE') NOT NULL,
   `Pets` set('TRUE','FALSE') NOT NULL,
   `featured` set('feature','header','false') NOT NULL DEFAULT 'false',
   `FeaturedMainSilder` set('TRUE','FALSE') NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
-  `location` varchar(20) NOT NULL
+  `location` varchar(20) NOT NULL,
+  `PriceSingle` int(11) NOT NULL,
+  `PriceDouble` int(11) NOT NULL,
+  `PriceTriple` int(11) NOT NULL,
+  `PriceSuites` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `hotel`
 --
 
-INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming_Pool`, `Spa`, `Gym`, `Bar`, `Restaurant`, `Full_Board`, `Half_Board`, `Pets`, `featured`, `FeaturedMainSilder`, `Suspended`, `location`) VALUES
-(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', 'Rtiz is in france', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'feature', 'TRUE', 'Disabled', 'Paris,France'),
-(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'header', 'FALSE', 'Disabled', 'Luxor,Egypt'),
-(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'TRUE', 'Disabled', 'Luxor,Egypt'),
-(5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'TRUE', 'Enabled', 'London,England'),
-(6, ' new hotelsasdfas', 3999, ' dsafsdfa ', '   atafadsfasd ', 'TRUE', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Enabled', 'Havana,Cuba'),
-(7, 'Emillio', 8, 'overview', 'emilio hotel', 'FALSE', 'FALSE', 'TRUE', 'FALSE', 'TRUE', 'FALSE', '', '', 'FALSE', 'feature', 'FALSE', 'Disabled', 'Luxor,Egypt'),
-(8, 'test', 8, 'test', 'test', 'TRUE', 'FALSE', 'FALSE', 'FALSE', 'TRUE', 'TRUE', '', '', 'FALSE', 'false', 'FALSE', 'Disabled', 'test');
+INSERT INTO `hotel` (`HotelID`, `Name`, `NumberofRooms`, `overview`, `description`, `WiFI`, `Swimming_Pool`, `Spa`, `Gym`, `Bar`, `Restaurant`, `Pets`, `featured`, `FeaturedMainSilder`, `Suspended`, `location`, `PriceSingle`, `PriceDouble`, `PriceTriple`, `PriceSuites`) VALUES
+(1, 'Ritz Carlton', 500, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', 'Rtiz is in france', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'feature', 'TRUE', 'Disabled', 'Paris,France', 500, 600, 700, 800),
+(3, 'winter palace hotel', 2000, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'TRUE', 'TRUE', 'header', 'FALSE', 'Disabled', 'Luxor,Egypt', 0, 0, 0, 0),
+(4, 'sheraton', 900, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', '', 'FALSE', 'TRUE', 'false', 'TRUE', 'Disabled', 'Luxor,Egypt', 0, 0, 0, 0),
+(5, 'bloomberg hotel', 300, 'This is a simple overview.the data here can be changed by the admin.the data he This is a simple overview.the data here can be changed by th', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE', 'false', 'TRUE', 'Enabled', 'London,England', 0, 0, 0, 0),
+(6, ' new hotelsasdfas', 3999, ' dsafsdfa ', '   atafadsfasd ', 'TRUE', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Enabled', 'Havana,Cuba', 0, 0, 0, 0),
+(7, 'Emillio', 8, 'overview', 'emilio hotel', 'FALSE', 'FALSE', 'TRUE', 'FALSE', 'TRUE', 'FALSE', 'FALSE', 'feature', 'FALSE', 'Disabled', 'Luxor,Egypt', 0, 0, 0, 0),
+(8, 'test', 8, 'test', 'test', 'TRUE', 'FALSE', 'FALSE', 'FALSE', 'TRUE', 'TRUE', 'FALSE', 'false', 'FALSE', 'Disabled', 'test', 0, 0, 0, 0),
+(9, 'test15', 4, 'elshanselsel', 'elshanselsel', 'FALSE', 'TRUE', 'FALSE', 'TRUE', 'TRUE', 'TRUE', 'FALSE', 'false', 'FALSE', 'Disabled', 'embaba', 0, 0, 0, 0),
+(10, 'test161', 11, 'test', 'test', 'TRUE', 'FALSE', 'TRUE', 'FALSE', 'FALSE', 'TRUE', 'TRUE', 'false', 'FALSE', 'Disabled', 'tests', 166, 200, 300, 400);
 
 -- --------------------------------------------------------
 
@@ -281,8 +286,8 @@ CREATE TABLE `packages` (
   `NumberofDays` int(11) NOT NULL,
   `NumberofNights` int(11) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
-  `DateIn` timestamp NOT NULL DEFAULT current_timestamp(),
-  `DateOut` timestamp NOT NULL DEFAULT current_timestamp(),
+  `DateIn` date NOT NULL DEFAULT current_timestamp(),
+  `DateOut` date NOT NULL DEFAULT current_timestamp(),
   `Overview` text NOT NULL,
   `Description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -292,8 +297,12 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`PackageID`, `CruiseID`, `PackageName`, `ReserveLimit`, `HotelID`, `Price`, `TourGuide`, `Transportation`, `TouristMap`, `BoardType`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`, `Overview`, `Description`) VALUES
-(3, 4, 'Rome/Milano', 100, 1, 1000, 'TRUE', 'TRUE', 'TRUE', 'Full', 10, 11, 'Disabled', '2020-04-22 07:35:00', '2020-05-07 10:00:00', 'Overview test', 'Description test'),
-(4, NULL, 'Around Europe', 40, 5, 500, 'TRUE', 'TRUE', 'TRUE', 'Half', 5, 6, 'Disabled', '2020-04-27 11:34:46', '2020-04-27 11:34:46', 'testing overview', 'testing desc');
+(3, 4, 'Rome/Milano', 100, 4, 1000, 'FALSE', 'FALSE', 'FALSE', 'Full', 10, 11, 'Disabled', '2020-04-22', '2020-05-07', 'Overview test', 'asd'),
+(4, 5, 'Around Europe    ', 40, 7, 500, 'FALSE', 'FALSE', 'TRUE', 'Full', 5, 6, 'Disabled', '2020-04-14', '2020-05-28', 'text', 'testing desc    '),
+(15, 5, 'Around Egypt ', 25, 7, 20000, 'FALSE', 'FALSE', 'FALSE', 'Half', 15, 14, 'Disabled', '2020-04-29', '2020-05-29', 'test', ' We will take you around imbaba and el houssain '),
+(26, NULL, 'test123', 1, 4, 1000, 'FALSE', 'FALSE', 'FALSE', 'Full', 1, 1, 'Disabled', '2020-04-20', '2020-04-21', 'test', 'test'),
+(27, NULL, 'be5', 1521, 4, 15215, 'TRUE', 'TRUE', 'FALSE', 'Full', 124, 123, 'Disabled', '2020-04-22', '2020-04-30', 'twa', 'twa'),
+(28, NULL, '99test', 51251, 3, 1525125, 'FALSE', 'FALSE', 'FALSE', 'Full', 234, 125, 'Disabled', '2020-04-13', '2020-04-22', 'test', 'test');
 
 -- --------------------------------------------------------
 
@@ -315,17 +324,18 @@ CREATE TABLE `reserves` (
   `NoOfDoubleRooms` int(11) NOT NULL,
   `NoOfTripleRooms` int(11) NOT NULL,
   `NoOfSuits` int(11) NOT NULL,
-  `BoardType` set('Full','Half') NOT NULL
+  `BoardType` set('Full','Half') NOT NULL,
+  `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `reserves`
 --
 
-INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`) VALUES
-(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Disabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Full'),
-(2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Disabled', NULL, 3, 1, 1, 1, 'Half'),
-(3, 1, NULL, 3, 5, 2, '2020-04-27 22:00:00', 'Enabled', '2020-04-29 22:00:00', 1, 2, 0, 0, 'Half');
+INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`, `price`) VALUES
+(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Disabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Full', 0),
+(2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Disabled', NULL, 3, 1, 1, 1, 'Half', 0),
+(3, 1, NULL, 3, 5, 2, '2020-04-27 22:00:00', 'Enabled', '2020-04-29 22:00:00', 1, 2, 0, 0, 'Half', 0);
 
 -- --------------------------------------------------------
 
@@ -387,7 +397,22 @@ INSERT INTO `rooms` (`RoomID`, `RoomNumber`, `RoomType`, `Status`, `HotelID`, `G
 (212, 5, 'Triple', 'Free', 8, NULL),
 (213, 6, 'Triple', 'Free', 8, NULL),
 (214, 7, 'Suites', 'Free', 8, NULL),
-(215, 8, 'Suites', 'Free', 8, NULL);
+(215, 8, 'Suites', 'Free', 8, NULL),
+(216, 1, 'Single', 'Free', 9, NULL),
+(217, 2, 'Double', 'Free', 9, NULL),
+(218, 3, 'Triple', 'Free', 9, NULL),
+(219, 4, 'Suites', 'Free', 9, NULL),
+(220, 1, 'Single', 'Free', 10, NULL),
+(221, 2, 'Single', 'Free', 10, NULL),
+(222, 3, 'Double', 'Free', 10, NULL),
+(223, 4, 'Double', 'Free', 10, NULL),
+(224, 5, 'Triple', 'Free', 10, NULL),
+(225, 6, 'Triple', 'Free', 10, NULL),
+(226, 7, 'Triple', 'Free', 10, NULL),
+(227, 8, 'Suites', 'Free', 10, NULL),
+(228, 9, 'Suites', 'Free', 10, NULL),
+(229, 10, 'Suites', 'Free', 10, NULL),
+(230, 11, 'Suites', 'Free', 10, NULL);
 
 --
 -- Indexes for dumped tables
@@ -509,7 +534,7 @@ ALTER TABLE `blogposts`
 -- AUTO_INCREMENT for table `cruise`
 --
 ALTER TABLE `cruise`
-  MODIFY `CruiseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `CruiseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `employees`
@@ -557,7 +582,7 @@ ALTER TABLE `newswirehistory`
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `PackageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `PackageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `reserves`
@@ -575,7 +600,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
+  MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=231;
 
 --
 -- Constraints for dumped tables

@@ -1,5 +1,7 @@
 <html>
-<head><script src="js/sweetalert.min.js"></script></head>
+<head><script src="js/sweetalert.min.js"></script>
+</head>
+
 <body>
 <?php
   require_once("app/model/model.php");
@@ -107,17 +109,17 @@ class Admin extends Employee {
     function ReadEditHotelsSection()
     {
         
-        $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview From Hotel";
+        $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview,PriceSingle,PriceDouble,PriceTriple,PriceSuites From Hotel";
         $Result = mysqli_query($this->db->getConn(),$sql);
 
                 $optionString = '';
                 while($row=$Result->fetch_assoc())
                 {
-                    $optionString .= "<option value='".$row['Name']." & ".$row['location']." & ".$row['WiFI']." & ".$row['Gym']." & ".$row['Bar']." & ".$row['Spa']." & ".$row['Swimming_Pool']." & ".$row['Restaurant']." & ".$row['Pets']." & ".$row['description']." & ".$row['overview']." & ".$row['HotelID']."'>".$row["Name"]."</option>";
+                    $optionString .= "<option value='".$row['Name']."&".$row['location']."&".$row['WiFI']."&".$row['Gym']."&".$row['Bar']."&".$row['Spa']."&".$row['Swimming_Pool']."&".$row['Restaurant']."&".$row['Pets']."&".$row['description']."&".$row['overview']."&".$row['HotelID']."&".$row['PriceSingle']."&".$row['PriceDouble']."&".$row['PriceTriple']."&".$row['PriceSuites']."'>".$row["Name"]."</option>";
 
                 }
 
-            $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview From Hotel";
+            $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview,PriceSingle,PriceDouble,PriceTriple,PriceSuites From Hotel";
             $Result = mysqli_query($this->db->getConn(),$sql);
             $row=$Result->fetch_assoc();
             echo'<div class="form-group row">
@@ -134,11 +136,35 @@ class Admin extends Employee {
                                                 <div class="col-sm-3">
                                                     <input type="text" class="form-control" name="edithotelname" id="edithotelname" value="'.$row['Name'].'" required>
                                                 </div>
-                                            </div> 
+                                            </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="edithotellocation">Hotel Location</label>
                                                 <div class="col-sm-3">
                                                     <input type="text" class="form-control" name="edithotellocation" id="edithotellocation" value="'.$row['location'].'"required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Price Of Single Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min="1" id="pricesingle" name="priceofsingle" value="'.$row['PriceSingle'].'" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Price Of Double Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min="1" id="pricedouble" name="priceofdouble" value="'.$row['PriceDouble'].'" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Price Of Triple Rooms</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min="1" id="pricetriple" name="priceoftriple" value="'.$row['PriceTriple'].'" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Price Of Suites</label>
+                                                <div class="col-sm-3">
+                                                    <input type="number" class="form-control" min="1" id="pricesuites" name="priceofsuites" value="'.$row['PriceSuites'].'" required>
                                                 </div>
                                             </div>
                                             <div id="checkboxes">
@@ -190,7 +216,7 @@ class Admin extends Employee {
 
     function ReadEditPackagesSection()
     {
-        $sql="SELECT PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn,CruiseID,HotelID From packages";
+        $sql="SELECT PackageID,PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn,CruiseID,HotelID,Overview From packages";
         $Result = mysqli_query($this->db->getConn(),$sql);
 
                 $optionString = '';
@@ -198,15 +224,15 @@ class Admin extends Employee {
                 {
                     if ($row['CruiseID'] =='')
                     {
-                        $optionString .= "<option value='".$row['PackageName']." & ".$row['ReserveLimit']." & ".$row['Price']." & ".$row['TourGuide']." & ".$row['Transportation']." & ".$row['TouristMap']." & ".$row['BoardType']." & ".$row['NumberofDays']." & ".$row['NumberofNights']." & ".$row['DateOut']." & ".$row['Description']." & ".$row['DateIn']. " & empty & h".$row['HotelID']."'>".$row["PackageName"]."</option>";
+                        $optionString .= "<option value='".$row['PackageName']."&".$row['ReserveLimit']."&".$row['Price']."&".$row['TourGuide']."&".$row['Transportation']."&".$row['TouristMap']."&".$row['BoardType']."&".$row['NumberofDays']."&".$row['NumberofNights']."&".$row['DateOut']."&".$row['Description']."&".$row['DateIn']. "&empty&h".$row['HotelID']."&".$row['PackageID']."&".$row["Overview"]."'>".$row["PackageName"]."</option>";
                     }
                     else
                     {
-                    $optionString .= "<option value='".$row['PackageName']." & ".$row['ReserveLimit']." & ".$row['Price']." & ".$row['TourGuide']." & ".$row['Transportation']." & ".$row['TouristMap']." & ".$row['BoardType']." & ".$row['NumberofDays']." & ".$row['NumberofNights']." & ".$row['DateOut']." & ".$row['Description']." & ".$row['DateIn']. " & ".$row['CruiseID']." & h".$row['HotelID']."'>".$row["PackageName"]."</option>";
+                    $optionString .= "<option value='".$row['PackageName']."&".$row['ReserveLimit']."&".$row['Price']."&".$row['TourGuide']."&".$row['Transportation']."&".$row['TouristMap']."&".$row['BoardType']."&".$row['NumberofDays']."&".$row['NumberofNights']."&".$row['DateOut']."&".$row['Description']."&".$row['DateIn']. "&".$row['CruiseID']." &h".$row['HotelID']."&".$row['PackageID']."&".$row["Overview"]."'>".$row["PackageName"]."</option>";
                     }
                 }
         
-        $sql="SELECT PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn,CruiseID,HotelID From packages";
+        $sql="SELECT PackageID,PackageName,ReserveLimit,Price ,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,DateOut,Description,DateIn,CruiseID,HotelID,Overview From packages";
         $Result = mysqli_query($this->db->getConn(),$sql);
         $row=$Result->fetch_assoc();
 
@@ -217,7 +243,7 @@ class Admin extends Employee {
         while ($row2=$Result2->fetch_assoc())
         {
                     
-            $cruises .="<input type='radio' name='cruise' id='".$row2['CruiseID']."' ".($row['CruiseID']=="".$row2['CruiseID'].""?"checked":"")."> ".$row2['CruiseName']." <br>";
+            $cruises .="<input type='radio' name='cruise' value='".$row2['CruiseID']."' id='".$row2['CruiseID']."' ".($row['CruiseID']=="".$row2['CruiseID'].""?"checked":"")."> ".$row2['CruiseName']." <br>";
                     
         }
 
@@ -228,7 +254,7 @@ class Admin extends Employee {
         while ($row3=$Result3->fetch_assoc())
         {
                     
-            $hotels .="<input type='radio' name='hotel' id='h".$row3['HotelID']."' ".($row['HotelID']=="".$row3['HotelID'].""?"checked":"")."> ".$row3['Name']." <br>";
+            $hotels .="<input type='radio' name='hotel' value='".$row3['HotelID']."' id='h".$row3['HotelID']."' ".($row['HotelID']=="".$row3['HotelID'].""?"checked":"")."> ".$row3['Name']." <br>";
                     
         }
 
@@ -247,57 +273,57 @@ class Admin extends Employee {
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Edit Package Title</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="packagetitle" value="'.$row['PackageName'].'">
+                    <input type="text" name="Editpackagename" class="form-control" id="packagetitle" value="'.$row['PackageName'].'" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Edit Package Number of Days</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="packagedays" value="'.$row['NumberofDays'].'">
+                    <input type="number" name="numberofdays" min="1" class="form-control" id="packagedays" value="'.$row['NumberofDays'].'" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Edit Package Number of Nights</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="packagenights" value="'.$row['NumberofNights'].'">
+                    <input type="number" name="numberofnights" min="1" class="form-control" id="packagenights" value="'.$row['NumberofNights'].'" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Edit Package Reserve Limit</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="packagelimit" value="'.$row['ReserveLimit'].'">
+                    <input type="number" name="reservelimit" min="1" class="form-control" id="packagelimit" value="'.$row['ReserveLimit'].'" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Edit Package Total Price</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="packageprice" value="'.$row['Price'].'">
+                    <input type="number" name="totalprice" min="100" class="form-control" id="packageprice" value="'.$row['Price'].'" required>
                 </div>
             </div>
             <div class="input-field">
                 <label for="date-start">Start Date</label>
-                <input type="text" class="form-control" id="date-start-pkg" value="'.$row['DateIn'].'" />
+                <input type="text" class="form-control" name="edit-date-start" data-date-format="yyyy-mm-dd" id="date-start" value="'.$row['DateIn'].'" required>
             </div>
             <div class="input-field">
                 <label for="date-start">End Date</label>
-                <input type="text" class="form-control" id="date-end-pkg" value="'.$row['DateOut'].'" />
+                <input type="text" class="form-control" name="edit-date-end" data-date-format="yyyy-mm-dd" id="date-end" value="'.$row['DateOut'].'" required>
             </div>
             <div id="checkboxes">
                 <label>Edit List of services offered</label>
                 <ul>
-                    <li><input type="checkbox" class="checkp" '.($row['TourGuide']=="TRUE"?"checked":"").'> Tour Guide</li>
-                    <li><input type="checkbox" class="checkp" '.($row['Transportation']=="TRUE"?"checked":"").'> Transportation</li>
-                    <li><input type="checkbox" class="checkp" '.($row['TouristMap']=="TRUE"?"checked":"").'> Tourist Map</li>
+                    <li><input type="checkbox" name="pkg_service[]" value="guide" class="checkp" '.($row['TourGuide']=="TRUE"?"checked":"").'> Tour Guide</li>
+                    <li><input type="checkbox" name="pkg_service[]" value="trans" class="checkp" '.($row['Transportation']=="TRUE"?"checked":"").'> Transportation</li>
+                    <li><input type="checkbox" name="pkg_service[]" value="map" class="checkp" '.($row['TouristMap']=="TRUE"?"checked":"").'> Tourist Map</li>
                 </ul>
             </div>
             <div class="boardtype">
-                <input type="radio" name="boardtype"  id="full"  '.($row['BoardType']=="Full"?"checked":"").'> Full Board <br>
-                <input type="radio" name="boardtype"  id="half"  '.($row['BoardType']=="Half"?"checked":"").'> Half Board<br>
+                <input type="radio" name="boardtype"  value="Full" id="full"  '.($row['BoardType']=="Full"?"checked":"").'> Full Board <br>
+                <input type="radio" name="boardtype" value="Half"  id="half"  '.($row['BoardType']=="Half"?"checked":"").'> Half Board<br>
             </div>
 
             <div class="assigncruise">
                 <label for="">Assign Cruise</label><br>
-                <input type="radio" name="cruise" id="cruisenone" value=""> None <br>
+                <input type="radio" name="cruise" id="cruisenone" value="None"> None <br>
                 '.$cruises.'
             </div>
 
@@ -306,14 +332,20 @@ class Admin extends Employee {
                 '.$hotels.'
             </div>
             
-            <label class="col-sm-4 col-form-label" for="packagedetails">Edit Package Visits/Details</label>
-            <textarea rows="15" class="form-control" id="packagedetails" name="comment">
-            '.$row['Description'].'
-            </textarea>                                                        
+            
+            <div class="form-group">
+                <label for="edithoteldescription">Edit Package Visits/Details</label>
+                <textarea class="form-control" id="packagedetails" name="editpackagedescription" rows="4"  Placeholder="Enter Text Here..." required>'.$row['Description'].'</textarea>
+            </div> 
+            <div class="form-group">
+                <label for="edithoteldescription">Edit Package overview</label>
+                <textarea class="form-control" id="editpackageoverview" name="editpackageoverview" rows="4"  Placeholder="Enter Text Here..." required>'.$row['Overview'].'</textarea>
+            </div>                                                       
             <br><br><br><a href="#">Show Gallery of Pacakage</a><br>
             Update Gallery of Package <br>
             <input type="file" name="fileToUpload" id="fileToUpload">
             <br><br>
+            <input type="hidden" name="packageid" id="packageID" value="'.$row['PackageID'].'">
             ';        
     }
 
@@ -455,8 +487,8 @@ class Admin extends Employee {
                     $Result = mysqli_query($this->db->getConn(),$sql);
                     while ($row=$Result->fetch_assoc()){
                         echo'
-                    <input type="radio" name="cruise" value="'.$row['CruiseName'].'"> '.$row['CruiseName'].' <br>
-                    <input type="hidden" name="cruiseid" value="'.$row['CruiseID'].'">
+                    <input type="radio" name="cruise" value="'.$row['CruiseID'].'"> '.$row['CruiseName'].' <br>
+                   
                     ';
                     }
     }
@@ -466,8 +498,8 @@ class Admin extends Employee {
                     $Result = mysqli_query($this->db->getConn(),$sql);
                     while ($row=$Result->fetch_assoc()){
                         echo'
-                    <input type="radio" name="hotels" value="'.$row['Name'].'"> '.$row['Name'].' <br>
-                    <input type="hidden" name="cruiseid" value="'.$row['HotelID'].'">
+                    <input type="radio" name="hotels" value="'.$row['HotelID'].'"> '.$row['Name'].' <br>
+                    
                     ';
                     }
     }
@@ -864,7 +896,7 @@ class Admin extends Employee {
 
         $types=[$_POST['numberofsingle'],$_POST['numberofdouble'],$_POST['numberoftriple'],$_POST['numberofsuites']];
         
-        $hotel=new Hotel($id,$_POST['enterhotel'],$services,$_POST['enterlocation'],$types,$_POST['description'],$_POST['overview']);
+        $hotel=new Hotel($id,$_POST['enterhotel'],$services,$_POST['enterlocation'],$types,$_POST['description'],$_POST['overview'],$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites']);
 
         echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
         
@@ -920,7 +952,8 @@ class Admin extends Employee {
             }
         }
 
-        $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$_POST['edithotellocation']."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='".$_POST['description']."',overview='".$_POST['overview']."'where HotelID=$id;";
+        $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$_POST['edithotellocation']."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='".$_POST['description']."',overview='".$_POST['overview']."',PriceSingle='".$_POST['priceofsingle']."',PriceDouble='".$_POST['priceofdouble']."',PriceTriple='".$_POST['priceoftriple']."',PriceSuites='".$_POST['priceofsuites']."'
+        where HotelID=$id;";
         $Result = mysqli_query($this->db->getConn(),$sql);
         if($Result){
             echo'<script>swal("Successfully Updated Hotel", "", "success");</script>';
@@ -932,9 +965,52 @@ class Admin extends Employee {
          }
     }
 
-    Function AddPackage()
+    function AddPackage($cruise,$name,$days,$nights,$limit,$price,$start,$end,$transport,$guide,$map,$boardtype,$hotel,$overview,$description)
     {
+        if($cruise=="NULL")
+        {
+            $sql="INSERT INTO packages (CruiseID,PackageName,ReserveLimit,HotelID,Price,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,Suspended,DateIn,DateOut,Overview,Description) values($cruise,'$name','$limit','$hotel','$price','$guide','$transport','$map','$boardtype','$days','$nights','Disabled','$start','$end','$overview','$description')";
+        }
+        else
+        {
+        $sql="INSERT INTO packages (CruiseID,PackageName,ReserveLimit,HotelID,Price,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,Suspended,DateIn,DateOut,Overview,Description) values('$cruise','$name','$limit','$hotel','$price','$guide','$transport','$map','$boardtype','$days','$nights','Disabled','$start','$end','$overview','$description')";
+        }
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        if($Result)
+        {
+            echo'<script>swal("Successfully Added Package", "", "success");</script>';
+         }
+         else{
+            echo'<script>
+            swal("Oops","Error Adding Package !","error");
+            </script>';
+         }
+    }
 
+    function EditPackage($id,$cruise,$name,$days,$nights,$limit,$price,$start,$end,$transport,$guide,$map,$boardtype,$hotel,$overview,$description)
+    {
+        if($cruise=="NULL")
+        {
+            $sql="UPDATE packages
+            SET CruiseID=NULL,PackageName='$name',ReserveLimit='$limit',HotelID='$hotel',Price='$price',TourGuide='$guide',Transportation='$transport',TouristMap='$map',BoardType='$boardtype',NumberofDays='$days',NumberofNights='$nights',DateIn='$start',DateOut='$end',Overview='$overview',Description='$description'
+            WHERE PackageID='$id'"; 
+        }
+        else
+        {
+        $sql="UPDATE packages
+        SET CruiseID='$cruise',PackageName='$name',ReserveLimit='$limit',HotelID='$hotel',Price='$price',TourGuide='$guide',Transportation='$transport',TouristMap='$map',BoardType='$boardtype',NumberofDays='$days',NumberofNights='$nights',DateIn='$start',DateOut='$end',Overview='$overview',Description='$description'
+        WHERE PackageID='$id'";
+        }
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        if($Result)
+        {
+            echo'<script>swal("Successfully Updated Package", "", "success");</script>';
+         }
+         else{
+            echo'<script>
+            swal("Oops","Error Updating Package !","error");
+            </script>';
+         }
     }
 
 }

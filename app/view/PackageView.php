@@ -22,7 +22,7 @@ class PackageView extends View
                     <a class="book-now text-center" href="Single-Package.php?action='.$PackageID[$i].'"><i class="ti-calendar"></i> Book Now</a>
                 </div>
                 <div class="desc">
-                    <h3><a href="Single-Package.php">'.$PackageName[$i].'</a></h3>
+                    <h3><a href="Single-Package.php?action='.$PackageID[$i].'">'.$PackageName[$i].'</a></h3>
                     <p>'.$PackageOverview[$i].'</p>
                 </div>
             </div>

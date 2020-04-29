@@ -26,14 +26,14 @@ class MainpageView extends View
         $this->name=$this->model->getName();
         $this->overview=$this->model->getOverview();
         $this->featured=$this->model->getFeatured();
-        
+        $this->price=$this->model->getPrice();
         for ($i=0;$i<count($this->name);$i++)
         {
             if ($this->featured[$i]=="header")
             {
                 echo '  <div class="image" style="background-image: url(images/hotel_feture_1.jpg);">
                             <div class="descrip text-center">
-                                <p><small>For as low as</small><span>$100/night</span></p>
+                                <p><small>For as low as</small><span style="font-size:18px;">'.$this->price[$i].' EGP/night</span></p>
                             </div>
                         </div>
                         <div class="desc">
@@ -100,7 +100,7 @@ class MainpageView extends View
     {
         $this->name=$this->model->getName();
         $this->overview=$this->model->getOverview();
-        
+        $this->price=$this->model->getPrice();
         for ($i=0;$i<count($this->name);$i++)
         {  
             if ($this->featured[$i]=="feature")
@@ -108,7 +108,7 @@ class MainpageView extends View
                 echo '<div class="f-hotel">
                         <div class="image" style="background-image: url(images/hotel_feture_2.jpg);">
                             <div class="descrip text-center">
-                                <p><small>For as low as</small><span>$99/night</span></p>
+                                <p><small>For as low as</small><span style="font-size:18px;">'.$this->price[$i].' EGP/night</span></p>
                             </div>
                         </div>
                         <div class="desc">

@@ -17,10 +17,11 @@ class Hotel extends Model
     protected $ViewNames=array();
     protected $ViewOverview=array();
     protected $availablerooms=0;
+    protected $price=array();
     private $dbh;
     
     
-    function __construct($id=null,$name=null,$services=null,$location=null,$type=null,$description=null,$overview=null)
+    function __construct($id=null,$name=null,$services=null,$location=null,$type=null,$description=null,$overview=null,$pricesingle=null,$pricedouble=null,$pricetriple=null,$pricesuite=null)
     {
         $this->dbh=$this->connect();
         if($id!=null||$name!=null || $services!=null||$location!=null||$type!=null||$description!=null||$overview!=null)
@@ -79,7 +80,7 @@ class Hotel extends Model
         $roomcount=$single+$double+$triple+$suites;
 
         $this->addrooms($type);
-        $sql="insert into hotel(HotelID,Name,location,NumberofRooms,WiFI,Swimming_Pool,Spa,Gym,Pets,Bar,Restaurant,description,overview,featured,FeaturedMainSilder,Suspended) values('$id','$name','$location','$roomcount','$wifi','$swimming','$Spa','$gym','$pets','$bar','$restaurant','$description','$overview','false','FALSE','Disabled')";
+        $sql="insert into hotel(HotelID,Name,location,NumberofRooms,WiFI,Swimming_Pool,Spa,Gym,Pets,Bar,Restaurant,description,overview,featured,FeaturedMainSilder,Suspended,PriceSingle,PriceDouble,PriceTriple,PriceSuites) values('$id','$name','$location','$roomcount','$wifi','$swimming','$Spa','$gym','$pets','$bar','$restaurant','$description','$overview','false','FALSE','Disabled','$pricesingle','$pricedouble','$pricetriple','$pricesuite')";
         $result=mysqli_query($this->dbh->getConn(),$sql);
         }
     }
@@ -194,12 +195,13 @@ class Hotel extends Model
 
     function listdata()
     {
-        $sql="select Name,overview from hotel where Suspended='Disabled' ";
+        $sql="select Name,overview,PriceSingle from hotel where Suspended='Disabled' ";
         $result=mysqli_query($this->db->getConn(),$sql);
         while($row=$result->fetch_assoc())
         {
             array_push($this->ViewNames,$row['Name']);
             array_push($this->ViewOverview,$row['overview']);
+            array_push($this->price,$row['PriceSingle']);
         }
     }
 
@@ -232,6 +234,14 @@ class Hotel extends Model
     public function getViewOverview()
     {
         return $this->ViewOverview;
+    }
+
+    /**
+     * Get the value of price
+     */ 
+    public function getPrice()
+    {
+        return $this->price;
     }
 }
 
