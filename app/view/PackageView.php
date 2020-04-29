@@ -19,7 +19,7 @@ class PackageView extends View
             <div class="col-md-4">
             <div class="hotel-content">
                 <div class="hotel-grid" style="background-image: url(images/abu-simble.jpg);">
-                    <div class="price"><small>For as low as</small><span>'.$PackagePrice[$i].'$</span></div>
+                    <div class="price"><small>For as low as</small><span style="font-size:18">'.$PackagePrice[$i].' EGP/night</span></div>
                     <a class="book-now text-center" href="Single-Package.php?action='.$PackageID[$i].'"><i class="ti-calendar"></i> Book Now</a>
                 </div>
                 <div class="desc">
