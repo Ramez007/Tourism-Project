@@ -2,6 +2,7 @@
 require_once("app/model/model.php");
 require_once("app/model/rooms.php");
 require_once("app/model/singlehotelmodel.php");
+require_once("app/controller/singlehotelcontroller.php");
 require_once("app/interfaces/iReviewHotels.php");
 ?>
 
@@ -25,7 +26,7 @@ class Hotel extends Model implements ireviewhotels
     protected $singmodel;
     
     
-    function __construct($id=null,$name=null,$services=null,$location=null,$type=null,$description=null,$overview=null,$pricesingle=null,$pricedouble=null,$pricetriple=null,$pricesuite=null)
+    function __construct($id=null,$name=null,$services=null,$location=null,$type=null,$description=null,$overview=null,$pricesingle=null,$pricedouble=null,$pricetriple=null,$pricesuite=null,$stars=null)
     {
         $this->dbh=$this->connect();
         if($id!=null||$name!=null || $services!=null||$location!=null||$type!=null||$description!=null||$overview!=null)
@@ -84,7 +85,7 @@ class Hotel extends Model implements ireviewhotels
         $roomcount=$single+$double+$triple+$suites;
 
         $this->addrooms($type);
-        $sql="insert into hotel(HotelID,Name,location,NumberofRooms,WiFI,Swimming_Pool,Spa,Gym,Pets,Bar,Restaurant,description,overview,featured,FeaturedMainSilder,Suspended,PriceSingle,PriceDouble,PriceTriple,PriceSuites) values('$id','$name','$location','$roomcount','$wifi','$swimming','$Spa','$gym','$pets','$bar','$restaurant','$description','$overview','false','FALSE','Disabled','$pricesingle','$pricedouble','$pricetriple','$pricesuite')";
+        $sql="insert into hotel(HotelID,Name,location,NumberofRooms,WiFI,Swimming_Pool,Spa,Gym,Pets,Bar,Restaurant,description,overview,featured,FeaturedMainSilder,Suspended,PriceSingle,PriceDouble,PriceTriple,PriceSuites,stars) values('$id','$name','$location','$roomcount','$wifi','$swimming','$Spa','$gym','$pets','$bar','$restaurant','$description','$overview','false','FALSE','Disabled','$pricesingle','$pricedouble','$pricetriple','$pricesuite','$stars')";
         $result=mysqli_query($this->dbh->getConn(),$sql);
         }
     }
@@ -209,12 +210,11 @@ class Hotel extends Model implements ireviewhotels
         }
     }
 
-    function ReadHotelsReviews()
+    function ReadHotelsReviews($controller=null)
     {
         $var=$_GET['action'];
-        echo'<script>alert('.$var.')</script>';
-        $this->singmodel=new singlehotelmodel();
-        $this->singmodel->listreviewsofhotel($var);
+        $this->singmodel=$controller;
+        $this->singmodel->hotelreviews($var);
     }
 
     public function setName($name)

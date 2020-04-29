@@ -111,17 +111,17 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
     function ReadEditHotelsSection()
     {
         
-        $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview,PriceSingle,PriceDouble,PriceTriple,PriceSuites From Hotel";
+        $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview,PriceSingle,PriceDouble,PriceTriple,PriceSuites,stars From Hotel";
         $Result = mysqli_query($this->db->getConn(),$sql);
 
                 $optionString = '';
                 while($row=$Result->fetch_assoc())
                 {
-                    $optionString .= "<option value='".$row['Name']."&".$row['location']."&".$row['WiFI']."&".$row['Gym']."&".$row['Bar']."&".$row['Spa']."&".$row['Swimming_Pool']."&".$row['Restaurant']."&".$row['Pets']."&".$row['description']."&".$row['overview']."&".$row['HotelID']."&".$row['PriceSingle']."&".$row['PriceDouble']."&".$row['PriceTriple']."&".$row['PriceSuites']."'>".$row["Name"]."</option>";
+                    $optionString .= "<option value='".$row['Name']."&".$row['location']."&".$row['WiFI']."&".$row['Gym']."&".$row['Bar']."&".$row['Spa']."&".$row['Swimming_Pool']."&".$row['Restaurant']."&".$row['Pets']."&".$row['description']."&".$row['overview']."&".$row['HotelID']."&".$row['PriceSingle']."&".$row['PriceDouble']."&".$row['PriceTriple']."&".$row['PriceSuites']."&".$row['stars']."'>".$row["Name"]."</option>";
 
                 }
 
-            $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview,PriceSingle,PriceDouble,PriceTriple,PriceSuites From Hotel";
+            $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview,PriceSingle,PriceDouble,PriceTriple,PriceSuites,stars From Hotel";
             $Result = mysqli_query($this->db->getConn(),$sql);
             $row=$Result->fetch_assoc();
             echo'<div class="form-group row">
@@ -180,6 +180,14 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                                     <li><input type="checkbox" value="Restaurant" name="check[]" class="check" '.($row['Restaurant']=="TRUE"?"checked":"").'> Resturant</li>
                                                     <li><input type="checkbox" value="Pets" name="check[]" class="check" '.($row['Pets']=="TRUE"?"checked":"").'> Pets</li>
                                                 </ul>
+                                            </div>
+                                            <div id="stars">
+                                                <label>Enter Hotel Stars</label><br>
+                                                <input type="radio" id="s1" name="hotelstars" '.($row['stars']=="1"?"checked":"").' value="1"> 1 <br>
+                                                <input type="radio" id="s2" name="hotelstars" '.($row['stars']=="2"?"checked":"").' value="2"> 2 <br>
+                                                <input type="radio" id="s3" name="hotelstars" '.($row['stars']=="3"?"checked":"").' value="3"> 3 <br>
+                                                <input type="radio" id="s4" name="hotelstars" '.($row['stars']=="4"?"checked":"").' value="4"> 4 <br>
+                                                <input type="radio" id="s5" name="hotelstars" '.($row['stars']=="5"?"checked":"").' value="5"> 5 <br><br>
                                             </div>
                                             <br><br>
                                             <div class="form-group">
@@ -899,7 +907,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
         $types=[$_POST['numberofsingle'],$_POST['numberofdouble'],$_POST['numberoftriple'],$_POST['numberofsuites']];
         
-        $hotel=new Hotel($id,$_POST['enterhotel'],$services,$_POST['enterlocation'],$types,$_POST['description'],$_POST['overview'],$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites']);
+        $hotel=new Hotel($id,$_POST['enterhotel'],$services,$_POST['enterlocation'],$types,$_POST['description'],$_POST['overview'],$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites'],$_POST['hotelstars']);
 
         echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
         
@@ -955,7 +963,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             }
         }
 
-        $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$_POST['edithotellocation']."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='".$_POST['description']."',overview='".$_POST['overview']."',PriceSingle='".$_POST['priceofsingle']."',PriceDouble='".$_POST['priceofdouble']."',PriceTriple='".$_POST['priceoftriple']."',PriceSuites='".$_POST['priceofsuites']."'
+        $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$_POST['edithotellocation']."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='".$_POST['description']."',overview='".$_POST['overview']."',PriceSingle='".$_POST['priceofsingle']."',PriceDouble='".$_POST['priceofdouble']."',PriceTriple='".$_POST['priceoftriple']."',PriceSuites='".$_POST['priceofsuites']."',stars='".$_POST['hotelstars']."'
         where HotelID=$id;";
         $Result = mysqli_query($this->db->getConn(),$sql);
         if($Result){

@@ -357,7 +357,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number Of Single Rooms</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" min='1' name="numberofsingle" placeholder="1" required>
+                                                    <input type="number" class="form-control" min='1' max='150' name="numberofsingle" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -369,7 +369,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number Of Double Rooms</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" min='1' name="numberofdouble" placeholder="1" required>
+                                                    <input type="number" class="form-control" min='1' max='100' name="numberofdouble" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -381,19 +381,19 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number Of Triple Rooms</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" min='1' name="numberoftriple" placeholder="1" required >
+                                                    <input type="number" class="form-control" min='1' max='75' name="numberoftriple" placeholder="1" required >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Price Of Triple Rooms</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" min='1' name="priceoftriple" placeholder="1" required>
+                                                    <input type="number" class="form-control" min='1'  name="priceoftriple" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="numberofrooms">Enter Hotel Number Of Suites</label>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control" min='1' name="numberofsuites" placeholder="1" required>
+                                                    <input type="number" class="form-control" min='1' max='50' name="numberofsuites" placeholder="1" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -413,6 +413,14 @@
                                                     <li><input type="checkbox" name="check_list[]" Value="Restaurant"> Resturant</li>
                                                     <li><input type="checkbox" name="check_list[]" Value="Pets"> Pets</li>
                                                 </ul>
+                                            </div>
+                                            <div id="stars">
+                                                <label>Enter Hotel Stars</label><br>
+                                                <input type="radio" name="hotelstars" value="1"> 1 <br>
+                                                <input type="radio" name="hotelstars" value="2"> 2 <br>
+                                                <input type="radio" name="hotelstars" value="3"> 3 <br>
+                                                <input type="radio" name="hotelstars" value="4"> 4 <br>
+                                                <input type="radio" name="hotelstars" value="5"> 5 <br><br>
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoteldescription">Enter Hotel Description</label>
@@ -468,6 +476,29 @@
                                                 document.getElementById("pricedouble").value=res[13];
                                                 document.getElementById("pricetriple").value=res[14];
                                                 document.getElementById("pricesuites").value=res[15];
+
+                                                
+                                                if(res[16]=="1")
+                                                {
+                                                    document.getElementById("s1").checked=true;
+                                                }
+                                                else if (res[16]=="2")
+                                                {
+                                                    document.getElementById("s2").checked=true;  
+                                                }
+                                                else if (res[16]=="3")
+                                                {
+                                                    document.getElementById("s3").checked=true;  
+                                                }
+                                                else if (res[16]=="4")
+                                                {
+                                                    document.getElementById("s4").checked=true;  
+                                                }
+                                                else if (res[16]=="5")
+                                                {
+                                                    document.getElementById("s5").checked=true;  
+                                                }
+                                                
                                                 
                                                 });
                                                 

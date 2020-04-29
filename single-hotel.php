@@ -37,6 +37,7 @@
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700italic,900,700,900italic' rel='stylesheet' type='text/css'> -->
@@ -76,6 +77,12 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
+	<style>
+		.stars{
+			color:orange;
+		}
+	</style>
+
 </head>
 <body>
 <?php
@@ -97,7 +104,9 @@ $pagemodel=new singlehotelmodel($var_value);
 $pagecontroller=new singlehotelcontroller($pagemodel);
 $pagecontroller->listhoteldata();
 $pageview=new singlehotelview($pagecontroller,$pagemodel);
-$controller->ReadReviews($var_value);
+// $controller->ReadReviews($pagecontroller);
+
+
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -163,6 +172,7 @@ $controller->ReadReviews($var_value);
 				<div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
 					<div class="fh5co-intro fh5co-table-cell">
 						<?php $pageview->output(); ?>
+						
 					</div>
 				</div>
 			</div>
@@ -193,8 +203,15 @@ $controller->ReadReviews($var_value);
                                         </div>
                                         
                                    
-                                        <!-- End Slidshow Section -->
-                 
+										<!-- End Slidshow Section -->
+										
+						<br>
+						<br>				
+						
+
+						
+						
+
                         <h3>Description</h3>
                             <?php $pageview->outputdesc(); ?>
                         <h3>Leisure Facilities</h3>
@@ -283,7 +300,8 @@ $controller->ReadReviews($var_value);
 						<br><br>
 						<h3> Reviews </h3>
 						<?php 
-								$pageview->outputreviews();
+						$controller->ReadReviews($pagecontroller);
+						$pageview->outputreviews();
 						?>
 
 						</div>
