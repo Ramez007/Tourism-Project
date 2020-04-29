@@ -12,8 +12,9 @@ class singlehotelmodel extends Model
     private $hotelname;
     private $hoteldescription;
     private $hotelservices=array();
+    private $reviewsofhotel=array();
     
-    function __construct($hotelname)
+    function __construct($hotelname=null)
     {
         $this->dbh=$this->connect();
         $this->hotelname=$hotelname;
@@ -35,6 +36,19 @@ class singlehotelmodel extends Model
         array_push($this->hotelservices,$row['Bar']);
         array_push($this->hotelservices,$row['Restaurant']);
         
+    }
+
+    function listreviewsofhotel($var)
+    {
+        $sql="SELECT reviews.Review from reviews INNER JOIN hotel on reviews.HotelID=hotel.HotelID where hotel.Name='$var';";
+        $result=mysqli_query($this->dbh->getConn(),$sql);
+        // $row=mysqli_fetch_assoc($result);
+
+        while($row=mysqli_fetch_assoc($result))
+        {
+            array_push($this->reviewsofhotel,$row['Review']);
+        }
+
     }
 
 
@@ -64,6 +78,11 @@ class singlehotelmodel extends Model
     public function getHotelservices()
     {
         return $this->hotelservices;
+    }
+
+    public function getreviewsofhotel()
+    {
+        return $this->reviewsofhotel;
     }
 }
 

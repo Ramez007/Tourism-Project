@@ -97,6 +97,7 @@ $pagemodel=new singlehotelmodel($var_value);
 $pagecontroller=new singlehotelcontroller($pagemodel);
 $pagecontroller->listhoteldata();
 $pageview=new singlehotelview($pagecontroller,$pagemodel);
+$controller->ReadReviews($var_value);
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -279,6 +280,11 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
 
                         </form>
                         <!-- end booking section     -->
+						<br><br>
+						<h3> Reviews </h3>
+						<?php 
+								$pageview->outputreviews();
+						?>
 
 						</div>
 				</div>

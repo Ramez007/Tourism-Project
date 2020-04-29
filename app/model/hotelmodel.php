@@ -1,11 +1,13 @@
 <?php
 require_once("app/model/model.php");
 require_once("app/model/rooms.php");
+require_once("app/model/singlehotelmodel.php");
+require_once("app/interfaces/iReviewHotels.php");
 ?>
 
 <?php
 
-class Hotel extends Model
+class Hotel extends Model implements ireviewhotels
 {
     protected $id;
     protected $name;
@@ -18,7 +20,9 @@ class Hotel extends Model
     protected $ViewOverview=array();
     protected $availablerooms=0;
     protected $price=array();
+    protected $reviews=array();
     private $dbh;
+    protected $singmodel;
     
     
     function __construct($id=null,$name=null,$services=null,$location=null,$type=null,$description=null,$overview=null,$pricesingle=null,$pricedouble=null,$pricetriple=null,$pricesuite=null)
@@ -205,6 +209,14 @@ class Hotel extends Model
         }
     }
 
+    function ReadHotelsReviews()
+    {
+        $var=$_GET['action'];
+        echo'<script>alert('.$var.')</script>';
+        $this->singmodel=new singlehotelmodel();
+        $this->singmodel->listreviewsofhotel($var);
+    }
+
     public function setName($name)
     {
         $this->name = $name;
@@ -224,7 +236,10 @@ class Hotel extends Model
         return $this;
     }
 
-    
+    public function getreviews()
+    {
+        return $this->reviews;
+    }
 
     public function getViewNames()
     {

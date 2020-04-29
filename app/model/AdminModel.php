@@ -7,6 +7,8 @@
   require_once("app/model/model.php");
   require_once("app/model/employee.php");
   require_once("app/model/hotelmodel.php");
+  require_once("app/interfaces/iReviewHotels.php");
+  require_once("app/interfaces/iReviewPackages.php");
 
   use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -16,7 +18,7 @@ require 'C:\xampp\composer\vendor\autoload.php';
 
 <?php
 
-class Admin extends Employee {
+class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
 
     function __construct() {
@@ -525,17 +527,18 @@ class Admin extends Employee {
                                 else
                                 {
 
-                                $sql2="UPDATE reviews SET Featured='False'";
-                                $Result = mysqli_query($this->db->getConn(),$sql2);
-                                for($i=0;$i<count($a);$i++)
-					            {
-                                $sql="UPDATE reviews
-                                SET Featured='TRUE'
-                                WHERE ReviewID=".$a[$i].";";
-                                $Result = mysqli_query($this->db->getConn(),$sql);
-
-                                }
-                                }   
+                                    $sql2="UPDATE reviews SET Featured='False'";
+                                    $Result = mysqli_query($this->db->getConn(),$sql2);
+                                    for($i=0;$i<count($a);$i++)
+                                    {
+                                    $sql="UPDATE reviews
+                                    SET Featured='TRUE'
+                                    WHERE ReviewID=".$a[$i].";";
+                                    $Result = mysqli_query($this->db->getConn(),$sql);
+                                    echo'<script>swal("Successfully Updated", "", "success");</script>'; 
+                                    }
+                                }  
+                                
 
                      } 
                      else {

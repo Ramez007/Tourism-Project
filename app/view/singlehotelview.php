@@ -8,6 +8,7 @@ class singlehotelview extends View
 {
 
     private $services;
+    private $reviews;
 
 
     public function output()
@@ -19,6 +20,16 @@ class singlehotelview extends View
     public function outputdesc()
     {
         echo '<p>'.$this->model->getHoteldescription().'</p>';
+    }
+
+    public function outputreviews()
+    {
+        $reviews=$this->model->getreviewsofhotel();
+        echo'<span>askjfbasuif</span>';
+        for($i=0;$i<count($reviews);$i++){
+            echo'<span> '.$reviews[$i].' </span>';
+            
+        }
     }
 
     public function outputservices()
