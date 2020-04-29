@@ -763,6 +763,32 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             $sql5="Select PackageId,HotelId,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,DateIn,DateOut from reserves where ReserveID=$reserveid;";
             $Result6=mysqli_query($this->db->getConn(),$sql5);
             $row3=$Result6->fetch_assoc();
+            
+            $sql6="
+            Update rooms
+            set Status='Not',GuestID='".$row['GuestId']."'
+            where HotelID='".$row3['HotelId']."' and RoomType='Single' and Status='Free' LIMIT ".$row3['NoOfSingleRooms']." ";
+            mysqli_query($this->db->getConn(),$sql6);
+
+            $sql7="
+            Update rooms
+            set Status='Not',GuestID='".$row['GuestId']."'
+            where HotelID='".$row3['HotelId']."' and RoomType='Double' and Status='Free' LIMIT ".$row3['NoOfDoubleRooms']." ";
+            mysqli_query($this->db->getConn(),$sql7);
+
+            $sql8="
+            Update rooms
+            set Status='Not',GuestID='".$row['GuestId']."'
+            where HotelID='".$row3['HotelId']."' and RoomType='Triple' and Status='Free' LIMIT ".$row3['NoOfTripleRooms']." ";
+            mysqli_query($this->db->getConn(),$sql8);
+
+            $sql9="
+            Update rooms
+            set Status='Not',GuestID='".$row['GuestId']."'
+            where HotelID='".$row3['HotelId']."' and RoomType='Suites' and Status='Free' LIMIT ".$row3['NoOfSuits']." ";
+            mysqli_query($this->db->getConn(),$sql9);
+
+
             $Email_Body="<h2>Your Booking Has been confirmed and successfully booked</h2>
             <br>
             Booking Detalis:
