@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2020 at 01:15 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: Apr 30, 2020 at 08:10 PM
+-- Server version: 10.1.40-MariaDB
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -131,16 +131,17 @@ CREATE TABLE `guest` (
   `Username` varchar(50) NOT NULL,
   `Password` varchar(50) NOT NULL,
   `BankAccount` int(20) NOT NULL,
-  `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
+  `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
+  `Image` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `guest`
 --
 
-INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`, `Suspended`) VALUES
-(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'khaled1701294@miuegypt.edu.eg', 'test', 'test', 2112, 'Enabled'),
-(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 0, 'Enabled');
+INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`, `Suspended`, `Image`) VALUES
+(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'khaled1701294@miuegypt.edu.eg', 'test', 'test', 2112, 'Enabled', ''),
+(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 0, 'Enabled', '');
 
 -- --------------------------------------------------------
 
@@ -192,7 +193,7 @@ CREATE TABLE `inquiries` (
   `Author` varchar(12) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `Inquiry` varchar(600) NOT NULL,
-  `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
+  `TimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -217,7 +218,7 @@ CREATE TABLE `inquiryhistory` (
   `EmployeeID` int(11) NOT NULL,
   `Inquiry` text NOT NULL,
   `reply` text NOT NULL,
-  `Timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -236,7 +237,7 @@ INSERT INTO `inquiryhistory` (`InquiryID`, `EmployeeID`, `Inquiry`, `reply`, `Ti
 CREATE TABLE `newswire` (
   `ID` int(11) NOT NULL,
   `Email` varchar(30) NOT NULL,
-  `TimeStamp` timestamp NOT NULL DEFAULT current_timestamp()
+  `TimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -281,8 +282,8 @@ CREATE TABLE `packages` (
   `NumberofDays` int(11) NOT NULL,
   `NumberofNights` int(11) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
-  `DateIn` date NOT NULL DEFAULT current_timestamp(),
-  `DateOut` date NOT NULL DEFAULT current_timestamp(),
+  `DateIn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `DateOut` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Overview` text NOT NULL,
   `Description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -292,8 +293,8 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`PackageID`, `CruiseID`, `PackageName`, `ReserveLimit`, `HotelID`, `Price`, `TourGuide`, `Transportation`, `TouristMap`, `BoardType`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`, `Overview`, `Description`) VALUES
-(1, 4, 'pkg 1', 60, 1, 500, 'TRUE', 'TRUE', 'FALSE', 'Full', 3, 3, 'Disabled', '2020-04-22', '2020-04-30', 'test', 'test'),
-(2, NULL, 'pkg 2', 15, 2, 150, 'FALSE', 'TRUE', 'FALSE', 'Full', 3, 2, 'Disabled', '2020-04-01', '2020-04-07', 'test', 'yet');
+(1, 4, 'pkg 1', 60, 1, 500, 'TRUE', 'TRUE', 'FALSE', 'Full', 3, 3, 'Disabled', '2020-04-22 00:00:00', '2020-04-30 00:00:00', 'test', 'test'),
+(2, NULL, 'pkg 2', 15, 2, 150, 'FALSE', 'TRUE', 'FALSE', 'Full', 3, 2, 'Disabled', '2020-04-01 00:00:00', '2020-04-07 00:00:00', 'test', 'yet');
 
 -- --------------------------------------------------------
 
@@ -308,7 +309,7 @@ CREATE TABLE `reserves` (
   `HotelId` int(11) DEFAULT NULL,
   `NoofChildren` int(11) NOT NULL,
   `NoofAdults` int(11) NOT NULL,
-  `DateIn` timestamp NOT NULL DEFAULT current_timestamp(),
+  `DateIn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
   `DateOut` timestamp NULL DEFAULT NULL,
   `NoOfSingleRooms` int(11) NOT NULL,
@@ -316,17 +317,18 @@ CREATE TABLE `reserves` (
   `NoOfTripleRooms` int(11) NOT NULL,
   `NoOfSuits` int(11) NOT NULL,
   `BoardType` set('Full','Half') NOT NULL,
-  `price` int(11) NOT NULL
+  `price` int(11) NOT NULL,
+  `Status` set('Waiting for approval','Approved and reserved','','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `reserves`
 --
 
-INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`, `price`) VALUES
-(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Disabled', '2020-04-29 22:00:00', 5, 5, 5, 5, 'Full', 0),
-(2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Disabled', NULL, 3, 1, 1, 1, 'Half', 0),
-(3, 1, NULL, 2, 5, 2, '2020-04-27 22:00:00', 'Disabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Half', 0);
+INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`, `price`, `Status`) VALUES
+(1, 1, NULL, 1, 65, 2, '2020-03-03 00:00:00', 'Disabled', '2020-04-29 22:00:00', 5, 5, 5, 5, 'Full', 0, ''),
+(2, 2, 3, NULL, 0, 0, '0000-00-00 00:00:00', 'Disabled', NULL, 3, 1, 1, 1, 'Half', 0, ''),
+(3, 1, NULL, 2, 5, 2, '2020-04-27 22:00:00', 'Disabled', '2020-04-29 22:00:00', 0, 0, 0, 0, 'Half', 0, '');
 
 -- --------------------------------------------------------
 
