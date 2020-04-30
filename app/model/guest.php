@@ -101,10 +101,17 @@ class Guest extends User {
         $SQL = 'DELETE FROM reserves WHERE PackageID='.$PackageID.' AND GuestID='.$_SESSION["ID"].' AND ReserveID='.$ReserveID.'';
         return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
     }
-    public function CancelHotel($HotelID,$ReserveID)
+    public function CancelHotel($HotelID,$ReserveID,$DateIn,$DateOut)
     {
         $SQL = 'DELETE FROM reserves WHERE HotelID='.$HotelID.' AND GuestID='.$_SESSION["ID"].' AND ReserveID='.$ReserveID.'';
-        return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
+        $SQL2= 'UPDATE rooms SET Status="Free", DateIn="2000-01-01", DateOut="2000-01-01", GuestID = NULL WHERE HotelID='.$HotelID.' AND GuestID='.$_SESSION["ID"].' AND DateIn="'.$DateIn.'" AND DateOut="'.$DateOut.'"';
+        $RoomQuery = mysqli_query($this->dbh->getConn(),$SQL2) or die($this->dbh->getConn()->error);
+        $ResQuery = mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
+        if($RoomQuery == true && $ResQuery == true)
+        {
+            return true;
+        }
+        else return false;
     }
 
 

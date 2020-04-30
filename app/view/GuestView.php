@@ -547,6 +547,8 @@ class GuestView extends View
                 <input type="submit" name="CancelHotel" value="Yes" class="btn btn-success" style="margin-left: 25%;">
                 <input type="hidden" name="HotelID" value="'.$Res->getHotelID().'">
                 <input type="hidden" name="ReserveID" value="'.$Res->getReserveID().'">
+                <input type="hidden" name="DateIn" value="'.$Res->getDateIn().'">
+                <input type="hidden" name="DateOut" value="'.$Res->getDateOut().'">
                 </form>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;">No</button>
                 </div>
@@ -591,7 +593,7 @@ class GuestView extends View
 
          if(isset($_POST['CancelHotel']))
          {
-            if($this->model->CancelHotel($_POST['HotelID'], $_POST['ReserveID']))
+            if($this->model->CancelHotel($_POST['HotelID'], $_POST['ReserveID'],$_POST['DateIn'],$_POST['DateOut']))
             {
                 echo '<script>swal("Canceled Successfully!","","success")</script>';
             }
