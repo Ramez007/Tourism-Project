@@ -12,6 +12,11 @@ class MainpageView extends View
     private $guestname;
     private $review;
 
+    private $hotelsnum;
+    private $reservenum;
+    private $guestnum;
+    private $reviewnum;
+
     public function output()
     {
         $this->name=$this->model->getName();
@@ -19,6 +24,30 @@ class MainpageView extends View
         {
             echo "<option value=''>".$this->name[$i]."</option>";
         }
+    }
+
+    public function outputdatacount()
+    {
+        $this->hotelsnum=$this->model->hotelscount;
+        $this->reservenum=$this->model->transactions;
+        $this->guestnum=$this->model->guestscount;
+        $this->reviewnum=$this->model->reviewcount;
+        echo'<div class="col-md-3 text-center">
+            <span class="fh5co-counter js-counter" data-from="0" data-to='.$this->guestnum.' data-speed="5000" data-refresh-interval="50"></span>
+            <span class="fh5co-counter-label">User Access</span>
+            </div>
+            <div class="col-md-3 text-center">
+                <span class="fh5co-counter js-counter" data-from="0" data-to='.$this->hotelsnum.' data-speed="5000" data-refresh-interval="50"></span>
+                <span class="fh5co-counter-label">Hotels</span>
+            </div>
+            <div class="col-md-3 text-center">
+                <span class="fh5co-counter js-counter" data-from="0" data-to='.$this->reservenum.' data-speed="5000" data-refresh-interval="50"></span>
+                <span class="fh5co-counter-label">Transactions</span>
+            </div>
+            <div class="col-md-3 text-center">
+                <span class="fh5co-counter js-counter" data-from="0" data-to='.$this->reviewnum.' data-speed="5000" data-refresh-interval="50"></span>
+                <span class="fh5co-counter-label">Rating &amp; Review</span>
+            </div>';
     }
 
     public function outputfeatureheader()

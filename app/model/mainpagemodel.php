@@ -16,11 +16,40 @@ class mainpage extends Model
 
     private $guestname=array();
     private $reviews=array();
+
+    public $transactions=0;
+    public $reviewcount=0;
+    public $hotelscount=0;
+    public $guestscount=0;
+
     
 
     function __construct()
     {
         $this->dbh=$this->connect();
+    }
+
+    function countdata()
+    {
+        $sql="SELECT COUNT(*) FROM hotel where Suspended='Disabled';";
+        $result=mysqli_query($this->dbh->getConn(),$sql);
+        $row=$result->fetch_assoc();
+        $this->hotelscount=$row['COUNT(*)'];
+
+        $sql2="SELECT COUNT(*) FROM reserves where Suspended='Disabled';";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        $row2=$result2->fetch_assoc();
+        $this->transactions=$row2['COUNT(*)'];
+
+        $sql3="SELECT COUNT(*) FROM guest;";
+        $result3=mysqli_query($this->dbh->getConn(),$sql3);
+        $row3=$result3->fetch_assoc();
+        $this->guestscount=$row3['COUNT(*)'];
+
+        $sql4="SELECT COUNT(*) FROM reviews;";
+        $result4=mysqli_query($this->dbh->getConn(),$sql4);
+        $row4=$result4->fetch_assoc();
+        $this->reviewcount=$row4['COUNT(*)'];
     }
 
     
