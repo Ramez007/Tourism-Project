@@ -78,7 +78,7 @@
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script>
         function hide(jquery) {
-            var idarr = ["tab1", "tab2","tab3","tab4","tab5","tab6"];
+            var idarr = ["tab1", "tab2","tab3"];
             var count = 0;
 
             for (var i = 0; i < idarr.length; i++) {
@@ -95,7 +95,7 @@
 	<script>
 	
         function ShowTab(y) {
-            var idarr = ["tab1", "tab2"]
+            var idarr = ["tab1", "tab2", "tab3"]
 
             // document.getElementById("poll").style.display="none";
             y += "";
@@ -244,7 +244,13 @@ require_once("app/model/Support_model.php");
                     <img id="News" src="images\news.png" width="50" height="50">
 						<span>Send newswire</span>
 					</a>
+					<!-- new tab to show in the nav change png here in the src -->
+					<a href="#"  onclick="ShowTab('tab3')" data-tab="tab3">
+                    <img id="News" src="images\news.png" width="50" height="50">
+						<span>Send newswire</span>
+					</a>
                 </nav>
+
                 <div class="tab-content-container">
 					<div class="tab-content active show" id="tab1" data-tab-content="tab1">
 						<div class="container">
@@ -313,6 +319,15 @@ require_once("app/model/Support_model.php");
                                     </p>
 									<button type="submit" class="btn btn-primary mb-2" id="submitnewwire" name="submitnewwire">Send</button>
                                    <!-- Second form end--> </form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content" id="tab2" data-tab-content="tab2">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12">
+									<!-- Insert some code here -->
 								</div>
 							</div>
 						</div>
