@@ -482,7 +482,10 @@ class GuestView extends View
                     <td>None</td>
                     <td>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelPackage'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
-                        <button class="btn btn-success">Track Reservation</button>
+                        <form method="post">
+                        <input type="submit" name="TrackPackage" class="btn btn-success" value="Track Reservation">
+                        <input type="hidden" name="PackageStatus" value="'.$Res->getStatus().'">
+                        </form>
                     </td>
                 </tr>
             </tbody>
@@ -522,7 +525,10 @@ class GuestView extends View
                     <td>None</td>
                     <td>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelHotel'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
-                        <button class="btn btn-success">Track Reservation</button>
+                        <form method="post">
+                        <input type="submit" name="TrackHotel" class="btn btn-success" value="Track Reservation">
+                        <input type="hidden" name="HotelStatus" value="'.$Res->getStatus().'">
+                        </form>
                     </td>
                 </tr>
             </tbody>
@@ -593,6 +599,14 @@ class GuestView extends View
             {
                 echo '<script>swal("Something went wrong, please try again")</script>';
             }
+         }
+         if(isset($_POST['TrackPackage']))
+         {
+            echo '<script> swal("Status is: '.$_POST['PackageStatus'].'"); </script>';
+         }
+         if(isset($_POST['TrackHotel']))
+         {
+            echo '<script> swal("Status is: '.$_POST['HotelStatus'].'"); </script>';
          }
 
     }
