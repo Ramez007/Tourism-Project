@@ -135,9 +135,16 @@ require_once("app/model/Support_model.php");
 			$suport_operatorcontroller->Send_newwire();
 			if(isset($_POST['submitreply']))
 			$suport_operatorcontroller->Reply_to_Inquiry();
-			
+			if(isset($_POST['submitGuestID']))
+			$suport_operatorcontroller->SendMail();
+			if(isset($_POST['submitPackageMailID']))
+			$suport_operatorcontroller->SendPackageMail();
 			$suport_operatorcontroller->FetchInquiries();
+			$suport_operatorcontroller->fetchguestemails();
+			$suport_operatorcontroller->fetchPackages();
 			$supportview=new supportview($suport_operatorcontroller,$support_operatormodel);
+			
+			
 
 ?>
 <!-- php for mailling end -->
@@ -247,11 +254,11 @@ require_once("app/model/Support_model.php");
 					<!-- new tab to show in the nav change png here in the src -->
 					<a href="#"  onclick="ShowTab('tab3')" data-tab="tab3">
                     <img id="News" src="images\news.png" width="50" height="50">
-						<span>Send newswire</span>
+						<span>Send Mail to Particular Guest</span>
 					</a>
 					<a href="#"  onclick="ShowTab('tab4')" data-tab="tab4">
                     <img id="News" src="images\news.png" width="50" height="50">
-						<span>Send newswire</span>
+						<span>Send Package Mail</span>
 					</a>
                 </nav>
 
@@ -331,7 +338,16 @@ require_once("app/model/Support_model.php");
 						<div class="container">
 							<div class="row">
 								<div class="col-md-12">
-									<!-- Insert some code here -->
+								<!-- Form Start Here -->
+								<form action="" method="post">
+								<select id="GuestEmails" class="form-control" name="GuestEmails">
+								<?php 
+										$supportview->fetchguestemails();
+										?>
+										</select>
+										<textarea class="form-control form-control-lg" id="gumail" style="margin-top: 23px;" placeholder="Please write the message here" name ="gumail"rows="10"></textarea>
+										<button type="submit" class="btn btn-primary mb-2" style="margin-top: 23px;" id="submitGuestMailID" name="submitGuestMailID">Send</button>
+                                   <!-- form end--> </form>
 								</div>
 							</div>
 						</div>
@@ -340,7 +356,15 @@ require_once("app/model/Support_model.php");
 						<div class="container">
 							<div class="row">
 								<div class="col-md-12">
-									<!-- Insert some code here -->
+								<form action="" method="post">
+								<select id="PackageEmails" class="form-control" name="PackageEmails">
+								<?php 
+										$supportview->fetchPackages();
+										?>
+										</select>
+										<textarea class="form-control form-control-lg" id="Packagemail" style="margin-top: 23px;" placeholder="Please write the message here" name ="Packagemail"rows="10"></textarea>
+										<button type="submit" class="btn btn-primary mb-2" style="margin-top: 23px;" id="submitPackageMailID" name="submitPackageMailID">Send</button>
+                                   <!--  form end--> </form>
 								</div>
 							</div>
 						</div>

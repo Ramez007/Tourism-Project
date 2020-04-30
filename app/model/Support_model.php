@@ -20,6 +20,10 @@ class support_operator extends Model {
     protected $Inqemail=array();
     protected $InqId=array();
     protected $Inquiries = array();
+    protected $guestemails = array();
+    protected $Packagesids = array();
+    protected $Packagesnames = array();
+
 
     function __construct() {
         $this->dbh = $this->connect();
@@ -122,7 +126,51 @@ public function FetchSingleInquiry($val)
     return $this->Inquiries[$val];
 }
 
+function SendMail(){
+    include_once "serverdetails.php";
+  $guestmail=$_POST['GuestEmails'];
+  $message=$_POST['gumail'];  
+  try{
+       
+       
+        $email->addAddress($guestmail);
+         $email->Body=$message;
+         $email->send();
+         
+          echo'<script>swal("Successfully sent your reply", "", "success");</script>'; 
+         
+    }catch(Exception $e){
+        echo $e->errorMessage();
+     
 
+    }
+
+}
+function SendPackageMail(){
+    include_once "serverdetails.php";
+ 
+  $message=$_POST['Packagemail'];  
+  $id =$_POST['PackageEmails'];  
+  $SQL = 'SELECT Email FROM guest join reserves where guest.GuestID=reserves.GuestId and reserves.Suspended= "Enabled"  and reserves.PackageId="'.$id.'";';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+  try{
+    while($row = $Result->fetch_assoc())
+    {
+       
+        $email->addAddress($row['Email']);
+       
+    }   
+     $email->Body=$message;
+     $email->send();
+         
+      echo'<script>swal("Successfully sent your reply", "", "success");</script>'; 
+    }catch(Exception $e){
+        echo $e->errorMessage();
+     
+
+    }
+
+}
 
 
 
@@ -150,73 +198,40 @@ public function FetchSingleInquiry($val)
     {
         return $this->Inquiries;
     }
+     
+    public function getguestmail()
+    {
+        return $this->guestemails;
+    }
+    public function getpackagesids()
+    {
+        return $this->Packagesids;
+    }
+    public function getPackagesnames()
+    {
+        return $this->Packagesnames;
+    }
+
+ function fetchguestemails(){
+    $SQL = 'SELECT Email FROM guest';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->guestemails,$row['Email']);
+            
+    }
+ }
+ function fetchPackages(){
+    $SQL = 'SELECT PackageID,PackageName FROM packages';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->Packagesids,$row['PackageID']);
+        array_push($this->Packagesnames,$row['PackageName']);
+    }
+ }
+
 }
-
-// class Inquiry extends Model
-// {
-//     protected $Emails ;
-//     protected $Inquiries;
-//     protected $InquiryID;
-//     /**
-//      * Get the value of Emails
-//      */ 
-//     public function getEmails()
-//     {
-//         return $this->Emails;
-//     }
-
-//     /**
-//      * Set the value of Emails
-//      *
-//      * @return  self
-//      */ 
-//     public function setEmails($Emails)
-//     {
-//         $this->Emails = $Emails;
-
-//         return $this;
-//     }
-
-//     /**
-//      * Get the value of Inquiries
-//      */ 
-//     public function getInquiries()
-//     {
-//         return $this->Inquiries;
-//     }
-
-//     /**
-//      * Set the value of Inquiries
-//      *
-//      * @return  self
-//      */ 
-//     public function setInquiries($Inquiries)
-//     {
-//         $this->Inquiries = $Inquiries;
-
-//         return $this;
-//     }
-
-//     /**
-//      * Get the value of InquiryID
-//      */ 
-//     public function getInquiryID()
-//     {
-//         return $this->InquiryID;
-//     }
-
-//     /**
-//      * Set the value of InquiryID
-//      *
-//      * @return  self
-//      */ 
-//     public function setInquiryID($InquiryID)
-//     {
-//         $this->InquiryID = $InquiryID;
-
-//         return $this;
-//     }
-// }}
 
 
 ?>
