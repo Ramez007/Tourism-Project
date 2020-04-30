@@ -22,6 +22,11 @@ class MainpageController extends Controller
     {
         $this->model->countdata();
     }
+
+    public function checkavailabilty()
+    {
+        $this->model->checkavailabilty();
+    }
 }
 
 ?>

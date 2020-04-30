@@ -45,6 +45,7 @@
 	<!-- <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700italic,900,700,900italic' rel='stylesheet' type='text/css'> -->
 
 	<!-- Stylesheets -->
+	<script src="js/sweetalert.min.js"></script>
 	<!-- Dropdown Menu -->
 	<link rel="stylesheet" href="css/superfish.css">
 	<!-- Owl Slider -->
@@ -96,7 +97,10 @@ $controller=new HotelController($model);
 $controller->listhoteldata();
 $hotelview=new HotelView($controller,$model);
 
+
+
 ?>
+
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
 	<div id="fh5co-header">
@@ -151,6 +155,8 @@ $hotelview=new HotelView($controller,$model);
 		</header>
 		
 	</div>
+
+
 	
 	<!-- end:fh5co-header -->
 	<aside id="fh5co-hero" class="js-fullheight">
@@ -160,15 +166,17 @@ $hotelview=new HotelView($controller,$model);
 		  	</ul>
 	  	</div>
 	</aside>
+
+	
+
 	<div class="wrap">
 		<div class="container">
 			<div class="row">
 				<div id="availability">
-					<form action="#">
-
+					<form id="formcheck" action="" method="post">
 						<div class="a-col">
 							<section>
-								<select class="cs-select cs-skin-border">
+								<select id="hotelselect" name="hotelselect" onchange="" class="cs-select cs-skin-border">
 									<option value="" disabled selected>Select Hotel</option>
 									<?php $pageview->output()?>
 								</select>
@@ -187,16 +195,26 @@ $hotelview=new HotelView($controller,$model);
 							</div>
 						</div>
 						<div class="a-col action">
-							<a href="#">
+							<a onclick="document.getElementById('formcheck').submit()">
 								<span>Check</span>
 								Availability
 							</a>
 						</div>
+
+						
+
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<?php 
+		$pagecontroller->checkavailabilty();
+		$pageview->outputavailiabilty();
+	?>
+
+	
 	
 	<div id="fh5co-counter-section" class="fh5co-counters">
 		<div class="container">

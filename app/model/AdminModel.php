@@ -766,26 +766,26 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             
             $sql6="
             Update rooms
-            set Status='Not',GuestID='".$row['GuestId']."'
-            where HotelID='".$row3['HotelId']."' and RoomType='Single' and Status='Free' LIMIT ".$row3['NoOfSingleRooms']." ";
+            set Status='Not',GuestID='".$row['GuestId']."',DateIn='".$row3['DateIn']."' ,DateOut='".$row3['DateOut']."'
+            where HotelID='".$row3['HotelId']."' and RoomType='Single' and Status='Pending' LIMIT ".$row3['NoOfSingleRooms']." ";
             mysqli_query($this->db->getConn(),$sql6);
 
             $sql7="
             Update rooms
-            set Status='Not',GuestID='".$row['GuestId']."'
-            where HotelID='".$row3['HotelId']."' and RoomType='Double' and Status='Free' LIMIT ".$row3['NoOfDoubleRooms']." ";
+            set Status='Not',GuestID='".$row['GuestId']."',DateIn='".$row3['DateIn']."' ,DateOut='".$row3['DateOut']."'
+            where HotelID='".$row3['HotelId']."' and RoomType='Double' and Status='Pending' LIMIT ".$row3['NoOfDoubleRooms']." ";
             mysqli_query($this->db->getConn(),$sql7);
 
             $sql8="
             Update rooms
-            set Status='Not',GuestID='".$row['GuestId']."'
-            where HotelID='".$row3['HotelId']."' and RoomType='Triple' and Status='Free' LIMIT ".$row3['NoOfTripleRooms']." ";
+            set Status='Not',GuestID='".$row['GuestId']."',DateIn='".$row3['DateIn']."' ,DateOut='".$row3['DateOut']."'
+            where HotelID='".$row3['HotelId']."' and RoomType='Triple' and Status='Pending' LIMIT ".$row3['NoOfTripleRooms']." ";
             mysqli_query($this->db->getConn(),$sql8);
 
             $sql9="
             Update rooms
-            set Status='Not',GuestID='".$row['GuestId']."'
-            where HotelID='".$row3['HotelId']."' and RoomType='Suites' and Status='Free' LIMIT ".$row3['NoOfSuits']." ";
+            set Status='Not',GuestID='".$row['GuestId']."',DateIn='".$row3['DateIn']."' ,DateOut='".$row3['DateOut']."'
+            where HotelID='".$row3['HotelId']."' and RoomType='Suites' and Status='Pending' LIMIT ".$row3['NoOfSuits']." ";
             mysqli_query($this->db->getConn(),$sql9);
 
 
