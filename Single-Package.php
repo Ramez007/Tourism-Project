@@ -274,7 +274,10 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                 </nav>
                 <div class="tab-content-container">
 					<div class="tab-content active show" id="tab1" data-tab-content="tab1">
-<!-- Details --><?php $PKView->DetailsOutput(); ?>
+					<!-- Details -->
+					<?php $PKView->DetailsOutput(); ?>
+					<h3> Reviews </h3>
+					<?php $PKView->PackageReviewOutput(); ?>
 					</div>
 					<div class="tab-content" id="tab2" data-tab-content="tab2">
 						<div class="container">

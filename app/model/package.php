@@ -1,8 +1,9 @@
 <?php
 require_once("app/model/model.php");
 require_once("app/model/cruise.php");
+require_once("app/interfaces/iReviewPackages.php");
 
-class Package extends Model
+class Package extends Model implements ireviewpackages
 {
     protected $PackageID;
     protected $PackageName;
@@ -21,6 +22,7 @@ class Package extends Model
     protected $VisitModel;
     protected $CruiseModel;
 
+    protected $Review = array();
     protected $PackageViewName = array();
     protected $PackageViewOverview = array();
     protected $PackageIDs = array();
@@ -30,6 +32,16 @@ class Package extends Model
     {
         $this->dbh=$this->connect();
         $this->CruiseModel = new Cruise();
+    }
+
+    public function ReadPackagesReviews()
+    {
+        $SQL = 'SELECT Review FROM reviews WHERE PackageID='.$this->PackageID.'';
+        $Result = mysqli_query($this->db->getConn(),$SQL);
+        while ($row = $Result->fetch_assoc())
+        {
+            array_push($this->Review,$row['Review']);
+        }
     }
 
     public function ListPackages()
@@ -48,17 +60,18 @@ class Package extends Model
 
     public function GetDetails($PKID)
     {
-        $SQL = 'SELECT PackageName,HotelID,NumberOfDays,NumberOfNights,Price,Description,CruiseID FROM packages WHERE packages.PackageID ='.$PKID.'';
-        $Res = mysqli_query($this->db->getConn(),$SQL);
+        $SQL = 'SELECT PackageName,PackageID,HotelID,NumberOfDays,NumberOfNights,Price,Description,CruiseID FROM packages WHERE packages.PackageID ='.$PKID.'';        $Res = mysqli_query($this->db->getConn(),$SQL);
         while($row=$Res->fetch_assoc())
         {
             $this->PackageName = $row['PackageName'];
+            $this->PackageID = $row['PackageID'];
             $this->NumberOfDays = $row['NumberOfDays'];
             $this->NumberOfNights = $row['NumberOfNights'];
             $this->Price = $row['Price'];
             $this->Description = $row['Description'];
             $this->HotelID = $row['HotelID'];
             $this->CruiseID = $row['CruiseID'];
+            
         }
 
 
@@ -389,6 +402,26 @@ class Package extends Model
     public function setPackagePrices($PackagePrices)
     {
         $this->PackagePrices = $PackagePrices;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Review
+     */ 
+    public function getReview()
+    {
+        return $this->Review;
+    }
+
+    /**
+     * Set the value of Review
+     *
+     * @return  self
+     */ 
+    public function setReview($Review)
+    {
+        $this->Review = $Review;
 
         return $this;
     }

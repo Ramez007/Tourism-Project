@@ -116,6 +116,17 @@ class PackageView extends View
         
         }
     }
+    public function PackageReviewOutput()
+    {
+       $Review = $this->model->getReview();
+       echo "<ul>";
+       for($i=0;$i<count($Review);$i++)
+       {
+           echo "<li>".$Review[$i]."</li>";
+       }
+       echo "</ul>";
+
+    }
     public function HotelHyperlink()
     {
         echo 
