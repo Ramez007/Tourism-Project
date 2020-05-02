@@ -1,0 +1,9 @@
+client id
+
+848047463133-0c1iiat4llbjhvgjcq2k0qfurfol1t1u.apps.googleusercontent.com
+
+
+secret
+
+
+prQMMN7tap75RRlsX0ZLU5tK
