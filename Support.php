@@ -78,7 +78,7 @@
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script>
         function hide(jquery) {
-            var idarr = ["tab1", "tab2","tab3","tab4","tab5","tab6"];
+            var idarr = ["tab1", "tab2","tab3", "tab4"];
             var count = 0;
 
             for (var i = 0; i < idarr.length; i++) {
@@ -95,7 +95,7 @@
 	<script>
 	
         function ShowTab(y) {
-            var idarr = ["tab1", "tab2"]
+            var idarr = ["tab1", "tab2", "tab3" , "tab4"]
 
             // document.getElementById("poll").style.display="none";
             y += "";
@@ -135,9 +135,17 @@ require_once("app/model/Support_model.php");
 			$suport_operatorcontroller->Send_newwire();
 			if(isset($_POST['submitreply']))
 			$suport_operatorcontroller->Reply_to_Inquiry();
+			if(isset($_POST['submitGuestMailID']))
+			$suport_operatorcontroller->SendMail();
+			if(isset($_POST['submitPackageMailID']))
+			$suport_operatorcontroller->SendPackageMail();
 			
 			$suport_operatorcontroller->FetchInquiries();
+			$suport_operatorcontroller->fetchguestemails();
+			$suport_operatorcontroller->fetchPackages();
 			$supportview=new supportview($suport_operatorcontroller,$support_operatormodel);
+			
+			
 
 ?>
 <!-- php for mailling end -->
@@ -244,7 +252,17 @@ require_once("app/model/Support_model.php");
                     <img id="News" src="images\news.png" width="50" height="50">
 						<span>Send newswire</span>
 					</a>
+					<!-- new tab to show in the nav change png here in the src -->
+					<a href="#"  onclick="ShowTab('tab3')" data-tab="tab3">
+                    <img id="News" src="images\news.png" width="50" height="50">
+						<span>Send Mail to Particular Guest</span>
+					</a>
+					<a href="#"  onclick="ShowTab('tab4')" data-tab="tab4">
+                    <img id="News" src="images\news.png" width="50" height="50">
+						<span>Send Package Mail</span>
+					</a>
                 </nav>
+
                 <div class="tab-content-container">
 					<div class="tab-content active show" id="tab1" data-tab-content="tab1">
 						<div class="container">
@@ -313,6 +331,41 @@ require_once("app/model/Support_model.php");
                                     </p>
 									<button type="submit" class="btn btn-primary mb-2" id="submitnewwire" name="submitnewwire">Send</button>
                                    <!-- Second form end--> </form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content" id="tab3" data-tab-content="tab3">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12">
+								<!-- Form Start Here -->
+								<form action="" method="post">
+								<select id="GuestEmails" class="form-control" name="GuestEmails">
+								<?php 
+										$supportview->fetchguestemails();
+										?>
+										</select>
+										<textarea class="form-control form-control-lg" id="gumail" style="margin-top: 23px;" placeholder="Please write the message here" name ="gumail"rows="10"></textarea>
+										<button type="submit" class="btn btn-primary mb-2" style="margin-top: 23px;" id="submitGuestMailID" name="submitGuestMailID">Send</button>
+                                   <!-- form end--> </form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content" id="tab4" data-tab-content="tab4">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12">
+								<form action="" method="post">
+								<select id="PackageEmails" class="form-control" name="PackageEmails">
+								<?php 
+										$supportview->fetchPackages();
+										?>
+										</select>
+										<textarea class="form-control form-control-lg" id="Packagemail" style="margin-top: 23px;" placeholder="Please write the message here" name ="Packagemail"rows="10"></textarea>
+										<button type="submit" class="btn btn-primary mb-2" style="margin-top: 23px;" id="submitPackageMailID" name="submitPackageMailID">Send</button>
+                                   <!--  form end--> </form>
 								</div>
 							</div>
 						</div>
