@@ -15,5 +15,9 @@ class UserController extends Controller{
             $this->model->Login();
        }
 
+       public function login_with_G(){
+        $this->model->login_with_G();
+       }
+
    }
 ?>

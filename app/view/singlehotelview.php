@@ -8,17 +8,52 @@ class singlehotelview extends View
 {
 
     private $services;
+    private $reviews;
 
 
     public function output()
     {
+        $stars=$this->model->getStars();
         echo '<h1 class="text-center">'.$this->model->getHotelname().'</h1>';
-       
+        echo "<br><h3 class='text-center'";
+
+        for ($i=0;$i<=$stars;$i++)
+        {
+           echo " <span class='fa fa-star stars'></span>";
+        }
+        for($i=$stars;$i<5;$i++)
+        {
+            echo " <span class='fa fa-star'></span>";
+        }
+        echo "</h3>";
+
+
+
+        // <h3 class="text-center">
+
+        // <span class="fa fa-star test"></span>
+        // <span class="fa fa-star test"></span>
+        // <span class="fa fa-star test"></span>
+        // <span class="fa fa-star test"></span>
+        // <span class="fa fa-star test"></span>
+        // </h3>
     }
 
     public function outputdesc()
     {
         echo '<p>'.$this->model->getHoteldescription().'</p>';
+    }
+
+    public function outputreviews()
+    {
+        $this->reviews=$this->model->getReviewsofhotel();
+        // echo $this->model->reviews[0];
+        echo "<ul>";
+        for($i=0;$i<count($this->reviews);$i++){
+            echo "<li>".$this->reviews[$i]."</li>";
+            
+        }
+        echo "</ul>";
     }
 
     public function outputservices()

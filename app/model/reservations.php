@@ -15,6 +15,7 @@ class Reservation extends Model
     protected $TripleRooms;
     protected $Suits;
     protected $BoardType;
+    protected $Status;
 
     public function __construct()
     {
@@ -239,6 +240,26 @@ class Reservation extends Model
     public function setBoardType($BoardType)
     {
         $this->BoardType = $BoardType;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Status
+     */ 
+    public function getStatus()
+    {
+        return $this->Status;
+    }
+
+    /**
+     * Set the value of Status
+     *
+     * @return  self
+     */ 
+    public function setStatus($Status)
+    {
+        $this->Status = $Status;
 
         return $this;
     }

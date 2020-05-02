@@ -17,6 +17,16 @@ class MainpageController extends Controller
     {
         $this->model->listreviews();
     }
+
+    public function countdata()
+    {
+        $this->model->countdata();
+    }
+
+    public function checkavailabilty()
+    {
+        $this->model->checkavailabilty();
+    }
 }
 
 ?>

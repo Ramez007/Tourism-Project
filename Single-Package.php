@@ -137,7 +137,7 @@ require_once("app/view/PackageView.php");
 $PKModel = new Package();
 $PkController = new PackageController($PKModel);
 $PkController->ListSinglePackage($_GET['action']);
-$PkController->ListPackageServices($_GET['action']);
+$PkController->ListPackageServices();
 $PKView = new PackageView($PkController,$PKModel);
 
 require_once("app/model/singlehotelmodel.php");
@@ -274,7 +274,10 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                 </nav>
                 <div class="tab-content-container">
 					<div class="tab-content active show" id="tab1" data-tab-content="tab1">
-<!-- Details --><?php $PKView->DetailsOutput(); ?>
+					<!-- Details -->
+					<?php $PKView->DetailsOutput(); ?>
+					<h3> Reviews </h3>
+					<?php $PKView->PackageReviewOutput(); ?>
 					</div>
 					<div class="tab-content" id="tab2" data-tab-content="tab2">
 						<div class="container">
@@ -311,8 +314,8 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                                         <span><i class="flaticon-restaurant icon"></i></span>
 										<div class="desc" >Resturant</div>
 									</div> -->
-									<h3 class="heading">Cruise includes</h3>
 									<?php $PKView->CruiseServicesOutput(); ?>
+									<?php $PKView->HotelHyperlink(); ?>
 									<!-- <div class="services">
                                         <span><i class="ti-medall"></i></span>
 										<div class="desc" >Pets</div>
@@ -326,7 +329,7 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
 										<div class="desc" >Sunbathing</div>
 									</div> -->
 
-									<a href="single-hotel.php" style="color:orangered"><b>hotel/cruise details here</b></a>
+									<!-- <a href="single-hotel.php" style="color:orangered"><b>hotel/cruise details here</b></a> -->
 								</div>
 							</div>
 						</div>

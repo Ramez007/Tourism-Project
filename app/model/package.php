@@ -1,15 +1,14 @@
 <?php
 require_once("app/model/model.php");
 require_once("app/model/cruise.php");
-require_once("app/model/visits.php");
+require_once("app/interfaces/iReviewPackages.php");
 
-class Package extends Model
+class Package extends Model implements ireviewpackages
 {
     protected $PackageID;
     protected $PackageName;
     protected $ReserveLimit;
     protected $CruiseID;
-    protected $VisitID;
     protected $HotelID;
     protected $Price;
     protected $TourGuideID;
@@ -23,50 +22,69 @@ class Package extends Model
     protected $VisitModel;
     protected $CruiseModel;
 
+    protected $Review = array();
     protected $PackageViewName = array();
     protected $PackageViewOverview = array();
     protected $PackageIDs = array();
+    protected $PackagePrices = array();
 
     public function __construct()
     {
         $this->dbh=$this->connect();
-        $this->VisitModel = new Visits();
         $this->CruiseModel = new Cruise();
+    }
+
+    public function ReadPackagesReviews()
+    {
+        $SQL = 'SELECT Review FROM reviews WHERE PackageID='.$this->PackageID.'';
+        $Result = mysqli_query($this->db->getConn(),$SQL);
+        while ($row = $Result->fetch_assoc())
+        {
+            array_push($this->Review,$row['Review']);
+        }
     }
 
     public function ListPackages()
     {
-        $SQL = "SELECT PackageName, Overview, Price, PackageID FROM packages";
+        $SQL = "SELECT PackageName, Overview, Price, PackageID FROM packages WHERE Suspended='Disabled'";
         $Result = mysqli_query($this->db->getConn(),$SQL);
         while($row=$Result->fetch_assoc())
         {
             array_push($this->PackageViewName,$row['PackageName']);
             array_push($this->PackageViewOverview,$row['Overview']);
             array_push($this->PackageIDs,$row['PackageID']);
+            array_push($this->PackagePrices,$row['Price']);
         }
 
     }
 
     public function GetDetails($PKID)
     {
-        $SQL = 'SELECT PackageName,HotelID,NumberOfDays,NumberOfNights,Price,NameLocation,Description FROM packages INNER JOIN visits ON visits.PackageID ='.$PKID.' AND packages.PackageID ='.$PKID.'';
-        $Res = mysqli_query($this->db->getConn(),$SQL);
+        $SQL = 'SELECT PackageName,PackageID,HotelID,NumberOfDays,NumberOfNights,Price,Description,CruiseID FROM packages WHERE packages.PackageID ='.$PKID.'';        $Res = mysqli_query($this->db->getConn(),$SQL);
         while($row=$Res->fetch_assoc())
         {
             $this->PackageName = $row['PackageName'];
+            $this->PackageID = $row['PackageID'];
             $this->NumberOfDays = $row['NumberOfDays'];
             $this->NumberOfNights = $row['NumberOfNights'];
             $this->Price = $row['Price'];
-            $this->VisitModel->setLocation($row['NameLocation']);
             $this->Description = $row['Description'];
             $this->HotelID = $row['HotelID'];
+            $this->CruiseID = $row['CruiseID'];
+            
         }
 
 
     }
-    public function FetchCruiseServices($PackID)
+    public function FetchCruiseServices()
     {
-        $SQL = 'SELECT Pets,Fishing,SunBathing,Pool FROM cruise WHERE PackageID='.$PackID.'';
+        if($this->CruiseID == NULL)
+        {
+            return;
+        }
+        else
+        {
+        $SQL = 'SELECT Pets,Fishing,SunBathing,Pool FROM cruise WHERE CruiseID='.$this->CruiseID.'';
         $Result = mysqli_query($this->db->getConn(),$SQL);
         while($row = $Result->fetch_assoc())
         {
@@ -75,16 +93,25 @@ class Package extends Model
         $this->CruiseModel->AddService($row['SunBathing']);
         $this->CruiseModel->AddService($row['Pool']);
         }
+        }
         
     }
     public function GetCruiseServices()
     {
-        return $this->CruiseModel->GetServices();
+        if($this->CruiseID == NULL)
+        {
+            return false;
+        }
+        else
+        {
+            return $this->CruiseModel->GetServices();
+        }
+        
     }
     public function GetHotelName()
     {
-        $SQL = 'SELECT Name FROM packages INNER JOIN hotel ON hotel.HotelID='.$this->HotelID.' AND packages.HotelID='.$this->HotelID.'';
-        $R = mysqli_query($this->db->getConn(),$SQL);
+        $SQL = 'SELECT Name FROM packages INNER JOIN hotel ON hotel.HotelID="'.$this->HotelID.'" AND packages.HotelID="'.$this->HotelID.'"';
+        $R = mysqli_query($this->db->getConn(),$SQL) or die($this->db->getConn()->error);
         while($row = $R->fetch_assoc())
         {
             $HotelName = $row['Name'];
@@ -358,18 +385,45 @@ class Package extends Model
 
         return $this;
     }
-    public function ListCities()
+
+    /**
+     * Get the value of PackagePrices
+     */ 
+    public function getPackagePrices()
     {
-        $Locations = $this->VisitModel->getLocations();
-        $Format = '';
-        
-        for($i = 0; $i < count($Locations); $i++)
-        {
-            $Format .= ''.$Locations[$i].', ';
-        }
-        $Format[-2] = '.';
-        return $Format;
-        
+        return $this->PackagePrices;
+    }
+
+    /**
+     * Set the value of PackagePrices
+     *
+     * @return  self
+     */ 
+    public function setPackagePrices($PackagePrices)
+    {
+        $this->PackagePrices = $PackagePrices;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Review
+     */ 
+    public function getReview()
+    {
+        return $this->Review;
+    }
+
+    /**
+     * Set the value of Review
+     *
+     * @return  self
+     */ 
+    public function setReview($Review)
+    {
+        $this->Review = $Review;
+
+        return $this;
     }
 }
 ?>

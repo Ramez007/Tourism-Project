@@ -9,6 +9,7 @@ class PackageView extends View
         $PackageName = $this->model->getPackageViewName();
         $PackageOverview = $this->model->getPackageViewOverview();
         $PackageID = $this->model->getPackageIDs();
+        $PackagePrice = $this->model->getPackagePrices();
 
 
         for($i = 0; $i < count($PackageName); $i++)
@@ -18,11 +19,11 @@ class PackageView extends View
             <div class="col-md-4">
             <div class="hotel-content">
                 <div class="hotel-grid" style="background-image: url(images/abu-simble.jpg);">
-                    <div class="price"><small>For as low as</small><span>100$/night</span></div>
+                    <div class="price"><small>For as low as</small><span style="font-size:18">'.$PackagePrice[$i].' EGP/night</span></div>
                     <a class="book-now text-center" href="Single-Package.php?action='.$PackageID[$i].'"><i class="ti-calendar"></i> Book Now</a>
                 </div>
                 <div class="desc">
-                    <h3><a href="Single-Package.php">'.$PackageName[$i].'</a></h3>
+                    <h3><a href="Single-Package.php?action='.$PackageID[$i].'">'.$PackageName[$i].'</a></h3>
                     <p>'.$PackageOverview[$i].'</p>
                 </div>
             </div>
@@ -54,10 +55,6 @@ class PackageView extends View
                     <div class="desc"style=""> Number of nights:'.$this->model->getNumberOfNights().'</div>
                 </div>
                 <div class="services">
-                <span style="margin-bottom:20px;top: 5px;"><img id="News" src="images\city.png" width="50" height="50"style="margin-bottom:40px"></span>
-                    <div class="desc" style="margin-top: 0px;padding-top: 30px;">Landmarks to visit: '.$this->model->ListCities().'</div>
-                </div>
-                <div class="services">
                 <span><img id="News" src="images\dollar.png" width="50" height="50"style="margin-bottom:40px"></span>
                     <div class="desc"style="padding-top: 45px;"> Basic cost:'.$this->model->getPrice().'</div>
                 </div>
@@ -68,6 +65,13 @@ class PackageView extends View
     public function CruiseServicesOutput()
     {
         $services = $this->model->GetCruiseServices();
+        if($services == false)
+        {
+            echo '';
+        }
+        else
+        {
+        echo '<h3 class="heading">Cruise includes</h3>';
         if($services[0] == "TRUE")
         {
             echo 
@@ -110,6 +114,25 @@ class PackageView extends View
         }
 
         
+        }
+    }
+    public function PackageReviewOutput()
+    {
+       $Review = $this->model->getReview();
+       echo "<ul>";
+       for($i=0;$i<count($Review);$i++)
+       {
+           echo "<li>".$Review[$i]."</li>";
+       }
+       echo "</ul>";
+
+    }
+    public function HotelHyperlink()
+    {
+        echo 
+        '
+        <a href="single-hotel.php?action='.$this->model->GetHotelName().'" style="color:orangered"><b>hotel/cruise details here</b></a>
+        ';
     }
 }
 

@@ -12,6 +12,11 @@ class singlehotelcontroller extends Controller
     {
         $this->model->listhoteldata();
     }
+
+    public function hotelreviews($var)
+    {
+        $this->model->listreviewsofhotel($var);
+    }
 }
 
 ?>
