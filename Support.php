@@ -135,10 +135,11 @@ require_once("app/model/Support_model.php");
 			$suport_operatorcontroller->Send_newwire();
 			if(isset($_POST['submitreply']))
 			$suport_operatorcontroller->Reply_to_Inquiry();
-			if(isset($_POST['submitGuestID']))
+			if(isset($_POST['submitGuestMailID']))
 			$suport_operatorcontroller->SendMail();
 			if(isset($_POST['submitPackageMailID']))
 			$suport_operatorcontroller->SendPackageMail();
+			
 			$suport_operatorcontroller->FetchInquiries();
 			$suport_operatorcontroller->fetchguestemails();
 			$suport_operatorcontroller->fetchPackages();

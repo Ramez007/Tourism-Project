@@ -151,6 +151,7 @@ function SendPackageMail(){
  
   $message=$_POST['Packagemail'];  
   $id =$_POST['PackageEmails'];  
+ 
   $SQL = 'SELECT Email FROM guest join reserves where guest.GuestID=reserves.GuestId and reserves.Suspended= "Enabled"  and reserves.PackageId="'.$id.'";';
     $Result = mysqli_query($this->dbh->getConn(),$SQL);
   try{
