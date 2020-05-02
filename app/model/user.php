@@ -15,7 +15,30 @@ class User extends Model {
 
     function __construct() {
         $this->dbh = $this->connect();
-    }
+	}
+	
+	function login_with_G()
+	{
+		// echo "".$_SESSION['fname']."";
+		// echo "".$_SESSION['lname']."";
+		// echo "".$_SESSION['Email']."";
+		$sql1="SELECT * FROM guest where Email='{$_SESSION['Email']}'";
+		$result1=mysqli_query($this->dbh->getConn(),$sql1);
+		$rowcount=mysqli_fetch_assoc($result1);
+		if($rowcount<1)
+		{
+			$sql="INSERT INTO guest (FirstName,LastName,Email) values ('".$_SESSION['fname']."','".$_SESSION['lname']."','".$_SESSION['Email']."')";
+			$result=mysqli_query($this->dbh->getConn(),$sql);
+		}
+		
+
+		$sql2="SELECT GuestID from guest where Email='{$_SESSION['Email']}'";
+		$result2=mysqli_query($this->dbh->getConn(),$sql2);
+		$row=mysqli_fetch_assoc($result2);
+		$_SESSION["ID"]=$row["GuestID"];
+		
+
+	}
 
     function Login()
     {
