@@ -95,11 +95,28 @@ class Guest extends User {
 
     public function EditProfile($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Country)
     {
-        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Username="'.$User.'", Password="'.$Pass.'" WHERE GuestID='.$_SESSION["ID"].'';
+        if($Pass !="")
+        {
+        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Password="'.$Pass.'" WHERE GuestID='.$_SESSION["ID"].'';
         $_SESSION["fname"]=$Fname;
         $_SESSION["lname"]=$Lname;
         $_SESSION["Email"]=$Email;
-        return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
+        mysqli_query($this->dbh->getConn(),$SQL) ;
+
+        
+        $sql1="UPDATE login set password='$Pass' where username='$User'";
+        return mysqli_query($this->dbh->getConn(),$sql1);
+        }
+        else
+        {
+        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'" WHERE GuestID='.$_SESSION["ID"].'';
+        $_SESSION["fname"]=$Fname;
+        $_SESSION["lname"]=$Lname;
+        $_SESSION["Email"]=$Email;
+        return mysqli_query($this->dbh->getConn(),$SQL) ;
+
+        }
+        
     }
     public function EditProfilePic($file)
     {

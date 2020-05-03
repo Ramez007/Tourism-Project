@@ -66,10 +66,11 @@ class GuestView extends View
         <input type="text" id="inputBox" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
         <label for="NationalNumber">National ID Number:</label><br>
         <input type="text" id="inputBox" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
-        <label for="Username">Username:</label><br>
-        <input type="text" id="inputBox" name="username" value="'.$this->model->getUsername().'"><br>
-        <label for="Password">Password:</label><br>
-        <input type="text" id="inputBox" name="password" value="'.$this->model->getPassword().'"><br>
+      
+        '.($this->model->getUsername()!=''?'<label for="Password">Password:</label><br>
+        <input type="text" id="inputBox" name="password" value="'.$this->model->getPassword().'"><br>':'').'                                                                                                                    
+         
+        <input type="hidden" name="username" value="'.$this->model->getUsername().'">
 
         <label for="Country">Country:</label><br>
 
@@ -357,9 +358,19 @@ class GuestView extends View
             {
                 $_POST['Country'] = $this->model->getCountry();
             }
-            if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$_POST['password'],$_POST['Country']))
+            if(isset($_POST['password']))
             {
-                echo '<script>swal("Edited profile successfully","","success")</script>';
+                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$_POST['password'],$_POST['Country']))
+                {
+                    echo '<script>swal("Edited profile successfully","","success")</script>';
+                }
+            }
+            else
+            {
+                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],"",$_POST['Country']))
+                {
+                    echo '<script>swal("Edited profile successfully","","success")</script>';
+                }
             }
         }
         if(isset($_POST['submitpp']))
