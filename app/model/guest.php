@@ -34,7 +34,7 @@ class Guest extends User {
         }
         else{
         $user=$_POST['UserName'];
-        $sql1="Select * from guest where Username='$user' ";
+        $sql1="Select * from login where username='$user' ";
         $res=mysqli_query($this->dbh->getConn(),$sql1);
         $rowcount=mysqli_num_rows($res);
         if ($rowcount<1){
@@ -46,6 +46,8 @@ class Guest extends User {
             $country = $_POST['Country'];
             $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass','$country');";
             $result=mysqli_query($this->dbh->getConn(),$sql);
+            $sql1="INSERT INTO login (username,password) values('$user','$pass')";
+            $result1=mysqli_query($this->dbh->getConn(),$sql1);
             $this->name=$fname;
             $this->email=$email;
             $this->password=$pass;

@@ -4,6 +4,40 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
+
+  <?php
+        error_reporting(E_ALL & ~E_NOTICE);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $secretKey = '6LebAfEUAAAAABu7BOnFbSra8UYn1aHzeJsxLKZp';
+        $captcha = $_POST['g-recaptcha-response'];
+        $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
+        $responseKeys = json_decode($response,true);
+		require_once("app/model/guest.php");
+		require_once("app/controller/GuestController.php");
+		// require_once("app/view/login_view.php");
+		$guestmodel = new Guest();
+		$guestcontrol = new GuestController($guestmodel);
+		// $loginview=new ViewLogin($usercontrol, $usermodel);
+		if (isset($_POST['Submit']))
+		{
+            if(intval($responseKeys["success"]) !== 1) 
+              {
+                echo'<script>alert("Please Check the captcha", "", "success");</script>'; 
+              } 
+              else 
+              {
+                $guestcontrol->register();
+              }
+		}
+
+		require_once("app/model/hotelmodel.php");
+		require_once("app/controller/HotelController.php");
+		require_once("app/view/HotelView.php");
+		$model=new Hotel();
+		$controller=new HotelController($model);
+		$controller->listhoteldata();
+		$hotelview=new HotelView($controller,$model);
+    ?>
     <script src='https://www.google.com/recaptcha/api.js'></script>
     
     
@@ -137,39 +171,7 @@ padding: 20px;
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-    <?php
-        error_reporting(E_ALL & ~E_NOTICE);
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $secretKey = '6LebAfEUAAAAABu7BOnFbSra8UYn1aHzeJsxLKZp';
-        $captcha = $_POST['g-recaptcha-response'];
-        $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
-        $responseKeys = json_decode($response,true);
-		require_once("app/model/guest.php");
-		require_once("app/controller/GuestController.php");
-		// require_once("app/view/login_view.php");
-		$guestmodel = new Guest();
-		$guestcontrol = new GuestController($guestmodel);
-		// $loginview=new ViewLogin($usercontrol, $usermodel);
-		if (isset($_POST['Submit']))
-		{
-            if(intval($responseKeys["success"]) !== 1) 
-              {
-                echo'<script>alert("Please Check the captcha", "", "success");</script>'; 
-              } 
-              else 
-              {
-                $guestcontrol->register();
-              }
-		}
 
-		require_once("app/model/hotelmodel.php");
-		require_once("app/controller/HotelController.php");
-		require_once("app/view/HotelView.php");
-		$model=new Hotel();
-		$controller=new HotelController($model);
-		$controller->listhoteldata();
-		$hotelview=new HotelView($controller,$model);
-    ?>
     
     
 

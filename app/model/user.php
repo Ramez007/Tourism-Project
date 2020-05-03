@@ -42,68 +42,74 @@ class User extends Model {
 
     function Login()
     {
-		if ($_POST['Selectjob']=="0")
-        {
-            echo '<script>
-                            alert("Please Select a User type first")
-                            </script>';
-		}
-		else 
-		{
+		
         
 			$user=$_POST['username'];
 			$pass=$_POST['password'];
-			if ($_POST['Selectjob']=="Admin")
+
+			$sql="SELECT * from login where username='$user'";
+			$result=mysqli_query($this->dbh->getConn(),$sql);
+			$count=mysqli_num_rows($result);
+
+			if($count>0)
 			{
-				$sql="SELECT * From employees where Username='$user'";
-				$result=mysqli_query($this->dbh->getConn(),$sql);
-				$row=mysqli_fetch_assoc($result);
-				if ($row['JobType']=="ADMIN")
+				$sql1="SELECT * from login where username='$user' and password='$pass'";
+				$result1=mysqli_query($this->dbh->getConn(),$sql1);
+				$count1=mysqli_num_rows($result1);
+
+				if ($count1>0)
 				{
-				$_SESSION["ID"]=$row["EmployeeID"];
-				$_SESSION["Name"]=$row['Name'];
-				$_SESSION["type"]=$row['JobType'];
-				$_SESSION["Email"]=$row['Email'];
-				header ("Location:Admin.php");
+					$sql2="SELECT * from employees where Username='$user'";
+					$result2=mysqli_query($this->dbh->getConn(),$sql2);
+					$count2=mysqli_num_rows($result2);
+					if ($count2>0)
+					{
+						$row=mysqli_fetch_assoc($result2);
+
+						if ($row['JobType']=="ADMIN")
+						{
+							$_SESSION["ID"]=$row["EmployeeID"];
+							$_SESSION["Name"]=$row['Name'];
+							$_SESSION["type"]=$row['JobType'];
+							$_SESSION["Email"]=$row['Email'];
+							header ("Location:Admin.php");
+						}
+						else if ($row['JobType']=="SUPPORT")
+						{
+							$_SESSION["ID"]=$row["EmployeeID"];
+							$_SESSION["Name"]=$row['Name'];
+							$_SESSION["type"]=$row['JobType'];
+							$_SESSION["Email"]=$row['Email'];
+							header ("Location:Support.php");
+						}
+					}
+					else
+					{
+						$sql3="SELECT * from guest where Username='$user'";
+						$result3=mysqli_query($this->dbh->getConn(),$sql3);
+						$row2=mysqli_fetch_assoc($result3);
+						$_SESSION["ID"]=$row2["GuestID"];
+						$_SESSION["fname"]=$row2["FirstName"];
+						$_SESSION["lname"]=$row2["LastName"];
+						$_SESSION["Email"]=$row2["Email"];
+						$_SESSION["Gender"]=$row2["Gender"];
+						$_SESSION["type"]="USER";
+						header ("Location:Profile.php");
+
+					}
 				}
-				else
-            	{
-                echo '<script> alert("Invalid Username or Password") </script>';
-           		}
-			}
-			else if ($_POST['Selectjob']=="Support")
-			{
-				$sql="SELECT * From employees where Username='$user'";
-				$result=mysqli_query($this->dbh->getConn(),$sql);
-				$row=mysqli_fetch_assoc($result);
-				if ($row['JobType']=="SUPPORT")
 				{
-				$_SESSION["ID"]=$row["EmployeeID"];
-				$_SESSION["Name"]=$row['Name'];
-				$_SESSION["type"]=$row['JobType'];
-				$_SESSION["Email"]=$row['Email'];
-				header ("Location:Support.php");
+					echo "<script>alert('Password is incorrect'); </script>";
 				}
-				else
-            	{
-                echo '<script> alert("Invalid Username or Password") </script>';
-           		}
 			}
-			else if ($_POST['Selectjob']=="Guest")
+			else
 			{
-				$sql="SELECT * FROM guest where Username='$user'";
-				$result=mysqli_query($this->dbh->getConn(),$sql);
-				$row=mysqli_fetch_assoc($result);
-				$_SESSION["ID"]=$row["GuestID"];
-				$_SESSION["fname"]=$row["FirstName"];
-				$_SESSION["lname"]=$row["LastName"];
-				$_SESSION["Email"]=$row["Email"];
-				$_SESSION["Gender"]=$row["Gender"];
-				$_SESSION["type"]="USER";
-				header ("Location:Profile.php");
-				
+				echo "<script> alert('Username is incorrect');</script>";
 			}
-		}	
+
+
+
+	
     }
 
 	/**
