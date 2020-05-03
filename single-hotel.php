@@ -107,6 +107,17 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
 // $controller->ReadReviews($pagecontroller);
 
 
+require_once("app/model/guest.php");
+require_once("app/controller/GuestController.php");
+$guestmodel=new Guest();
+$guestcontroller=new GuestController($guestmodel);
+
+	if (isset($_POST['subreview']))
+	{
+		$guestcontroller->AddHotelReview();
+    }
+
+
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -302,6 +313,24 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
 						<?php 
 						$controller->ReadReviews($pagecontroller);
 						$pageview->outputreviews();
+						?>
+						<?php
+						if (isset($_SESSION['type']) && $_SESSION["type"]==="USER" )
+						{
+						echo'
+						<br><br>
+						<h3>Add Your Own Review</h3>
+						<form action="" method="post">
+								<div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="ReviewHotel">Add Your Review:</label>
+                                    <div class="col-sm-3">
+                                    	<input type="text" class="form-control" id="" name="reviewhotel" required>
+                                    </div>
+								</div>
+								<input type="submit" name="subreview" value="Submit Review" class="btn btn-primary btn-lg">
+						</form>
+						';
+						}
 						?>
 
 						</div>

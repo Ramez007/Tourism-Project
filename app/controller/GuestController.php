@@ -19,5 +19,12 @@ class GuestController extends Controller{
          $this->model->GetProfileData($ID);
        }
 
+       public function AddHotelReview()
+       {
+          $hotelname=$_GET['action'];
+          $review=$_POST['reviewhotel'];
+          $this->model->ReviewHotel($hotelname,$review);
+       }
+
    }
 ?>

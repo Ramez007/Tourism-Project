@@ -1,3 +1,8 @@
+<html>
+<head><script src="js/sweetalert.min.js"></script>
+</head>
+<body>
+
 <?php
   require_once("app/model/model.php");
   require_once("app/model/user.php");
@@ -112,6 +117,27 @@ class Guest extends User {
             return true;
         }
         else return false;
+    }
+
+    public function ReviewHotel($hotelname,$review)
+    {
+        $sql="SELECT HotelID from hotel where Name='$hotelname'";
+        $Result = mysqli_query($this->db->getConn(),$sql);
+        $row=$Result->fetch_assoc();
+
+        $gid=$_SESSION["ID"];
+        $hid=$row["HotelID"];
+
+        $sql1="INSERT INTO reviews (GuestID,HotelID,Review,Featured) values ('$gid','$hid','$review','FALSE')";
+        $Result1 = mysqli_query($this->db->getConn(),$sql1);
+        if($Result1){
+            echo'<script>swal("Successfully Added", "", "success");</script>';
+        }
+        else{
+            echo'<script>
+                                    swal("Oops","Error Adding Review !","error");
+                                    </script>';
+        }
     }
 
 
@@ -245,3 +271,6 @@ class Guest extends User {
 }
 
 ?>
+
+</body>
+</html>
