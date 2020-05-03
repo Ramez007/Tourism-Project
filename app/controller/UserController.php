@@ -18,6 +18,11 @@ class UserController extends Controller{
        public function login_with_G(){
         $this->model->login_with_G();
        }
+       
+       public function checkavailabilty()
+    {
+        $this->model->checkavailabilty();
+    }
 
    }
 ?>

@@ -97,6 +97,14 @@ $controller=new HotelController($model);
 $controller->listhoteldata();
 $hotelview=new HotelView($controller,$model);
 
+require_once("app/model/user.php");
+require_once("app/controller/UserController.php");
+require_once("app/view/GuestView.php");
+
+
+$guestmodel=new User();
+$guestcontroller=new UserController($guestmodel);
+$guestview=new GuestView($guestcontroller,$guestmodel);
 
 
 ?>
@@ -210,8 +218,9 @@ $hotelview=new HotelView($controller,$model);
 	</div>
 
 	<?php 
-		$pagecontroller->checkavailabilty();
-		$pageview->outputavailiabilty();
+
+		$guestcontroller->checkavailabilty();
+		$guestview->outputavailiabilty();
 	?>
 
 	

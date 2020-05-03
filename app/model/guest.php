@@ -24,6 +24,7 @@ class Guest extends User {
         $this->dbh = $this->connect();
     }
 
+   
     function register()
     {
         if ($_POST['SelecGender']=="0")

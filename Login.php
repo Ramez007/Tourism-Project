@@ -84,7 +84,9 @@
 		if (isset($_POST['submit']))
 		{
 			$usercontrol->login();
+			
 		}
+
 		
 		require_once("app/model/hotelmodel.php");
 		require_once("app/controller/HotelController.php");
