@@ -147,6 +147,19 @@ $pagemodel=new singlehotelmodel($PKModel->GetHotelName());
 $pagecontroller=new singlehotelcontroller($pagemodel);
 $pagecontroller->listhoteldata();
 $pageview=new singlehotelview($pagecontroller,$pagemodel);
+
+
+require_once("app/model/guest.php");
+require_once("app/controller/GuestController.php");
+$guestmodel=new Guest();
+$guestcontroller=new GuestController($guestmodel);
+
+	if (isset($_POST['subreviewpkg']))
+	{
+		$guestcontroller->AddPkgReview();
+    }
+
+
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -278,6 +291,32 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
 					<?php $PKView->DetailsOutput(); ?>
 					<h3> Reviews </h3>
 					<?php $PKView->PackageReviewOutput(); ?>
+
+
+
+					<?php 
+					
+					if (isset($_SESSION['type']) && $_SESSION["type"]==="USER" )
+						{
+						echo'
+						<br><br>
+						<h3>Add Your Own Review</h3>
+						<form action="" method="post">
+								<div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="ReviewHotel">Add Your Review:</label>
+                                    <div class="col-sm-3">
+                                    	<input type="text" class="form-control" id="" name="reviewpkg" required>
+                                    </div>
+								</div>
+								<input type="submit" name="subreviewpkg" value="Submit Review" class="btn btn-primary btn-lg">
+						</form>
+						';
+						} 
+					
+					?>
+
+
+
 					</div>
 					<div class="tab-content" id="tab2" data-tab-content="tab2">
 						<div class="container">

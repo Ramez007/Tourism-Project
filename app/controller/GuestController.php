@@ -26,5 +26,12 @@ class GuestController extends Controller{
           $this->model->ReviewHotel($hotelname,$review);
        }
 
+       public function AddPkgReview()
+       {
+          $pkgid=$_GET['action'];
+          $review=$_POST['reviewpkg'];
+          $this->model->ReviewPkg($pkgid,$review);
+       }
+
    }
 ?>

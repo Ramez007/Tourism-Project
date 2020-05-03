@@ -140,6 +140,21 @@ class Guest extends User {
         }
     }
 
+    public function ReviewPkg($pkgid,$review)
+    {
+        $gid=$_SESSION["ID"];
+        $sql1="INSERT INTO reviews (GuestID,PackageID,Review,Featured) values ('$gid','$pkgid','$review','FALSE')";
+        $Result1 = mysqli_query($this->db->getConn(),$sql1);
+        if($Result1){
+            echo'<script>swal("Successfully Added", "", "success");</script>';
+        }
+        else{
+            echo'<script>
+                                    swal("Oops","Error Adding Review !","error");
+                                    </script>';
+        }
+    }
+
 
     /**
      * Get the value of Country
