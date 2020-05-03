@@ -37,7 +37,10 @@ class Guest extends User {
         $sql1="Select * from guest where Username='$user' ";
         $res=mysqli_query($this->dbh->getConn(),$sql1);
         $rowcount=mysqli_num_rows($res);
-        if ($rowcount<1){
+        $SQL = 'SELECT Email from guest WHERE Email="'.$_POST['Email'].'"';
+        $Result = mysqli_query($this->dbh->getConn(),$SQL);
+        $rowcount2 = mysqli_num_rows($Result);
+        if ($rowcount<1 && $rowcount2 < 1){
             $fname=$_POST['FirstName'];
             $lname=$_POST['LastName'];
             $email=$_POST['Email'];
@@ -53,7 +56,7 @@ class Guest extends User {
             $this->Country = $country;
             header("Location:Login.php");
         }
-        else {echo '<script> alert("Username Already Exists")</script>';}
+        else {echo '<script> alert("Username and/or Email Already Exists")</script>';}
     
         }
     }
