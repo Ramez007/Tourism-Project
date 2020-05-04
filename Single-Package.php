@@ -8,6 +8,32 @@
 
 
 	<head>
+	
+	<?php
+	session_start();
+	if (isset($_POST['booking']))
+	{
+		if (!isset($_SESSION['ID']))
+		{
+			
+			echo "<script>
+			
+			
+			alert('Please Login to Continue Booking');
+			window.location.href = 'Login.php';
+			</script>";
+			
+			
+		}
+		 
+
+		
+	}
+	
+	
+	
+	?>
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Speedo Tours &mdash; License No. 782</title>
@@ -120,7 +146,7 @@
 </head>
 <body>
 <?php
-session_start();
+
 require_once("app/model/hotelmodel.php");
 require_once("app/controller/HotelController.php");
 require_once("app/view/HotelView.php");
@@ -157,7 +183,13 @@ $guestcontroller=new GuestController($guestmodel);
 	if (isset($_POST['subreviewpkg']))
 	{
 		$guestcontroller->AddPkgReview();
-    }
+	}
+	if (isset($_POST['booking']))
+	{
+		
+		$guestcontroller->booking($_SESSION['ID'],$_GET['action']);
+	
+	}
 
 
  ?>
@@ -379,20 +411,20 @@ $guestcontroller=new GuestController($guestmodel);
 								<div class="col-md-12">
 									<h3 class="heading">Booking</h3>
                                     <h3>Book Now</h3> 
-                        <form action="">
+                        <form method='post' action="">
 
                                 
 						<div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Number of Adults:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="0" max="100" placeholder="1">
+                                    	<input type="number" class="form-control" id="quantity" name='noofadults' min="0" required max="100" placeholder="1">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Number of Children:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="0" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" id="quantity" name='noofchildren' min="0" required max="100" placeholder="0">
                                     </div>
                                 </div>
 								
@@ -400,8 +432,8 @@ $guestcontroller=new GuestController($guestmodel);
                                     <label class="col-sm-2 col-form-label" for="enterhotel">Boarding type</label>
                                     <div class="col-sm-3">
 										<div class="boardtype">
-											<input type="radio" class="form-check-input" name="boardtype" value="fullboard"> Full Board <br>
-											<input type="radio" class="form-check-input" name="boardtype" value="halfboard"> Half Board<br>
+											<input required type="radio" class="form-check-input" name="boardtype" value="Full"> Full Board <br>
+											<input required type="radio" class="form-check-input" name="boardtype" value="Half"> Half Board<br>
                                 		</div>
                                     </div>
                                 </div>
@@ -411,33 +443,34 @@ $guestcontroller=new GuestController($guestmodel);
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Single Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" required class="form-control" name='singlerooms' id="quantity" min="1" max="100" placeholder="0">
                                     </div>
                                 </div>
                                  
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Double Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" required class="form-control" name='doublerooms' id="quantity" min="1" max="100" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Triple Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" required class="form-control" name='triplerooms' id="quantity" min="1" max="100" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of suites:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name='suites' id="quantity" min="1" max="100" placeholder="0">
                                     </div>
                                 </div>
 
-                                <input type="submit" value="Book" class="btn btn-primary btn-lg">
-                                
+                                <input type="submit" name='booking' value="Book" class="btn btn-primary btn-lg">
+								<br><br>
+								<label>* You must be logged in to book package</label>
 
 
                             </form>
@@ -493,6 +526,7 @@ $guestcontroller=new GuestController($guestmodel);
     <script src="js/custom.js"></script>
     <script src="js/Slideshow.js"></script>
     <script src="js/multi-level-drop.js"></script>
+	
 
 
 </body>

@@ -7,6 +7,9 @@
   require_once("app/model/model.php");
   require_once("app/model/user.php");
   require_once("app/model/reservations.php");
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\Exception;
+  require 'C:\xampp\composer\vendor\autoload.php';
 ?>
 
 <?php
@@ -178,6 +181,113 @@ class Guest extends User {
         }
     }
 
+    public function BookPackage($GuestID,$PackageID)
+    {
+
+        $mysql="select NoofChildren,NoofAdults from reserves where PackageId=$PackageID";
+        $res=mysqli_query($this->db->getConn(),$mysql);
+        $numberofadults=0;
+        $numberofchildren=0;
+        while ($row2=$res->fetch_assoc())
+        {
+            $numberofadults+=$row2['NoofAdults'];
+            $numberofchildren+=$row2['NoofChildren'];
+        }
+
+        $sumofpeople=$numberofadults+$numberofchildren+$_POST['noofchildren']+$_POST['noofadults'];
+
+
+        $sql="Select * from packages where PackageID='$PackageID'";
+        $result=mysqli_query($this->db->getConn(),$sql);
+        $row=mysqli_fetch_assoc($result);
+
+        if ($sumofpeople<=$row['ReserveLimit'])
+        {
+
+        $sql5="Select Email from guest where GuestID=$GuestID";
+        $result6=mysqli_query($this->db->getConn(),$sql5);
+        $row6=mysqli_fetch_assoc($result6);
+
+        $children=$_POST['noofchildren'];
+        $adults=$_POST['noofadults'];
+        $Datein=$row['DateIn'];
+        $Dateout=$row['DateOut'];
+        $single=$_POST['singlerooms'];
+        $double=$_POST['doublerooms'];
+        $triple=$_POST['triplerooms'];
+        $suites=$_POST['suites'];
+        $board=$_POST['boardtype'];
+
+        $totalprice=$row['Price'];
+        $totalprice=$totalprice*(int) $_POST['noofadults'];
+        $price=($row['Price']/2)*(int) $children;
+        $totalprice=$totalprice+$price;
+        $confirmprice=$totalprice*0.1;
+
+        $sql2="INSERT INTO reserves (GuestId,PackageId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status) values ('$GuestID','$PackageID','$children','$adults','$Datein','Enabled','$Dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval')";
+        $res4=mysqli_query($this->db->getConn(),$sql2);
+
+        if ($res4)
+        {
+            $Email_Body="<h2>Your Booking Has been Sent To SpeedoTours And Pending Approval</h2>
+            <br>
+            <h3> for ".$row['PackageName']."<h3>
+            <br>
+            Booking Detalis:
+            <br>
+            $single :Single Rooms
+            <br>
+            $double :Double Rooms
+            <br>
+            $triple :Triple Rooms
+            <br>
+            $suites :Suits
+            <br>
+            $board Board
+            <br>
+            $Datein : Check In Date
+            <br>
+            $Dateout : Check Out Date
+            <br>
+            $totalprice : Price
+            <br>
+
+            <h3>Please Pay 10% of the total price which is $confirmprice in order to confirm the booking</h3>
+            <h3>Please contact us by telephone number : 0212244553 in order to pay the deposit</h3>
+            <br>
+            <h3>For Other Inquires Please contact us through our contact us page or by using our email which is : Speedotourscentral@gmail.com</h3> 
+
+
+            <h4> May You Have A Pleasent Stay </h4>
+            <br>
+            <h4> Best Regards From Speedo Tours </h4>";
+            
+            include_once "serverdetails.php";
+            try{
+            $email->Subject="Book Package Request";
+            $email->Body=$Email_Body;
+            $email->addAddress($row6["Email"]);
+            $email->send();
+            }
+            catch(Exception $e)
+            {
+                echo $e->errorMessage();
+            }
+          echo'<script>swal("Successfully Booked", "", "success");</script>';
+
+        }
+        else{
+            echo'<script>
+                                    swal("Oops","Error Booking Package !","error");
+                                    </script>';
+        }
+        }
+        else
+        {
+            echo'<script>swal("Booking Error", "Package is already full", "Error");</script>';
+
+        }
+    }
 
     /**
      * Get the value of Country

@@ -33,6 +33,11 @@ class GuestController extends Controller{
           $this->model->ReviewPkg($pkgid,$review);
        }
 
+       public function booking($guestid,$packageid)
+       {
+          $this->model->BookPackage($guestid,$packageid);
+       }
+
        
 
    }

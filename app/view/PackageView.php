@@ -56,7 +56,7 @@ class PackageView extends View
                 </div>
                 <div class="services">
                 <span><img id="News" src="images\dollar.png" width="50" height="50"style="margin-bottom:40px"></span>
-                    <div class="desc"style="padding-top: 45px;"> Basic cost:'.$this->model->getPrice().'</div>
+                    <div class="desc"style="padding-top: 45px;"> Basic cost:'.$this->model->getPrice().' EGP/Adult And '.($this->model->getPrice()/2).' EGP/Child  </div>
                 </div>
         </div>
     </div>

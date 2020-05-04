@@ -82,7 +82,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         $Result1 = mysqli_query($this->db->getConn(),$sql1);
         while($row1=$Result1->fetch_assoc())
         {
-            echo'  <span>Mr. '.$row1["LastName"].' reserving '.$row1["PackageName"].' Hotel for '.$row1["NoofAdults"].' Adults and '.$row1["NoofChildren"].' Children Rooms:  '.$row1["NoOfSingleRooms"].' Single Rooms , '.$row1["NoOfDoubleRooms"].' Double Rooms  
+            echo'  <span>Mr. '.$row1["LastName"].' reserving '.$row1["PackageName"].' Package for '.$row1["NoofAdults"].' Adults and '.$row1["NoofChildren"].' Children Rooms:  '.$row1["NoOfSingleRooms"].' Single Rooms , '.$row1["NoOfDoubleRooms"].' Double Rooms  
             , '.$row1["NoOfTripleRooms"].' Triple Rooms and '.$row1["NoOfSuits"].' Suits. Board : '.$row1["BoardType"].' From '.$row1["DateIn"].' to '.$row1["DateOut"].'
             </span>
             <br><br>
@@ -750,7 +750,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
     function ConfirmReserve($reserveid)
     {
-        $sql2="UPDATE reserves SET Suspended='Disabled' where ReserveID=$reserveid;";
+        $sql2="UPDATE reserves SET Suspended='Disabled',Status='Approved and reserved' where ReserveID=$reserveid;";
         $Result3 = mysqli_query($this->db->getConn(),$sql2); 
         if($Result3)
         {
@@ -793,19 +793,19 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             <br>
             Booking Detalis:
             <br>
-            '".$row3['NoOfSingleRooms']."' Single Rooms
+            ".$row3['NoOfSingleRooms']." Single Rooms
             <br>
-            '".$row3['NoOfDoubleRooms']."' Double Rooms
+            ".$row3['NoOfDoubleRooms']." Double Rooms
             <br>
-            '".$row3['NoOfTripleRooms']."' Triple Rooms
+            ".$row3['NoOfTripleRooms']." Triple Rooms
             <br>
-            '".$row3['NoOfSuits']."' Suits
+            ".$row3['NoOfSuits']." Suits
             <br>
-            '".$row3['BoardType']."' Board
+            ".$row3['BoardType']." Board
             <br>
-            '".$row3['DateIn']."' : Check In Date
+            ".$row3['DateIn']." : Check In Date
             <br>
-            '".$row3['DateOut']."' : Check Out Date
+            ".$row3['DateOut']." : Check Out Date
             <br>
             
             <h4> May You Have A Pleasent Stay </h4>
