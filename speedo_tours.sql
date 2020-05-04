@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2020 at 11:11 PM
+-- Generation Time: May 05, 2020 at 01:18 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -142,7 +142,8 @@ CREATE TABLE `guest` (
 INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`, `Suspended`, `Image`) VALUES
 (1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'khaled1701294@miuegypt.edu.eg', 'test', 'test', 2112, 'Enabled', ''),
 (2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 0, 'Enabled', ''),
-(19, 'Ahmed', 'Mahdy', 'MALE', 0, 0, 0, 0, '', 'Bangladesh', 'Ahmed@mahdy.com', 'Ahmed', 'Mahdy123', 0, 'Enabled', '');
+(19, 'Ahmed', 'Mahdy', 'MALE', 0, 0, 0, 0, '', 'Bangladesh', 'Ahmed@mahdy.com', 'Ahmed', 'Mahdy123', 0, 'Enabled', ''),
+(20, 'Khaled', 'Elgammal', '', 0, 6234632, 6436, 0, '', 'Bolivia', 'elgammal17@gmail.com', '', '', 515661, 'Enabled', '');
 
 -- --------------------------------------------------------
 
@@ -306,8 +307,8 @@ CREATE TABLE `packages` (
   `NumberofDays` int(11) NOT NULL,
   `NumberofNights` int(11) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
-  `DateIn` timestamp NOT NULL DEFAULT current_timestamp(),
-  `DateOut` timestamp NOT NULL DEFAULT current_timestamp(),
+  `DateIn` date NOT NULL DEFAULT current_timestamp(),
+  `DateOut` date NOT NULL DEFAULT current_timestamp(),
   `Overview` text NOT NULL,
   `Description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -317,8 +318,8 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`PackageID`, `CruiseID`, `PackageName`, `ReserveLimit`, `HotelID`, `Price`, `TourGuide`, `Transportation`, `TouristMap`, `BoardType`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`, `Overview`, `Description`) VALUES
-(1, 4, 'pkg 1', 60, 1, 500, 'TRUE', 'TRUE', 'FALSE', 'Full', 3, 3, 'Disabled', '2020-04-22 00:00:00', '2020-04-30 00:00:00', 'test', 'test'),
-(2, NULL, 'pkg 2', 15, 2, 150, 'FALSE', 'TRUE', 'FALSE', 'Full', 3, 2, 'Disabled', '2020-04-01 00:00:00', '2020-04-07 00:00:00', 'test', 'yet');
+(1, 4, 'pkg 1', 60, 1, 500, 'TRUE', 'TRUE', 'FALSE', 'Full', 3, 3, 'Disabled', '2020-04-22', '2020-04-30', 'test', 'test'),
+(2, NULL, 'pkg 2', 15, 2, 150, 'FALSE', 'TRUE', 'FALSE', 'Full', 3, 2, 'Disabled', '2020-04-01', '2020-04-07', 'test', 'yet');
 
 -- --------------------------------------------------------
 
@@ -350,9 +351,14 @@ CREATE TABLE `reserves` (
 --
 
 INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`, `price`, `Status`) VALUES
-(1, 1, NULL, 1, 65, 2, '2020-03-03', 'Disabled', '2020-04-30', 2, 2, 2, 2, 'Full', 0, ''),
+(1, 1, NULL, 1, 65, 2, '2020-03-03', 'Disabled', '2020-04-30', 2, 2, 2, 2, 'Full', 0, 'Approved and reserved'),
 (2, 2, 3, NULL, 0, 0, '0000-00-00', 'Disabled', NULL, 3, 1, 1, 1, 'Half', 0, ''),
-(3, 1, NULL, 2, 5, 2, '2020-04-28', 'Disabled', '2020-04-30', 0, 0, 0, 0, 'Half', 0, '');
+(3, 1, NULL, 2, 5, 2, '2020-04-28', 'Disabled', '2020-04-30', 0, 0, 0, 0, 'Half', 0, ''),
+(4, 2, 1, NULL, 6, 3, '2020-04-22', 'Disabled', '2020-04-30', 3, 2, 6, 4, '', 3000, 'Approved and reserved'),
+(5, 1, 1, NULL, 5, 4, '2020-04-22', 'Disabled', '2020-04-30', 6, 3, 2, 2, '', 3250, 'Approved and reserved'),
+(6, 1, 1, NULL, 3, 3, '2020-04-22', 'Disabled', '2020-04-30', 3, 3, 3, 3, 'Full', 2250, 'Approved and reserved'),
+(7, 1, NULL, 1, 2, 2, '0000-00-00', 'Enabled', '0000-00-00', 2, 3, 2, 3, '', 200, 'Waiting for approval'),
+(8, 1, NULL, 1, 2, 2, '2020-05-19', 'Disabled', '2020-05-27', 3, 3, 3, 3, '', 240, 'Approved and reserved');
 
 -- --------------------------------------------------------
 
@@ -401,12 +407,12 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`RoomID`, `RoomNumber`, `RoomType`, `Status`, `HotelID`, `GuestID`, `DateIn`, `DateOut`) VALUES
-(384, 1, 'Single', 'Not', 1, 1, '2020-03-03', '2020-04-30'),
-(385, 2, 'Single', 'Not', 1, 1, '2020-03-03', '2020-04-30'),
-(386, 3, 'Single', 'Pending', 1, NULL, '2020-03-01', '2020-05-05'),
-(387, 4, 'Single', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(388, 5, 'Single', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(389, 6, 'Single', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
+(384, 1, 'Single', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(385, 2, 'Single', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(386, 3, 'Single', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(387, 4, 'Single', 'Pending', 1, 1, '2020-05-19', '2020-05-27'),
+(388, 5, 'Single', 'Pending', 1, 1, '2020-05-19', '2020-05-27'),
+(389, 6, 'Single', 'Pending', 1, 1, '2020-05-19', '2020-05-27'),
 (390, 7, 'Single', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (391, 8, 'Single', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (392, 9, 'Single', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
@@ -421,12 +427,12 @@ INSERT INTO `rooms` (`RoomID`, `RoomNumber`, `RoomType`, `Status`, `HotelID`, `G
 (401, 18, 'Single', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (402, 19, 'Single', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (403, 20, 'Single', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(404, 21, 'Double', 'Not', 1, 1, '2020-03-03', '2020-04-30'),
-(405, 22, 'Double', 'Not', 1, 1, '2020-03-03', '2020-04-30'),
-(406, 23, 'Double', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(407, 24, 'Double', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(408, 25, 'Double', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(409, 26, 'Double', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
+(404, 21, 'Double', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(405, 22, 'Double', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(406, 23, 'Double', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(407, 24, 'Double', 'Pending', 1, 1, '2020-05-19', '2020-05-27'),
+(408, 25, 'Double', 'Pending', 1, 1, '2020-05-19', '2020-05-27'),
+(409, 26, 'Double', 'Pending', 1, 1, '2020-05-19', '2020-05-27'),
 (410, 27, 'Double', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (411, 28, 'Double', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (412, 29, 'Double', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
@@ -441,11 +447,11 @@ INSERT INTO `rooms` (`RoomID`, `RoomNumber`, `RoomType`, `Status`, `HotelID`, `G
 (421, 38, 'Double', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (422, 39, 'Double', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (423, 40, 'Double', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(424, 41, 'Triple', 'Not', 1, 1, '2020-03-03', '2020-04-30'),
-(425, 42, 'Triple', 'Not', 1, 1, '2020-03-03', '2020-04-30'),
-(426, 43, 'Triple', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(427, 44, 'Triple', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(428, 45, 'Triple', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
+(424, 41, 'Triple', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(425, 42, 'Triple', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(426, 43, 'Triple', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(427, 44, 'Triple', 'Pending', 1, 1, '2020-05-19', '2020-05-27'),
+(428, 45, 'Triple', 'Pending', 1, 1, '2020-05-19', '2020-05-27'),
 (429, 46, 'Triple', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (430, 47, 'Triple', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (431, 48, 'Triple', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
@@ -463,9 +469,9 @@ INSERT INTO `rooms` (`RoomID`, `RoomNumber`, `RoomType`, `Status`, `HotelID`, `G
 (443, 60, 'Triple', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (444, 61, 'Suites', 'Not', 1, 1, '2020-03-03', '2020-04-30'),
 (445, 62, 'Suites', 'Not', 1, 1, '2020-03-03', '2020-04-30'),
-(446, 63, 'Suites', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(447, 64, 'Suites', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(448, 65, 'Suites', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
+(446, 63, 'Suites', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(447, 64, 'Suites', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
+(448, 65, 'Suites', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
 (449, 66, 'Suites', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (450, 67, 'Suites', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (451, 68, 'Suites', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
@@ -754,7 +760,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `inquiries`
@@ -796,7 +802,7 @@ ALTER TABLE `packages`
 -- AUTO_INCREMENT for table `reserves`
 --
 ALTER TABLE `reserves`
-  MODIFY `ReserveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ReserveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `reviews`
