@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2020 at 01:18 AM
+-- Generation Time: May 05, 2020 at 01:22 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -307,8 +307,8 @@ CREATE TABLE `packages` (
   `NumberofDays` int(11) NOT NULL,
   `NumberofNights` int(11) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
-  `DateIn` date NOT NULL DEFAULT current_timestamp(),
-  `DateOut` date NOT NULL DEFAULT current_timestamp(),
+  `DateIn` date NOT NULL,
+  `DateOut` date NOT NULL,
   `Overview` text NOT NULL,
   `Description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
