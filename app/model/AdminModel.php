@@ -799,7 +799,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             <br>
             ".$row3['NoOfTripleRooms']." Triple Rooms
             <br>
-            ".$row3['NoOfSuits']." Suits
+            ".$row3['NoOfSuits']." Suites
             <br>
             ".$row3['BoardType']." Board
             <br>

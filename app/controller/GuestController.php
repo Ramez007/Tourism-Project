@@ -38,6 +38,11 @@ class GuestController extends Controller{
           $this->model->BookPackage($guestid,$packageid);
        }
 
+       public function bookinghotel($ID,$name)
+       {
+          $this->model->BookHotel($ID,$name);
+       }
+
        
 
    }
