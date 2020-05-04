@@ -80,10 +80,13 @@
 		$usercontrol = new UserController($usermodel);
 		$loginview=new ViewLogin($usercontrol, $usermodel);
 		session_start();
+
 		if (isset($_POST['submit']))
 		{
 			$usercontrol->login();
+			
 		}
+
 		
 		require_once("app/model/hotelmodel.php");
 		require_once("app/controller/HotelController.php");
@@ -236,12 +239,6 @@
 							<h1 style="color:Black"><b>Login Form</b></h1>
 							<input type ="text" name= "username" placeholder ="username" required>
 							<input type ="password" name= "password" placeholder ="password" required>
-							<select class ="Select" name="Selectjob" id="Select">
-							<option value="0"> Select Login Type </option>
-								<option value="Admin"> Admin </option>
-								<option value="Support"> Support Center </option>
-								<option value="Guest"> Guest </option>
-							</select>
 							<input type ="submit" name= "submit" value ="login">
 							<p style="color: Black;"><b>Do not have an account?</b></p><a href="Signup.php" style="color: Orangered;">Sign up here!</a>
 						</form>

@@ -18,6 +18,23 @@ class UserController extends Controller{
        public function login_with_G(){
         $this->model->login_with_G();
        }
+       
+       public function checkavailabilty()
+    {
+        $this->model->checkavailabilty();
+   
+        $single=$this->model->getNoofsingle();
+        $double=$this->model->getNoofdouble();
+        $triple=$this->model->getNooftriple();
+        $suites=$this->model->getNoofsuites();
+    
+        if (isset($_POST['hotelselect']))
+        {
+        echo '<script> swal("Availabilty","\nAvailable of Single Room:'.$single.' \n\n Available of Double Room:'.$double.' \n\n  Available of Triple Room:'.$triple.' \n\n Available of Suites:'.$suites.' \n\n If you want to book the hotel visit the hotel page");</script>';
+        }
+   
+    
+    }
 
    }
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2020 at 12:14 AM
+-- Generation Time: May 03, 2020 at 11:11 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -94,8 +94,8 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`EmployeeID`, `Name`, `JobType`, `Email`, `Username`, `Password`, `Suspended`) VALUES
-(3, 'John Doe', 'ADMIN', 'test@test', 'test', 'test', 'Enabled'),
-(4, 'Al Pacino', 'SUPPORT', 'test1@test1', 'test1', 'test1', 'Enabled');
+(3, 'John Doe', 'ADMIN', 'test@test', 'admin', 'admin', 'Enabled'),
+(4, 'Al Pacino', 'SUPPORT', 'test1@test1', 'supp', 'supp', 'Enabled');
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,8 @@ CREATE TABLE `guest` (
 
 INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`, `Suspended`, `Image`) VALUES
 (1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'khaled1701294@miuegypt.edu.eg', 'test', 'test', 2112, 'Enabled', ''),
-(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 0, 'Enabled', '');
+(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 0, 'Enabled', ''),
+(19, 'Ahmed', 'Mahdy', 'MALE', 0, 0, 0, 0, '', 'Bangladesh', 'Ahmed@mahdy.com', 'Ahmed', 'Mahdy123', 0, 'Enabled', '');
 
 -- --------------------------------------------------------
 
@@ -227,6 +228,29 @@ CREATE TABLE `inquiryhistory` (
 
 INSERT INTO `inquiryhistory` (`InquiryID`, `EmployeeID`, `Inquiry`, `reply`, `Timestamp`) VALUES
 (3, 4, 'some text', 'adsgasga', '2020-04-24 19:36:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login`
+--
+
+CREATE TABLE `login` (
+  `ID` int(11) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`ID`, `username`, `password`) VALUES
+(1, 'test', 'test'),
+(2, 'ramez', 'test'),
+(3, 'admin', 'admin'),
+(4, 'supp', 'supp'),
+(9, 'Ahmed', 'Mahdy123');
 
 -- --------------------------------------------------------
 
@@ -643,6 +667,12 @@ ALTER TABLE `inquiryhistory`
   ADD KEY `EmployeeID` (`EmployeeID`);
 
 --
+-- Indexes for table `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `newswire`
 --
 ALTER TABLE `newswire`
@@ -724,7 +754,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `inquiries`
@@ -737,6 +767,12 @@ ALTER TABLE `inquiries`
 --
 ALTER TABLE `inquiryhistory`
   MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `login`
+--
+ALTER TABLE `login`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `newswire`
