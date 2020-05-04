@@ -10,7 +10,7 @@
 }
 </style>
 
-<link rel="stylesheet" href="css/Signup.css">
+<link rel="stylesheet" href="css/profile.css">
 <?php
 require_once("app/view/view.php");
 
@@ -18,18 +18,6 @@ require_once("app/view/view.php");
 
 class GuestView extends View
 {
-    public function outputavailiabilty()
-    {
-        $single=$this->model->getNoofsingle();
-        $double=$this->model->getNoofdouble();
-        $triple=$this->model->getNooftriple();
-        $suites=$this->model->getNoofsuites();
-    
-        if (isset($_POST['hotelselect']))
-        {
-        echo '<script> swal("Availabilty","\nAvailable of Single Room:'.$single.' \n\n Available of Double Room:'.$double.' \n\n  Available of Triple Room:'.$triple.' \n\n Available of Suites:'.$suites.' \n\n If you want to book the hotel visit the hotel page");</script>';
-        }
-    }
     
     public function output()
     {

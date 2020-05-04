@@ -99,12 +99,10 @@ $hotelview=new HotelView($controller,$model);
 
 require_once("app/model/user.php");
 require_once("app/controller/UserController.php");
-require_once("app/view/GuestView.php");
 
 
 $guestmodel=new User();
 $guestcontroller=new UserController($guestmodel);
-$guestview=new GuestView($guestcontroller,$guestmodel);
 
 
 ?>
@@ -220,7 +218,7 @@ $guestview=new GuestView($guestcontroller,$guestmodel);
 	<?php 
 
 		$guestcontroller->checkavailabilty();
-		$guestview->outputavailiabilty();
+		// $guestview->outputavailiabilty();
 	?>
 
 	
