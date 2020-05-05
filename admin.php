@@ -75,6 +75,13 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+    });
+    </script>
+
     <script>
         function hide(jquery) {
             var idarr = ["tab1", "tab2","tab3","tab4","tab5"];
@@ -345,13 +352,13 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterhotel">Enter Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="enterhotel" placeholder="Hotel Name" required>
+                                                    <input type="text" class="form-control" name="enterhotel" minlength="3" pattern="[A-Za-z0-9]+" title="No Special Charcters" placeholder="Hotel Name" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterlocation">Enter Hotel Location</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="enterlocation" placeholder="Hotel Name"required>
+                                                    <input type="text" class="form-control" name="enterlocation" pattern=".{4,}" title="Four or more characters" placeholder="Hotel Name"required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -538,7 +545,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Enter Package Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="packagename" name="packagename" placeholder="Package Name ..." required>
+                                                    <input type="text" class="form-control" id="packagename" name="packagename" pattern=".{4,}" title="Four or more characters" placeholder="Package Name ..." required>
                                                 </div>
                                             </div> 
                                             <div class="form-group row">
@@ -729,13 +736,13 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Enter Event Title</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="eventtitle" name="eventtitle" required>
+                                                    <input type="text" class="form-control" id="eventtitle" pattern=".{4,}" title="Four or more characters" name="eventtitle" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Enter Event Month</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="eventmonth" name="eventmonth" required>
+                                                <div class="col-sm-3" >
+                                                    <input type="text" class="form-control" data-toggle="tooltip" title="Only 3 Charcters For Example: SEP" maxlength="3" id="eventmonth" name="eventmonth" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
