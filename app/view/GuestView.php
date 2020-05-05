@@ -364,6 +364,9 @@ class GuestView extends View
                 if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$_POST['password'],$_POST['Country']))
                 {
                     echo '<script>swal("Edited profile successfully","","success")</script>';
+                    echo '<script>
+                    setTimeout(function(){location.reload()}, 1000);
+                    </script>';
                 }
             }
             else
@@ -371,6 +374,9 @@ class GuestView extends View
                 if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],"",$_POST['Country']))
                 {
                     echo '<script>swal("Edited profile successfully","","success")</script>';
+                    echo '<script>
+                    setTimeout(function(){location.reload()}, 1000);
+                    </script>';
                 }
             }
         }
@@ -383,6 +389,9 @@ class GuestView extends View
             if($this->model->EditProfilePic($image))
             {
                 echo '<script>swal("uploaded photo successfully","","success")</script>';
+                echo '<script>
+                setTimeout(function(){location.reload()}, 1000);
+                </script>';
             }
         }
     }
