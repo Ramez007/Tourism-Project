@@ -127,16 +127,14 @@
 require_once("app/model/Support_model.php");
 	require_once("app/controller/SupportController.php");
 	require_once("app/view/supportview.php");
-	require_once("app/observers/supportcenter.php");
 			// require_once("app/view/susbcribeview.php");
-			$supportcenter=new supportcenter();
 			$support_operatormodel = new support_operator();
 			$suport_operatorcontroller = new Support_operatorController($support_operatormodel);
 			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
 			if(isset($_POST['submitnewwire']))
 			$suport_operatorcontroller->Send_newwire();
 			if(isset($_POST['submitreply']))
-			$supportcenter->ReplytoInquiry();
+			$suport_operatorcontroller->Reply_to_Inquiry();
 			if(isset($_POST['submitGuestMailID']))
 			$suport_operatorcontroller->SendMail();
 			if(isset($_POST['submitPackageMailID']))
