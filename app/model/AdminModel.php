@@ -136,13 +136,13 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="edithotelname">Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="edithotelname" id="edithotelname" value="'.$row['Name'].'" required>
+                                                    <input type="text" class="form-control" name="edithotelname" minlength="3" pattern="[A-Za-z0-9]+" title="No Special Charcters" id="edithotelname" value="'.$row['Name'].'" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="edithotellocation">Hotel Location</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="edithotellocation" id="edithotellocation" value="'.$row['location'].'"required>
+                                                    <input type="text" class="form-control" name="edithotellocation" pattern=".{4,}" title="Four or more characters" id="edithotellocation" value="'.$row['location'].'"required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -283,7 +283,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Edit Package Title</label>
                 <div class="col-sm-3">
-                    <input type="text" name="Editpackagename" class="form-control" id="packagetitle" value="'.$row['PackageName'].'" required>
+                    <input type="text" name="Editpackagename" class="form-control" id="packagetitle" pattern=".{4,}" title="Four or more characters" value="'.$row['PackageName'].'" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -400,13 +400,13 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="editeventtitle">Edit Event Title</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" value="'.$row['PostTitle'].'" id="editeventtitle" name="editeventtitle" required>
+                        <input type="text" class="form-control" value="'.$row['PostTitle'].'" pattern=".{4,}" title="Four or more characters" id="editeventtitle" name="editeventtitle" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="editeventmonth">Edit Event Month</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" value="'.$row['PostMonth'].'" id="editeventmonth" name="editeventmonth" required>
+                        <input type="text" class="form-control" data-toggle="tooltip" title="Only 3 Charcters For Example: SEP" maxlength="3" value="'.$row['PostMonth'].'" id="editeventmonth" name="editeventmonth" required>
                     </div>
                 </div>
                 <div class="form-group row">

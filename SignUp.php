@@ -236,13 +236,13 @@ padding: 20px;
 						<form class="box" action="" method="post">
 							<h1 style="color:black"><b> Sign Up Credentials</b> </h1>
 
-							<input type="text" name="FirstName" placeholder="First name" required>
+							<input type="text" name="FirstName" placeholder="First name" pattern="[A-Za-z0-9]+" title="No Special Charcters" minlength="3" required>
 							
-							<input type="text" name="LastName" placeholder="Last name" required>
+							<input type="text" name="LastName" placeholder="Last name" pattern="[A-Za-z0-9]+" title="No Special Charcters" minlength="3" required>
 							
-							<input type="email" name="Email" placeholder="Email" required>
+							<input type="email" name="Email" placeholder="Email" minlength="3" required>
 							
-							<input type="text" name="UserName" placeholder="User name" required>
+							<input type="text" name="UserName" placeholder="User name" pattern="[A-Za-z0-9]+" title="No Special Charcters" minlength="3" required>
 
                             <input type="password" name="Password" id="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="Password" required>
                             

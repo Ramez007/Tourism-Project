@@ -56,20 +56,20 @@ class GuestView extends View
       <div class="modal-body">
         <form action="profile.php" method="post">
         <label for="fname">First name:</label><br>
-        <input type="text" id="inputBox" name="fname" value="'.$_SESSION['fname'].'"><br>
+        <input type="text" id="inputBox" minlength="3" name="fname" value="'.$_SESSION['fname'].'"><br>
         <label for="lname">Last name:</label><br>
-        <input type="text" id="inputBox" name="lname" value="'.$_SESSION['lname'].'"><br>
+        <input type="text" id="inputBox" minlength="3" name="lname" value="'.$_SESSION['lname'].'"><br>
         <label for="email">Email:</label><br>
         <input type="text" id="inputBox" name="email" value="'.$_SESSION['Email'].'"><br>
         <label for="BankAccount">Bank Account Number:</label><br>
-        <input type="text" id="inputBox" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
+        <input type="text" id="inputBox" minlength="3" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
         <label for="PassportNumber">Passport Number:</label><br>
-        <input type="text" id="inputBox" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
+        <input type="text" id="inputBox" minlength="3" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
         <label for="NationalNumber">National ID Number:</label><br>
-        <input type="text" id="inputBox" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
+        <input type="text" id="inputBox" minlength="3" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
       
         '.($this->model->getUsername()!=''?'<label for="Password">Password:</label><br>
-        <input type="text" id="inputBox" name="password" value="'.$this->model->getPassword().'"><br>':'').'                                                                                                                    
+        <input type="text" id="inputBox" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" name="password" value="'.$this->model->getPassword().'"><br>':'').'                                                                                                                    
          
         <input type="hidden" name="username" value="'.$this->model->getUsername().'">
 
