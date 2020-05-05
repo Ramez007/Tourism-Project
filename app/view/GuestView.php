@@ -420,7 +420,7 @@ class GuestView extends View
                     <td>Package</td>
                     <td>'.$Res->getDateIn().'</td>
                     <td>'.$Res->getDateOut().'</td>
-                    <td>None</td>
+                    <td>Package Name: '.$Res->getPackageName().'<br> Single Rooms: '.$Res->getSingleRooms().'<br> Double Rooms: '.$Res->getDoubleRooms().' <br> Triple Rooms: '.$Res->getTripleRooms().' <br> Suits: '.$Res->getSuits().' <br> Board type: '.$Res->getBoardType().'</td>
                 </tr>
             </tbody>
                 ';
@@ -435,7 +435,7 @@ class GuestView extends View
                     <td>Hotel</td>
                     <td>'.$Res->getDateIn().'</td>
                     <td>'.$Res->getDateOut().'</td>
-                    <td>None</td>
+                    <td>Hotel Name: '.$Res->getHotelName().' <br> Single Rooms: '.$Res->getSingleRooms().'<br> Double Rooms: '.$Res->getDoubleRooms().' <br> Triple Rooms: '.$Res->getTripleRooms().' <br> Suits: '.$Res->getSuits().' <br> Board type: '.$Res->getBoardType().'</td>
                 </tr>
             </tbody>
                 ';
@@ -495,7 +495,7 @@ class GuestView extends View
                     <td>Package</td>
                     <td>'.$Res->getDateIn().'</td>
                     <td>'.$Res->getDateOut().'</td>
-                    <td>None</td>
+                    <td>Package Name: '.$Res->getPackageName().'<br> Single Rooms: '.$Res->getSingleRooms().'<br> Double Rooms: '.$Res->getDoubleRooms().' <br> Triple Rooms: '.$Res->getTripleRooms().' <br> Suits: '.$Res->getSuits().' <br> Board type: '.$Res->getBoardType().'</td>
                     <td>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelPackage'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
                         <form method="post">
@@ -538,7 +538,7 @@ class GuestView extends View
                     <td>Hotel</td>
                     <td>'.$Res->getDateIn().'</td>
                     <td>'.$Res->getDateOut().'</td>
-                    <td>None</td>
+                    <td>Hotel Name: '.$Res->getHotelName().' <br> Single Rooms: '.$Res->getSingleRooms().'<br> Double Rooms: '.$Res->getDoubleRooms().' <br> Triple Rooms: '.$Res->getTripleRooms().' <br> Suits: '.$Res->getSuits().' <br> Board type: '.$Res->getBoardType().'</td>
                     <td>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelHotel'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
                         <form method="post">

@@ -24,6 +24,26 @@ class Reservation extends Model
 
 
 
+    public function getHotelName()
+    {
+        $SQL = 'SELECT Name FROM hotel WHERE HotelID='.$this->HotelID.'';
+        $Result = mysqli_query($this->db->getConn(),$SQL) or die($this->db->getConn()->error);
+        while($row = $Result->fetch_assoc())
+        {
+            $Name = $row['Name'];
+        }
+        return $Name;
+    }
+    public function getPackageName()
+    {
+        $SQL = 'SELECT PackageName FROM packages WHERE PackageID='.$this->PackageID.'';
+        $Result = mysqli_query($this->db->getConn(),$SQL) or die($this->db->getConn()->error);
+        while($row = $Result->fetch_assoc())
+        {
+            $Name = $row['PackageName'];
+        }
+        return $Name;
+    }
     /**
      * Get the value of ReserveID
      */ 
