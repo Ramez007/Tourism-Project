@@ -20,7 +20,7 @@ class GuestView extends View
 {
     
     public function output()
-    {
+    { 
         echo'
         <div class="tab-content active show" data-tab-content="tab1" id="tab1">
         <div class="container">
@@ -389,6 +389,8 @@ class GuestView extends View
 
     public function HistoryOutput()
     {
+        $date = date('Y-m-d');
+        
         $Reservations = $this->model->getReservations();
         $InitialEcho = 
         '
@@ -408,7 +410,8 @@ class GuestView extends View
 
         foreach($Reservations as $Res)
         {
-            if($Res->getPackageID() != NULL && $Res->getHotelID() != NULL && $Res->getSuspended() == "Enabled")
+            
+            if($Res->getPackageID() != NULL && $Res->getHotelID() == NULL && $date >= $Res->getDateOut())
             {
                 $BodyEcho = 
                 '
@@ -423,7 +426,7 @@ class GuestView extends View
                 ';
 
             }
-            else if($Res->getHotelID() != NULL && $Res->getPackageID() == NULL  && $Res->getSuspended() == "Enabled")
+            else if($Res->getHotelID() != NULL && $Res->getPackageID() == NULL && $date >= $Res->getDateOut())
             {
                 $BodyEcho = 
                 '
@@ -463,6 +466,7 @@ class GuestView extends View
 
     public function ReservationOutput()
     {
+        $date = date('Y-m-d');
         $Reservations = $this->model->getReservations();
         $Initial = 
         '
@@ -482,7 +486,7 @@ class GuestView extends View
         ';
         foreach($Reservations as $Res)
         {
-            if($Res->getPackageID() != NULL && $Res->getHotelID() != NULL && $Res->getSuspended() == "Disabled")
+            if($Res->getPackageID() != NULL && $Res->getHotelID() != NULL && $date < $Res->getDateOut() && $date < $Res->getDateIn())
             {
                 $Body = 
                 '
@@ -525,7 +529,7 @@ class GuestView extends View
             </div>
                 ';
             }
-            else if($Res->getPackageID() == NULL && $Res->getHotelID() != NULL && $Res->getSuspended() == "Disabled")
+            else if($Res->getPackageID() == NULL && $Res->getHotelID() != NULL && $date < $Res->getDateOut() && $date < $Res->getDateIn())
             {
                 $Body = 
                 '
