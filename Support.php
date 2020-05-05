@@ -134,13 +134,13 @@ require_once("app/model/Support_model.php");
 			$suport_operatorcontroller = new Support_operatorController($support_operatormodel);
 			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
 			if(isset($_POST['submitnewwire']))
-			$suport_operatorcontroller->Send_newwire();
+			$supportcenter->sendnewswire();
 			if(isset($_POST['submitreply']))
 			$supportcenter->ReplytoInquiry();
 			if(isset($_POST['submitGuestMailID']))
-			$suport_operatorcontroller->SendMail();
+			$supportcenter->sendGuestmail();
 			if(isset($_POST['submitPackageMailID']))
-			$suport_operatorcontroller->SendPackageMail();
+			$supportcenter->sendPackagereport();
 			
 			$suport_operatorcontroller->FetchInquiries();
 			$suport_operatorcontroller->fetchguestemails();

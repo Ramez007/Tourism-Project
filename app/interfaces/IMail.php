@@ -12,8 +12,8 @@ interface iPackageReport
 }
 interface iNewswire
 {
-    public function addrecipientsNewswire();
-    public function notifynews();
+    public function sendnewswire();
+    public function notifynewswire($message,$subject);
 }
 
 ?>

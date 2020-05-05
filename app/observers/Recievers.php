@@ -11,8 +11,9 @@ function __construct($center) {
    
 }
 function update ($message,$subject){
-    include_once "serverdetails.php";
-$this->center->sendmail($message,$subject);
+    
+     $mail=$this->getmail();
+$this->center->sendmail($message,$subject,$mail);
 
 
 
