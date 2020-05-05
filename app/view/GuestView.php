@@ -609,6 +609,9 @@ class GuestView extends View
              if($this->model->CancelPackage($_POST['PackageID'], $_POST['ReserveID']))
              {
                  echo '<script>swal("Canceled Successfully!","","success")</script>';
+                 echo '<script>
+                 setTimeout(function(){location.reload()}, 1000);
+                 </script>';
              }
              else
              {
@@ -621,6 +624,9 @@ class GuestView extends View
             if($this->model->CancelHotel($_POST['HotelID'], $_POST['ReserveID'],$_POST['DateIn'],$_POST['DateOut']))
             {
                 echo '<script>swal("Canceled Successfully!","","success")</script>';
+                echo '<script>
+                setTimeout(function(){location.reload()}, 1000);
+                </script>';
             }
             else
             {
@@ -630,10 +636,16 @@ class GuestView extends View
          if(isset($_POST['TrackPackage']))
          {
             echo '<script> swal("Status is: '.$_POST['PackageStatus'].'"); </script>';
+            echo '<script>
+            setTimeout(function(){location.reload()}, 1000);
+            </script>';
          }
          if(isset($_POST['TrackHotel']))
          {
             echo '<script> swal("Status is: '.$_POST['HotelStatus'].'"); </script>';
+            echo '<script>
+            setTimeout(function(){location.reload()}, 1000);
+            </script>';
          }
 
     }
