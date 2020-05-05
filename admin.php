@@ -117,6 +117,18 @@
     </script>
   <?php
     session_start();
+    if (isset($_SESSION['type']))
+    {
+        if ($_SESSION['type']!="ADMIN")
+        {
+            header("Location:UNOADMIN.php");
+        }
+    }
+    else
+    {
+        header("Location:UNOADMIN.php");
+    }
+
     require_once("app/model/hotelmodel.php");
     require_once("app/controller/HotelController.php");
     require_once("app/view/HotelView.php");

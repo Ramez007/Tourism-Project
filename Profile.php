@@ -119,6 +119,19 @@
 <body>
     <?php 
     session_start();
+
+    if (isset($_SESSION['type']))
+    {
+        if ($_SESSION['type']!="USER")
+        {
+            header("Location:UNOGUEST.php");
+        }
+    }
+    else
+    {
+        header("Location:UNOGUEST.php");
+    }
+
     require_once("app/model/hotelmodel.php");
     require_once("app/controller/HotelController.php");
     require_once("app/view/HotelView.php");

@@ -119,6 +119,17 @@
 	<?php
 	session_start();
 
+	if (isset($_SESSION['type']))
+    {
+        if ($_SESSION['type']!="SUPPORT")
+        {
+            header("Location:UNOSUPP.php");
+        }
+	}
+	else
+	{
+		header("Location:UNOSUPP.php");
+	}
 	
 	?>
 	<!-- php for mailling -->
