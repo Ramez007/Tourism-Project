@@ -90,18 +90,6 @@ class Hotel extends Model implements ireviewhotels
         }
     }
    
-    public function CheckAvailability()
-    {
-        for ($i=0;$i<count($this->Room);$i++)
-        {
-            if($this->Room[$i]->getAvailabilty()==true)
-            {
-                $this->availablerooms++;
-            }
-        }
-
-        return $this->availablerooms;
-    }
     
     private function addrooms($type)
     {
@@ -159,10 +147,6 @@ class Hotel extends Model implements ireviewhotels
         }
     }
     
-    public function ListHotelData()
-    {
-
-    }
     
 
 

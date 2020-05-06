@@ -19,7 +19,7 @@ class Package extends Model implements ireviewpackages
     protected $DateIn;
     protected $DateOut;
     protected $Description;
-    protected $VisitModel;
+    // protected $VisitModel;
     protected $CruiseModel;
 
     protected $Review = array();

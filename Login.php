@@ -78,7 +78,7 @@
 		require_once("app/view/login_view.php");
 		$usermodel = new User();
 		$usercontrol = new UserController($usermodel);
-		$loginview=new ViewLogin($usercontrol, $usermodel);
+		// $loginview=new ViewLogin($usercontrol, $usermodel);
 		session_start();
 
 		if (isset($_POST['submit']))
