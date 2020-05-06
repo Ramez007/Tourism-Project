@@ -78,7 +78,7 @@
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script>
         function hide(jquery) {
-            var idarr = ["tab1", "tab2","tab3", "tab4"];
+            var idarr = ["tab1", "tab2","tab3", "tab4","tab5"];
             var count = 0;
 
             for (var i = 0; i < idarr.length; i++) {
@@ -95,7 +95,7 @@
 	<script>
 	
         function ShowTab(y) {
-            var idarr = ["tab1", "tab2", "tab3" , "tab4"]
+            var idarr = ["tab1", "tab2", "tab3" , "tab4","tab5"];
 
             // document.getElementById("poll").style.display="none";
             y += "";
@@ -267,12 +267,16 @@ require_once("app/model/Support_model.php");
 					</a>
 					<!-- new tab to show in the nav change png here in the src -->
 					<a href="#"  onclick="ShowTab('tab3')" data-tab="tab3">
-                    <img id="News" src="images\news.png" width="50" height="50">
+                    <img id="News" src="images\pmail.png" width="50" height="50">
 						<span>Send Mail to Particular Guest</span>
 					</a>
 					<a href="#"  onclick="ShowTab('tab4')" data-tab="tab4">
-                    <img id="News" src="images\news.png" width="50" height="50">
+                    <img id="News" src="images\packagemail.png" width="50" height="50">
 						<span>Send Package Mail</span>
+					</a>
+					<a href="#"  onclick="ShowTab('tab5')" data-tab="tab5">
+                    <img id="News" src="images\report.png" width="50" height="50">
+						<span>Reports</span>
 					</a>
                 </nav>
 
@@ -379,6 +383,20 @@ require_once("app/model/Support_model.php");
 										<textarea class="form-control form-control-lg" id="Packagemail" style="margin-top: 23px;" placeholder="Please write the message here" name ="Packagemail"rows="10"></textarea>
 										<button type="submit" class="btn btn-primary mb-2" style="margin-top: 23px;" id="submitPackageMailID" name="submitPackageMailID">Send</button>
                                    <!--  form end--> </form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content" id="tab5" data-tab-content="tab5">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12">
+								<?php 
+										 echo "<h1>Newswire report </h1>";
+										 $supportview->FetchNewswireHistory();
+										 echo "<h1>Inquiry report </h1>";
+										 $supportview->FetchInquiryHistory();
+										?> 
 								</div>
 							</div>
 						</div>

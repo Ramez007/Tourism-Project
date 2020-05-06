@@ -29,15 +29,16 @@ class supportcenter extends subjects implements iInquiry,inewswire
         $inquiryidrecieve=$_POST["emailinquiry"];
         $inquiryidspace=explode(" ", $inquiryidrecieve);
         $inquiryid=explode("&", $inquiryidspace[1]);
-        $message=$_POST['reply'];
+        
         $Subject="Reply to your inquiry ";
         $recp= new reciever($this) ;
-        $sql2 = 'SELECT Email,inquiry FROM Inquiries where inquiries.InquiryID="'.$inquiryid[0].'";';
+        $sql2 = 'SELECT Email,inquiry,Author FROM Inquiries where inquiries.InquiryID="'.$inquiryid[0].'";';
     
        $sql3 = 'DELETE  FROM Inquiries where InquiryID="'.$inquiryid[0].'";';
         $result1=mysqli_query($this->dbh->getConn(), $sql2) ;
         $row=$result1->fetch_assoc();
-        $sql1 = 'INSERT INTO InquiryHistory (employeeID,Inquiry,Reply) VALUES("'.$ID.'","'. $row['inquiry'].'","'.$message.'");';
+        $message="<h2> Your inquiry: ".$row['inquiry']."</h2> <br> <br> ". $_POST['reply'];
+        $sql1 = 'INSERT INTO InquiryHistory (employeeID,Inquiry,InquiryAuthor,InquiryEmail,Reply) VALUES("'.$ID.'","'. $row['inquiry'].'","'. $row['Author'].'","'. $row['Email'].'","'.$message.'");';
         $result = mysqli_query($this->dbh->getConn(), $sql1) ;
         
         mysqli_query($this->dbh->getConn(),$sql3);

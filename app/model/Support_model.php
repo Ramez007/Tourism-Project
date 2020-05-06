@@ -24,7 +24,13 @@ class support_operator extends Model  {
     protected $guestemails = array();
     protected $Packagesids = array();
     protected $Packagesnames = array();
-
+    protected $newswirecontent = array();
+    protected $inquirycontent = array();
+    protected $inquirycontentreply = array();
+    protected $inquiryAuthor = array();
+    protected $employeename = array();
+    protected $inquirymail = array();
+    
 
     function __construct() {
         $this->dbh = $this->connect();
@@ -232,6 +238,96 @@ function SendPackageMail(){
         array_push($this->Packagesnames,$row['PackageName']);
     }
  }
+
+function getnewswirehistory(){
+    $SQL = 'SELECT Message FROM newswirehistory GROUP BY Message';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->newswirecontent,$row['Message']);
+        
+    }
+
+ return $this->newswirecontent;
+
+
+}
+function getAuthor(){
+    $SQL = 'SELECT InquiryAuthor FROM inquiryhistory';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->inquiryAuthor,$row['InquiryAuthor']);
+        
+    }
+
+ return $this->inquiryAuthor;
+
+
+
+
+}
+ function getinquiryreply(){
+    $SQL = 'SELECT reply FROM inquiryhistory';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->inquirycontentreply,$row['reply']);
+        
+    }
+
+ return $this->inquirycontentreply;
+
+
+
+
+}
+function getinquiryhistory(){
+    $SQL = 'SELECT inquiry FROM inquiryhistory';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->inquirycontent,$row['inquiry']);
+        
+    }
+
+ return $this->inquirycontent;
+
+
+
+
+}
+function getinquirymail(){
+    $SQL = 'SELECT InquiryEmail FROM inquiryhistory';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->inquirymail,$row['InquiryEmail']);
+        
+    }
+
+ return $this->inquirymail;
+
+
+
+
+}
+function getnames(){
+    $SQL = 'SELECT employees.Name FROM employees join inquiryhistory on employees.EmployeeID=inquiryhistory.EmployeeID';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->employeename,$row['Name']);
+        
+    }
+
+ return $this->employeename;
+
+
+
+
+}
+
 
 }
 
