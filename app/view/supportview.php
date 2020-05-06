@@ -83,7 +83,7 @@ public function FetchInquiryHistory()
         {
             echo 
 				'   
-				    <p>'.$count.') Answered by : '.$Employeename[$i].' <br> Author: '.$inquiryAuthor[$i].' <br> Email: '.$Mail[$i].' <br> Inquiry: '.$inquiryhistory[$i].'<br> Reply :  '.$inquiryreply[$i].' <hr> .</p>
+				    <p>'.$count.') Answered by : '.$Employeename[$i].' <br> Author: '.$inquiryAuthor[$i].' <br> Email: '.$Mail[$i].' <br> Inquiry: '.$inquiryhistory[$i].'<br> Reply :  '.$inquiryreply[$i].' <hr></p>
                 ';
                 $count++;
             

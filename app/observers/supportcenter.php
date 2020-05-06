@@ -37,7 +37,8 @@ class supportcenter extends subjects implements iInquiry,inewswire
        $sql3 = 'DELETE  FROM Inquiries where InquiryID="'.$inquiryid[0].'";';
         $result1=mysqli_query($this->dbh->getConn(), $sql2) ;
         $row=$result1->fetch_assoc();
-        $message="<h2> Your inquiry: ".$row['inquiry']."</h2> <br> <br> ". $_POST['reply'];
+        $message= $_POST['reply'];
+        $Subject=$row['inquiry'];
         $sql1 = 'INSERT INTO InquiryHistory (employeeID,Inquiry,InquiryAuthor,InquiryEmail,Reply) VALUES("'.$ID.'","'. $row['inquiry'].'","'. $row['Author'].'","'. $row['Email'].'","'.$message.'");';
         $result = mysqli_query($this->dbh->getConn(), $sql1) ;
         
