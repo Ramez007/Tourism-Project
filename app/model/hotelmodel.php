@@ -212,6 +212,20 @@ class Hotel extends Model implements ireviewhotels
         where Status!='Free' and DateOut<='$date'";
 
         $result=mysqli_query($this->db->getConn(),$sql1);
+
+        $sql2="Update packages
+        set Suspended='Enabled'
+        where DateOut<='$date'";
+
+        mysqli_query($this->db->getConn(),$sql2);
+
+        $sql2="Update packages
+        set Suspended='Disabled'
+        where Datein>='$date'";
+
+        mysqli_query($this->db->getConn(),$sql2);
+
+
     }
 
     public function setName($name)
