@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\Exception;
 require 'C:\xampp\composer\vendor\autoload.php';
 
 // Instantiation and passing `true` enables exceptions
-$email = new PHPMailer(true);
+ $email = new PHPMailer(true);
 
 try {
 
@@ -25,6 +25,7 @@ try {
     $email->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
     $email->Port       = 587  ;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
   $email->SetFrom('speedtourscentral@gmail.com');
+  $GLOBALS['Email'] = $email;
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }?>

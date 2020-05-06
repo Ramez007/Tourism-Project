@@ -5,6 +5,7 @@
 <?php
 
   require_once("app/model/model.php");
+  require_once("app/interfaces/IMail.php");
   use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require 'C:\xampp\composer\vendor\autoload.php';
@@ -13,7 +14,7 @@ require 'C:\xampp\composer\vendor\autoload.php';
 
 <?php
 
-class support_operator extends Model {
+class support_operator extends Model  {
 
     private $dbh;
     // protected $inquiryar=array();

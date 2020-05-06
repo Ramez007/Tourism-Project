@@ -138,18 +138,20 @@
 require_once("app/model/Support_model.php");
 	require_once("app/controller/SupportController.php");
 	require_once("app/view/supportview.php");
+	require_once("app/observers/supportcenter.php");
 			// require_once("app/view/susbcribeview.php");
+			$supportcenter=new supportcenter();
 			$support_operatormodel = new support_operator();
 			$suport_operatorcontroller = new Support_operatorController($support_operatormodel);
 			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
 			if(isset($_POST['submitnewwire']))
-			$suport_operatorcontroller->Send_newwire();
+			$supportcenter->sendnewswire();
 			if(isset($_POST['submitreply']))
-			$suport_operatorcontroller->Reply_to_Inquiry();
+			$supportcenter->ReplytoInquiry();
 			if(isset($_POST['submitGuestMailID']))
-			$suport_operatorcontroller->SendMail();
+			$supportcenter->sendGuestmail();
 			if(isset($_POST['submitPackageMailID']))
-			$suport_operatorcontroller->SendPackageMail();
+			$supportcenter->sendPackagereport();
 			
 			$suport_operatorcontroller->FetchInquiries();
 			$suport_operatorcontroller->fetchguestemails();
