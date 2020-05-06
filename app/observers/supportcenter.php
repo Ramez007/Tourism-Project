@@ -14,7 +14,7 @@ class supportcenter extends subjects implements iInquiry,inewswire
 {
     private $dbh;
     protected $recparr= array();
-    protected $mailsss= array();
+    // protected $mailsss= array();
     // protected $recpmailarr= array();
     protected  $email;
     public function __construct()
@@ -84,7 +84,7 @@ public function sendnewswire(){
            $recp= new reciever($this) ;
            $recp->setmail($row["Email"]);
            array_push($this->recparr, $recp);
-           array_push($this->mailsss, $row["Email"]);
+        //    array_push($this->mailsss, $row["Email"]);
          
         }
        

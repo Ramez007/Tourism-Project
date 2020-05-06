@@ -77,6 +77,33 @@ function SendMail(){
     }
 
 }
+function SendPackageMail(){
+    include_once "serverdetails.php";
+ 
+  $message=$_POST['Packagemail'];  
+  $id =$_POST['PackageEmails'];  
+ 
+  $SQL = 'SELECT Email FROM guest join reserves where guest.GuestID=reserves.GuestId and reserves.Suspended= "Enabled"  and reserves.PackageId="'.$id.'";';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+  try{
+    while($row = $Result->fetch_assoc())
+    {
+       
+        $email->addAddress($row['Email']);
+       
+    }   
+     $email->Body=$message;
+     $email->send();
+         
+      echo'<script>swal("Successfully sent your reply", "", "success");</script>'; 
+    }catch(Exception $e){
+        echo $e->errorMessage();
+     
+
+    }
+
+}
+
 
 
 
