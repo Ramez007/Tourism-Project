@@ -1,3 +1,8 @@
+<html>
+<head><script src="js/sweetalert.min.js"></script>
+</head>
+<body>
+
 <?php
   require_once("app/model/model.php");
   require_once("app/model/user.php");
@@ -22,6 +27,7 @@ class Guest extends User {
         $this->dbh = $this->connect();
     }
 
+   
     function register()
     {
         if ($_POST['SelecGender']=="0")
@@ -32,10 +38,13 @@ class Guest extends User {
         }
         else{
         $user=$_POST['UserName'];
-        $sql1="Select * from guest where Username='$user' ";
+        $sql1="Select * from login where username='$user' ";
         $res=mysqli_query($this->dbh->getConn(),$sql1);
         $rowcount=mysqli_num_rows($res);
-        if ($rowcount<1){
+        $SQL = 'SELECT Email from guest WHERE Email="'.$_POST['Email'].'"';
+        $Result = mysqli_query($this->dbh->getConn(),$SQL);
+        $rowcount2 = mysqli_num_rows($Result);
+        if ($rowcount<1 && $rowcount2 < 1){
             $fname=$_POST['FirstName'];
             $lname=$_POST['LastName'];
             $email=$_POST['Email'];
@@ -44,6 +53,8 @@ class Guest extends User {
             $country = $_POST['Country'];
             $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass','$country');";
             $result=mysqli_query($this->dbh->getConn(),$sql);
+            $sql1="INSERT INTO login (username,password) values('$user','$pass')";
+            $result1=mysqli_query($this->dbh->getConn(),$sql1);
             $this->name=$fname;
             $this->email=$email;
             $this->password=$pass;
@@ -51,7 +62,7 @@ class Guest extends User {
             $this->Country = $country;
             header("Location:Login.php");
         }
-        else {echo '<script> alert("Username Already Exists")</script>';}
+        else {echo '<script> alert("Username and/or Email Already Exists")</script>';}
     
         }
     }
@@ -93,11 +104,28 @@ class Guest extends User {
 
     public function EditProfile($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Country)
     {
-        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Username="'.$User.'", Password="'.$Pass.'" WHERE GuestID='.$_SESSION["ID"].'';
+        if($Pass !="")
+        {
+        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Password="'.$Pass.'" WHERE GuestID='.$_SESSION["ID"].'';
         $_SESSION["fname"]=$Fname;
         $_SESSION["lname"]=$Lname;
         $_SESSION["Email"]=$Email;
-        return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
+        mysqli_query($this->dbh->getConn(),$SQL) ;
+
+        
+        $sql1="UPDATE login set password='$Pass' where username='$User'";
+        return mysqli_query($this->dbh->getConn(),$sql1);
+        }
+        else
+        {
+        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'" WHERE GuestID='.$_SESSION["ID"].'';
+        $_SESSION["fname"]=$Fname;
+        $_SESSION["lname"]=$Lname;
+        $_SESSION["Email"]=$Email;
+        return mysqli_query($this->dbh->getConn(),$SQL) ;
+
+        }
+        
     }
     public function EditProfilePic($file)
     {
@@ -566,3 +594,6 @@ class Guest extends User {
 }
 
 ?>
+
+</body>
+</html>
