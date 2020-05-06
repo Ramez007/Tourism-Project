@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2020 at 01:22 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: May 06, 2020 at 10:56 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -203,7 +203,6 @@ CREATE TABLE `inquiries` (
 --
 
 INSERT INTO `inquiries` (`InquiryID`, `Author`, `Email`, `Inquiry`, `TimeStamp`) VALUES
-(4, 'asbkjabf', 'adfakuf@jsbafkb.com', 'asdgagg', '2020-04-24 17:41:05'),
 (5, 'Ramez', 'ramez1700124.miuegypt.edu.eg', 'DgdgDGsdgD', '2020-04-24 17:42:31'),
 (44, 'Ramez', 'ramez1700124@miuegypt.edu.eg', 'asaddaa', '2020-04-24 19:56:58'),
 (45, 'Ramez', 'ramez1700124@miuegypt.edu.eg', 'sdsfss', '2020-04-24 19:58:59'),
@@ -219,6 +218,8 @@ CREATE TABLE `inquiryhistory` (
   `InquiryID` int(11) NOT NULL,
   `EmployeeID` int(11) NOT NULL,
   `Inquiry` text NOT NULL,
+  `InquiryAuthor` text NOT NULL,
+  `InquiryEmail` text NOT NULL,
   `reply` text NOT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -227,8 +228,13 @@ CREATE TABLE `inquiryhistory` (
 -- Dumping data for table `inquiryhistory`
 --
 
-INSERT INTO `inquiryhistory` (`InquiryID`, `EmployeeID`, `Inquiry`, `reply`, `Timestamp`) VALUES
-(3, 4, 'some text', 'adsgasga', '2020-04-24 19:36:20');
+INSERT INTO `inquiryhistory` (`InquiryID`, `EmployeeID`, `Inquiry`, `InquiryAuthor`, `InquiryEmail`, `reply`, `Timestamp`) VALUES
+(3, 4, 'some text', 'Ramez', 'ramez1700124.miuegypt.edu.eg', 'adsgasga', '2020-05-06 19:57:26'),
+(4, 4, 'asdgagg', 'Ramez', 'ramez1700124.miuegypt.edu.eg', 'ddgdgdgrdtretretrere', '2020-05-06 19:58:12'),
+(5, 4, 'dasdasdasdasd', 'ahmed', 'ahmed1707083@miuegypt.edu.eg', 'ahmed basha', '2020-05-06 20:41:42'),
+(6, 4, 'gjntdgskliogsiogilrsgrjirdf', 'khaled', 'khaled1701294@miuegypt.edu.eg', 'msh fakr yad', '2020-05-06 20:41:53'),
+(7, 4, 'ghvbnvvvjjgh', 'ahmed', 'ahmed1707083@miuegypt.edu.eg', '', '2020-05-06 20:48:04'),
+(8, 4, 'zzzzzzxxvfrbgfhtfj', 'khaled', 'khaled1701294@miuegypt.edu.eg', '<h2> Your inquiry: zzzzzzxxvfrbgfhtfj</h2> <br> <br> enta mn madinty ???', '2020-05-06 20:49:19');
 
 -- --------------------------------------------------------
 
@@ -287,6 +293,18 @@ CREATE TABLE `newswirehistory` (
   `Email` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `newswirehistory`
+--
+
+INSERT INTO `newswirehistory` (`MessageID`, `EmployeeID`, `Message`, `Email`) VALUES
+(1, 4, 'kljfvldfhvkljdfklbvjdflvdhbgprugrvouyn ', 'adfadfkb@hotmail.com'),
+(2, 4, 'kljfvldfhvkljdfklbvjdflvdhbgprugrvouyn ', 'ahmed.mahdy1899@gmail.com'),
+(3, 4, 'kljfvldfhvkljdfklbvjdflvdhbgprugrvouyn ', 'Ramez1700124@miuegypt.edu.eg'),
+(4, 4, 'k;k;k;klk;k;k;k;k;k;k;k;k;k;k\r\nk;kk;', 'adfadfkb@hotmail.com'),
+(5, 4, 'k;k;k;klk;k;k;k;k;k;k;k;k;k;k\r\nk;kk;', 'ahmed.mahdy1899@gmail.com'),
+(6, 4, 'k;k;k;klk;k;k;k;k;k;k;k;k;k;k\r\nk;kk;', 'Ramez1700124@miuegypt.edu.eg');
+
 -- --------------------------------------------------------
 
 --
@@ -318,8 +336,8 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`PackageID`, `CruiseID`, `PackageName`, `ReserveLimit`, `HotelID`, `Price`, `TourGuide`, `Transportation`, `TouristMap`, `BoardType`, `NumberofDays`, `NumberofNights`, `Suspended`, `DateIn`, `DateOut`, `Overview`, `Description`) VALUES
-(1, 4, 'pkg 1', 60, 1, 500, 'TRUE', 'TRUE', 'FALSE', 'Full', 3, 3, 'Disabled', '2020-04-22', '2020-04-30', 'test', 'test'),
-(2, NULL, 'pkg 2', 15, 2, 150, 'FALSE', 'TRUE', 'FALSE', 'Full', 3, 2, 'Disabled', '2020-04-01', '2020-04-07', 'test', 'yet');
+(1, 4, 'pkg 1', 60, 1, 500, 'TRUE', 'TRUE', 'FALSE', 'Full', 3, 3, 'Enabled', '2020-04-22', '2020-04-30', 'test', 'test'),
+(2, NULL, 'pkg 2', 15, 2, 150, 'FALSE', 'TRUE', 'FALSE', 'Full', 3, 2, 'Enabled', '2020-04-01', '2020-04-07', 'test', 'yet');
 
 -- --------------------------------------------------------
 
@@ -467,8 +485,8 @@ INSERT INTO `rooms` (`RoomID`, `RoomNumber`, `RoomType`, `Status`, `HotelID`, `G
 (441, 58, 'Triple', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (442, 59, 'Triple', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (443, 60, 'Triple', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
-(444, 61, 'Suites', 'Not', 1, 1, '2020-03-03', '2020-04-30'),
-(445, 62, 'Suites', 'Not', 1, 1, '2020-03-03', '2020-04-30'),
+(444, 61, 'Suites', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
+(445, 62, 'Suites', 'Free', 1, NULL, '2000-01-01', '2000-01-01'),
 (446, 63, 'Suites', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
 (447, 64, 'Suites', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
 (448, 65, 'Suites', 'Not', 1, 1, '2020-05-19', '2020-05-27'),
@@ -670,7 +688,9 @@ ALTER TABLE `inquiries`
 --
 ALTER TABLE `inquiryhistory`
   ADD PRIMARY KEY (`InquiryID`),
-  ADD KEY `EmployeeID` (`EmployeeID`);
+  ADD KEY `EmployeeID` (`EmployeeID`),
+  ADD KEY `InquiryAuthor` (`InquiryAuthor`(768)),
+  ADD KEY `InquiryEmail` (`InquiryEmail`(768));
 
 --
 -- Indexes for table `login`
@@ -766,13 +786,13 @@ ALTER TABLE `guest`
 -- AUTO_INCREMENT for table `inquiries`
 --
 ALTER TABLE `inquiries`
-  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `inquiryhistory`
 --
 ALTER TABLE `inquiryhistory`
-  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `InquiryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `login`
@@ -790,7 +810,7 @@ ALTER TABLE `newswire`
 -- AUTO_INCREMENT for table `newswirehistory`
 --
 ALTER TABLE `newswirehistory`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `packages`
