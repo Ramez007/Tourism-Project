@@ -361,8 +361,9 @@ class GuestView extends View
             }
             if(isset($_POST['password']))
             {
-                $pass=md5($_POST['password']);
-                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$pass,$_POST['Country']))
+                $pass=$_POST['password'];
+                $pass1=md5($pass);
+                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$pass1,$pass,$_POST['Country']))
                 {
                     echo '<script>swal("Edited profile successfully","","success")</script>';
                     echo '<script>
@@ -372,7 +373,7 @@ class GuestView extends View
             }
             else
             {
-                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],"",$_POST['Country']))
+                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],"","",$_POST['Country']))
                 {
                     echo '<script>swal("Edited profile successfully","","success")</script>';
                     echo '<script>
