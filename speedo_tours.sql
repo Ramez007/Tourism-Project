@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2020 at 07:08 PM
+-- Generation Time: May 07, 2020 at 08:14 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -180,6 +180,7 @@ CREATE TABLE `inquiryhistory` (
 
 CREATE TABLE `login` (
   `ID` int(11) NOT NULL,
+  `EmpID` int(11) NOT NULL,
   `GuestID` int(11) DEFAULT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(80) NOT NULL
@@ -357,7 +358,8 @@ ALTER TABLE `inquiryhistory`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `GuestID` (`GuestID`);
+  ADD KEY `GuestID` (`GuestID`),
+  ADD KEY `EmpID` (`EmpID`);
 
 --
 -- Indexes for table `newswire`
@@ -526,7 +528,8 @@ ALTER TABLE `inquiryhistory`
 -- Constraints for table `login`
 --
 ALTER TABLE `login`
-  ADD CONSTRAINT `login_ibfk_2` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`);
+  ADD CONSTRAINT `login_ibfk_2` FOREIGN KEY (`GuestID`) REFERENCES `guest` (`GuestID`),
+  ADD CONSTRAINT `login_ibfk_3` FOREIGN KEY (`EmpID`) REFERENCES `employees` (`EmployeeID`);
 
 --
 -- Constraints for table `newswirehistory`
