@@ -49,6 +49,7 @@ class Guest extends User {
             $lname=$_POST['LastName'];
             $email=$_POST['Email'];
             $pass=$_POST['Password'];
+            $pass=md5($pass);
             $gend=$_POST['SelecGender'];
             $country = $_POST['Country'];
             $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass','$country');";
