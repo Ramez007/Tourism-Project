@@ -765,7 +765,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Enter Event Details</label>
-                                                <textarea rows="4" class="form-control" name="eventpost" id="eventpost" placeholder="Enter text here" required></textarea>
+                                                <textarea rows="4" class="form-control" maxlength="300" name="eventpost" id="eventpost" placeholder="Enter text here" required></textarea>
                                             </div>
                                             <br><br><br> Upload Photo of Event <br>
                                             <input type="file" name="fileToUpload" id="fileToUpload">

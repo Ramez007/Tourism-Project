@@ -333,7 +333,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
             <div class="assigncruise">
                 <label for="">Assign Cruise</label><br>
-                <input type="radio" name="cruise" id="cruisenone" value="None"> None <br>
+                <input type="radio" name="cruise" id="cruisenone" value="None" '.($row['CruiseID']==""?"checked":"").'> None <br>
                 '.$cruises.'
             </div>
 
