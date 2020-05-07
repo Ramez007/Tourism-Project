@@ -892,8 +892,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 }
 
                                 for($i=0;$i<count($a);$i++)
-					            {
-                                echo'<script>alert("'.$a[$i].'");</script>';    
+					            {   
                                 $sql="UPDATE hotel
                                 SET Suspended='Enabled'
                                 WHERE HotelID=".$a[$i].";";
