@@ -54,7 +54,7 @@ class Guest extends User {
             $country = $_POST['Country'];
             $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,unhashedPass,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass1','$pass','$country');";
             $result=mysqli_query($this->dbh->getConn(),$sql);
-            $sql1="INSERT INTO login (username,password) values('$user','$pass')";
+            $sql1="INSERT INTO login (username,password) values('$user','$pass1')";
             $result1=mysqli_query($this->dbh->getConn(),$sql1);
             $this->name=$fname;
             $this->email=$email;
@@ -128,7 +128,6 @@ class Guest extends User {
         }
         
     }
-
     public function EditProfilePic($file)
     {
         $SQL = 'UPDATE guest SET Image="'.$file.'" WHERE GuestID='.$_SESSION["ID"].'';

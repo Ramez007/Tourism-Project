@@ -83,6 +83,8 @@ class User extends Model {
 			$pass=$_POST['password'];
 			$passhashed=md5($pass);
 
+			
+
 			$sql="SELECT * from login where username='$user'";
 			$result=mysqli_query($this->dbh->getConn(),$sql);
 			$count=mysqli_num_rows($result);

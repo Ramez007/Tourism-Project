@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2020 at 07:08 AM
+-- Generation Time: May 07, 2020 at 08:12 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -130,7 +130,7 @@ CREATE TABLE `guest` (
   `Email` varchar(50) NOT NULL,
   `Username` varchar(50) NOT NULL,
   `Password` varchar(50) NOT NULL,
-  `unhashedPass` varchar(50) NOT NULL,
+  `unhashedPass` varchar(80) NOT NULL,
   `BankAccount` int(20) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
   `Image` longtext NOT NULL
@@ -142,9 +142,10 @@ CREATE TABLE `guest` (
 
 INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `City`, `Country`, `Email`, `Username`, `Password`, `unhashedPass`, `BankAccount`, `Suspended`, `Image`) VALUES
 (1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'khaled1701294@miuegypt.edu.eg', 'test', 'test', 'test', 2112, 'Enabled', ''),
-(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'Test1234', 0, 'Enabled', ''),
-(19, 'Ahmed', 'Mahdy', 'MALE', 0, 0, 0, 0, '', 'Bangladesh', 'Ahmed@mahdy.com', 'Ahmed', 'Mahdy123', 'Mahdy123', 0, 'Enabled', ''),
-(20, 'Khaled', 'Elgammal', '', 0, 6234632, 6436, 0, '', 'Bolivia', 'elgammal17@gmail.com', '', '', '', 515661, 'Enabled', '');
+(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 'test', 0, 'Enabled', ''),
+(19, 'Ahmed', 'Mahdy', 'MALE', 0, 0, 0, 0, '', 'Bangladesh', 'Ahmed@mahdy.com', 'Ahmed', 'b7fbdfc24ba048c9fbc7d752c6eece45', 'Mahdy123', 0, 'Enabled', ''),
+(20, 'Khaled', 'Elgammal', '', 0, 6234632, 6436, 0, '', 'Bolivia', 'elgammal17@gmail.com', '', '', '', 515661, 'Enabled', ''),
+(21, 'test', 'test', 'MALE', 0, 0, 0, 0, '', 'Algeria', 'test@tets', 'test123', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'Test1234', 0, 'Enabled', '');
 
 -- --------------------------------------------------------
 
@@ -246,7 +247,7 @@ INSERT INTO `inquiryhistory` (`InquiryID`, `EmployeeID`, `Inquiry`, `InquiryAuth
 CREATE TABLE `login` (
   `ID` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -255,10 +256,11 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`ID`, `username`, `password`) VALUES
 (1, 'test', 'test'),
-(2, 'ramez', '2c9341ca4cf3d87b9e4e'),
+(2, 'ramez', 'test'),
 (3, 'admin', 'admin'),
 (4, 'supp', 'supp'),
-(9, 'Ahmed', 'Mahdy123');
+(9, 'Ahmed', 'b7fbdfc24ba048c9fbc7d752c6eece45'),
+(10, 'test123', '2c9341ca4cf3d87b9e4eb905d6a3ec45');
 
 -- --------------------------------------------------------
 
@@ -371,12 +373,12 @@ CREATE TABLE `reserves` (
 
 INSERT INTO `reserves` (`ReserveID`, `GuestId`, `PackageId`, `HotelId`, `NoofChildren`, `NoofAdults`, `DateIn`, `Suspended`, `DateOut`, `NoOfSingleRooms`, `NoOfDoubleRooms`, `NoOfTripleRooms`, `NoOfSuits`, `BoardType`, `price`, `Status`) VALUES
 (1, 1, NULL, 1, 65, 2, '2020-03-03', 'Disabled', '2020-04-30', 2, 2, 2, 2, 'Full', 0, 'Approved and reserved'),
-(2, 2, 2, NULL, 0, 0, '2020-03-03', 'Disabled', '2020-04-30', 3, 1, 1, 1, 'Half', 0, ''),
+(2, 2, 3, NULL, 0, 0, '0000-00-00', 'Disabled', NULL, 3, 1, 1, 1, 'Half', 0, ''),
 (3, 1, NULL, 2, 5, 2, '2020-04-28', 'Disabled', '2020-04-30', 0, 0, 0, 0, 'Half', 0, ''),
-(4, 2, 1, NULL, 6, 3, '2020-04-22', 'Disabled', '2020-04-30', 3, 2, 6, 4, 'Full', 3000, 'Approved and reserved'),
+(4, 2, 1, NULL, 6, 3, '2020-04-22', 'Disabled', '2020-04-30', 3, 2, 6, 4, '', 3000, 'Approved and reserved'),
 (5, 1, 1, NULL, 5, 4, '2020-04-22', 'Disabled', '2020-04-30', 6, 3, 2, 2, '', 3250, 'Approved and reserved'),
 (6, 1, 1, NULL, 3, 3, '2020-04-22', 'Disabled', '2020-04-30', 3, 3, 3, 3, 'Full', 2250, 'Approved and reserved'),
-(7, 1, NULL, 1, 2, 2, '2020-05-08', 'Enabled', '2020-05-22', 2, 3, 2, 3, '', 200, 'Waiting for approval'),
+(7, 1, NULL, 1, 2, 2, '0000-00-00', 'Enabled', '0000-00-00', 2, 3, 2, 3, '', 200, 'Waiting for approval'),
 (8, 1, NULL, 1, 2, 2, '2020-05-19', 'Disabled', '2020-05-27', 3, 3, 3, 3, '', 240, 'Approved and reserved');
 
 -- --------------------------------------------------------
@@ -781,7 +783,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `inquiries`
@@ -799,7 +801,7 @@ ALTER TABLE `inquiryhistory`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `newswire`
