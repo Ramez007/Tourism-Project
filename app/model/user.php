@@ -131,6 +131,7 @@ class User extends Model {
 						$_SESSION["lname"]=$row2["LastName"];
 						$_SESSION["Email"]=$row2["Email"];
 						$_SESSION["Gender"]=$row2["Gender"];
+						$_SESSION["Pass"]=$passhashed;
 						$_SESSION["type"]="USER";
 						header ("Location:Profile.php");
 

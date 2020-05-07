@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2020 at 08:12 AM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: May 07, 2020 at 04:22 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -130,7 +130,6 @@ CREATE TABLE `guest` (
   `Email` varchar(50) NOT NULL,
   `Username` varchar(50) NOT NULL,
   `Password` varchar(50) NOT NULL,
-  `unhashedPass` varchar(80) NOT NULL,
   `BankAccount` int(20) NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
   `Image` longtext NOT NULL
@@ -140,12 +139,12 @@ CREATE TABLE `guest` (
 -- Dumping data for table `guest`
 --
 
-INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `City`, `Country`, `Email`, `Username`, `Password`, `unhashedPass`, `BankAccount`, `Suspended`, `Image`) VALUES
-(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'khaled1701294@miuegypt.edu.eg', 'test', 'test', 'test', 2112, 'Enabled', ''),
-(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 'test', 0, 'Enabled', ''),
-(19, 'Ahmed', 'Mahdy', 'MALE', 0, 0, 0, 0, '', 'Bangladesh', 'Ahmed@mahdy.com', 'Ahmed', 'b7fbdfc24ba048c9fbc7d752c6eece45', 'Mahdy123', 0, 'Enabled', ''),
-(20, 'Khaled', 'Elgammal', '', 0, 6234632, 6436, 0, '', 'Bolivia', 'elgammal17@gmail.com', '', '', '', 515661, 'Enabled', ''),
-(21, 'test', 'test', 'MALE', 0, 0, 0, 0, '', 'Algeria', 'test@tets', 'test123', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'Test1234', 0, 'Enabled', '');
+INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`, `Suspended`, `Image`) VALUES
+(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'khaled1701294@miuegypt.edu.eg', 'test', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 2112, 'Enabled', ''),
+(2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 0, 'Enabled', ''),
+(19, 'Ahmed', 'Mahdy', 'MALE', 0, 0, 0, 0, '', 'Bangladesh', 'Ahmed@mahdy.com', 'Ahmed', 'b7fbdfc24ba048c9fbc7d752c6eece45', 0, 'Enabled', ''),
+(20, 'Khaled', 'Elgammal', '', 0, 6234632, 6436, 0, '', 'Bolivia', 'elgammal17@gmail.com', '', '', 515661, 'Enabled', ''),
+(21, 'test', 'test', 'MALE', 0, 0, 0, 0, '', 'Algeria', 'test@tets', 'test123', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 0, 'Enabled', '');
 
 -- --------------------------------------------------------
 
@@ -255,7 +254,7 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`ID`, `username`, `password`) VALUES
-(1, 'test', 'test'),
+(1, 'test', '2c9341ca4cf3d87b9e4eb905d6a3ec45'),
 (2, 'ramez', 'test'),
 (3, 'admin', 'admin'),
 (4, 'supp', 'supp'),

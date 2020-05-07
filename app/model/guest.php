@@ -52,7 +52,7 @@ class Guest extends User {
             $pass1=md5($_POST['Password']);
             $gend=$_POST['SelecGender'];
             $country = $_POST['Country'];
-            $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,unhashedPass,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass1','$pass','$country');";
+            $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass1','$country');";
             $result=mysqli_query($this->dbh->getConn(),$sql);
             $sql1="INSERT INTO login (username,password) values('$user','$pass1')";
             $result1=mysqli_query($this->dbh->getConn(),$sql1);
@@ -89,7 +89,7 @@ class Guest extends User {
         $Res->setBoardType($row['BoardType']);
         array_push($this->reservations,$Res);
         }
-        $SQL2 = 'SELECT Country,BankAccount,NationalID,PassportNumber,Username,unhashedPass,Image FROM guest WHERE GuestID='.$ID.'';
+        $SQL2 = 'SELECT Country,BankAccount,NationalID,PassportNumber,Username,Password,Image FROM guest WHERE GuestID='.$ID.'';
         $Res2 = mysqli_query($this->dbh->getConn(),$SQL2);
         $Data = $Res2->fetch_assoc();
         $this->setCountry($Data['Country']);
@@ -97,17 +97,17 @@ class Guest extends User {
         $this->setPassport_No($Data['PassportNumber']);
         $this->setNational_ID_No($Data['NationalID']);
         $this->setUsername($Data['Username']);
-        $this->setPassword($Data['unhashedPass']);
+        $this->setPassword($Data['Password']);
         $this->setImg($Data['Image']);
 
         
     }
 
-    public function EditProfile($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Unhashedpass,$Country)
+    public function EditProfile($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Country)
     {
         if($Pass !="")
         {
-        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Password="'.$Pass.'" , unhashedPass="'.$Unhashedpass.'" WHERE GuestID='.$_SESSION["ID"].'';
+        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Password="'.$Pass.'" WHERE GuestID='.$_SESSION["ID"].'';
         $_SESSION["fname"]=$Fname;
         $_SESSION["lname"]=$Lname;
         $_SESSION["Email"]=$Email;
