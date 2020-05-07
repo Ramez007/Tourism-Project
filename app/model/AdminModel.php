@@ -931,8 +931,8 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
            }
 
         $types=[$_POST['numberofsingle'],$_POST['numberofdouble'],$_POST['numberoftriple'],$_POST['numberofsuites']];
-        $desc=addslashes($_POST['description']);
-        $overview=addslashes($_POST['overview']);
+        $desc=$_POST['description'];
+        $overview=$_POST['overview'];
         
         $hotel=new Hotel($id,$_POST['enterhotel'],$services,$_POST['enterlocation'],$types,$desc,$overview,$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites'],$_POST['hotelstars']);
 
@@ -990,8 +990,8 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             }
         }
 
-        $desc=addslashes($_POST['description']);
-        $overview=addslashes($_POST['overview']);
+        $desc=$_POST['description'];
+        $overview=$_POST['overview'];
         $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$_POST['edithotellocation']."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='$desc',overview='$overview',PriceSingle='".$_POST['priceofsingle']."',PriceDouble='".$_POST['priceofdouble']."',PriceTriple='".$_POST['priceoftriple']."',PriceSuites='".$_POST['priceofsuites']."',stars='".$_POST['hotelstars']."'
         where HotelID=$id;";
         $Result = mysqli_query($this->db->getConn(),$sql);

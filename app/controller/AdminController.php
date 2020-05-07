@@ -68,8 +68,8 @@ class AdminController extends Controller{
         $cruise=$_REQUEST['cruise'];
       }
       $hotel=$_REQUEST['hotel'];
-      $overview=addslashes($_REQUEST['editpackageoverview']);
-      $description=addslashes($_REQUEST['editpackagedescription']);
+      $overview=$_REQUEST['editpackageoverview'];
+      $description=$_REQUEST['editpackagedescription'];
       $id=$_REQUEST['packageid'];
       $this->model->EditPackage($id,$cruise,$name,$days,$nights,$limit,$price,$start,$end,$transport,$guide,$map,$boardtype,$hotel,$overview,$description);
     }
@@ -126,8 +126,8 @@ class AdminController extends Controller{
         $cruise=$_REQUEST['cruise'];
       }
       $hotel=$_REQUEST['hotels'];
-      $overview=addslashes($_REQUEST['addpackageoverview']);
-      $description=addslashes($_REQUEST['addpackagedescription']);
+      $overview=$_REQUEST['addpackageoverview'];
+      $description=$_REQUEST['addpackagedescription'];
       $this->model->AddPackage($cruise,$name,$days,$nights,$limit,$price,$start,$end,$transport,$guide,$map,$boardtype,$hotel,$overview,$description);
   }
 
