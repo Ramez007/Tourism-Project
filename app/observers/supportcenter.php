@@ -39,7 +39,7 @@ class supportcenter extends subjects implements iInquiry,inewswire
         $row=$result1->fetch_assoc();
         $message= $_POST['reply'];
         $Subject=$row['inquiry'];
-        $sql1 = 'INSERT INTO InquiryHistory (employeeID,Inquiry,InquiryAuthor,InquiryEmail,Reply) VALUES("'.$ID.'","'. $row['inquiry'].'","'. $row['Author'].'","'. $row['Email'].'","'.$message.'");';
+        $sql1 = 'INSERT INTO InquiryHistory (employeeID,ID,Inquiry,InquiryAuthor,InquiryEmail,Reply) VALUES("'.$ID.'","'.$inquiryid[0].'","'. $row['inquiry'].'","'. $row['Author'].'","'. $row['Email'].'","'.$message.'");';
         $result = mysqli_query($this->dbh->getConn(), $sql1) ;
         
         mysqli_query($this->dbh->getConn(),$sql3);
