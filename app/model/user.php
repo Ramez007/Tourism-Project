@@ -81,14 +81,15 @@ class User extends Model {
         
 			$user=$_POST['username'];
 			$pass=$_POST['password'];
-		
+			$passhashed=md5($pass);
+
 			$sql="SELECT * from login where username='$user'";
 			$result=mysqli_query($this->dbh->getConn(),$sql);
 			$count=mysqli_num_rows($result);
-			$passhashed=md5($pass);
+			
 			if($count>0)
 			{
-				$sql1="SELECT * from login where username='$user' and password='$pass'or password='$passhashed'";
+				$sql1="SELECT * from login where username='$user' and (password='$pass' or password='$passhashed')";
 				$result1=mysqli_query($this->dbh->getConn(),$sql1);
 				$count1=mysqli_num_rows($result1);
 
@@ -133,6 +134,7 @@ class User extends Model {
 
 					}
 				}
+				else
 				{
 					echo "<script>alert('Password is incorrect'); </script>";
 				}
