@@ -435,11 +435,11 @@
                                             </div>
                                             <div id="stars">
                                                 <label>Enter Hotel Stars</label><br>
-                                                <input type="radio" name="hotelstars" value="1"> 1 <br>
-                                                <input type="radio" name="hotelstars" value="2"> 2 <br>
-                                                <input type="radio" name="hotelstars" value="3"> 3 <br>
-                                                <input type="radio" name="hotelstars" value="4"> 4 <br>
-                                                <input type="radio" name="hotelstars" value="5"> 5 <br><br>
+                                                <input type="radio" name="hotelstars" value="1" required> 1 <br>
+                                                <input type="radio" name="hotelstars" value="2" required> 2 <br>
+                                                <input type="radio" name="hotelstars" value="3" required> 3 <br>
+                                                <input type="radio" name="hotelstars" value="4" required> 4 <br>
+                                                <input type="radio" name="hotelstars" value="5" required> 5 <br><br>
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoteldescription">Enter Hotel Description</label>
