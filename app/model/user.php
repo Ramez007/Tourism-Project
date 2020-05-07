@@ -81,14 +81,14 @@ class User extends Model {
         
 			$user=$_POST['username'];
 			$pass=$_POST['password'];
-			$pass=md5($pass);
+		
 			$sql="SELECT * from login where username='$user'";
 			$result=mysqli_query($this->dbh->getConn(),$sql);
 			$count=mysqli_num_rows($result);
-
+			$passhashed=md5($pass);
 			if($count>0)
 			{
-				$sql1="SELECT * from login where username='$user' and password='$pass'";
+				$sql1="SELECT * from login where username='$user' and password='$pass'or password='$passhashed'";
 				$result1=mysqli_query($this->dbh->getConn(),$sql1);
 				$count1=mysqli_num_rows($result1);
 
@@ -119,7 +119,7 @@ class User extends Model {
 						}
 					}
 					else
-					{
+					{	
 						$sql3="SELECT * from guest where Username='$user'";
 						$result3=mysqli_query($this->dbh->getConn(),$sql3);
 						$row2=mysqli_fetch_assoc($result3);
