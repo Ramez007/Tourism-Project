@@ -370,7 +370,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterlocation">Enter Hotel Location</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="enterlocation" pattern=".{4,}" title="Four or more characters" placeholder="Hotel Name"required>
+                                                    <input type="text" class="form-control" name="enterlocation" pattern=".{4,}" title="Four or more characters" placeholder="Hotel Location"required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -447,7 +447,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoteloverview">Enter Hotel Overview</label>
-                                                <textarea class="form-control" id="hoteloverview" rows="4" name="overview" placeholder="Enter text here..."></textarea>
+                                                <textarea class="form-control" id="hoteloverview" maxlength="140" rows="4" name="overview" placeholder="Enter text here..."></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="fileToUpload">Upload Gallery of Hotel</label>
@@ -625,7 +625,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Package overview</label>
-                                                <textarea class="form-control" id="edithoteldescription" name="addpackageoverview" rows="4"  Placeholder="Enter Text Here..." required></textarea>
+                                                <textarea class="form-control" id="edithoteldescription" name="addpackageoverview" maxlength="140" rows="4"  Placeholder="Enter Text Here..." required></textarea>
                                             </div>
                                             <label for="fileToUpload">Upload Pictures</label>
                                             <input type="file" name="fileToUpload" id="fileToUpload">
