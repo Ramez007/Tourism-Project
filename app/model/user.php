@@ -97,33 +97,37 @@ class User extends Model {
 
 				if ($count1>0)
 				{
-					$sql2="SELECT * from employees where Username='$user'";
-					$result2=mysqli_query($this->dbh->getConn(),$sql2);
-					$count2=mysqli_num_rows($result2);
-					if ($count2>0)
+					$row1=mysqli_fetch_assoc($result1);
+					if($row1['EmpID']!="")
 					{
-						$row=mysqli_fetch_assoc($result2);
+						$sql2="SELECT * from employees where EmployeeID='".$row1['EmpID']."' ";
+						$result2=mysqli_query($this->dbh->getConn(),$sql2);
+						$count2=mysqli_num_rows($result2);
+						if ($count2>0)
+						{
+							$row=mysqli_fetch_assoc($result2);
 
-						if ($row['JobType']=="ADMIN")
-						{
-							$_SESSION["ID"]=$row["EmployeeID"];
-							$_SESSION["Name"]=$row['Name'];
-							$_SESSION["type"]=$row['JobType'];
-							$_SESSION["Email"]=$row['Email'];
-							header ("Location:Admin.php");
-						}
-						else if ($row['JobType']=="SUPPORT")
-						{
-							$_SESSION["ID"]=$row["EmployeeID"];
-							$_SESSION["Name"]=$row['Name'];
-							$_SESSION["type"]=$row['JobType'];
-							$_SESSION["Email"]=$row['Email'];
-							header ("Location:Support.php");
+							if ($row['JobType']=="ADMIN")
+							{
+								$_SESSION["ID"]=$row["EmployeeID"];
+								$_SESSION["Name"]=$row['Name'];
+								$_SESSION["type"]=$row['JobType'];
+								$_SESSION["Email"]=$row['Email'];
+								header ("Location:Admin.php");
+							}
+							else if ($row['JobType']=="SUPPORT")
+							{
+								$_SESSION["ID"]=$row["EmployeeID"];
+								$_SESSION["Name"]=$row['Name'];
+								$_SESSION["type"]=$row['JobType'];
+								$_SESSION["Email"]=$row['Email'];
+								header ("Location:Support.php");
+							}
 						}
 					}
 					else
 					{	
-						$sql3="SELECT * from guest where Username='$user'";
+						$sql3="SELECT * from guest where GuestID='".$row1['GuestID']."'";
 						$result3=mysqli_query($this->dbh->getConn(),$sql3);
 						$row2=mysqli_fetch_assoc($result3);
 						$_SESSION["ID"]=$row2["GuestID"];
