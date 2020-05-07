@@ -497,7 +497,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                     $Result = mysqli_query($this->db->getConn(),$sql);
                     while ($row=$Result->fetch_assoc()){
                         echo'
-                    <input type="radio" name="cruise" value="'.$row['CruiseID'].'"> '.$row['CruiseName'].' <br>
+                    <input type="radio" name="cruise" value="'.$row['CruiseID'].'" required> '.$row['CruiseName'].' <br>
                    
                     ';
                     }

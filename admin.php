@@ -601,15 +601,15 @@
                                                 </ul>
                                             </div>                
                                             <div class="boardtype">
-                                                <input type="radio" name="boardtype" value="Full"> Full Board <br>
-                                                <input type="radio" name="boardtype" value="Half"> Half Board<br>
+                                                <input type="radio" name="boardtype" value="Full" required> Full Board <br>
+                                                <input type="radio" name="boardtype" value="Half" required> Half Board<br>
                                             </div>
 
                                                
 
                                             <div class="assigncruise">
                                                 <label for="">Assign Cruise</label><br>
-                                                <input type="radio" name="cruise" value="None"> None <br>
+                                                <input type="radio" name="cruise" value="None" required> None <br>
                                                 <?php $AdminView->ReadCruises(); ?>
                                             </div>
 
