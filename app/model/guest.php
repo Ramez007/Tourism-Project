@@ -54,7 +54,13 @@ class Guest extends User {
             $country = $_POST['Country'];
             $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass1','$country');";
             $result=mysqli_query($this->dbh->getConn(),$sql);
-            $sql1="INSERT INTO login (username,password) values('$user','$pass1')";
+
+            $sql2="Select MAX(GuestID) as value from guest";
+            $result2=mysqli_query($this->dbh->getConn(),$sql2);
+            $row4=mysqli_fetch_assoc($result2);
+
+
+            $sql1="INSERT INTO login (GuestID,username,password) values('".$row4['value']."','$user','$pass1')";
             $result1=mysqli_query($this->dbh->getConn(),$sql1);
             $this->name=$fname;
             $this->email=$email;
