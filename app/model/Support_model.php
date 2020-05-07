@@ -41,7 +41,7 @@ class support_operator extends Model  {
 
 public function FetchInquiries()
 {
-    $SQL = 'SELECT Email,InquiryID,Inquiry FROM inquiries';
+    $SQL = 'SELECT Email,InquiryID,Inquiry FROM inquiries where inquiries.suspended = "Disabled" ';
     $Result = mysqli_query($this->dbh->getConn(),$SQL);
     while($row = $Result->fetch_assoc())
     {

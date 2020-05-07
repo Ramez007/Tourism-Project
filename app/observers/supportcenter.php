@@ -34,7 +34,7 @@ class supportcenter extends subjects implements iInquiry,inewswire
         $recp= new reciever($this) ;
         $sql2 = 'SELECT Email,inquiry,Author FROM Inquiries where inquiries.InquiryID="'.$inquiryid[0].'";';
     
-       $sql3 = 'DELETE  FROM Inquiries where InquiryID="'.$inquiryid[0].'";';
+       $sql3 = ' UPDATE `inquiries` SET `Suspended` = "Enabled" WHERE `inquiries`.`InquiryID` ="'.$inquiryid[0].'";';
         $result1=mysqli_query($this->dbh->getConn(), $sql2) ;
         $row=$result1->fetch_assoc();
         $message= $_POST['reply'];
