@@ -33,7 +33,7 @@
 	
 	
 	?>
-
+	<script src="js/refresh.js"></script>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Speedo Tours &mdash; License No. 782</title>

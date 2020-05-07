@@ -26,6 +26,7 @@
 	//////////////////////////////////////////////////////
 	 -->
 
+	 <script src="js/refresh.js"></script>
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>

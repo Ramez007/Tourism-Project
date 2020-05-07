@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2020 at 10:56 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: May 07, 2020 at 04:22 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -140,10 +140,11 @@ CREATE TABLE `guest` (
 --
 
 INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `City`, `Country`, `Email`, `Username`, `Password`, `BankAccount`, `Suspended`, `Image`) VALUES
-(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'khaled1701294@miuegypt.edu.eg', 'test', 'test', 2112, 'Enabled', ''),
+(1, 'Robert', 'Deniro', 'MALE', 60, 2020, 9999, 17822676, 'Corleone', 'Italy', 'khaled1701294@miuegypt.edu.eg', 'test', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 2112, 'Enabled', ''),
 (2, 'Sean', 'Connery', 'MALE', 75, 0, 0, 126867, 'London', 'England', 'ramez1700124@miuegypt.edu.eg', 'ramez', 'test', 0, 'Enabled', ''),
-(19, 'Ahmed', 'Mahdy', 'MALE', 0, 0, 0, 0, '', 'Bangladesh', 'Ahmed@mahdy.com', 'Ahmed', 'Mahdy123', 0, 'Enabled', ''),
-(20, 'Khaled', 'Elgammal', '', 0, 6234632, 6436, 0, '', 'Bolivia', 'elgammal17@gmail.com', '', '', 515661, 'Enabled', '');
+(19, 'Ahmed', 'Mahdy', 'MALE', 0, 0, 0, 0, '', 'Bangladesh', 'Ahmed@mahdy.com', 'Ahmed', 'b7fbdfc24ba048c9fbc7d752c6eece45', 0, 'Enabled', ''),
+(20, 'Khaled', 'Elgammal', '', 0, 6234632, 6436, 0, '', 'Bolivia', 'elgammal17@gmail.com', '', '', 515661, 'Enabled', ''),
+(21, 'test', 'test', 'MALE', 0, 0, 0, 0, '', 'Algeria', 'test@tets', 'test123', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 0, 'Enabled', '');
 
 -- --------------------------------------------------------
 
@@ -245,7 +246,7 @@ INSERT INTO `inquiryhistory` (`InquiryID`, `EmployeeID`, `Inquiry`, `InquiryAuth
 CREATE TABLE `login` (
   `ID` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -253,11 +254,12 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`ID`, `username`, `password`) VALUES
-(1, 'test', 'test'),
+(1, 'test', '2c9341ca4cf3d87b9e4eb905d6a3ec45'),
 (2, 'ramez', 'test'),
 (3, 'admin', 'admin'),
 (4, 'supp', 'supp'),
-(9, 'Ahmed', 'Mahdy123');
+(9, 'Ahmed', 'b7fbdfc24ba048c9fbc7d752c6eece45'),
+(10, 'test123', '2c9341ca4cf3d87b9e4eb905d6a3ec45');
 
 -- --------------------------------------------------------
 
@@ -780,7 +782,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `inquiries`
@@ -798,7 +800,7 @@ ALTER TABLE `inquiryhistory`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `newswire`

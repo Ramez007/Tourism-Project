@@ -49,12 +49,12 @@ class Guest extends User {
             $lname=$_POST['LastName'];
             $email=$_POST['Email'];
             $pass=$_POST['Password'];
-            $pass=md5($pass);
+            $pass1=md5($_POST['Password']);
             $gend=$_POST['SelecGender'];
             $country = $_POST['Country'];
-            $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass','$country');";
+            $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass1','$country');";
             $result=mysqli_query($this->dbh->getConn(),$sql);
-            $sql1="INSERT INTO login (username,password) values('$user','$pass')";
+            $sql1="INSERT INTO login (username,password) values('$user','$pass1')";
             $result1=mysqli_query($this->dbh->getConn(),$sql1);
             $this->name=$fname;
             $this->email=$email;

@@ -38,6 +38,7 @@
 		$controller->listhoteldata();
 		$hotelview=new HotelView($controller,$model);
     ?>
+    <script src="js/refresh.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
     
     

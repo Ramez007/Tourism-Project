@@ -69,7 +69,7 @@ class GuestView extends View
         <input type="text" id="inputBox" minlength="3" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
       
         '.($this->model->getUsername()!=''?'<label for="Password">Password:</label><br>
-        <input type="text" id="inputBox" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" name="password" value="'.$this->model->getPassword().'"><br>':'').'                                                                                                                    
+        <input type="password" id="inputBox" pattern="(?=.*\d)(?=.*[a-z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" name="password" value="'.$this->model->getPassword().'"><br>':'').'                                                                                                                    
          
         <input type="hidden" name="username" value="'.$this->model->getUsername().'">
 
@@ -361,7 +361,14 @@ class GuestView extends View
             }
             if(isset($_POST['password']))
             {
-                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$_POST['password'],$_POST['Country']))
+                $pass=$_POST['password'];
+                if($this->model->getPassword()!=$pass)
+                {
+                    $pass1=md5($pass);
+                }
+                
+                
+                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$pass1,$_POST['Country']))
                 {
                     echo '<script>swal("Edited profile successfully","","success")</script>';
                     echo '<script>
