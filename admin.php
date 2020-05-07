@@ -971,5 +971,7 @@
                 });
     </script>
 
+
+<script src="js/refresh.js"></script>
 </body>
 </html>

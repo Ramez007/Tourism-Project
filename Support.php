@@ -16,6 +16,7 @@
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 	<meta name="author" content="FREEHTML5.CO" />
 
+	<script src="js/refresh.js"></script>
   <!-- 
 	//////////////////////////////////////////////////////
 

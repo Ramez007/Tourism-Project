@@ -361,7 +361,8 @@ class GuestView extends View
             }
             if(isset($_POST['password']))
             {
-                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$_POST['password'],$_POST['Country']))
+                $pass=md5($_POST['password']);
+                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$pass,$_POST['Country']))
                 {
                     echo '<script>swal("Edited profile successfully","","success")</script>';
                     echo '<script>
