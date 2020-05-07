@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2020 at 08:14 PM
+-- Generation Time: May 07, 2020 at 09:35 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -180,7 +180,7 @@ CREATE TABLE `inquiryhistory` (
 
 CREATE TABLE `login` (
   `ID` int(11) NOT NULL,
-  `EmpID` int(11) NOT NULL,
+  `EmpID` int(11) DEFAULT NULL,
   `GuestID` int(11) DEFAULT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(80) NOT NULL
@@ -444,7 +444,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `inquiries`
@@ -462,7 +462,7 @@ ALTER TABLE `inquiryhistory`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `newswire`

@@ -84,9 +84,10 @@ class Hotel extends Model implements ireviewhotels
         $suites=(int)$type[3];
         $roomcount=$single+$double+$triple+$suites;
 
-        $this->addrooms($type);
+        
         $sql="insert into hotel(HotelID,Name,location,NumberofRooms,WiFI,Swimming_Pool,Spa,Gym,Pets,Bar,Restaurant,description,overview,featured,FeaturedMainSilder,Suspended,PriceSingle,PriceDouble,PriceTriple,PriceSuites,stars) values('$id','$name','$location','$roomcount','$wifi','$swimming','$Spa','$gym','$pets','$bar','$restaurant','$description','$overview','false','FALSE','Disabled','$pricesingle','$pricedouble','$pricetriple','$pricesuite','$stars')";
         $result=mysqli_query($this->dbh->getConn(),$sql);
+        $this->addrooms($type);
         }
     }
    

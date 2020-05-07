@@ -364,7 +364,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterhotel">Enter Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="enterhotel" minlength="3" pattern="[A-Za-z0-9]+" title="No Special Charcters" placeholder="Hotel Name" required>
+                                                    <input type="text" class="form-control" name="enterhotel" minlength="3" pattern="[a-zA-Z0-9\s]+" title="No Special Charcters" placeholder="Hotel Name" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -435,11 +435,11 @@
                                             </div>
                                             <div id="stars">
                                                 <label>Enter Hotel Stars</label><br>
-                                                <input type="radio" name="hotelstars" value="1"> 1 <br>
-                                                <input type="radio" name="hotelstars" value="2"> 2 <br>
-                                                <input type="radio" name="hotelstars" value="3"> 3 <br>
-                                                <input type="radio" name="hotelstars" value="4"> 4 <br>
-                                                <input type="radio" name="hotelstars" value="5"> 5 <br><br>
+                                                <input type="radio" name="hotelstars" value="1" required> 1 <br>
+                                                <input type="radio" name="hotelstars" value="2" required> 2 <br>
+                                                <input type="radio" name="hotelstars" value="3" required> 3 <br>
+                                                <input type="radio" name="hotelstars" value="4" required> 4 <br>
+                                                <input type="radio" name="hotelstars" value="5" required> 5 <br><br>
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoteldescription">Enter Hotel Description</label>
@@ -601,15 +601,15 @@
                                                 </ul>
                                             </div>                
                                             <div class="boardtype">
-                                                <input type="radio" name="boardtype" value="Full"> Full Board <br>
-                                                <input type="radio" name="boardtype" value="Half"> Half Board<br>
+                                                <input type="radio" name="boardtype" value="Full" required> Full Board <br>
+                                                <input type="radio" name="boardtype" value="Half" required> Half Board<br>
                                             </div>
 
                                                
 
                                             <div class="assigncruise">
                                                 <label for="">Assign Cruise</label><br>
-                                                <input type="radio" name="cruise" value="None"> None <br>
+                                                <input type="radio" name="cruise" value="None" required> None <br>
                                                 <?php $AdminView->ReadCruises(); ?>
                                             </div>
 
