@@ -364,7 +364,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="enterhotel">Enter Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="enterhotel" minlength="3" pattern="[A-Za-z0-9]+" title="No Special Charcters" placeholder="Hotel Name" required>
+                                                    <input type="text" class="form-control" name="enterhotel" minlength="3" pattern="[a-zA-Z0-9\s]+" title="No Special Charcters" placeholder="Hotel Name" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">

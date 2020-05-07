@@ -136,7 +136,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="edithotelname">Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="edithotelname" minlength="3" pattern="[A-Za-z0-9]+" title="No Special Charcters" id="edithotelname" value="'.$row['Name'].'" required>
+                                                    <input type="text" class="form-control" name="edithotelname" minlength="3" pattern="[a-zA-Z0-9\s]+" title="No Special Charcters" id="edithotelname" value="'.$row['Name'].'" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
