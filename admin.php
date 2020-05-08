@@ -447,7 +447,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoteloverview">Enter Hotel Overview</label>
-                                                <textarea class="form-control" id="hoteloverview" maxlength="140" rows="4" name="overview" placeholder="Enter text here..."></textarea>
+                                                <textarea class="form-control" id="hoteloverview" maxlength="140" style="width: 355px;resize: none;height: 132px;" minlength="140" rows="4" name="overview" placeholder="Enter text here..."></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="fileToUpload">Upload Gallery of Hotel</label>
@@ -625,7 +625,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Package overview</label>
-                                                <textarea class="form-control" id="edithoteldescription" name="addpackageoverview" maxlength="140" rows="4"  Placeholder="Enter Text Here..." required></textarea>
+                                                <textarea class="form-control" id="edithoteldescription" style="width: 355px;resize: none;height: 132px;" minlength="140"  name="addpackageoverview" maxlength="140" rows="4"  Placeholder="Enter Text Here..." required></textarea>
                                             </div>
                                             <label for="fileToUpload">Upload Pictures</label>
                                             <input type="file" name="fileToUpload" id="fileToUpload">

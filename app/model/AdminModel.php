@@ -196,7 +196,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                             </div>
                                             <div class="form-group">
                                                 <label for="edithoteloverview">Enter Hotel Overview</label>
-                                                <textarea class="form-control" id="edithoteloverview" rows="15" maxlength="140" name="overview" required>'.$row['overview'].'</textarea>
+                                                <textarea class="form-control" id="edithoteloverview" rows="15" style="width: 355px;resize: none;height: 132px;" maxlength="140" minlength="140" name="overview" required>'.$row['overview'].'</textarea>
                                             </div>
                                             <a href="#">Show Gallery</a><br>
                                             <div class="form-group">
@@ -349,7 +349,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             </div> 
             <div class="form-group">
                 <label for="edithoteldescription">Edit Package overview</label>
-                <textarea class="form-control" id="editpackageoverview" name="editpackageoverview" rows="4" maxlength="140"  Placeholder="Enter Text Here..." required>'.$row['Overview'].'</textarea>
+                <textarea class="form-control" id="editpackageoverview" name="editpackageoverview" style="width: 355px;resize: none;height: 132px;" rows="4" maxlength="140" minlength="140"  Placeholder="Enter Text Here..." required>'.$row['Overview'].'</textarea>
             </div>                                                       
             <br><br><br><a href="#">Show Gallery of Pacakage</a><br>
             Update Gallery of Package <br>
