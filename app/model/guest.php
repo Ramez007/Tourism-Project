@@ -106,6 +106,8 @@ class Guest extends User {
         $this->setPassword($Data['Password']);
         $this->setImg($Data['Image']);
 
+
+       
         
     }
 
