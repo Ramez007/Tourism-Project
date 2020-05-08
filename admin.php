@@ -765,7 +765,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Enter Event Details</label>
-                                                <textarea rows="4" class="form-control" maxlength="332" minlength="332" style="width: 366px;height: 312px;resize: none;" data-toggle="tooltip" title="Press Enter after finishing each line" name="eventpost" id="eventpost" placeholder="Enter text here" required></textarea>
+                                                <textarea rows="4" class="form-control" maxlength="320" minlength="320" style="width: 366px;height: 312px;resize: none;word-wrap: break-word;" name="eventpost" id="eventpost" placeholder="Enter text here" required></textarea>
                                             </div>
                                             <br><br><br> Upload Photo of Event <br>
                                             <input type="file" name="fileToUpload" id="fileToUpload">
