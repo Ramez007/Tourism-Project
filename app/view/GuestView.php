@@ -67,6 +67,12 @@ class GuestView extends View
         <input type="text" id="inputBox" minlength="3" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
         <label for="NationalNumber">National ID Number:</label><br>
         <input type="text" id="inputBox" minlength="3" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
+        <label for="Phone">Phone Number: </label><br>
+        <input type="text" id="inputBox" minlength="3" name="Phone" value="'.$this->model->getPhone().'"><br>
+        <label for="Age">Age: </label><br>
+        <input type="text" id="inputBox" minlength="2" name="Age" value="'.$this->model->getAge().'"><br>
+
+
       
         '.($this->model->getUsername()!=''?'<label for="Password">Password:</label><br>
         <input type="password" id="inputBox" pattern="(?=.*\d)(?=.*[a-z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" name="password" value="'.$this->model->getPassword().'"><br>':'').'                                                                                                                    
@@ -323,7 +329,15 @@ class GuestView extends View
         <option value="Zaire">Zaire</option>
         <option value="Zambia">Zambia</option>
         <option value="Zimbabwe">Zimbabwe</option>
-     </select>
+     </select><br>
+
+     <label for="Gender">Gender:</label><br>
+     <select id="Select" name="Gender" class="Select">
+        <option selected hidden>'.$this->model->getGender().'</option>
+        <option value="MALE"> Male </option>
+        <option value="FEMALE"> Female </option>
+        <option value="OTHER"> Other </option>
+     </select><br>
 
         <input class="btn btn-primary" type="submit" name="submitedit" value="Save Changes" style="margin-left: 37.5%; margin-top: 25px;">
         </form>
@@ -368,7 +382,7 @@ class GuestView extends View
                 }
                 
                 
-                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$pass1,$_POST['Country']))
+                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$pass1,$_POST['Country'], $_POST['Age'], $_POST['Phone'], $_POST['Gender']))
                 {
                     echo '<script>swal("Edited profile successfully","","success")</script>';
                     echo '<script>
@@ -378,7 +392,7 @@ class GuestView extends View
             }
             else
             {
-                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],"",$_POST['Country']))
+                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],"",$_POST['Country'], $_POST['Age'], $_POST['Phone'], $_POST['Gender']))
                 {
                     echo '<script>swal("Edited profile successfully","","success")</script>';
                     echo '<script>
@@ -427,7 +441,7 @@ class GuestView extends View
         foreach($Reservations as $Res)
         {
             
-            if($Res->getPackageID() != NULL && $Res->getSuspended()=="Disabled" )
+            if($Res->getPackageID() != NULL && $Res->getHotelID()==NULL && $Res->getEnded()=="TRUE" )
             {
                 $BodyEcho = 
                 '
@@ -442,7 +456,7 @@ class GuestView extends View
                 ';
 
             }
-            else if($Res->getHotelID() != NULL && $Res->getPackageID() == NULL && $Res->getSuspended()=="Disabled" )
+            else if($Res->getHotelID() != NULL && $Res->getPackageID() == NULL &&  $Res->getEnded()=="TRUE"  )
             {
                 $BodyEcho = 
                 '
@@ -502,7 +516,7 @@ class GuestView extends View
         ';
         foreach($Reservations as $Res)
         {
-            if($Res->getPackageID() != NULL && $Res->getHotelID() != NULL && $Res->getSuspended()=="Enabled" )
+            if($Res->getPackageID() != NULL && $Res->getHotelID() == NULL && $Res->getEnded()=="FALSE" )
             {
                 $Body = 
                 '
@@ -545,7 +559,7 @@ class GuestView extends View
             </div>
                 ';
             }
-            else if($Res->getPackageID() == NULL && $Res->getHotelID() != NULL && $Res->getSuspended()=="Enabled" )
+            else if($Res->getPackageID() == NULL && $Res->getHotelID() != NULL && $Res->getEnded()=="FALSE" )
             {
                 $Body = 
                 '

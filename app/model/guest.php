@@ -22,6 +22,9 @@ class Guest extends User {
     private $National_ID_No;
     private $reservations = array();
     private $img;
+    private $age;
+    private $phone;
+    private $gender;
 
     function __construct() {
         $this->dbh = $this->connect();
@@ -76,7 +79,7 @@ class Guest extends User {
 
     public function GetProfileData($ID)
     {
-        $SQL = 'SELECT ReserveID,HotelID,PackageID,DateIn,DateOut,reserves.Suspended,Status,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType FROM guest INNER JOIN reserves ON guest.GuestID ='.$ID.' AND reserves.GuestID = '.$ID.'';
+        $SQL = 'SELECT ReserveID,HotelID,PackageID,DateIn,DateOut,reserves.Suspended,Status,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,Ended FROM guest INNER JOIN reserves ON guest.GuestID ='.$ID.' AND reserves.GuestID = '.$ID.'';
         $Result = mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);        
         while ($row = $Result->fetch_assoc())
         {
@@ -93,9 +96,10 @@ class Guest extends User {
         $Res->setTripleRooms($row['NoOfTripleRooms']);
         $Res->setSuits($row['NoOfSuits']);
         $Res->setBoardType($row['BoardType']);
+        $Res->setEnded($row['Ended']);
         array_push($this->reservations,$Res);
         }
-        $SQL2 = 'SELECT Country,BankAccount,NationalID,PassportNumber,Username,Password,Image FROM guest WHERE GuestID='.$ID.'';
+        $SQL2 = 'SELECT Country,BankAccount,NationalID,PassportNumber,Username,Password,Image,Phone,Age,Gender FROM guest WHERE GuestID='.$ID.'';
         $Res2 = mysqli_query($this->dbh->getConn(),$SQL2);
         $Data = $Res2->fetch_assoc();
         $this->setCountry($Data['Country']);
@@ -105,17 +109,19 @@ class Guest extends User {
         $this->setUsername($Data['Username']);
         $this->setPassword($Data['Password']);
         $this->setImg($Data['Image']);
-
+        $this->setPhone($Data['Phone']);
+        $this->setAge($Data['Age']);
+        $this->setGender($Data['Gender']);
 
        
         
     }
 
-    public function EditProfile($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Country)
+    public function EditProfile($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Country,$Age,$Phone,$Gender)
     {
         if($Pass !="")
         {
-        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Password="'.$Pass.'" WHERE GuestID='.$_SESSION["ID"].'';
+        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Password="'.$Pass.'", Phone="'.$Phone.'", Age="'.$Age.'", Gender="'.$Gender.'" WHERE GuestID='.$_SESSION["ID"].'';
         $_SESSION["fname"]=$Fname;
         $_SESSION["lname"]=$Lname;
         $_SESSION["Email"]=$Email;
@@ -127,7 +133,7 @@ class Guest extends User {
         }
         else
         {
-        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'" WHERE GuestID='.$_SESSION["ID"].'';
+        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Phone="'.$Phone.'", Age="'.$Age.'", Gender="'.$Gender.'" WHERE GuestID='.$_SESSION["ID"].'';
         $_SESSION["fname"]=$Fname;
         $_SESSION["lname"]=$Lname;
         $_SESSION["Email"]=$Email;
@@ -242,7 +248,7 @@ class Guest extends User {
 
             // $hotelid=$row['HotelID'];
 
-            $sql2="INSERT INTO reserves (GuestId,PackageId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status) values ('$GuestID','$PackageID','$children','$adults','$Datein','Enabled','$Dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval')";
+            $sql2="INSERT INTO reserves (GuestId,PackageId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status,Ended) values ('$GuestID','$PackageID','$children','$adults','$Datein','Enabled','$Dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval','FALSE')";
             $res4=mysqli_query($this->db->getConn(),$sql2);
 
             if ($res4)
@@ -364,7 +370,7 @@ class Guest extends User {
                     {
 
 
-                        $sql5="INSERT INTO reserves (GuestId,HotelId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status) values ('$id','$hotelid','$children','$adults','$datein','Enabled','$dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval')";
+                        $sql5="INSERT INTO reserves (GuestId,HotelId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status,Ended) values ('$id','$hotelid','$children','$adults','$datein','Enabled','$dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval','FALSE')";
                         $result5=mysqli_query($this->db->getConn(),$sql5);
 
                         $sql6="UPDATE rooms
@@ -601,6 +607,66 @@ class Guest extends User {
     public function setImg($img)
     {
         $this->img = $img;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of age
+     */ 
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * Set the value of age
+     *
+     * @return  self
+     */ 
+    public function setAge($age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of phone
+     */ 
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set the value of phone
+     *
+     * @return  self
+     */ 
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of gender
+     */ 
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Set the value of gender
+     *
+     * @return  self
+     */ 
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
 
         return $this;
     }

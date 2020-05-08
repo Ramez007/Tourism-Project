@@ -16,6 +16,7 @@ class Reservation extends Model
     protected $Suits;
     protected $BoardType;
     protected $Status;
+    protected $Ended;
 
     public function __construct()
     {
@@ -280,6 +281,26 @@ class Reservation extends Model
     public function setStatus($Status)
     {
         $this->Status = $Status;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Ended
+     */ 
+    public function getEnded()
+    {
+        return $this->Ended;
+    }
+
+    /**
+     * Set the value of Ended
+     *
+     * @return  self
+     */ 
+    public function setEnded($Ended)
+    {
+        $this->Ended = $Ended;
 
         return $this;
     }
