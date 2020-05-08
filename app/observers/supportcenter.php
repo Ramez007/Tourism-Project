@@ -121,7 +121,7 @@ public function sendPackagereport(){
            $recp= new reciever($this) ;
            $recp->setmail($row["Email"]);
            array_push($this->recparr, $recp);
-           array_push($this->mailsss, $row["Email"]);
+         //  array_push($this->mailsss, $row["Email"]);
          
         }
        
