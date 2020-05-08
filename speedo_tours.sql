@@ -76,7 +76,7 @@ CREATE TABLE `employees` (
   `Email` varchar(60) NOT NULL,
   `Username` varchar(60) NOT NULL,
   `Password` varchar(60) NOT NULL,
-  `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled'
+  `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Disabled'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
