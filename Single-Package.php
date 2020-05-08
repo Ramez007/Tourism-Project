@@ -443,28 +443,28 @@ $guestcontroller=new GuestController($guestmodel);
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Single Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" required class="form-control" name='singlerooms' id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" required class="form-control" name='singlerooms' id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
                                  
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Double Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" required class="form-control" name='doublerooms' id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" required class="form-control" name='doublerooms' id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Triple Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" required class="form-control" name='triplerooms' id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" required class="form-control" name='triplerooms' id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of suites:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" required name='suites' id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name='suites' id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 

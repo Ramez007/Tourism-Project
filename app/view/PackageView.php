@@ -46,18 +46,22 @@ class PackageView extends View
                 <h4> '.$this->model->getDescription().' </h4>
                 
             </div>
-            <div class="services"style="top: 12px;">
-                <span style="margin-bottom:20px;top: 39px;"><img id="News" src="images\sun.png" width="50" height="50"style="margin-bottom:20px"></span>
-                    <div class="desc"> Number of days:'.$this->model->getNumberOfDays().'</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="services">
+                <span style="margin-bottom:19px;"><img id="News" src="images\sun.png" width="50" height="50"style="margin-bottom:19px"></span>
+                    <div style="padding-top: 29px;" class="desc"> Number of days:'.$this->model->getNumberOfDays().'</div>
                 </div>
                 <div class="services">
-                <span style="margin-bottom:20px;top: 5px;"><img id="News" src="images\moon.png" width="50" height="50"style="margin-bottom:40px"></span>
-                    <div class="desc"style=""> Number of nights:'.$this->model->getNumberOfNights().'</div>
+                <span style="margin-bottom:20px;"><img id="News" src="images\moon.png" width="50" height="50"style="margin-bottom:40px"></span>
+                    <div class="desc"style="padding-top:29px"> Number of nights:'.$this->model->getNumberOfNights().'</div>
                 </div>
                 <div class="services">
                 <span><img id="News" src="images\dollar.png" width="50" height="50"style="margin-bottom:40px"></span>
-                    <div class="desc"style="padding-top: 45px;"> Basic cost:'.$this->model->getPrice().' EGP/Adult And '.($this->model->getPrice()/2).' EGP/Child  </div>
+                    <div class="desc"style="padding-top: 29px;"> Basic cost:'.$this->model->getPrice().' EGP/Adult And '.($this->model->getPrice()/2).' EGP/Child  </div>
                 </div>
+            </div>
         </div>
     </div>
         ';
