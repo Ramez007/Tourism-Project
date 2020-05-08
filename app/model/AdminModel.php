@@ -41,30 +41,38 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         INNER JOIN Hotel ON reserves.HotelId=Hotel.HotelID
         where reserves.Suspended='Enabled' AND Packageid is null;";
         $Result = mysqli_query($this->db->getConn(),$sql);
-        while($row=$Result->fetch_assoc())
+        $rowcount=mysqli_num_rows($Result);
+        if($rowcount > 0)
         {
-            echo'  <span>Mr. '.$row["LastName"].' reserving '.$row["Name"].' Hotel for '.$row["NoofAdults"].' Adults and '.$row["NoofChildren"].' Children Rooms:  '.$row["NoOfSingleRooms"].' Single Rooms , '.$row["NoOfDoubleRooms"].' Double Rooms  
-            , '.$row["NoOfTripleRooms"].' Triple Rooms and '.$row["NoOfSuits"].' Suits. Board : '.$row["BoardType"].' From '.$row["DateIn"].' to '.$row["DateOut"].'
-            </span>
-            <br><br>
-            <h5><Strong>Client Detalis</strong></span>
-            <br><br>
-            <span>NationalID : '.$row["NationalID"].' </span>
-            <br><br>
-            <span>PassportNumber : '.$row["PassportNumber"].' </span>
-            <br><br>
-            <span>Phone : '.$row["Phone"].' </span>
-            <br><br>
-            <span>Email : '.$row["Email"].' </span>
-            <br><br>
-            <form action="" method="post">
-            <input type="hidden" class="form-control" value="'.$row['ReserveID'].'" id="reserveid" name="reserveid"> 
-            <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
-            </form>
-            <br>
-            <br>
-            ';
+            while($row=$Result->fetch_assoc())
+            {
+                echo'  <span>Mr. '.$row["LastName"].' reserving '.$row["Name"].' Hotel for '.$row["NoofAdults"].' Adults and '.$row["NoofChildren"].' Children Rooms:  '.$row["NoOfSingleRooms"].' Single Rooms , '.$row["NoOfDoubleRooms"].' Double Rooms  
+                , '.$row["NoOfTripleRooms"].' Triple Rooms and '.$row["NoOfSuits"].' Suits. Board : '.$row["BoardType"].' From '.$row["DateIn"].' to '.$row["DateOut"].'
+                </span>
+                <br><br>
+                <h5><Strong>Client Detalis</strong></span>
+                <br><br>
+                <span>NationalID : '.$row["NationalID"].' </span>
+                <br><br>
+                <span>PassportNumber : '.$row["PassportNumber"].' </span>
+                <br><br>
+                <span>Phone : '.$row["Phone"].' </span>
+                <br><br>
+                <span>Email : '.$row["Email"].' </span>
+                <br><br>
+                <form action="" method="post">
+                <input type="hidden" class="form-control" value="'.$row['ReserveID'].'" id="reserveid" name="reserveid"> 
+                <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
+                </form>
+                <br>
+                <br>
+                ';
+            }
         }
+        else
+        {
+            echo '<h4>No Data To Show</h4>';
+        }    
 
     }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
@@ -80,30 +88,38 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         INNER JOIN packages ON reserves.PackageId=packages.PackageID
         where reserves.Suspended='Enabled' AND reserves.HotelId is null;";
         $Result1 = mysqli_query($this->db->getConn(),$sql1);
-        while($row1=$Result1->fetch_assoc())
+        $rowcount1=mysqli_num_rows($Result1);
+        if($rowcount1 > 0)
         {
-            echo'  <span>Mr. '.$row1["LastName"].' reserving '.$row1["PackageName"].' Package for '.$row1["NoofAdults"].' Adults and '.$row1["NoofChildren"].' Children Rooms:  '.$row1["NoOfSingleRooms"].' Single Rooms , '.$row1["NoOfDoubleRooms"].' Double Rooms  
-            , '.$row1["NoOfTripleRooms"].' Triple Rooms and '.$row1["NoOfSuits"].' Suits. Board : '.$row1["BoardType"].' From '.$row1["DateIn"].' to '.$row1["DateOut"].'
-            </span>
-            <br><br>
-            <h5><Strong>Client Detalis</strong></span>
-            <br><br>
-            <span>NationalID : '.$row1["NationalID"].' </span>
-            <br><br>
-            <span>PassportNumber : '.$row1["PassportNumber"].' </span>
-            <br><br>
-            <span>Phone : '.$row1["Phone"].' </span>
-            <br><br>
-            <span>Email : '.$row1["Email"].' </span>
-            <br><br>
-            <form action="" method="post">
-            <input type="hidden" class="form-control" value="'.$row1['ReserveID'].'" id="reserveid" name="reserveid"> 
-            <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
-            </form>
-            <br>
-            <br>
-            ';
+            while($row1=$Result1->fetch_assoc())
+            {
+                echo'  <span>Mr. '.$row1["LastName"].' reserving '.$row1["PackageName"].' Package for '.$row1["NoofAdults"].' Adults and '.$row1["NoofChildren"].' Children Rooms:  '.$row1["NoOfSingleRooms"].' Single Rooms , '.$row1["NoOfDoubleRooms"].' Double Rooms  
+                , '.$row1["NoOfTripleRooms"].' Triple Rooms and '.$row1["NoOfSuits"].' Suits. Board : '.$row1["BoardType"].' From '.$row1["DateIn"].' to '.$row1["DateOut"].'
+                </span>
+                <br><br>
+                <h5><Strong>Client Detalis</strong></span>
+                <br><br>
+                <span>NationalID : '.$row1["NationalID"].' </span>
+                <br><br>
+                <span>PassportNumber : '.$row1["PassportNumber"].' </span>
+                <br><br>
+                <span>Phone : '.$row1["Phone"].' </span>
+                <br><br>
+                <span>Email : '.$row1["Email"].' </span>
+                <br><br>
+                <form action="" method="post">
+                <input type="hidden" class="form-control" value="'.$row1['ReserveID'].'" id="reserveid" name="reserveid"> 
+                <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
+                </form>
+                <br>
+                <br>
+                ';
+            }
         }
+        else
+        {
+            echo '<h4>No Data To Show</h4>';
+        }    
 
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
@@ -192,11 +208,11 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                             <br><br>
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Hotel Description</label>
-                                                <textarea class="form-control" id="edithoteldescription" rows="15" name="description" required>'.$row['description'].'</textarea>
+                                                <textarea class="form-control" id="edithoteldescription" rows="15" data-toggle="tooltip" title="Press Enter after finishing each line" name="description" required>'.$row['description'].'</textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="edithoteloverview">Enter Hotel Overview</label>
-                                                <textarea class="form-control" id="edithoteloverview" rows="15" style="width: 355px;resize: none;height: 132px;" maxlength="140" minlength="140" name="overview" required>'.$row['overview'].'</textarea>
+                                                <textarea class="form-control" id="edithoteloverview" rows="15" style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" maxlength="140" minlength="140" name="overview" required>'.$row['overview'].'</textarea>
                                             </div>
                                             <a href="#">Show Gallery</a><br>
                                             <div class="form-group">
@@ -345,11 +361,11 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             
             <div class="form-group">
                 <label for="edithoteldescription">Edit Package Visits/Details</label>
-                <textarea class="form-control" id="packagedetails" name="editpackagedescription" rows="4"  Placeholder="Enter Text Here..." required>'.$row['Description'].'</textarea>
+                <textarea class="form-control" id="packagedetails" name="editpackagedescription" rows="4" data-toggle="tooltip" title="Press Enter after finishing each line"  Placeholder="Enter Text Here..." required>'.$row['Description'].'</textarea>
             </div> 
             <div class="form-group">
                 <label for="edithoteldescription">Edit Package overview</label>
-                <textarea class="form-control" id="editpackageoverview" name="editpackageoverview" style="width: 355px;resize: none;height: 132px;" rows="4" maxlength="140" minlength="140"  Placeholder="Enter Text Here..." required>'.$row['Overview'].'</textarea>
+                <textarea class="form-control" id="editpackageoverview" name="editpackageoverview" style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" rows="4" maxlength="140" minlength="140"  Placeholder="Enter Text Here..." required>'.$row['Overview'].'</textarea>
             </div>                                                       
             <br><br><br><a href="#">Show Gallery of Pacakage</a><br>
             Update Gallery of Package <br>
@@ -417,7 +433,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                 </div>
                 <div class="form-group">
                     <label for="eventdetails">Edit Event Details</label>
-                    <textarea rows="4" class="form-control" id="blogposttext" name="blogposttext" required>'.$row['PostText'].'</textarea>
+                    <textarea rows="4" class="form-control" style="width: 366px;height: 312px;resize: none;word-wrap: break-word;" id="blogposttext" maxlength="320" minlength="320" name="blogposttext" required>'.$row['PostText'].'</textarea>
                 </div>
                 <input type="hidden" class="form-control" value="'.$row['PostID'].'" id="postid" name="postid">
                 <br><br><br> Upload Photo of Event <br>

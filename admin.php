@@ -443,11 +443,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoteldescription">Enter Hotel Description</label>
-                                                <textarea class="form-control" id="hoteldescription" rows="4" name="description" placeholder="Enter text here..."></textarea>
+                                                <textarea class="form-control" id="hoteldescription" rows="4" data-toggle="tooltip" title="Press Enter after finishing each line" name="description" placeholder="Enter text here..."></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoteloverview">Enter Hotel Overview</label>
-                                                <textarea class="form-control" id="hoteloverview" maxlength="140" style="width: 355px;resize: none;height: 132px;" minlength="140" rows="4" name="overview" placeholder="Enter text here..."></textarea>
+                                                <textarea class="form-control" id="hoteloverview" maxlength="140" style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" minlength="140" rows="4" name="overview" placeholder="Enter text here..."></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="fileToUpload">Upload Gallery of Hotel</label>
@@ -621,11 +621,11 @@
                                             
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Package Visits/Details</label>
-                                                <textarea class="form-control" id="edithoteldescription" name="addpackagedescription" rows="4"  Placeholder="Enter Text Here..." required></textarea>
+                                                <textarea class="form-control" id="edithoteldescription" data-toggle="tooltip" title="Press Enter after finishing each line" name="addpackagedescription" rows="4"  Placeholder="Enter Text Here..." required></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Package overview</label>
-                                                <textarea class="form-control" id="edithoteldescription" style="width: 355px;resize: none;height: 132px;" minlength="140"  name="addpackageoverview" maxlength="140" rows="4"  Placeholder="Enter Text Here..." required></textarea>
+                                                <textarea class="form-control" id="edithoteldescription"  style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" minlength="140"  name="addpackageoverview" maxlength="140" rows="4"  Placeholder="Enter Text Here..." required></textarea>
                                             </div>
                                             <label for="fileToUpload">Upload Pictures</label>
                                             <input type="file" name="fileToUpload" id="fileToUpload">
@@ -765,7 +765,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Enter Event Details</label>
-                                                <textarea rows="4" class="form-control" maxlength="300" name="eventpost" id="eventpost" placeholder="Enter text here" required></textarea>
+                                                <textarea rows="4" class="form-control" maxlength="332" minlength="332" style="width: 366px;height: 312px;resize: none;" data-toggle="tooltip" title="Press Enter after finishing each line" name="eventpost" id="eventpost" placeholder="Enter text here" required></textarea>
                                             </div>
                                             <br><br><br> Upload Photo of Event <br>
                                             <input type="file" name="fileToUpload" id="fileToUpload">

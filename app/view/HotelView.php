@@ -25,7 +25,7 @@ class HotelView extends View
                         </div>
                         <div class="desc">
                             <h3><a href="single-hotel.php?action='.$this->name[$i].'">'.$this->name[$i].'</a></h3>
-                            <p>'.$this->overview[$i].'</p>
+                            <p  style="word-wrap: break-word;">'.$this->overview[$i].'</p>
                         </div>
                     </div>
                 </div>';

@@ -24,7 +24,7 @@ class PackageView extends View
                 </div>
                 <div class="desc">
                     <h3><a href="Single-Package.php?action='.$PackageID[$i].'">'.$PackageName[$i].'</a></h3>
-                    <p>'.$PackageOverview[$i].'</p>
+                    <p style="word-wrap: break-word;">'.$PackageOverview[$i].'</p>
                 </div>
             </div>
         </div>
