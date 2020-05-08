@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2020 at 12:34 AM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: May 08, 2020 at 11:43 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -34,17 +33,9 @@ CREATE TABLE `blogposts` (
   `PostTitle` varchar(255) NOT NULL,
   `PostMonth` varchar(255) NOT NULL,
   `PostYear` varchar(255) NOT NULL,
-  `PostText` longtext NOT NULL,
+  `PostText` text NOT NULL,
   `Suspended` set('Enabled','Disabled') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `blogposts`
---
-
-INSERT INTO `blogposts` (`PostID`, `EmployeeID`, `PostTitle`, `PostMonth`, `PostYear`, `PostText`, `Suspended`) VALUES
-(14, 5, 'Company Establishment', 'SEP', '2000', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting\r\n\r\n\r\n', 'Disabled'),
-(15, 5, '1st Anniversaiy of Speedo', 'SEP', '1990', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting\r\n\r\n\r\n\r\n', 'Disabled');
 
 -- --------------------------------------------------------
 
@@ -93,7 +84,8 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`EmployeeID`, `Name`, `JobType`, `Email`, `Username`, `Password`, `Suspended`) VALUES
-(5, 'John Doe', 'ADMIN', 'JohnDoe@hotmail.com', 'admin', 'admin', 'Disabled');
+(5, 'John Doe', 'ADMIN', 'JohnDoe@hotmail.com', 'admin', 'admin', 'Disabled'),
+(6, 'Adams Baker', 'SUPPORT', 'AdamsBaker@gmail.com', 'supp', 'supp', 'Disabled');
 
 -- --------------------------------------------------------
 
@@ -118,12 +110,11 @@ CREATE TABLE `guest` (
   `GuestID` int(11) NOT NULL,
   `FirstName` varchar(20) NOT NULL,
   `LastName` varchar(20) NOT NULL,
-  `Gender` set('MALE','FEMALE') NOT NULL,
+  `Gender` set('MALE','FEMALE','OTHER') NOT NULL,
   `Age` int(3) NOT NULL,
   `NationalID` int(11) NOT NULL,
   `PassportNumber` int(9) NOT NULL,
   `Phone` int(11) NOT NULL,
-  `City` varchar(15) NOT NULL,
   `Country` varchar(15) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `Username` varchar(50) NOT NULL,
@@ -132,6 +123,14 @@ CREATE TABLE `guest` (
   `Suspended` set('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
   `Image` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `guest`
+--
+
+INSERT INTO `guest` (`GuestID`, `FirstName`, `LastName`, `Gender`, `Age`, `NationalID`, `PassportNumber`, `Phone`, `Country`, `Email`, `Username`, `Password`, `BankAccount`, `Suspended`, `Image`) VALUES
+(27, 'Test', 'Test', 'MALE', 0, 0, 0, 0, 'Argentina', 'test@test.com', 'test', '', 0, 'Enabled', ''),
+(28, 'test1', 'fuck', 'MALE', 20, 2147483647, 1241235236, 1235236, 'Belarus', 'test@lol.com', 'test1', '12d6a0746a462633c7bc1a66e49f67b6', 0, 'Enabled', '');
 
 -- --------------------------------------------------------
 
@@ -223,7 +222,10 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`ID`, `EmpID`, `GuestID`, `username`, `password`) VALUES
-(19, 5, NULL, 'admin', 'admin');
+(19, 5, NULL, 'admin', 'admin'),
+(20, 6, NULL, 'supp', 'supp'),
+(21, NULL, 27, 'test', '2c9341ca4cf3d87b9e4eb905d6a3ec45'),
+(22, NULL, 28, 'test1', '12d6a0746a462633c7bc1a66e49f67b6');
 
 -- --------------------------------------------------------
 
@@ -306,7 +308,8 @@ CREATE TABLE `reserves` (
   `NoOfSuits` int(11) NOT NULL,
   `BoardType` set('Full','Half') NOT NULL,
   `price` int(11) NOT NULL,
-  `Status` set('Waiting for approval','Approved and reserved','','') NOT NULL
+  `Status` set('Waiting for approval','Approved and reserved','','') NOT NULL,
+  `Ended` set('TRUE','FALSE','','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -965,7 +968,7 @@ ALTER TABLE `cruise`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `EmployeeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `EmployeeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `gallery`
@@ -977,7 +980,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `GuestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `inquiries`
@@ -995,7 +998,7 @@ ALTER TABLE `inquiryhistory`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `newswire`
