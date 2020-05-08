@@ -427,7 +427,7 @@ class GuestView extends View
         foreach($Reservations as $Res)
         {
             
-            if($Res->getPackageID() != NULL && $Res->getSuspended()=="Disabled" )
+            if($Res->getPackageID() != NULL && $Res->getHotelID()==NULL && $Res->getEnded()=="TRUE" )
             {
                 $BodyEcho = 
                 '
@@ -442,7 +442,7 @@ class GuestView extends View
                 ';
 
             }
-            else if($Res->getHotelID() != NULL && $Res->getPackageID() == NULL && $Res->getSuspended()=="Disabled" )
+            else if($Res->getHotelID() != NULL && $Res->getPackageID() == NULL &&  $Res->getEnded()=="TRUE"  )
             {
                 $BodyEcho = 
                 '
@@ -502,7 +502,7 @@ class GuestView extends View
         ';
         foreach($Reservations as $Res)
         {
-            if($Res->getPackageID() != NULL && $Res->getHotelID() != NULL && $Res->getSuspended()=="Enabled" )
+            if($Res->getPackageID() != NULL && $Res->getHotelID() == NULL && $Res->getEnded()=="FALSE" )
             {
                 $Body = 
                 '
@@ -545,7 +545,7 @@ class GuestView extends View
             </div>
                 ';
             }
-            else if($Res->getPackageID() == NULL && $Res->getHotelID() != NULL && $Res->getSuspended()=="Enabled" )
+            else if($Res->getPackageID() == NULL && $Res->getHotelID() != NULL && $Res->getEnded()=="FALSE" )
             {
                 $Body = 
                 '

@@ -76,7 +76,7 @@ class Guest extends User {
 
     public function GetProfileData($ID)
     {
-        $SQL = 'SELECT ReserveID,HotelID,PackageID,DateIn,DateOut,reserves.Suspended,Status,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType FROM guest INNER JOIN reserves ON guest.GuestID ='.$ID.' AND reserves.GuestID = '.$ID.'';
+        $SQL = 'SELECT ReserveID,HotelID,PackageID,DateIn,DateOut,reserves.Suspended,Status,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,Ended FROM guest INNER JOIN reserves ON guest.GuestID ='.$ID.' AND reserves.GuestID = '.$ID.'';
         $Result = mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);        
         while ($row = $Result->fetch_assoc())
         {
@@ -93,6 +93,7 @@ class Guest extends User {
         $Res->setTripleRooms($row['NoOfTripleRooms']);
         $Res->setSuits($row['NoOfSuits']);
         $Res->setBoardType($row['BoardType']);
+        $Res->setEnded($row['Ended']);
         array_push($this->reservations,$Res);
         }
         $SQL2 = 'SELECT Country,BankAccount,NationalID,PassportNumber,Username,Password,Image FROM guest WHERE GuestID='.$ID.'';
