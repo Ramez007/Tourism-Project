@@ -220,6 +220,8 @@ class Guest extends User {
             $result6=mysqli_query($this->db->getConn(),$sql5);
             $row6=mysqli_fetch_assoc($result6);
 
+
+
             $children=$_POST['noofchildren'];
             $adults=$_POST['noofadults'];
             $Datein=$row['DateIn'];
@@ -236,7 +238,9 @@ class Guest extends User {
             $totalprice=$totalprice+$price;
             $confirmprice=$totalprice*0.1;
 
-            $sql2="INSERT INTO reserves (GuestId,PackageId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status) values ('$GuestID','$PackageID','$children','$adults','$Datein','Enabled','$Dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval')";
+            $hotelid=$row['HotelID'];
+
+            $sql2="INSERT INTO reserves (GuestId,HotelId,PackageId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status) values ('$GuestID','$hotelid','$PackageID','$children','$adults','$Datein','Enabled','$Dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval')";
             $res4=mysqli_query($this->db->getConn(),$sql2);
 
             if ($res4)

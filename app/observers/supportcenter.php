@@ -17,6 +17,9 @@ class supportcenter extends subjects implements iInquiry,inewswire
     // protected $mailsss= array();
     // protected $recpmailarr= array();
     protected  $email;
+
+    protected $mailsss;
+
     public function __construct()
     { 
         $this->email=$GLOBALS['Email'];

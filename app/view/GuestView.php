@@ -427,7 +427,7 @@ class GuestView extends View
         foreach($Reservations as $Res)
         {
             
-            if($Res->getPackageID() != NULL && $Res->getHotelID() == NULL && $date >= $Res->getDateOut())
+            if($Res->getPackageID() != NULL &&  $date >= $Res->getDateOut())
             {
                 $BodyEcho = 
                 '
@@ -513,11 +513,11 @@ class GuestView extends View
                     <td>'.$Res->getDateOut().'</td>
                     <td>Package Name: '.$Res->getPackageName().'<br> Single Rooms: '.$Res->getSingleRooms().'<br> Double Rooms: '.$Res->getDoubleRooms().' <br> Triple Rooms: '.$Res->getTripleRooms().' <br> Suits: '.$Res->getSuits().' <br> Board type: '.$Res->getBoardType().'</td>
                     <td>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelPackage'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
                         <form method="post">
-                        <input type="submit" name="TrackPackage" class="btn btn-success" value="Track Reservation">
+                        <input type="submit" name="TrackPackage" style="width:167px;" class="btn btn-success" value="Track Reservation">
                         <input type="hidden" name="PackageStatus" value="'.$Res->getStatus().'">
                         </form>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelPackage'.$Res->getReserveID().'" type="button">Cancel Reservation</button> 
                     </td>
                 </tr>
             </tbody>
@@ -533,11 +533,11 @@ class GuestView extends View
                 </div>
                 <div class="modal-body">
                 <form method="post">
-                <input type="submit" name="CancelPackage" value="Yes" class="btn btn-success" style="margin-left: 25%;">
+                <input type="submit" name="CancelPackage" value="Yes" class="btn btn-success" style="margin-left: 25%;padding-left:25px;padding-right:25px;">
                 <input type="hidden" name="PackageID" value="'.$Res->getPackageID().'">
                 <input type="hidden" name="ReserveID" value="'.$Res->getReserveID().'">
                 </form>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;padding-left:25px;padding-right:25px;">No</button>
                 </div>
               </div>
           
@@ -556,11 +556,11 @@ class GuestView extends View
                     <td>'.$Res->getDateOut().'</td>
                     <td>Hotel Name: '.$Res->getHotelName().' <br> Single Rooms: '.$Res->getSingleRooms().'<br> Double Rooms: '.$Res->getDoubleRooms().' <br> Triple Rooms: '.$Res->getTripleRooms().' <br> Suits: '.$Res->getSuits().' <br> Board type: '.$Res->getBoardType().'</td>
                     <td>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelHotel'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
                         <form method="post">
-                        <input type="submit" name="TrackHotel" class="btn btn-success" value="Track Reservation">
+                        <input type="submit" name="TrackHotel" style="width:167px;" class="btn btn-success" value="Track Reservation">
                         <input type="hidden" name="HotelStatus" value="'.$Res->getStatus().'">
                         </form>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelHotel'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
                     </td>
                 </tr>
             </tbody>
@@ -576,13 +576,13 @@ class GuestView extends View
                 </div>
                 <div class="modal-body">
                 <form method="post">
-                <input type="submit" name="CancelHotel" value="Yes" class="btn btn-success" style="margin-left: 25%;">
+                <input type="submit" name="CancelHotel" value="Yes" class="btn btn-success" style="margin-left: 25%;padding-left:25px;padding-right:25px;">
                 <input type="hidden" name="HotelID" value="'.$Res->getHotelID().'">
                 <input type="hidden" name="ReserveID" value="'.$Res->getReserveID().'">
                 <input type="hidden" name="DateIn" value="'.$Res->getDateIn().'">
                 <input type="hidden" name="DateOut" value="'.$Res->getDateOut().'">
                 </form>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;padding-left:25px;padding-right:25px;">No</button>
                 </div>
               </div>
           
@@ -617,7 +617,7 @@ class GuestView extends View
              {
                  echo '<script>swal("Canceled Successfully!","","success")</script>';
                  echo '<script>
-                 setTimeout(function(){location.reload()}, 1000);
+                 setTimeout(function(){location.reload()}, 5000);
                  </script>';
              }
              else
@@ -632,7 +632,7 @@ class GuestView extends View
             {
                 echo '<script>swal("Canceled Successfully!","","success")</script>';
                 echo '<script>
-                setTimeout(function(){location.reload()}, 1000);
+                setTimeout(function(){location.reload()}, 5000);
                 </script>';
             }
             else
@@ -642,17 +642,13 @@ class GuestView extends View
          }
          if(isset($_POST['TrackPackage']))
          {
-            echo '<script> swal("Status is: '.$_POST['PackageStatus'].'"); </script>';
-            echo '<script>
-            setTimeout(function(){location.reload()}, 1000);
-            </script>';
+            echo '<script> swal("Status"," '.$_POST['PackageStatus'].'","info"); </script>';
+            
          }
          if(isset($_POST['TrackHotel']))
          {
-            echo '<script> swal("Status is: '.$_POST['HotelStatus'].'"); </script>';
-            echo '<script>
-            setTimeout(function(){location.reload()}, 1000);
-            </script>';
+            echo '<script> swal("Status"," '.$_POST['HotelStatus'].'","info"); </script>';
+            
          }
 
     }
