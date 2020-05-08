@@ -576,7 +576,8 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
     function EditFeaturedHotels()
     {
         $a=array();
-        if(!empty($_POST['headerhotel']))   
+        $b=array();
+                     if(!empty($_POST['headerhotel']))   
 				     {
 							    foreach($_POST['headerhotel'] as $check)
 							    {
@@ -590,63 +591,61 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                     </script>';
                                 }
                                 else
-                            {
+                                {
 
-                                $sql2="UPDATE hotel SET featured='false'";
-                                $Result = mysqli_query($this->db->getConn(),$sql2);
-                                for($i=0;$i<count($a);$i++)
-					            {
-                                $sql="UPDATE hotel
-                                SET featured='header'
-                                WHERE HotelID=".$a[$i].";";
-                                $Result = mysqli_query($this->db->getConn(),$sql);
+                                    $sql2="UPDATE hotel SET featured='false'";
+                                    $Result = mysqli_query($this->db->getConn(),$sql2);
+                                    for($i=0;$i<count($a);$i++)
+                                    {
+                                        $sql="UPDATE hotel SET featured='header' WHERE HotelID=".$a[$i].";";
+                                        $Result = mysqli_query($this->db->getConn(),$sql);
+                                    }
+                                    
+                                    
+                                    echo'<script>swal("Successfully Updated", "", "success");</script>';
                                 }
-                                
-                                $b=array();
-                                if(!empty($_POST['fhotel']))   
-                                  {
-                                             foreach($_POST['fhotel'] as $check)
-                                             {
-                                                     array_push($b,$check);
-                                                     // echo'<script>alert('.$a.')</script>'; 
-                                             }
-                                             
-                                             if(count($b)<2)
-                                             {
-                                                 echo'<script>
-                                                 swal("Oops","You Need To Choose Exactly 2 Hotels to be featured !","error");
-                                                 </script>';
-                                             }
-                                             else
-                                        {
-                                            $index="0";
-                                             $sql3="UPDATE hotel SET featured='false' where HotelID !=".$a[$index]."";
-                                             $Result = mysqli_query($this->db->getConn(),$sql3);
-                                             for($i=0;$i<count($b);$i++)
-                                             {
-                                             $sql4="UPDATE hotel
-                                             SET featured='feature'
-                                             WHERE HotelID=".$b[$i].";";
-                                             $Result = mysqli_query($this->db->getConn(),$sql4);
-             
-                                             }
-                                         }
-             
-                                  }
-                                  else{
-                                    echo'<script>
-                                    swal("Oops","You Need To Choose Exactly 2 Hotels to be featured !","error");
-                                    </script>';
-                                  }       
-                            }
-                            echo'<script>swal("Successfully Updated", "", "success");</script>';
+                            
 
                      } 
-                     else{
+                     else
+                     {
                         echo'<script>
                         swal("Oops","You Need To Choose Exactly 1 Hotel to be featured as header !","error");
                         </script>';
-                     } 
+                     }
+                     
+                     if(!empty($_POST['fhotel']))   
+                                    {
+                                                 foreach($_POST['fhotel'] as $check)
+                                                 {
+                                                         array_push($b,$check);
+                                                         // echo'<script>alert('.$a.')</script>'; 
+                                                 }
+                                                 
+                                                 if(count($b)<2 || empty($b))
+                                                 {
+                                                     echo'<script>
+                                                     swal("Oops","You Need To Choose Exactly 2 Hotels to be featured !","error");
+                                                     </script>';
+                                                 }
+                                                 else
+                                                 {
+                                                    $index="0";
+                                                    $sql3="UPDATE hotel SET featured='false' where HotelID !=".$a[$index].";";
+                                                    $Result = mysqli_query($this->db->getConn(),$sql3);
+                                                    for($u=0;$u<count($b);$u++)
+                                                    {
+                                                        $sql4="UPDATE hotel SET featured='feature' WHERE HotelID=".$b[$u].";";
+                                                        $Result2 = mysqli_query($this->db->getConn(),$sql4);
+                    
+                                                    }
+                                                 }
+                 
+                                    }
+                                    else
+                                    {
+                                       echo'<script>swal("Oops","You Need To Choose Exactly 2 Hotels to be featured !","error");</script>';
+                                    }   
                                  
     }
 
