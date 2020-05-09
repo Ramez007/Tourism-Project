@@ -43,7 +43,7 @@ class PackageView extends View
         <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h4> '.$this->model->getDescription().' </h4>
+                <h4 style="white-space: pre-wrap;"> '.$this->model->getDescription().' </h4>
                 
             </div>
         </div>

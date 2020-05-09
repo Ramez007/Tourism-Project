@@ -361,7 +361,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             
             <div class="form-group">
                 <label for="edithoteldescription">Edit Package Visits/Details</label>
-                <textarea class="form-control" id="packagedetails" name="editpackagedescription" rows="4" data-toggle="tooltip" title="Press Enter after finishing each line"  Placeholder="Enter Text Here..." required>'.$row['Description'].'</textarea>
+                <textarea class="form-control" id="packagedetails" name="editpackagedescription" rows="15" data-toggle="tooltip" title="Press Enter after finishing each line"  Placeholder="Enter Text Here..." required>'.$row['Description'].'</textarea>
             </div> 
             <div class="form-group">
                 <label for="edithoteldescription">Edit Package overview</label>

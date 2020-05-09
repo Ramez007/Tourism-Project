@@ -25,7 +25,7 @@ class singlehotelmodel extends Model
 
     function listhoteldata()
     {
-        $sql="select description,Swimming_Pool,WiFI,Spa,Gym,Bar,Restaurant,stars from hotel where Name='".$this->hotelname."'"; 
+        $sql="select description,Swimming_Pool,WiFI,Spa,Gym,Bar,Restaurant,Pets,stars from hotel where Name='".$this->hotelname."'"; 
         $result=mysqli_query($this->dbh->getConn(),$sql);
         $row=mysqli_fetch_assoc($result);
 
@@ -36,6 +36,7 @@ class singlehotelmodel extends Model
         array_push($this->hotelservices,$row['Spa']);
         array_push($this->hotelservices,$row['Bar']);
         array_push($this->hotelservices,$row['Restaurant']);
+        array_push($this->hotelservices,$row['Pets']);
         $this->stars=$row['stars'];
     }
 

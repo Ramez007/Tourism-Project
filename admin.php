@@ -621,7 +621,7 @@
                                             
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Package Visits/Details</label>
-                                                <textarea class="form-control" id="edithoteldescription" data-toggle="tooltip" title="Press Enter after finishing each line" name="addpackagedescription" rows="4"  Placeholder="Enter Text Here..." required></textarea>
+                                                <textarea class="form-control" id="edithoteldescription" data-toggle="tooltip" title="Press Enter after finishing each line" name="addpackagedescription" rows="15"  Placeholder="Enter Text Here..." required></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Package overview</label>
