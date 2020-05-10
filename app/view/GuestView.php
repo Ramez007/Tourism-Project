@@ -62,7 +62,7 @@ class GuestView extends View
         <label for="email">Email:</label><br>
         <input type="text" id="inputBox" name="email" value="'.$_SESSION['Email'].'"><br>
         <label for="BankAccount">Bank Account Number:</label><br>
-        <input type="text" id="inputBox" minlength="3" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
+        <input type="number" id="inputBox" minlength="16" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
         <label for="PassportNumber">Passport Number:</label><br>
         <input type="text" id="inputBox" minlength="3" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
         <label for="NationalNumber">National ID Number:</label><br>
@@ -70,7 +70,7 @@ class GuestView extends View
         <label for="Phone">Phone Number: </label><br>
         <input type="text" id="inputBox" minlength="3" name="Phone" value="'.$this->model->getPhone().'"><br>
         <label for="Age">Age: </label><br>
-        <input type="text" id="inputBox" minlength="2" name="Age" value="'.$this->model->getAge().'"><br>
+        <input type="number" id="inputBox" min="18" max="100" name="Age" value="'.$this->model->getAge().'"><br>
 
 
       
