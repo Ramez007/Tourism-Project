@@ -473,7 +473,7 @@
                                             <script>
 
                                             document.getElementById("hotels-editing-dropdown").addEventListener("change",function(){
-                                                var res=document.getElementById("hotels-editing-dropdown").value.split("&");
+                                                var res=document.getElementById("hotels-editing-dropdown").value.split("`");
                                                 document.getElementById("edithotelname").value=res[0];
                                                 document.getElementById("edithotellocation").value=res[1];
                                                 var inputs = document.querySelectorAll('.check'); 
@@ -643,7 +643,7 @@
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Editing Package" name="SubmitEditPackage">
                                             <script>
                                             document.getElementById("Packages-editing-dropdown").addEventListener("change",function(){
-                                                var res1=document.getElementById("Packages-editing-dropdown").value.split("&");
+                                                var res1=document.getElementById("Packages-editing-dropdown").value.split("`");
                                                 document.getElementById("packagetitle").value=res1[0];
                                                 document.getElementById("packagedays").value=res1[7];
                                                 document.getElementById("packagenights").value=res1[8];
@@ -784,7 +784,7 @@
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Editing Event" name="saveeditevent">
                                             <script>
                                             document.getElementById("events-editing-dropdown").addEventListener("change",function(){
-                                                var res1=document.getElementById("events-editing-dropdown").value.split("&");
+                                                var res1=document.getElementById("events-editing-dropdown").value.split("`");
                                                 document.getElementById("editeventtitle").value=res1[0];
                                                 document.getElementById("editeventmonth").value=res1[1];
                                                 document.getElementById("editeventyear").value=res1[2];
