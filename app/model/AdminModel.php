@@ -130,12 +130,10 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         $sql="SELECT HotelID,Name,location,WiFI,Gym,Bar,Spa,Swimming_Pool,Restaurant,Pets,description,overview,PriceSingle,PriceDouble,PriceTriple,PriceSuites,stars From Hotel";
         $Result = mysqli_query($this->db->getConn(),$sql);
 
-        
-
                 $optionString = '';
                 while($row=$Result->fetch_assoc())
                 {
-                    $optionString .= "<option value='".$row['Name']."~".$row['location']."~".$row['WiFI']."~".$row['Gym']."~".$row['Bar']."~".$row['Spa']."~".$row['Swimming_Pool']."~".$row['Restaurant']."~".$row['Pets']."~".$row['overview']."~".$row['HotelID']."~".$row['PriceSingle']."~".$row['PriceDouble']."~".$row['PriceTriple']."~".$row['PriceSuites']."~".$row['stars']."'>".$row["Name"]."</option>";
+                    $optionString .= "<option value='".$row['Name']."`".$row['location']."`".$row['WiFI']."`".$row['Gym']."`".$row['Bar']."`".$row['Spa']."`".$row['Swimming_Pool']."`".$row['Restaurant']."`".$row['Pets']."`".$row['description']."`".$row['overview']."`".$row['HotelID']."`".$row['PriceSingle']."`".$row['PriceDouble']."`".$row['PriceTriple']."`".$row['PriceSuites']."`".$row['stars']."'>".$row["Name"]."</option>";
 
                 }
 
@@ -252,11 +250,11 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                 {
                     if ($row['CruiseID'] =='')
                     {
-                        $optionString .= "<option value='".$row['PackageName']."~".$row['ReserveLimit']."~".$row['Price']."~".$row['TourGuide']."~".$row['Transportation']."~".$row['TouristMap']."~".$row['BoardType']."~".$row['NumberofDays']."~".$row['NumberofNights']."~".$row['DateOut']."~".$row['Description']."~".$row['DateIn']. "~empty~h".$row['HotelID']."~".$row['PackageID']."~".$row["Overview"]."'>".$row["PackageName"]."</option>";
+                        $optionString .= "<option value='".$row['PackageName']."`".$row['ReserveLimit']."`".$row['Price']."`".$row['TourGuide']."`".$row['Transportation']."`".$row['TouristMap']."`".$row['BoardType']."`".$row['NumberofDays']."`".$row['NumberofNights']."`".$row['DateOut']."`".$row['Description']."`".$row['DateIn']. "`empty`h".$row['HotelID']."`".$row['PackageID']."`".$row["Overview"]."'>".$row["PackageName"]."</option>";
                     }
                     else
                     {
-                    $optionString .= "<option value='".$row['PackageName']."~".$row['ReserveLimit']."~".$row['Price']."~".$row['TourGuide']."~".$row['Transportation']."~".$row['TouristMap']."~".$row['BoardType']."~".$row['NumberofDays']."~".$row['NumberofNights']."~".$row['DateOut']."~".$row['Description']."~".$row['DateIn']. "~".$row['CruiseID']." ~h".$row['HotelID']."~".$row['PackageID']."~".$row["Overview"]."'>".$row["PackageName"]."</option>";
+                    $optionString .= "<option value='".$row['PackageName']."`".$row['ReserveLimit']."`".$row['Price']."`".$row['TourGuide']."`".$row['Transportation']."`".$row['TouristMap']."`".$row['BoardType']."`".$row['NumberofDays']."`".$row['NumberofNights']."`".$row['DateOut']."`".$row['Description']."`".$row['DateIn']. "`".$row['CruiseID']." `h".$row['HotelID']."`".$row['PackageID']."`".$row["Overview"]."'>".$row["PackageName"]."</option>";
                     }
                 }
         
@@ -398,7 +396,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         $optionString = '';
         while($row=$Result->fetch_assoc())
         {
-          $optionString .= "<option value='".$row['PostTitle']." ~ ".$row['PostMonth']." ~ ".$row['PostYear']." ~ ".$row['PostText']." ~ ".$row['PostID']."'>".$row["PostTitle"]."</option>";
+          $optionString .= "<option value='".$row['PostTitle']." ` ".$row['PostMonth']." ` ".$row['PostYear']." ` ".$row['PostText']." ` ".$row['PostID']."'>".$row["PostTitle"]."</option>";
         }
 
         $sql="SELECT PostTitle,PostMonth,PostYear,PostText,PostID From blogposts";
