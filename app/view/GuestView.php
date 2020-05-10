@@ -62,13 +62,13 @@ class GuestView extends View
         <label for="email">Email:</label><br>
         <input type="text" id="inputBox" name="email" value="'.$_SESSION['Email'].'"><br>
         <label for="BankAccount">Bank Account Number:</label><br>
-        <input type="number" id="inputBox" minlength="16" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
+        <input type="text" pattern="[0-9]+" title="Numbers Only" minlength="16" id="inputBox" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
         <label for="PassportNumber">Passport Number:</label><br>
-        <input type="text" id="inputBox" minlength="3" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
+        <input type="text" id="inputBox" minlength="6" maxlength="12" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
         <label for="NationalNumber">National ID Number:</label><br>
-        <input type="text" id="inputBox" minlength="3" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
+        <input type="text" id="inputBox" minlength="6" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
         <label for="Phone">Phone Number: </label><br>
-        <input type="text" id="inputBox" minlength="3" name="Phone" value="'.$this->model->getPhone().'"><br>
+        <input type="text" id="inputBox" minlength="11" pattern="[0-9]+" title="please enter number only" name="Phone" value="'.$this->model->getPhone().'"><br>
         <label for="Age">Age: </label><br>
         <input type="number" id="inputBox" min="18" max="100" name="Age" value="'.$this->model->getAge().'"><br>
 
