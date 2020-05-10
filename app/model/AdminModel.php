@@ -433,7 +433,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                 </div>
                 <div class="form-group">
                     <label for="eventdetails">Edit Event Details</label>
-                    <textarea rows="4" class="form-control" style="width: 366px;height: 312px;resize: none;word-wrap: break-word;" id="blogposttext" maxlength="320" minlength="320" name="blogposttext" required>'.$row['PostText'].'</textarea>
+                    <textarea rows="4" class="form-control" style="width: 366px;height: 312px;resize: none;word-wrap: break-word;" id="blogposttext" maxlength="300" minlength="300" name="blogposttext" required>'.$row['PostText'].'</textarea>
                 </div>
                 <input type="hidden" class="form-control" value="'.$row['PostID'].'" id="postid" name="postid">
                 <br><br><br> Upload Photo of Event <br>
