@@ -117,6 +117,7 @@
     </script>
   <?php
     session_start();
+    error_reporting(E_ALL & ~E_NOTICE);
     if (isset($_SESSION['type']))
     {
         if ($_SESSION['type']!="ADMIN")
