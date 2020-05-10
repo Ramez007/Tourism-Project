@@ -64,7 +64,7 @@ class GuestView extends View
         <label for="BankAccount">Bank Account Number:</label><br>
         <input type="text" pattern="[0-9]+" title="Numbers Only" minlength="16" id="inputBox" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
         <label for="PassportNumber">Passport Number:</label><br>
-        <input type="text" id="inputBox" minlength="6" maxlength="12" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
+        <input type="text" id="inputBox" minlength="6" pattern="[0-9]+" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
         <label for="NationalNumber">National ID Number:</label><br>
         <input type="text" id="inputBox" minlength="6" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
         <label for="Phone">Phone Number: </label><br>
