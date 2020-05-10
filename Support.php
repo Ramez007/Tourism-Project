@@ -299,7 +299,7 @@ require_once("app/model/Support_model.php");
 											
 
 											document.getElementById("Emails").addEventListener("change",function(){
-												document.getElementById("staticEmail2").value=document.getElementById("Emails").value.split("&").pop();
+												document.getElementById("staticEmail2").value=document.getElementById("Emails").value.split("`").pop();
 											});
 											
 
