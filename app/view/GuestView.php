@@ -5,7 +5,7 @@
     border-radius: 25px;
     border: 2px solid #FF4500;
     padding: 20px; 
-    width: 200px;
+    width: 400px;
     height: 15px;    
 }
 </style>
