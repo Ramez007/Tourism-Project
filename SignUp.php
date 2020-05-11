@@ -38,6 +38,7 @@
 		$controller->listhoteldata();
 		$hotelview=new HotelView($controller,$model);
     ?>
+    <script src="js/refresh.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
     
     
@@ -236,9 +237,9 @@ padding: 20px;
 						<form class="box" action="" method="post">
 							<h1 style="color:black"><b> Sign Up Credentials</b> </h1>
 
-							<input type="text" name="FirstName" placeholder="First name" pattern="[A-Za-z0-9]+" title="No Special Charcters" minlength="3" required>
+							<input type="text" name="FirstName" placeholder="First name" pattern="[a-zA-Z0-9\s]+" title="No Special Charcters" minlength="3" required>
 							
-							<input type="text" name="LastName" placeholder="Last name" pattern="[A-Za-z0-9]+" title="No Special Charcters" minlength="3" required>
+							<input type="text" name="LastName" placeholder="Last name" pattern="[a-zA-Z0-9\s]+" title="No Special Charcters" minlength="3" required>
 							
 							<input type="email" name="Email" placeholder="Email" minlength="3" required>
 							

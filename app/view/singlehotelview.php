@@ -41,7 +41,7 @@ class singlehotelview extends View
 
     public function outputdesc()
     {
-        echo '<p>'.$this->model->getHoteldescription().'</p>';
+        echo '<p style="white-space: pre-wrap;">'.$this->model->getHoteldescription().'</p>';
     }
 
     public function outputreviews()
@@ -100,6 +100,13 @@ class singlehotelview extends View
             echo '<div class="services">
                     <span><i class="flaticon-restaurant icon"></i></span>
                     <div class="desc"> Resturant</div>
+                </div>';
+        }
+        if($services[6]=="TRUE")
+        {
+            echo '<div class="services">
+                    <span><i class="ti-github"></i></span>
+                    <div class="desc"> Pets</div>
                 </div>';
         }
     }

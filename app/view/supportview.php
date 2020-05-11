@@ -12,7 +12,7 @@ class supportview extends View{
         {
             echo 
 				'
-				    <option key='.$ids[$i].' value = "'."id= ".$ids[$i].'&'.$inqs[$i].'")>'.$emails[$i].'</option>
+				    <option key='.$ids[$i].' value = "'."id= ".$ids[$i].'`'.$inqs[$i].'")>'.$emails[$i].'</option>
                 ';
                 
             
@@ -54,5 +54,42 @@ class supportview extends View{
         }
 }
 
+
+public function FetchNewswireHistory()
+    {
+        $newswirehistory=$this->model->getnewswirehistory();
+        $count=1;
+        for ($i=0;$i<count($newswirehistory);$i++)
+        {
+            
+           
+            echo 
+				'
+				    <p>'.$count.') '.$newswirehistory[$i].'</p>
+                ';
+        $count++;
+            
+        }
 }
+public function FetchInquiryHistory()
+    {
+        $inquiryhistory=$this->model->getinquiryhistory();
+        $inquiryAuthor=$this->model->getAuthor();
+        $inquiryreply=$this->model->getinquiryreply();
+        $Mail=$this->model->getinquirymail();
+        $Employeename=$this->model->getnames();
+        $count=1;
+        for ($i=0;$i<count($inquiryhistory);$i++)
+        {
+            echo 
+				'   
+				    <p>'.$count.') Answered by : '.$Employeename[$i].' <br> Author: '.$inquiryAuthor[$i].' <br> Email: '.$Mail[$i].' <br> Inquiry: '.$inquiryhistory[$i].'<br> Reply :  '.$inquiryreply[$i].' <hr></p>
+                ';
+                $count++;
+            
+        }
+}
+
+}
+
 ?>

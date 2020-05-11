@@ -25,6 +25,8 @@
 		
 	}
 	?>
+
+<script src="js/refresh.js"></script>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Speedo Tours &mdash; License No. 782</title>
@@ -304,28 +306,28 @@ $guestcontroller=new GuestController($guestmodel);
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Single Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" required name="single" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name="single" id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
                                  
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Double Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" required name="doublerooms" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name="doublerooms" id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Triple Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" required name="triple" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name="triple" id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of suites:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" required name="suites" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name="suites" id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 

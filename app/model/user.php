@@ -81,46 +81,53 @@ class User extends Model {
         
 			$user=$_POST['username'];
 			$pass=$_POST['password'];
+			$passhashed=md5($pass);
+
+			
 
 			$sql="SELECT * from login where username='$user'";
 			$result=mysqli_query($this->dbh->getConn(),$sql);
 			$count=mysqli_num_rows($result);
-
+			
 			if($count>0)
 			{
-				$sql1="SELECT * from login where username='$user' and password='$pass'";
+				$sql1="SELECT * from login where username='$user' and (password='$pass' or password='$passhashed')";
 				$result1=mysqli_query($this->dbh->getConn(),$sql1);
 				$count1=mysqli_num_rows($result1);
 
 				if ($count1>0)
 				{
-					$sql2="SELECT * from employees where Username='$user'";
-					$result2=mysqli_query($this->dbh->getConn(),$sql2);
-					$count2=mysqli_num_rows($result2);
-					if ($count2>0)
+					$row1=mysqli_fetch_assoc($result1);
+					if($row1['EmpID']!="")
 					{
-						$row=mysqli_fetch_assoc($result2);
+						$sql2="SELECT * from employees where EmployeeID='".$row1['EmpID']."' ";
+						$result2=mysqli_query($this->dbh->getConn(),$sql2);
+						$count2=mysqli_num_rows($result2);
+						if ($count2>0)
+						{
+							$row=mysqli_fetch_assoc($result2);
 
-						if ($row['JobType']=="ADMIN")
-						{
-							$_SESSION["ID"]=$row["EmployeeID"];
-							$_SESSION["Name"]=$row['Name'];
-							$_SESSION["type"]=$row['JobType'];
-							$_SESSION["Email"]=$row['Email'];
-							header ("Location:Admin.php");
-						}
-						else if ($row['JobType']=="SUPPORT")
-						{
-							$_SESSION["ID"]=$row["EmployeeID"];
-							$_SESSION["Name"]=$row['Name'];
-							$_SESSION["type"]=$row['JobType'];
-							$_SESSION["Email"]=$row['Email'];
-							header ("Location:Support.php");
+							if ($row['JobType']=="ADMIN")
+							{
+								$_SESSION["ID"]=$row["EmployeeID"];
+								$_SESSION["Name"]=$row['Name'];
+								$_SESSION["type"]=$row['JobType'];
+								$_SESSION["Email"]=$row['Email'];
+								header ("Location:Admin.php");
+							}
+							else if ($row['JobType']=="SUPPORT")
+							{
+								$_SESSION["ID"]=$row["EmployeeID"];
+								$_SESSION["Name"]=$row['Name'];
+								$_SESSION["type"]=$row['JobType'];
+								$_SESSION["Email"]=$row['Email'];
+								header ("Location:Support.php");
+							}
 						}
 					}
 					else
-					{
-						$sql3="SELECT * from guest where Username='$user'";
+					{	
+						$sql3="SELECT * from guest where GuestID='".$row1['GuestID']."'";
 						$result3=mysqli_query($this->dbh->getConn(),$sql3);
 						$row2=mysqli_fetch_assoc($result3);
 						$_SESSION["ID"]=$row2["GuestID"];
@@ -128,11 +135,13 @@ class User extends Model {
 						$_SESSION["lname"]=$row2["LastName"];
 						$_SESSION["Email"]=$row2["Email"];
 						$_SESSION["Gender"]=$row2["Gender"];
+						$_SESSION["Pass"]=$passhashed;
 						$_SESSION["type"]="USER";
 						header ("Location:Profile.php");
 
 					}
 				}
+				else
 				{
 					echo "<script>alert('Password is incorrect'); </script>";
 				}

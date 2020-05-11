@@ -41,30 +41,38 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         INNER JOIN Hotel ON reserves.HotelId=Hotel.HotelID
         where reserves.Suspended='Enabled' AND Packageid is null;";
         $Result = mysqli_query($this->db->getConn(),$sql);
-        while($row=$Result->fetch_assoc())
+        $rowcount=mysqli_num_rows($Result);
+        if($rowcount > 0)
         {
-            echo'  <span>Mr. '.$row["LastName"].' reserving '.$row["Name"].' Hotel for '.$row["NoofAdults"].' Adults and '.$row["NoofChildren"].' Children Rooms:  '.$row["NoOfSingleRooms"].' Single Rooms , '.$row["NoOfDoubleRooms"].' Double Rooms  
-            , '.$row["NoOfTripleRooms"].' Triple Rooms and '.$row["NoOfSuits"].' Suits. Board : '.$row["BoardType"].' From '.$row["DateIn"].' to '.$row["DateOut"].'
-            </span>
-            <br><br>
-            <h5><Strong>Client Detalis</strong></span>
-            <br><br>
-            <span>NationalID : '.$row["NationalID"].' </span>
-            <br><br>
-            <span>PassportNumber : '.$row["PassportNumber"].' </span>
-            <br><br>
-            <span>Phone : '.$row["Phone"].' </span>
-            <br><br>
-            <span>Email : '.$row["Email"].' </span>
-            <br><br>
-            <form action="" method="post">
-            <input type="hidden" class="form-control" value="'.$row['ReserveID'].'" id="reserveid" name="reserveid"> 
-            <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
-            </form>
-            <br>
-            <br>
-            ';
+            while($row=$Result->fetch_assoc())
+            {
+                echo'  <span>Mr. '.$row["LastName"].' reserving '.$row["Name"].' Hotel for '.$row["NoofAdults"].' Adults and '.$row["NoofChildren"].' Children Rooms:  '.$row["NoOfSingleRooms"].' Single Rooms , '.$row["NoOfDoubleRooms"].' Double Rooms  
+                , '.$row["NoOfTripleRooms"].' Triple Rooms and '.$row["NoOfSuits"].' Suits. Board : '.$row["BoardType"].' From '.$row["DateIn"].' to '.$row["DateOut"].'
+                </span>
+                <br><br>
+                <h5><Strong>Client Detalis</strong></span>
+                <br><br>
+                <span>NationalID : '.$row["NationalID"].' </span>
+                <br><br>
+                <span>PassportNumber : '.$row["PassportNumber"].' </span>
+                <br><br>
+                <span>Phone : '.$row["Phone"].' </span>
+                <br><br>
+                <span>Email : '.$row["Email"].' </span>
+                <br><br>
+                <form action="" method="post">
+                <input type="hidden" class="form-control" value="'.$row['ReserveID'].'" id="reserveid" name="reserveid"> 
+                <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
+                </form>
+                <br>
+                <br>
+                ';
+            }
         }
+        else
+        {
+            echo '<h4>No Data To Show</h4>';
+        }    
 
     }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
@@ -80,30 +88,38 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         INNER JOIN packages ON reserves.PackageId=packages.PackageID
         where reserves.Suspended='Enabled' AND reserves.HotelId is null;";
         $Result1 = mysqli_query($this->db->getConn(),$sql1);
-        while($row1=$Result1->fetch_assoc())
+        $rowcount1=mysqli_num_rows($Result1);
+        if($rowcount1 > 0)
         {
-            echo'  <span>Mr. '.$row1["LastName"].' reserving '.$row1["PackageName"].' Package for '.$row1["NoofAdults"].' Adults and '.$row1["NoofChildren"].' Children Rooms:  '.$row1["NoOfSingleRooms"].' Single Rooms , '.$row1["NoOfDoubleRooms"].' Double Rooms  
-            , '.$row1["NoOfTripleRooms"].' Triple Rooms and '.$row1["NoOfSuits"].' Suits. Board : '.$row1["BoardType"].' From '.$row1["DateIn"].' to '.$row1["DateOut"].'
-            </span>
-            <br><br>
-            <h5><Strong>Client Detalis</strong></span>
-            <br><br>
-            <span>NationalID : '.$row1["NationalID"].' </span>
-            <br><br>
-            <span>PassportNumber : '.$row1["PassportNumber"].' </span>
-            <br><br>
-            <span>Phone : '.$row1["Phone"].' </span>
-            <br><br>
-            <span>Email : '.$row1["Email"].' </span>
-            <br><br>
-            <form action="" method="post">
-            <input type="hidden" class="form-control" value="'.$row1['ReserveID'].'" id="reserveid" name="reserveid"> 
-            <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
-            </form>
-            <br>
-            <br>
-            ';
+            while($row1=$Result1->fetch_assoc())
+            {
+                echo'  <span>Mr. '.$row1["LastName"].' reserving '.$row1["PackageName"].' Package for '.$row1["NoofAdults"].' Adults and '.$row1["NoofChildren"].' Children Rooms:  '.$row1["NoOfSingleRooms"].' Single Rooms , '.$row1["NoOfDoubleRooms"].' Double Rooms  
+                , '.$row1["NoOfTripleRooms"].' Triple Rooms and '.$row1["NoOfSuits"].' Suits. Board : '.$row1["BoardType"].' From '.$row1["DateIn"].' to '.$row1["DateOut"].'
+                </span>
+                <br><br>
+                <h5><Strong>Client Detalis</strong></span>
+                <br><br>
+                <span>NationalID : '.$row1["NationalID"].' </span>
+                <br><br>
+                <span>PassportNumber : '.$row1["PassportNumber"].' </span>
+                <br><br>
+                <span>Phone : '.$row1["Phone"].' </span>
+                <br><br>
+                <span>Email : '.$row1["Email"].' </span>
+                <br><br>
+                <form action="" method="post">
+                <input type="hidden" class="form-control" value="'.$row1['ReserveID'].'" id="reserveid" name="reserveid"> 
+                <input class="btn btn-primary mb-2" type="submit" name="confirmbook" id="confirmbook" style="margin-left:20px;" value="Confirm Book">
+                </form>
+                <br>
+                <br>
+                ';
+            }
         }
+        else
+        {
+            echo '<h4>No Data To Show</h4>';
+        }    
 
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
@@ -117,7 +133,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                 $optionString = '';
                 while($row=$Result->fetch_assoc())
                 {
-                    $optionString .= "<option value='".$row['Name']."&".$row['location']."&".$row['WiFI']."&".$row['Gym']."&".$row['Bar']."&".$row['Spa']."&".$row['Swimming_Pool']."&".$row['Restaurant']."&".$row['Pets']."&".$row['description']."&".$row['overview']."&".$row['HotelID']."&".$row['PriceSingle']."&".$row['PriceDouble']."&".$row['PriceTriple']."&".$row['PriceSuites']."&".$row['stars']."'>".$row["Name"]."</option>";
+                    $optionString .= "<option value='".$row['Name']."`".$row['location']."`".$row['WiFI']."`".$row['Gym']."`".$row['Bar']."`".$row['Spa']."`".$row['Swimming_Pool']."`".$row['Restaurant']."`".$row['Pets']."`".$row['description']."`".$row['overview']."`".$row['HotelID']."`".$row['PriceSingle']."`".$row['PriceDouble']."`".$row['PriceTriple']."`".$row['PriceSuites']."`".$row['stars']."'>".$row["Name"]."</option>";
 
                 }
 
@@ -136,7 +152,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="edithotelname">Hotel Name</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" name="edithotelname" minlength="3" pattern="[A-Za-z0-9]+" title="No Special Charcters" id="edithotelname" value="'.$row['Name'].'" required>
+                                                    <input type="text" class="form-control" name="edithotelname" minlength="3" pattern="[a-zA-Z0-9\s]+" title="No Special Charcters" id="edithotelname" value="'.$row['Name'].'" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -192,11 +208,11 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                             <br><br>
                                             <div class="form-group">
                                                 <label for="edithoteldescription">Enter Hotel Description</label>
-                                                <textarea class="form-control" id="edithoteldescription" rows="15" name="description" required>'.$row['description'].'</textarea>
+                                                <textarea class="form-control" id="edithoteldescription" rows="15" data-toggle="tooltip" title="Press Enter after finishing each line" name="description" required>'.$row['description'].'</textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="edithoteloverview">Enter Hotel Overview</label>
-                                                <textarea class="form-control" id="edithoteloverview" rows="15" name="overview" required>'.$row['overview'].'</textarea>
+                                                <textarea class="form-control" id="edithoteloverview" rows="15" style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" maxlength="140" minlength="140" name="overview" required>'.$row['overview'].'</textarea>
                                             </div>
                                             <a href="#">Show Gallery</a><br>
                                             <div class="form-group">
@@ -234,11 +250,11 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                 {
                     if ($row['CruiseID'] =='')
                     {
-                        $optionString .= "<option value='".$row['PackageName']."&".$row['ReserveLimit']."&".$row['Price']."&".$row['TourGuide']."&".$row['Transportation']."&".$row['TouristMap']."&".$row['BoardType']."&".$row['NumberofDays']."&".$row['NumberofNights']."&".$row['DateOut']."&".$row['Description']."&".$row['DateIn']. "&empty&h".$row['HotelID']."&".$row['PackageID']."&".$row["Overview"]."'>".$row["PackageName"]."</option>";
+                        $optionString .= "<option value='".$row['PackageName']."`".$row['ReserveLimit']."`".$row['Price']."`".$row['TourGuide']."`".$row['Transportation']."`".$row['TouristMap']."`".$row['BoardType']."`".$row['NumberofDays']."`".$row['NumberofNights']."`".$row['DateOut']."`".$row['Description']."`".$row['DateIn']. "`empty`h".$row['HotelID']."`".$row['PackageID']."`".$row["Overview"]."'>".$row["PackageName"]."</option>";
                     }
                     else
                     {
-                    $optionString .= "<option value='".$row['PackageName']."&".$row['ReserveLimit']."&".$row['Price']."&".$row['TourGuide']."&".$row['Transportation']."&".$row['TouristMap']."&".$row['BoardType']."&".$row['NumberofDays']."&".$row['NumberofNights']."&".$row['DateOut']."&".$row['Description']."&".$row['DateIn']. "&".$row['CruiseID']." &h".$row['HotelID']."&".$row['PackageID']."&".$row["Overview"]."'>".$row["PackageName"]."</option>";
+                    $optionString .= "<option value='".$row['PackageName']."`".$row['ReserveLimit']."`".$row['Price']."`".$row['TourGuide']."`".$row['Transportation']."`".$row['TouristMap']."`".$row['BoardType']."`".$row['NumberofDays']."`".$row['NumberofNights']."`".$row['DateOut']."`".$row['Description']."`".$row['DateIn']. "`".$row['CruiseID']." `h".$row['HotelID']."`".$row['PackageID']."`".$row["Overview"]."'>".$row["PackageName"]."</option>";
                     }
                 }
         
@@ -333,7 +349,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
             <div class="assigncruise">
                 <label for="">Assign Cruise</label><br>
-                <input type="radio" name="cruise" id="cruisenone" value="None"> None <br>
+                <input type="radio" name="cruise" id="cruisenone" value="None" '.($row['CruiseID']==""?"checked":"").'> None <br>
                 '.$cruises.'
             </div>
 
@@ -345,11 +361,11 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             
             <div class="form-group">
                 <label for="edithoteldescription">Edit Package Visits/Details</label>
-                <textarea class="form-control" id="packagedetails" name="editpackagedescription" rows="4"  Placeholder="Enter Text Here..." required>'.$row['Description'].'</textarea>
+                <textarea class="form-control" id="packagedetails" name="editpackagedescription" rows="15" data-toggle="tooltip" title="Press Enter after finishing each line"  Placeholder="Enter Text Here..." required>'.$row['Description'].'</textarea>
             </div> 
             <div class="form-group">
                 <label for="edithoteldescription">Edit Package overview</label>
-                <textarea class="form-control" id="editpackageoverview" name="editpackageoverview" rows="4"  Placeholder="Enter Text Here..." required>'.$row['Overview'].'</textarea>
+                <textarea class="form-control" id="editpackageoverview" name="editpackageoverview" style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" rows="4" maxlength="140" minlength="140"  Placeholder="Enter Text Here..." required>'.$row['Overview'].'</textarea>
             </div>                                                       
             <br><br><br><a href="#">Show Gallery of Pacakage</a><br>
             Update Gallery of Package <br>
@@ -380,7 +396,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         $optionString = '';
         while($row=$Result->fetch_assoc())
         {
-          $optionString .= "<option value='".$row['PostTitle']." & ".$row['PostMonth']." & ".$row['PostYear']." & ".$row['PostText']." & ".$row['PostID']."'>".$row["PostTitle"]."</option>";
+          $optionString .= "<option value='".$row['PostTitle']." ` ".$row['PostMonth']." ` ".$row['PostYear']." ` ".$row['PostText']." ` ".$row['PostID']."'>".$row["PostTitle"]."</option>";
         }
 
         $sql="SELECT PostTitle,PostMonth,PostYear,PostText,PostID From blogposts";
@@ -417,7 +433,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                 </div>
                 <div class="form-group">
                     <label for="eventdetails">Edit Event Details</label>
-                    <textarea rows="4" class="form-control" id="blogposttext" name="blogposttext" required>'.$row['PostText'].'</textarea>
+                    <textarea rows="4" class="form-control" style="width: 366px;height: 312px;resize: none;word-wrap: break-word;" id="blogposttext" maxlength="300" minlength="300" name="blogposttext" required>'.$row['PostText'].'</textarea>
                 </div>
                 <input type="hidden" class="form-control" value="'.$row['PostID'].'" id="postid" name="postid">
                 <br><br><br> Upload Photo of Event <br>
@@ -497,7 +513,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                     $Result = mysqli_query($this->db->getConn(),$sql);
                     while ($row=$Result->fetch_assoc()){
                         echo'
-                    <input type="radio" name="cruise" value="'.$row['CruiseID'].'"> '.$row['CruiseName'].' <br>
+                    <input type="radio" name="cruise" value="'.$row['CruiseID'].'" required> '.$row['CruiseName'].' <br>
                    
                     ';
                     }
@@ -560,7 +576,8 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
     function EditFeaturedHotels()
     {
         $a=array();
-        if(!empty($_POST['headerhotel']))   
+        $b=array();
+                     if(!empty($_POST['headerhotel']))   
 				     {
 							    foreach($_POST['headerhotel'] as $check)
 							    {
@@ -574,63 +591,61 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                     </script>';
                                 }
                                 else
-                            {
+                                {
 
-                                $sql2="UPDATE hotel SET featured='false'";
-                                $Result = mysqli_query($this->db->getConn(),$sql2);
-                                for($i=0;$i<count($a);$i++)
-					            {
-                                $sql="UPDATE hotel
-                                SET featured='header'
-                                WHERE HotelID=".$a[$i].";";
-                                $Result = mysqli_query($this->db->getConn(),$sql);
+                                    $sql2="UPDATE hotel SET featured='false'";
+                                    $Result = mysqli_query($this->db->getConn(),$sql2);
+                                    for($i=0;$i<count($a);$i++)
+                                    {
+                                        $sql="UPDATE hotel SET featured='header' WHERE HotelID=".$a[$i].";";
+                                        $Result = mysqli_query($this->db->getConn(),$sql);
+                                    }
+                                    
+                                    
+                                    echo'<script>swal("Successfully Updated", "", "success");</script>';
                                 }
-                                
-                                $b=array();
-                                if(!empty($_POST['fhotel']))   
-                                  {
-                                             foreach($_POST['fhotel'] as $check)
-                                             {
-                                                     array_push($b,$check);
-                                                     // echo'<script>alert('.$a.')</script>'; 
-                                             }
-                                             
-                                             if(count($b)<2)
-                                             {
-                                                 echo'<script>
-                                                 swal("Oops","You Need To Choose Exactly 2 Hotels to be featured !","error");
-                                                 </script>';
-                                             }
-                                             else
-                                        {
-                                            $index="0";
-                                             $sql3="UPDATE hotel SET featured='false' where HotelID !=".$a[$index]."";
-                                             $Result = mysqli_query($this->db->getConn(),$sql3);
-                                             for($i=0;$i<count($b);$i++)
-                                             {
-                                             $sql4="UPDATE hotel
-                                             SET featured='feature'
-                                             WHERE HotelID=".$b[$i].";";
-                                             $Result = mysqli_query($this->db->getConn(),$sql4);
-             
-                                             }
-                                         }
-             
-                                  }
-                                  else{
-                                    echo'<script>
-                                    swal("Oops","You Need To Choose Exactly 2 Hotels to be featured !","error");
-                                    </script>';
-                                  }       
-                            }
-                            echo'<script>swal("Successfully Updated", "", "success");</script>';
+                            
 
                      } 
-                     else{
+                     else
+                     {
                         echo'<script>
                         swal("Oops","You Need To Choose Exactly 1 Hotel to be featured as header !","error");
                         </script>';
-                     } 
+                     }
+                     
+                     if(!empty($_POST['fhotel']))   
+                                    {
+                                                 foreach($_POST['fhotel'] as $check)
+                                                 {
+                                                         array_push($b,$check);
+                                                         // echo'<script>alert('.$a.')</script>'; 
+                                                 }
+                                                 
+                                                 if(count($b)<2 || empty($b))
+                                                 {
+                                                     echo'<script>
+                                                     swal("Oops","You Need To Choose Exactly 2 Hotels to be featured !","error");
+                                                     </script>';
+                                                 }
+                                                 else
+                                                 {
+                                                    $index="0";
+                                                    $sql3="UPDATE hotel SET featured='false' where HotelID !=".$a[$index].";";
+                                                    $Result = mysqli_query($this->db->getConn(),$sql3);
+                                                    for($u=0;$u<count($b);$u++)
+                                                    {
+                                                        $sql4="UPDATE hotel SET featured='feature' WHERE HotelID=".$b[$u].";";
+                                                        $Result2 = mysqli_query($this->db->getConn(),$sql4);
+                    
+                                                    }
+                                                 }
+                 
+                                    }
+                                    else
+                                    {
+                                       echo'<script>swal("Oops","You Need To Choose Exactly 2 Hotels to be featured !","error");</script>';
+                                    }   
                                  
     }
 
@@ -892,8 +907,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 }
 
                                 for($i=0;$i<count($a);$i++)
-					            {
-                                echo'<script>alert("'.$a[$i].'");</script>';    
+					            {   
                                 $sql="UPDATE hotel
                                 SET Suspended='Enabled'
                                 WHERE HotelID=".$a[$i].";";
@@ -932,8 +946,10 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
            }
 
         $types=[$_POST['numberofsingle'],$_POST['numberofdouble'],$_POST['numberoftriple'],$_POST['numberofsuites']];
+        $desc=$_POST['description'];
+        $overview=$_POST['overview'];
         
-        $hotel=new Hotel($id,$_POST['enterhotel'],$services,$_POST['enterlocation'],$types,$_POST['description'],$_POST['overview'],$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites'],$_POST['hotelstars']);
+        $hotel=new Hotel($id,$_POST['enterhotel'],$services,$_POST['enterlocation'],$types,$desc,$overview,$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites'],$_POST['hotelstars']);
 
         echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
         
@@ -989,7 +1005,9 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             }
         }
 
-        $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$_POST['edithotellocation']."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='".$_POST['description']."',overview='".$_POST['overview']."',PriceSingle='".$_POST['priceofsingle']."',PriceDouble='".$_POST['priceofdouble']."',PriceTriple='".$_POST['priceoftriple']."',PriceSuites='".$_POST['priceofsuites']."',stars='".$_POST['hotelstars']."'
+        $desc=$_POST['description'];
+        $overview=$_POST['overview'];
+        $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$_POST['edithotellocation']."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='$desc',overview='$overview',PriceSingle='".$_POST['priceofsingle']."',PriceDouble='".$_POST['priceofdouble']."',PriceTriple='".$_POST['priceoftriple']."',PriceSuites='".$_POST['priceofsuites']."',stars='".$_POST['hotelstars']."'
         where HotelID=$id;";
         $Result = mysqli_query($this->db->getConn(),$sql);
         if($Result){

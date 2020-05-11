@@ -26,6 +26,7 @@
 	//////////////////////////////////////////////////////
 	 -->
 
+	 <script src="js/refresh.js"></script>
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>
@@ -75,7 +76,7 @@
 	<?php
 		require_once("app/model/user.php");
 		require_once("app/controller/UserController.php");
-		require_once("app/view/login_view.php");
+		// require_once("app/view/login_view.php");
 		$usermodel = new User();
 		$usercontrol = new UserController($usermodel);
 		// $loginview=new ViewLogin($usercontrol, $usermodel);

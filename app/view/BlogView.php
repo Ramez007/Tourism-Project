@@ -27,8 +27,8 @@ class BlogView extends View
                 </div>
             </div>
             <div class="desc desc-blog">
-                <h3><a href="#">'.$this->PostTitle[$i].'</a></h3>
-                <p>'.$this->PostText[$i].'</p>
+                <h3>'.$this->PostTitle[$i].'</h3>
+                <p style="margin-top: 8px;word-wrap: break-word;">'.$this->PostText[$i].'</p>
             </div>
         </div>
             ';

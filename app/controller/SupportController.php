@@ -1,24 +1,17 @@
 <?php
 
-  require_once("app/controller/Controller.php");
+  require_once("app/controller/Controller.php"); 
+  require_once("app/observers/supportcenter.php");
 
 class Support_operatorController extends Controller
     {
-
-       public function Send_newwire(){
-            $this->model->Send_newwire();
-       }
+     protected $center;
+     protected $model;
+     function __construct($model,$center) {
+          $this->center=$center;
+         $this->model=$model;
+      }
       
-       public function Reply_to_Inquiry(){
-        $this->model->Reply_to_Inquiry();
-   }
-   public function SendMail(){
-     $this->model->SendMail();
-}
-public function SendPackageMail(){
-     $this->model->SendPackageMail();
-}
-
    public function FetchInquiries()
    {
         return $this->model->FetchInquiries();
@@ -34,6 +27,22 @@ public function SendPackageMail(){
    public function FetchSingleInq($InqID)
    {
         $this->model->FetchSingleInquiry($InqID);
+   }
+   public function sendnewswire()
+   {
+        return $this->center->sendnewswire();   
+   }
+   public function ReplytoInquiry()
+   {
+        return $this->center->ReplytoInquiry();   
+   }
+   public function sendGuestmail()
+   {
+        return $this->center->sendGuestmail();   
+   }
+   public function sendPackagereport()
+   {
+        return $this->center->sendPackagereport();   
    }
 
     }

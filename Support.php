@@ -16,6 +16,7 @@
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 	<meta name="author" content="FREEHTML5.CO" />
 
+	<script src="js/refresh.js"></script>
   <!-- 
 	//////////////////////////////////////////////////////
 
@@ -78,7 +79,7 @@
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script>
         function hide(jquery) {
-            var idarr = ["tab1", "tab2","tab3", "tab4"];
+            var idarr = ["tab1", "tab2","tab3", "tab4","tab5"];
             var count = 0;
 
             for (var i = 0; i < idarr.length; i++) {
@@ -95,7 +96,7 @@
 	<script>
 	
         function ShowTab(y) {
-            var idarr = ["tab1", "tab2", "tab3" , "tab4"]
+            var idarr = ["tab1", "tab2", "tab3" , "tab4","tab5"];
 
             // document.getElementById("poll").style.display="none";
             y += "";
@@ -117,6 +118,7 @@
 </head>
 <body>
 	<?php
+	error_reporting(E_ALL & ~E_NOTICE);
 	session_start();
 
 	if (isset($_SESSION['type']))
@@ -138,23 +140,33 @@
 require_once("app/model/Support_model.php");
 	require_once("app/controller/SupportController.php");
 	require_once("app/view/supportview.php");
+	require_once("app/observers/supportcenter.php");
 			// require_once("app/view/susbcribeview.php");
+			$supportcenter=new supportcenter();
 			$support_operatormodel = new support_operator();
-			$suport_operatorcontroller = new Support_operatorController($support_operatormodel);
+			$suport_operatorcontroller = new Support_operatorController($support_operatormodel,$supportcenter);
 			// $viewsuccess= new Viewalert($subscribecontrol,$visitormodel);
 			if(isset($_POST['submitnewwire']))
-			$suport_operatorcontroller->Send_newwire();
+			$suport_operatorcontroller->sendnewswire();
 			if(isset($_POST['submitreply']))
-			$suport_operatorcontroller->Reply_to_Inquiry();
+			$suport_operatorcontroller->ReplytoInquiry();
 			if(isset($_POST['submitGuestMailID']))
-			$suport_operatorcontroller->SendMail();
+			$suport_operatorcontroller->sendGuestmail();
 			if(isset($_POST['submitPackageMailID']))
-			$suport_operatorcontroller->SendPackageMail();
+			$suport_operatorcontroller->sendPackagereport();
 			
 			$suport_operatorcontroller->FetchInquiries();
 			$suport_operatorcontroller->fetchguestemails();
 			$suport_operatorcontroller->fetchPackages();
 			$supportview=new supportview($suport_operatorcontroller,$support_operatormodel);
+
+			require_once("app/model/hotelmodel.php");
+			require_once("app/controller/HotelController.php");
+			require_once("app/view/HotelView.php");
+			$model=new Hotel();
+			$controller=new HotelController($model);
+			$controller->listhoteldata();
+			$hotelview=new HotelView($controller,$model);
 			
 			
 
@@ -174,23 +186,9 @@ require_once("app/model/Support_model.php");
                             <li>
                                 <a class="active" href="hotel.php" class="fh5co-sub-ddown">Hotels</a>
                                 <ul class="fh5co-sub-menu">
-                                    <li><a href="#">Steinberger Hotel</a></li>
-                                    <li><a href="single-hotel.php">Winter Palace Hotel</a></li>
-                                    <li><a href="#">Isis Hotel</a></li>
-                                    <li><a href="#">Ibertol Hotel</a></li>
-                                    <li><a href="#">Sunset Hotel</a></li>
-                                    <!-- <li>
-                                        <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                        <ul class="fh5co-sub-menu">
-                                            <li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-                                            <li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <li><a href="#">Emilio Hotel</a></li> 
+									<?php
+                                    $hotelview->headerhotellist();
+                                    ?> 
                                 </ul>
                             </li>
                             <li><a href="services.php">Packages</a></li>
@@ -265,12 +263,16 @@ require_once("app/model/Support_model.php");
 					</a>
 					<!-- new tab to show in the nav change png here in the src -->
 					<a href="#"  onclick="ShowTab('tab3')" data-tab="tab3">
-                    <img id="News" src="images\news.png" width="50" height="50">
+                    <img id="News" src="images\pmail.png" width="50" height="50">
 						<span>Send Mail to Particular Guest</span>
 					</a>
 					<a href="#"  onclick="ShowTab('tab4')" data-tab="tab4">
-                    <img id="News" src="images\news.png" width="50" height="50">
+                    <img id="News" src="images\packagemail.png" width="50" height="50">
 						<span>Send Package Mail</span>
+					</a>
+					<a href="#"  onclick="ShowTab('tab5')" data-tab="tab5">
+                    <img id="News" src="images\report.png" width="50" height="50">
+						<span>Reports</span>
 					</a>
                 </nav>
 
@@ -297,7 +299,7 @@ require_once("app/model/Support_model.php");
 											
 
 											document.getElementById("Emails").addEventListener("change",function(){
-												document.getElementById("staticEmail2").value=document.getElementById("Emails").value.split("&").pop();
+												document.getElementById("staticEmail2").value=document.getElementById("Emails").value.split("`").pop();
 											});
 											
 
@@ -377,6 +379,20 @@ require_once("app/model/Support_model.php");
 										<textarea class="form-control form-control-lg" id="Packagemail" style="margin-top: 23px;" placeholder="Please write the message here" name ="Packagemail"rows="10"></textarea>
 										<button type="submit" class="btn btn-primary mb-2" style="margin-top: 23px;" id="submitPackageMailID" name="submitPackageMailID">Send</button>
                                    <!--  form end--> </form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content" id="tab5" data-tab-content="tab5">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12">
+								<?php 
+										 echo "<h1>Newswire report </h1>";
+										 $supportview->FetchNewswireHistory();
+										 echo "<h1>Inquiry report </h1>";
+										 $supportview->FetchInquiryHistory();
+										?> 
 								</div>
 							</div>
 						</div>

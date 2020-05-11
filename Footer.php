@@ -3,7 +3,10 @@
 				<div class="col-md-3">
 					<div class="copyright">
 						<p><small>&copy; 1989 Speedo Tours. <br> All Rights Reserved. <br>
-						Designed by <a href="http://freehtml5.co" target="_blank">FreeHTML5.co</a> </small></p>
+						Designed by <a href="http://freehtml5.co" target="_blank">FreeHTML5.co</a> </small>
+						<br><small>Developed by MIU CSC Students</small>
+						</p>
+						
 					</div>
 				</div>
 				<div class="col-md-6">

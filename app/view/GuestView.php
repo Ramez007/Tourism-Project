@@ -5,7 +5,7 @@
     border-radius: 25px;
     border: 2px solid #FF4500;
     padding: 20px; 
-    width: 200px;
+    width: 400px;
     height: 15px;    
 }
 </style>
@@ -62,14 +62,20 @@ class GuestView extends View
         <label for="email">Email:</label><br>
         <input type="text" id="inputBox" name="email" value="'.$_SESSION['Email'].'"><br>
         <label for="BankAccount">Bank Account Number:</label><br>
-        <input type="text" id="inputBox" minlength="3" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
+        <input type="text" pattern="[0-9]+" title="Numbers Only" minlength="16" id="inputBox" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
         <label for="PassportNumber">Passport Number:</label><br>
-        <input type="text" id="inputBox" minlength="3" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
+        <input type="text" id="inputBox" minlength="6" pattern="[0-9]+" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
         <label for="NationalNumber">National ID Number:</label><br>
-        <input type="text" id="inputBox" minlength="3" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
+        <input type="text" id="inputBox" minlength="6" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
+        <label for="Phone">Phone Number: </label><br>
+        <input type="text" id="inputBox" minlength="11" pattern="[0-9]+" title="please enter number only" name="Phone" value="'.$this->model->getPhone().'"><br>
+        <label for="Age">Age: </label><br>
+        <input type="number" id="inputBox" min="18" max="100" name="Age" value="'.$this->model->getAge().'"><br>
+
+
       
         '.($this->model->getUsername()!=''?'<label for="Password">Password:</label><br>
-        <input type="text" id="inputBox" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" name="password" value="'.$this->model->getPassword().'"><br>':'').'                                                                                                                    
+        <input type="password" id="inputBox" pattern="(?=.*\d)(?=.*[a-z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" name="password" value="'.$this->model->getPassword().'"><br>':'').'                                                                                                                    
          
         <input type="hidden" name="username" value="'.$this->model->getUsername().'">
 
@@ -323,7 +329,15 @@ class GuestView extends View
         <option value="Zaire">Zaire</option>
         <option value="Zambia">Zambia</option>
         <option value="Zimbabwe">Zimbabwe</option>
-     </select>
+     </select><br>
+
+     <label for="Gender">Gender:</label><br>
+     <select id="Select" name="Gender" class="Select">
+        <option selected hidden>'.$this->model->getGender().'</option>
+        <option value="MALE"> Male </option>
+        <option value="FEMALE"> Female </option>
+        <option value="OTHER"> Other </option>
+     </select><br>
 
         <input class="btn btn-primary" type="submit" name="submitedit" value="Save Changes" style="margin-left: 37.5%; margin-top: 25px;">
         </form>
@@ -361,7 +375,14 @@ class GuestView extends View
             }
             if(isset($_POST['password']))
             {
-                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$_POST['password'],$_POST['Country']))
+                $pass=$_POST['password'];
+                if($this->model->getPassword()!=$pass)
+                {
+                    $pass1=md5($pass);
+                }
+                
+                
+                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],$pass1,$_POST['Country'], $_POST['Age'], $_POST['Phone'], $_POST['Gender']))
                 {
                     echo '<script>swal("Edited profile successfully","","success")</script>';
                     echo '<script>
@@ -371,7 +392,7 @@ class GuestView extends View
             }
             else
             {
-                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],"",$_POST['Country']))
+                if($this->model->EditProfile($_POST['fname'],$_POST['lname'],$_POST['email'],$_POST['BankAccount'],$_POST['PassportNumber'],$_POST['NationalNumber'],$_POST['username'],"",$_POST['Country'], $_POST['Age'], $_POST['Phone'], $_POST['Gender']))
                 {
                     echo '<script>swal("Edited profile successfully","","success")</script>';
                     echo '<script>
@@ -420,7 +441,7 @@ class GuestView extends View
         foreach($Reservations as $Res)
         {
             
-            if($Res->getPackageID() != NULL && $Res->getHotelID() == NULL && $date >= $Res->getDateOut())
+            if($Res->getPackageID() != NULL && $Res->getHotelID()==NULL && $Res->getEnded()=="TRUE" )
             {
                 $BodyEcho = 
                 '
@@ -435,7 +456,7 @@ class GuestView extends View
                 ';
 
             }
-            else if($Res->getHotelID() != NULL && $Res->getPackageID() == NULL && $date >= $Res->getDateOut())
+            else if($Res->getHotelID() != NULL && $Res->getPackageID() == NULL &&  $Res->getEnded()=="TRUE"  )
             {
                 $BodyEcho = 
                 '
@@ -495,7 +516,7 @@ class GuestView extends View
         ';
         foreach($Reservations as $Res)
         {
-            if($Res->getPackageID() != NULL && $Res->getHotelID() != NULL && $date < $Res->getDateOut() && $date < $Res->getDateIn())
+            if($Res->getPackageID() != NULL && $Res->getHotelID() == NULL && $Res->getEnded()=="FALSE" )
             {
                 $Body = 
                 '
@@ -506,11 +527,11 @@ class GuestView extends View
                     <td>'.$Res->getDateOut().'</td>
                     <td>Package Name: '.$Res->getPackageName().'<br> Single Rooms: '.$Res->getSingleRooms().'<br> Double Rooms: '.$Res->getDoubleRooms().' <br> Triple Rooms: '.$Res->getTripleRooms().' <br> Suits: '.$Res->getSuits().' <br> Board type: '.$Res->getBoardType().'</td>
                     <td>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelPackage'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
                         <form method="post">
-                        <input type="submit" name="TrackPackage" class="btn btn-success" value="Track Reservation">
+                        <input type="submit" name="TrackPackage" style="width:167px;" class="btn btn-success" value="Track Reservation">
                         <input type="hidden" name="PackageStatus" value="'.$Res->getStatus().'">
                         </form>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelPackage'.$Res->getReserveID().'" type="button">Cancel Reservation</button> 
                     </td>
                 </tr>
             </tbody>
@@ -526,11 +547,11 @@ class GuestView extends View
                 </div>
                 <div class="modal-body">
                 <form method="post">
-                <input type="submit" name="CancelPackage" value="Yes" class="btn btn-success" style="margin-left: 25%;">
+                <input type="submit" name="CancelPackage" value="Yes" class="btn btn-success" style="margin-left: 25%;padding-left:25px;padding-right:25px;">
                 <input type="hidden" name="PackageID" value="'.$Res->getPackageID().'">
                 <input type="hidden" name="ReserveID" value="'.$Res->getReserveID().'">
                 </form>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;padding-left:25px;padding-right:25px;">No</button>
                 </div>
               </div>
           
@@ -538,7 +559,7 @@ class GuestView extends View
             </div>
                 ';
             }
-            else if($Res->getPackageID() == NULL && $Res->getHotelID() != NULL && $date < $Res->getDateOut() && $date < $Res->getDateIn())
+            else if($Res->getPackageID() == NULL && $Res->getHotelID() != NULL && $Res->getEnded()=="FALSE" )
             {
                 $Body = 
                 '
@@ -549,11 +570,11 @@ class GuestView extends View
                     <td>'.$Res->getDateOut().'</td>
                     <td>Hotel Name: '.$Res->getHotelName().' <br> Single Rooms: '.$Res->getSingleRooms().'<br> Double Rooms: '.$Res->getDoubleRooms().' <br> Triple Rooms: '.$Res->getTripleRooms().' <br> Suits: '.$Res->getSuits().' <br> Board type: '.$Res->getBoardType().'</td>
                     <td>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelHotel'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
                         <form method="post">
-                        <input type="submit" name="TrackHotel" class="btn btn-success" value="Track Reservation">
+                        <input type="submit" name="TrackHotel" style="width:167px;" class="btn btn-success" value="Track Reservation">
                         <input type="hidden" name="HotelStatus" value="'.$Res->getStatus().'">
                         </form>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#ModalCancelHotel'.$Res->getReserveID().'" type="button">Cancel Reservation</button>
                     </td>
                 </tr>
             </tbody>
@@ -569,13 +590,13 @@ class GuestView extends View
                 </div>
                 <div class="modal-body">
                 <form method="post">
-                <input type="submit" name="CancelHotel" value="Yes" class="btn btn-success" style="margin-left: 25%;">
+                <input type="submit" name="CancelHotel" value="Yes" class="btn btn-success" style="margin-left: 25%;padding-left:25px;padding-right:25px;">
                 <input type="hidden" name="HotelID" value="'.$Res->getHotelID().'">
                 <input type="hidden" name="ReserveID" value="'.$Res->getReserveID().'">
                 <input type="hidden" name="DateIn" value="'.$Res->getDateIn().'">
                 <input type="hidden" name="DateOut" value="'.$Res->getDateOut().'">
                 </form>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 15%;padding-left:25px;padding-right:25px;">No</button>
                 </div>
               </div>
           
@@ -610,7 +631,7 @@ class GuestView extends View
              {
                  echo '<script>swal("Canceled Successfully!","","success")</script>';
                  echo '<script>
-                 setTimeout(function(){location.reload()}, 1000);
+                 setTimeout(function(){location.reload()}, 5000);
                  </script>';
              }
              else
@@ -625,7 +646,7 @@ class GuestView extends View
             {
                 echo '<script>swal("Canceled Successfully!","","success")</script>';
                 echo '<script>
-                setTimeout(function(){location.reload()}, 1000);
+                setTimeout(function(){location.reload()}, 5000);
                 </script>';
             }
             else
@@ -635,17 +656,13 @@ class GuestView extends View
          }
          if(isset($_POST['TrackPackage']))
          {
-            echo '<script> swal("Status is: '.$_POST['PackageStatus'].'"); </script>';
-            echo '<script>
-            setTimeout(function(){location.reload()}, 1000);
-            </script>';
+            echo '<script> swal("Status"," '.$_POST['PackageStatus'].'","info"); </script>';
+            
          }
          if(isset($_POST['TrackHotel']))
          {
-            echo '<script> swal("Status is: '.$_POST['HotelStatus'].'"); </script>';
-            echo '<script>
-            setTimeout(function(){location.reload()}, 1000);
-            </script>';
+            echo '<script> swal("Status"," '.$_POST['HotelStatus'].'","info"); </script>';
+            
          }
 
     }
