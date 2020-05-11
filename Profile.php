@@ -139,7 +139,7 @@
     $model=new Hotel();
     $controller=new HotelController($model);
     $controller->listhoteldata();
-    $$controller->updaterooms();
+    $controller->updaterooms();
     $hotelview=new HotelView($controller,$model);
 
     require_once("app/model/guest.php");
