@@ -12,8 +12,10 @@ class singlehotelmodel extends Model
     private $hotelname;
     private $hoteldescription;
     private $hotelservices=array();
+    private $reviewsofhotel=array();
+    private $stars;
     
-    function __construct($hotelname)
+    function __construct($hotelname=null)
     {
         $this->dbh=$this->connect();
         $this->hotelname=$hotelname;
@@ -23,7 +25,7 @@ class singlehotelmodel extends Model
 
     function listhoteldata()
     {
-        $sql="select description,Swimming_Pool,WiFI,Spa,Gym,Bar,Restaurant from hotel where Name='".$this->hotelname."'"; 
+        $sql="select description,Swimming_Pool,WiFI,Spa,Gym,Bar,Restaurant,Pets,stars from hotel where Name='".$this->hotelname."'"; 
         $result=mysqli_query($this->dbh->getConn(),$sql);
         $row=mysqli_fetch_assoc($result);
 
@@ -34,7 +36,24 @@ class singlehotelmodel extends Model
         array_push($this->hotelservices,$row['Spa']);
         array_push($this->hotelservices,$row['Bar']);
         array_push($this->hotelservices,$row['Restaurant']);
-        
+        array_push($this->hotelservices,$row['Pets']);
+        $this->stars=$row['stars'];
+    }
+
+    function listreviewsofhotel($var)
+    {
+        // echo $var;
+        $sql="SELECT reviews.Review from reviews JOIN hotel on reviews.HotelID=hotel.HotelID where hotel.Name='$var';";
+        $result=mysqli_query($this->dbh->getConn(),$sql);
+        // $row=mysqli_fetch_assoc($result);
+
+        while($row=mysqli_fetch_assoc($result))
+        {
+            
+            array_push($this->reviewsofhotel,$row['Review']);
+            
+        }
+
     }
 
 
@@ -64,6 +83,24 @@ class singlehotelmodel extends Model
     public function getHotelservices()
     {
         return $this->hotelservices;
+    }
+
+    
+
+    /**
+     * Get the value of reviewsofhotel
+     */ 
+    public function getReviewsofhotel()
+    {
+        return $this->reviewsofhotel;
+    }
+
+    /**
+     * Get the value of stars
+     */ 
+    public function getStars()
+    {
+        return $this->stars;
     }
 }
 

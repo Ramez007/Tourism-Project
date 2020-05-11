@@ -28,7 +28,7 @@ class writeinquiry extends Model {
         try{
             $sql = "INSERT INTO inquiries (author,Email,Inquiry) values ('$name','$mail','$message')" ; 
              $result = mysqli_query($this->dbh->getConn(),$sql) ;
-             $email->addAddress("speedotourscentral@gmail.com");
+             $email->addAddress("speedtourscentral@gmail.com");
              $email->Subject="inquiries";
              $email->Body=$message;
              $email->SetFrom("$mail");

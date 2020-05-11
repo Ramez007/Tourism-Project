@@ -4,6 +4,29 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
+	<?php
+	session_start();
+	if (isset($_POST['booking']))
+	{
+		if (!isset($_SESSION['ID']))
+		{
+			
+			echo "<script>
+			
+			
+			alert('Please Login to Continue Booking');
+			window.location.href = 'Login.php';
+			</script>";
+			
+			
+		}
+		 
+
+		
+	}
+	?>
+
+<script src="js/refresh.js"></script>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Speedo Tours &mdash; License No. 782</title>
@@ -37,6 +60,7 @@
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700italic,900,700,900italic' rel='stylesheet' type='text/css'> -->
@@ -76,10 +100,16 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
+	<style>
+		.stars{
+			color:orange;
+		}
+	</style>
+
 </head>
 <body>
 <?php
-session_start();
+
 require_once("app/model/hotelmodel.php");
 require_once("app/controller/HotelController.php");
 require_once("app/view/HotelView.php");
@@ -97,6 +127,26 @@ $pagemodel=new singlehotelmodel($var_value);
 $pagecontroller=new singlehotelcontroller($pagemodel);
 $pagecontroller->listhoteldata();
 $pageview=new singlehotelview($pagecontroller,$pagemodel);
+// $controller->ReadReviews($pagecontroller);
+
+
+require_once("app/model/guest.php");
+require_once("app/controller/GuestController.php");
+$guestmodel=new Guest();
+$guestcontroller=new GuestController($guestmodel);
+
+	if (isset($_POST['subreview']))
+	{
+		$guestcontroller->AddHotelReview();
+	}
+	if(isset($_POST['booking']))
+	{
+		
+		$guestcontroller->bookinghotel($_SESSION['ID'],$_GET['action']);
+	
+	}
+
+
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -162,6 +212,7 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
 				<div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
 					<div class="fh5co-intro fh5co-table-cell">
 						<?php $pageview->output(); ?>
+						
 					</div>
 				</div>
 			</div>
@@ -192,8 +243,15 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                                         </div>
                                         
                                    
-                                        <!-- End Slidshow Section -->
-                 
+										<!-- End Slidshow Section -->
+										
+						<br>
+						<br>				
+						
+
+						
+						
+
                         <h3>Description</h3>
                             <?php $pageview->outputdesc(); ?>
                         <h3>Leisure Facilities</h3>
@@ -201,12 +259,12 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                             <?php $pageview->outputservices(); ?>
                             <!-- Booking Section -->
                         <h3>Book Now</h3> 
-                        <form action="">
+                        <form method='post' action="">
 
                                 <div class="a-col alternate">
                                     <div class="input-field">
                                         <label for="date-start">Check In</label>
-                                        <input type="text" class="form-control" id="date-start">
+                                        <input type="text" data-date-format="yyyy-mm-dd" name="datein" required class="form-control" id="date-start">
                                     </div>
                                 </div>
                                 
@@ -214,7 +272,7 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                                 <div class="a-col alternate">
                                 <div class="input-field">
                                     <label for="date-end">Check Out</label>
-                                    <input type="text" class="form-control" id="date-end">
+                                    <input type="text" data-date-format="yyyy-mm-dd" name="dateout" required class="form-control" id="date-end">
                                 </div>
 								</div>
 								<br><br>
@@ -222,14 +280,14 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Number of Adults:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="0" max="100" placeholder="1">
+                                    	<input type="number" class="form-control" name="adults"  required id="quantity" min="0" max="100" placeholder="1">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Number of Children:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="0" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" name="children" required id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 								
@@ -237,8 +295,8 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                                     <label class="col-sm-2 col-form-label" for="enterhotel">Boarding type</label>
                                     <div class="col-sm-3">
 										<div class="boardtype">
-											<input type="radio" class="form-check-input" name="boardtype" value="fullboard"> Full Board <br>
-											<input type="radio" class="form-check-input" name="boardtype" value="halfboard"> Half Board<br>
+											<input type="radio" class="form-check-input" required name="boardtype" value="Full"> Full Board <br>
+											<input type="radio" class="form-check-input" required name="boardtype" value="Half"> Half Board<br>
                                 		</div>
                                     </div>
                                 </div>
@@ -248,37 +306,62 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Single Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name="single" id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
                                  
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Double Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name="doublerooms" id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Triple Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name="triple" id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of suites:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name="suites" id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 
-                                <input type="submit" value="Book" class="btn btn-primary btn-lg">
+                                <input type="submit" value="Book" name="booking" class="btn btn-primary btn-lg">
+								<label>* You must be logged in to book hotel</label>
                                 
 
 
                         </form>
                         <!-- end booking section     -->
+						<br><br>
+						<h3> Reviews </h3>
+						<?php 
+						$controller->ReadReviews($pagecontroller);
+						$pageview->outputreviews();
+						?>
+						<?php
+						if (isset($_SESSION['type']) && $_SESSION["type"]==="USER" )
+						{
+						echo'
+						<br><br>
+						<h3>Add Your Own Review</h3>
+						<form action="" method="post">
+								<div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="ReviewHotel">Add Your Review:</label>
+                                    <div class="col-sm-3">
+                                    	<input type="text" class="form-control" id="" name="reviewhotel" required>
+                                    </div>
+								</div>
+								<input type="submit" name="subreview" value="Submit Review" class="btn btn-primary btn-lg">
+						</form>
+						';
+						}
+						?>
 
 						</div>
 				</div>

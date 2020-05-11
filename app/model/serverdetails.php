@@ -20,11 +20,11 @@ try {
    $email->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
     $email->SMTPAuth   = true;                                   // Enable SMTP authentication
     $email->SingleTo = true;
-    $email->Username   = 'speedotourscentral@gmail.com';                     // SMTP username
-    $email->Password   = 'speedtours99';                               // SMTP password
+    $email->Username   = 'speedtourscentral@gmail.com';                     // SMTP username
+    $email->Password   = 'speedotours99';                               // SMTP password
     $email->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
     $email->Port       = 587  ;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-  $email->SetFrom('speedotourscentral@gmail.com');
+  $email->SetFrom('speedtourscentral@gmail.com');
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
+}?>

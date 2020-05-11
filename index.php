@@ -28,6 +28,7 @@
 
 	//////////////////////////////////////////////////////
 	 -->
+	 <script src="js/refresh.js"></script>
 
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
@@ -45,6 +46,7 @@
 	<!-- <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700italic,900,700,900italic' rel='stylesheet' type='text/css'> -->
 
 	<!-- Stylesheets -->
+	<script src="js/sweetalert.min.js"></script>
 	<!-- Dropdown Menu -->
 	<link rel="stylesheet" href="css/superfish.css">
 	<!-- Owl Slider -->
@@ -96,7 +98,16 @@ $controller=new HotelController($model);
 $controller->listhoteldata();
 $hotelview=new HotelView($controller,$model);
 
+require_once("app/model/user.php");
+require_once("app/controller/UserController.php");
+
+
+$guestmodel=new User();
+$guestcontroller=new UserController($guestmodel);
+
+
 ?>
+
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
 	<div id="fh5co-header">
@@ -151,6 +162,8 @@ $hotelview=new HotelView($controller,$model);
 		</header>
 		
 	</div>
+
+
 	
 	<!-- end:fh5co-header -->
 	<aside id="fh5co-hero" class="js-fullheight">
@@ -160,15 +173,17 @@ $hotelview=new HotelView($controller,$model);
 		  	</ul>
 	  	</div>
 	</aside>
+
+	
+
 	<div class="wrap">
 		<div class="container">
 			<div class="row">
 				<div id="availability">
-					<form action="#">
-
+					<form id="formcheck" action="" method="post">
 						<div class="a-col">
 							<section>
-								<select class="cs-select cs-skin-border">
+								<select id="hotelselect" name="hotelselect" onchange="" class="cs-select cs-skin-border">
 									<option value="" disabled selected>Select Hotel</option>
 									<?php $pageview->output()?>
 								</select>
@@ -187,36 +202,33 @@ $hotelview=new HotelView($controller,$model);
 							</div>
 						</div>
 						<div class="a-col action">
-							<a href="#">
+							<a onclick="document.getElementById('formcheck').submit()">
 								<span>Check</span>
 								Availability
 							</a>
 						</div>
+
+						
+
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<?php 
+
+		$guestcontroller->checkavailabilty();
+		// $guestview->outputavailiabilty();
+	?>
+
+	
 	
 	<div id="fh5co-counter-section" class="fh5co-counters">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3 text-center">
-					<span class="fh5co-counter js-counter" data-from="0" data-to="20356" data-speed="5000" data-refresh-interval="50"></span>
-					<span class="fh5co-counter-label">User Access</span>
-				</div>
-				<div class="col-md-3 text-center">
-					<span class="fh5co-counter js-counter" data-from="0" data-to="15501" data-speed="5000" data-refresh-interval="50"></span>
-					<span class="fh5co-counter-label">Hotels</span>
-				</div>
-				<div class="col-md-3 text-center">
-					<span class="fh5co-counter js-counter" data-from="0" data-to="8200" data-speed="5000" data-refresh-interval="50"></span>
-					<span class="fh5co-counter-label">Transactions</span>
-				</div>
-				<div class="col-md-3 text-center">
-					<span class="fh5co-counter js-counter" data-from="0" data-to="8763" data-speed="5000" data-refresh-interval="50"></span>
-					<span class="fh5co-counter-label">Rating &amp; Review</span>
-				</div>
+				<?php $pagecontroller->countdata(); ?>
+				<?php $pageview->outputdatacount(); ?>
 			</div>
 		</div>
 	</div>
@@ -299,13 +311,13 @@ $hotelview=new HotelView($controller,$model);
 								</div>
 								<div class="col-md-6">
 									<span class="super-heading-sm">World Class</span>
-									<h3 class="heading">Restaurant</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
-									<p class="service-hour">
+									<h3 class="heading">Restaurants</h3>
+									<p>Though the poolside views of the city and the smell of fresh bread baking in the brick oven are enticing, the real star of Aura is the modern Shami cuisine, a delightful mix of Arabian and Oriential flavours, best enjoyed at night, when the lights reflect off the water and cast a beautiful glow. Whether you’re time-zone–hopping, feeding a hungry team during an impromptu meeting, or looking for quiet, private dining, you can choose from our extensive In-Room menu day or night.</p>
+									<p>Gaze out at panoramic Nile views while you dine on exotic Egyptian cuisine at luxurious restaurants and lounge on the First Nile Boat.</p>
+									<!-- <p class="service-hour">
 										<span>Service Hours</span>
 										<strong>7:30 AM - 8:00 PM</strong>
-									</p>
+									</p> -->
 								</div>
 							</div>
 						</div>
@@ -319,12 +331,12 @@ $hotelview=new HotelView($controller,$model);
 								<div class="col-md-6">
 									<span class="super-heading-sm">World Class</span>
 									<h3 class="heading">Bars</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
-									<p class="service-hour">
+									<p>Bars offers a selection of delicacies and a wide range of champagnes, wines and cocktails, making it the perfect spot for a relaxed, social get-together. The first of its kind in downtown Cairo, the luxury lounge offers an unmatched relaxing ambience. Enjoy a refreshing beer or beverage while gazing over stunning views of the city and the River Nile or indulge in a signature cocktail mixed by one of our expert bar staff. Listen to the vibrant mix of music and enjoy the lively atmosphere at this sophisticated venue.</p>
+									
+									<!-- <p class="service-hour">
 										<span>Service Hours</span>
 										<strong>7:30 AM - 8:00 PM</strong>
-									</p>
+									</p> -->
 								</div>
 							</div>
 						</div>
@@ -338,12 +350,12 @@ $hotelview=new HotelView($controller,$model);
 								<div class="col-md-6">
 									<span class="super-heading-sm">World Class</span>
 									<h3 class="heading">Pick Up</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
-									<p class="service-hour">
+									<p>Our Transportation sets new standards with its luxury buses, not just when it comes to comfort but also with respect to flexibility in service and in environmental compatibility. The interior of our buses was designed to meet the highest standards and focuses on the needs of our passengers. Regardless of whether you just want to travel relaxedly and comfortably with us or you want to hold a conference during the journey – our luxury buses are aimed at making each of your journeys more pleasant. </p>
+									<p>Simply lean back and let your every wish be anticipated. All technical options are available to you at all times to make sensible use of the journey time or to enjoy it with entertainment.</p>
+									<!-- <p class="service-hour">
 										<span>Service Hours</span>
 										<strong>7:30 AM - 8:00 PM</strong>
-									</p>
+									</p> -->
 								</div>
 							</div>
 						</div>
@@ -356,13 +368,13 @@ $hotelview=new HotelView($controller,$model);
 								</div>
 								<div class="col-md-6">
 									<span class="super-heading-sm">World Class</span>
-									<h3 class="heading">Swimming Pool</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
-									<p class="service-hour">
+									<h3 class="heading">Swimming Pools</h3>
+									<p>Many health clubs, fitness centers, and private clubs have pools used mostly for exercise or recreation. Many hotels have pools available for their guests to use at their own leisure. Our hotels have pools for physical education classes, recreational activities, leisure, and competitive athletics such as swimming teams. Hot tubs and spas are pools filled with hot water, used for relaxation or hydrotherapy.</p>
+									
+									<!-- <p class="service-hour">
 										<span>Service Hours</span>
 										<strong>7:30 AM - 8:00 PM</strong>
-									</p>
+									</p> -->
 								</div>
 							</div>
 						</div>
@@ -376,12 +388,12 @@ $hotelview=new HotelView($controller,$model);
 								<div class="col-md-6">
 									<span class="super-heading-sm">World Class</span>
 									<h3 class="heading">Spa</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
-									<p class="service-hour">
+									<p>Spring is a time for renewal, for blowing the cobwebs off and emerging into the year ahead with a renewed focus. For many people, a wellness retreat is a central part of the strategy, but the trick is to find the right fit. As hotel spas can come in all shapes and sizes, we’ve provided some inspiration with ten of our favorites from around the globe.</p>
+									<p>Keeping the leading position to Beauty SPA by World Class has become possible due to its great team – high qualified specialists, well-known both in Egypt and abroad: the experienced doctors, cosmetologists, steam therapists, stylists, massage therapists, makeup artists, osteopathologists and nail artists.</p>
+									<!-- <p class="service-hour">
 										<span>Service Hours</span>
 										<strong>7:30 AM - 8:00 PM</strong>
-									</p>
+									</p> -->
 								</div>
 							</div>
 						</div>
@@ -394,13 +406,13 @@ $hotelview=new HotelView($controller,$model);
 								</div>
 								<div class="col-md-6">
 									<span class="super-heading-sm">World Class</span>
-									<h3 class="heading">Gym</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
-									<p class="service-hour">
+									<h3 class="heading">Gyms</h3>
+									<p>We Always Strive to make sure you enjoy the hotel's gym and don't miss any of your daily workout schedule.Our Hotels Gyms is worth a visit for two reasons: It’s nestled in the heart of one of the world’s best tourism towns and has a gym with incomparable views. Seriously—with floor-to-ceiling windows overlooking Banff’s mighty mountain range, this’ll be the most enjoyable treadmill run of your life.</p>
+									<p>The gym has a variety of fitness and yoga classes, along with one-on-one training with certified trainers. And don’t worry if you forgot to pack your workout gear. Fairmont Fit can provide guests with Reebok workout apparel, shoes, and a yoga mat on request.</p>
+									<!-- <p class="service-hour">
 										<span>Service Hours</span>
 										<strong>7:30 AM - 8:00 PM</strong>
-									</p>
+									</p> -->
 								</div>
 							</div>
 						</div>

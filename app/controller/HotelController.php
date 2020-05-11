@@ -12,6 +12,17 @@ class HotelController extends Controller
     {
         $this->model->listdata();
     }
+
+    public function ReadReviews($controller)
+    {
+        
+        $this->model->ReadHotelsReviews($controller);
+    }
+
+    public function updaterooms()
+    {
+        $this->model->updaterooms();
+    }
 }
 
 ?>

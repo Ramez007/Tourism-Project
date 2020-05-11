@@ -13,18 +13,19 @@ class HotelView extends View
     {
         $this->name=$this->model->getViewNames();
         $this->overview=$this->model->getViewOverview();
+        $this->price=$this->model->getPrice();
 
         for ($i=0;$i<count($this->name);$i++)
         {
             echo '<div class="col-md-4">
                     <div class="hotel-content">
                         <div class="hotel-grid" style="background-image: url(images/image-1.jpg);">
-                            <div class="price"><small>For as low as</small><span>$100/night</span></div>
+                            <div class="price"><small>For as low as</small><span style="font-size:18px;">'.$this->price[$i].' EGP/night</span></div>
                             <a class="book-now text-center" href="single-hotel.php?action='.$this->name[$i].'"><i class="ti-calendar"></i> Book Now</a>
                         </div>
                         <div class="desc">
                             <h3><a href="single-hotel.php?action='.$this->name[$i].'">'.$this->name[$i].'</a></h3>
-                            <p>'.$this->overview[$i].'</p>
+                            <p  style="word-wrap: break-word;">'.$this->overview[$i].'</p>
                         </div>
                     </div>
                 </div>';

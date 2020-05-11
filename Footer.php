@@ -3,7 +3,10 @@
 				<div class="col-md-3">
 					<div class="copyright">
 						<p><small>&copy; 1989 Speedo Tours. <br> All Rights Reserved. <br>
-						Designed by <a href="http://freehtml5.co" target="_blank">FreeHTML5.co</a> </small></p>
+						Designed by <a href="http://freehtml5.co" target="_blank">FreeHTML5.co</a> </small>
+						<br><small>Developed by MIU CSC Students</small>
+						</p>
+						
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -41,14 +44,17 @@
 					</div>
 				</div>
 				<div class="col-md-3">
-					<ul class="social-icons">
+					<!-- <ul class="social-icons">
 						<li>
 							<a href="#"><i class="icon-twitter-with-circle"></i></a>
 							<a href="#"><i class="icon-facebook-with-circle"></i></a>
 							<a href="#"><i class="icon-instagram-with-circle"></i></a>
 							<a href="#"><i class="icon-linkedin-with-circle"></i></a>
 						</li>
-					</ul>
+					</ul> -->
+					<h1 id="fh5co-logo"><img id="LogoImg" src="images\WebAppLogo.png" alt="Flowers in Chania" width="150" height="100"></h1>
+					<br><br>
+					<span>&nbsp; &nbsp;&nbsp;&nbsp;Speedo Tours </span>
 				</div>
 			</div>
 		</div>

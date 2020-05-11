@@ -14,7 +14,7 @@ class BlogPost extends Model
     }
     public function ListContent()
     {
-        $SQL = "SELECT * FROM blogposts";
+        $SQL = "SELECT * FROM blogposts WHERE Suspended = 'Disabled'";
         $Result = mysqli_query($this->db->getConn(),$SQL);
 
         while($row=$Result->fetch_assoc())

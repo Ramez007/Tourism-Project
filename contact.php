@@ -53,6 +53,7 @@
 	<link rel="stylesheet" href="css/cs-select.css">
 	<link rel="stylesheet" href="css/cs-skin-border.css">
 
+	<script src="js/refresh.js"></script>
 	<!-- Themify Icons -->
 	<link rel="stylesheet" href="css/themify-icons.css">
 	<!-- Flat Icon -->

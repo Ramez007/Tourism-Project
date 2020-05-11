@@ -8,6 +8,32 @@
 
 
 	<head>
+	
+	<?php
+	session_start();
+	if (isset($_POST['booking']))
+	{
+		if (!isset($_SESSION['ID']))
+		{
+			
+			echo "<script>
+			
+			
+			alert('Please Login to Continue Booking');
+			window.location.href = 'Login.php';
+			</script>";
+			
+			
+		}
+		 
+
+		
+	}
+	
+	
+	
+	?>
+	<script src="js/refresh.js"></script>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Speedo Tours &mdash; License No. 782</title>
@@ -120,7 +146,7 @@
 </head>
 <body>
 <?php
-session_start();
+
 require_once("app/model/hotelmodel.php");
 require_once("app/controller/HotelController.php");
 require_once("app/view/HotelView.php");
@@ -137,7 +163,7 @@ require_once("app/view/PackageView.php");
 $PKModel = new Package();
 $PkController = new PackageController($PKModel);
 $PkController->ListSinglePackage($_GET['action']);
-$PkController->ListPackageServices($_GET['action']);
+$PkController->ListPackageServices();
 $PKView = new PackageView($PkController,$PKModel);
 
 require_once("app/model/singlehotelmodel.php");
@@ -147,6 +173,25 @@ $pagemodel=new singlehotelmodel($PKModel->GetHotelName());
 $pagecontroller=new singlehotelcontroller($pagemodel);
 $pagecontroller->listhoteldata();
 $pageview=new singlehotelview($pagecontroller,$pagemodel);
+
+
+require_once("app/model/guest.php");
+require_once("app/controller/GuestController.php");
+$guestmodel=new Guest();
+$guestcontroller=new GuestController($guestmodel);
+
+	if (isset($_POST['subreviewpkg']))
+	{
+		$guestcontroller->AddPkgReview();
+	}
+	if (isset($_POST['booking']))
+	{
+		
+		$guestcontroller->booking($_SESSION['ID'],$_GET['action']);
+	
+	}
+
+
  ?>
 	<div id="fh5co-wrapper">
 	<div id="fh5co-page">
@@ -274,7 +319,36 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                 </nav>
                 <div class="tab-content-container">
 					<div class="tab-content active show" id="tab1" data-tab-content="tab1">
-<!-- Details --><?php $PKView->DetailsOutput(); ?>
+					<!-- Details -->
+					<?php $PKView->DetailsOutput(); ?>
+					<h3> Reviews </h3>
+					<?php $PKView->PackageReviewOutput(); ?>
+
+
+
+					<?php 
+					
+					if (isset($_SESSION['type']) && $_SESSION["type"]==="USER" )
+						{
+						echo'
+						<br><br>
+						<h3>Add Your Own Review</h3>
+						<form action="" method="post">
+								<div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="ReviewHotel">Add Your Review:</label>
+                                    <div class="col-sm-3">
+                                    	<input type="text" class="form-control" id="" name="reviewpkg" required>
+                                    </div>
+								</div>
+								<input type="submit" name="subreviewpkg" value="Submit Review" class="btn btn-primary btn-lg">
+						</form>
+						';
+						} 
+					
+					?>
+
+
+
 					</div>
 					<div class="tab-content" id="tab2" data-tab-content="tab2">
 						<div class="container">
@@ -311,8 +385,8 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                                         <span><i class="flaticon-restaurant icon"></i></span>
 										<div class="desc" >Resturant</div>
 									</div> -->
-									<h3 class="heading">Cruise includes</h3>
 									<?php $PKView->CruiseServicesOutput(); ?>
+									<?php $PKView->HotelHyperlink(); ?>
 									<!-- <div class="services">
                                         <span><i class="ti-medall"></i></span>
 										<div class="desc" >Pets</div>
@@ -326,7 +400,7 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
 										<div class="desc" >Sunbathing</div>
 									</div> -->
 
-									<a href="single-hotel.php" style="color:orangered"><b>hotel/cruise details here</b></a>
+									<!-- <a href="single-hotel.php" style="color:orangered"><b>hotel/cruise details here</b></a> -->
 								</div>
 							</div>
 						</div>
@@ -337,20 +411,20 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
 								<div class="col-md-12">
 									<h3 class="heading">Booking</h3>
                                     <h3>Book Now</h3> 
-                        <form action="">
+                        <form method='post' action="">
 
                                 
 						<div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Number of Adults:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="0" max="100" placeholder="1">
+                                    	<input type="number" class="form-control" id="quantity" name='noofadults' min="0" required max="100" placeholder="1">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Number of Children:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="0" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" id="quantity" name='noofchildren' min="0" required max="100" placeholder="0">
                                     </div>
                                 </div>
 								
@@ -358,8 +432,8 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                                     <label class="col-sm-2 col-form-label" for="enterhotel">Boarding type</label>
                                     <div class="col-sm-3">
 										<div class="boardtype">
-											<input type="radio" class="form-check-input" name="boardtype" value="fullboard"> Full Board <br>
-											<input type="radio" class="form-check-input" name="boardtype" value="halfboard"> Half Board<br>
+											<input required type="radio" class="form-check-input" name="boardtype" value="Full"> Full Board <br>
+											<input required type="radio" class="form-check-input" name="boardtype" value="Half"> Half Board<br>
                                 		</div>
                                     </div>
                                 </div>
@@ -369,33 +443,34 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Single Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" required class="form-control" name='singlerooms' id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
                                  
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Double Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" required class="form-control" name='doublerooms' id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of Triple Rooms:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" required class="form-control" name='triplerooms' id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Choose Number of suites:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" id="quantity" min="1" max="100" placeholder="0">
+                                    	<input type="number" class="form-control" required name='suites' id="quantity" min="0" max="100" placeholder="0">
                                     </div>
                                 </div>
 
-                                <input type="submit" value="Book" class="btn btn-primary btn-lg">
-                                
+                                <input type="submit" name='booking' value="Book" class="btn btn-primary btn-lg">
+								<br><br>
+								<label>* You must be logged in to book package</label>
 
 
                             </form>
@@ -451,6 +526,7 @@ $pageview=new singlehotelview($pagecontroller,$pagemodel);
     <script src="js/custom.js"></script>
     <script src="js/Slideshow.js"></script>
     <script src="js/multi-level-drop.js"></script>
+	
 
 
 </body>

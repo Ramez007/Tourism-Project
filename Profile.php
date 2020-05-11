@@ -30,6 +30,7 @@
 
 	//////////////////////////////////////////////////////
 	 -->
+     <script src="js/refresh.js"></script>
 
     <!-- Facebook and Twitter integration -->
     <meta property="og:title" content="" />
@@ -95,7 +96,7 @@
 
 <script type="text/javascript">
     function showsec(y) {
-        idarr = ["tab1", "tab2", "tab3", "tab4"]
+        idarr = ["tab1", "tab2", "tab4"]
 
         y += "";
         var x = document.getElementById(y);
@@ -119,6 +120,19 @@
 <body>
     <?php 
     session_start();
+
+    if (isset($_SESSION['type']))
+    {
+        if ($_SESSION['type']!="USER")
+        {
+            header("Location:UNOGUEST.php");
+        }
+    }
+    else
+    {
+        header("Location:UNOGUEST.php");
+    }
+
     require_once("app/model/hotelmodel.php");
     require_once("app/controller/HotelController.php");
     require_once("app/view/HotelView.php");
@@ -213,10 +227,10 @@
                                 <img id="History" src="images\clock.png" width="50" height="50">
                                 <span>History</span>
                             </a>
-                            <a href="#" data-tab="tab3" onclick="showsec('tab3')">
+                            <!-- <a href="#" data-tab="tab3" onclick="showsec('tab3')">
                                 <img id="QnA" src="images\QnA.png" width="50" height="50">
                                 <span>Questions and Answers</span>
-                            </a>
+                            </a> -->
                             <a href="#" data-tab="tab4" onclick="showsec('tab4')">
                                 <img id="Reservations" src="images\reservation.png" width="50" height="50">
                                 <span>Reservations</span>
@@ -226,7 +240,7 @@
                             <?php
                             $GuestView -> output();
                             ?>
-                            <!-- Pesonal data -->
+                            <!-- Personal data -->
 
                             <!-- <div class="tab-content active show" data-tab-content="tab1" id="tab1">
                                 <div class="container">
@@ -283,7 +297,8 @@
 
                             <!-- end of History -->
 
-                            <div class="tab-content" data-tab-content="tab3" id="tab3">
+                            <!-- Q&A  -->
+                            <!-- <div class="tab-content" data-tab-content="tab3" id="tab3">
                                 <div class="container">
                                     <h2>Asked questions</h2>
                                     <table class="table table-hover">
@@ -307,9 +322,14 @@
                                     <textarea class="form-control" rows="3"></textarea>
                                     <button class="btn btn-primary mb-2" style="margin-top: 20px;">Send Question</button>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="tab-content" data-tab-content="tab4" id="tab4">
+                            <!-- end of Q&A -->
+
+                            <!-- Reservations -->
+
+                            <?php $GuestView->ReservationOutput(); ?>
+                            <!-- <div class="tab-content" data-tab-content="tab4" id="tab4">
                                 <div class="container">
                                     <h2>Current/Upcoming reservations</h2>
                                     <table class="table table-hover">
@@ -336,7 +356,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div> -->
+
+                            <!-- end of reservations -->
                         </div>
                     </div>
                 </div>    
@@ -375,7 +397,6 @@
     <script src="js/jquery.flexslider-min.js"></script>
 
     <script src="js/custom.js"></script>
-
 </body>
 
 </html>

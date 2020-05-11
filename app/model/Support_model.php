@@ -5,6 +5,7 @@
 <?php
 
   require_once("app/model/model.php");
+  require_once("app/interfaces/IMail.php");
   use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require 'C:\xampp\composer\vendor\autoload.php';
@@ -13,100 +14,34 @@ require 'C:\xampp\composer\vendor\autoload.php';
 
 <?php
 
-class support_operator extends Model {
+class support_operator extends Model  {
 
     private $dbh;
     // protected $inquiryar=array();
     protected $Inqemail=array();
     protected $InqId=array();
     protected $Inquiries = array();
+    protected $guestemails = array();
+    protected $Packagesids = array();
+    protected $Packagesnames = array();
+    protected $newswirecontent = array();
+    protected $inquirycontent = array();
+    protected $inquirycontentreply = array();
+    protected $inquiryAuthor = array();
+    protected $employeename = array();
+    protected $inquirymail = array();
+    
 
     function __construct() {
         $this->dbh = $this->connect();
         
     }
 
-    function Send_newwire()
-     {include_once "serverdetails.php";
-     $ID=$_SESSION['ID'];
-        $email->Subject="New wire Update";
-            $email->Body=$_POST['news'];    
-         
-$sql = "Select Email from newswire" ; 
-; 
-        $result = mysqli_query($this->dbh->getConn(),$sql) ;
-         try{
-            
-         while($row=$result->fetch_assoc()){
-            $sql1 = 'INSERT INTO newswirehistory (employeeID,MessageContent,Email) VALUES("'.$ID.'","'.$email->Body.'","'.$row["Email"].'");';
-            $result1 = mysqli_query($this->dbh->getConn(),$sql1) ;
-            $email->addAddress($row["Email"]);
 
-        }
-           $email->send();
-           echo'<script>swal("Successfully sent the newsWire", "", "success");</script>'; 
-    }catch(Exception $e){
-        echo $e->errorMessage();
-     
-    }
-    
-}
-
-function Reply_to_Inquiry(){
-    include_once "serverdetails.php";
-    
-
-    $ID=$_SESSION['ID'];
-    $inquiryidrecieve=$_POST["emailinquiry"];
-    $inquiryidspace=explode(" ",$inquiryidrecieve);
-    $inquiryid=explode("&",$inquiryidspace[1]);
-    $message=$_POST['reply'];
-    $email->Subject="Reply to your inquiry ";
-    // for($i=0;i<count($inquiryar);$i++){
-
-    //     if($this->inquiryar[$i]->$InquiryID=$inquiryid);
-    //    echo $finalemail=$this->inquiryar[$i]->Emails;}
-
-        
-    
-    try{
-        $sql2 = 'SELECT Email,inquiry FROM Inquiries where inquiries.InquiryID="'.$inquiryid[0].'";';
-    
-        $sql3 = 'DELETE  FROM Inquiries where InquiryID="'.$inquiryid[0].'";'; 
-        $result1=mysqli_query($this->dbh->getConn(),$sql2) ;
-         $row=$result1->fetch_assoc();
-        $sql1 = 'INSERT INTO InquiryHistory (employeeID,Inquiry,Reply) VALUES("'.$ID.'","'. $row['inquiry'].'","'.$message.'");';
-        $result = mysqli_query($this->dbh->getConn(),$sql1) ;
-        
-        if(mysqli_query($this->dbh->getConn(),$sql3)){
-
-       
-        $email->addAddress($row['Email']);
-         $email->Body=$message;
-         $email->send();
-         
-          echo'<script>swal("Successfully sent your reply", "", "success");</script>'; 
-         
-
-         }
-         else
-         echo "error";
-
-        //  $email->addAddress($row['Email']);
-        //  $email->Body=$message;
-        //  $email->send();
-         
-        //   echo'<script>swal("Successfully sent your reply", "", "success");</script>'; 
-}catch(Exception $e){
-    echo $e->errorMessage();
- 
-} 
-
-}
 
 public function FetchInquiries()
 {
-    $SQL = 'SELECT Email,InquiryID,Inquiry FROM inquiries';
+    $SQL = 'SELECT Email,InquiryID,Inquiry FROM inquiries where inquiries.suspended = "Disabled" ';
     $Result = mysqli_query($this->dbh->getConn(),$SQL);
     while($row = $Result->fetch_assoc())
     {
@@ -121,7 +56,6 @@ public function FetchSingleInquiry($val)
 {
     return $this->Inquiries[$val];
 }
-
 
 
 
@@ -150,73 +84,130 @@ public function FetchSingleInquiry($val)
     {
         return $this->Inquiries;
     }
+     
+    public function getguestmail()
+    {
+        return $this->guestemails;
+    }
+    public function getpackagesids()
+    {
+        return $this->Packagesids;
+    }
+    public function getPackagesnames()
+    {
+        return $this->Packagesnames;
+    }
+
+ function fetchguestemails(){
+    $SQL = 'SELECT Email FROM guest';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->guestemails,$row['Email']);
+            
+    }
+ }
+ function fetchPackages(){
+    $SQL = 'SELECT PackageID,PackageName FROM packages';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->Packagesids,$row['PackageID']);
+        array_push($this->Packagesnames,$row['PackageName']);
+    }
+ }
+
+function getnewswirehistory(){
+    $SQL = 'SELECT Message FROM newswirehistory GROUP BY Message';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->newswirecontent,$row['Message']);
+        
+    }
+
+ return $this->newswirecontent;
+
+
+}
+function getAuthor(){
+    $SQL = 'SELECT InquiryAuthor FROM inquiryhistory';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->inquiryAuthor,$row['InquiryAuthor']);
+        
+    }
+
+ return $this->inquiryAuthor;
+
+
+
+
+}
+ function getinquiryreply(){
+    $SQL = 'SELECT reply FROM inquiryhistory';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->inquirycontentreply,$row['reply']);
+        
+    }
+
+ return $this->inquirycontentreply;
+
+
+
+
+}
+function getinquiryhistory(){
+    $SQL = 'SELECT inquiry FROM inquiryhistory';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->inquirycontent,$row['inquiry']);
+        
+    }
+
+ return $this->inquirycontent;
+
+
+
+
+}
+function getinquirymail(){
+    $SQL = 'SELECT InquiryEmail FROM inquiryhistory';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->inquirymail,$row['InquiryEmail']);
+        
+    }
+
+ return $this->inquirymail;
+
+
+
+
+}
+function getnames(){
+    $SQL = 'SELECT employees.Name FROM employees join inquiryhistory on employees.EmployeeID=inquiryhistory.EmployeeID';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL);
+    while($row = $Result->fetch_assoc())
+    {
+        array_push($this->employeename,$row['Name']);
+        
+    }
+
+ return $this->employeename;
+
+
+
+
 }
 
-// class Inquiry extends Model
-// {
-//     protected $Emails ;
-//     protected $Inquiries;
-//     protected $InquiryID;
-//     /**
-//      * Get the value of Emails
-//      */ 
-//     public function getEmails()
-//     {
-//         return $this->Emails;
-//     }
 
-//     /**
-//      * Set the value of Emails
-//      *
-//      * @return  self
-//      */ 
-//     public function setEmails($Emails)
-//     {
-//         $this->Emails = $Emails;
-
-//         return $this;
-//     }
-
-//     /**
-//      * Get the value of Inquiries
-//      */ 
-//     public function getInquiries()
-//     {
-//         return $this->Inquiries;
-//     }
-
-//     /**
-//      * Set the value of Inquiries
-//      *
-//      * @return  self
-//      */ 
-//     public function setInquiries($Inquiries)
-//     {
-//         $this->Inquiries = $Inquiries;
-
-//         return $this;
-//     }
-
-//     /**
-//      * Get the value of InquiryID
-//      */ 
-//     public function getInquiryID()
-//     {
-//         return $this->InquiryID;
-//     }
-
-//     /**
-//      * Set the value of InquiryID
-//      *
-//      * @return  self
-//      */ 
-//     public function setInquiryID($InquiryID)
-//     {
-//         $this->InquiryID = $InquiryID;
-
-//         return $this;
-//     }
-// }}
+}
 
 
 ?>

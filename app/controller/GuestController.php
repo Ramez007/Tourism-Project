@@ -19,5 +19,31 @@ class GuestController extends Controller{
          $this->model->GetProfileData($ID);
        }
 
+       public function AddHotelReview()
+       {
+          $hotelname=$_GET['action'];
+          $review=$_POST['reviewhotel'];
+          $this->model->ReviewHotel($hotelname,$review);
+       }
+
+       public function AddPkgReview()
+       {
+          $pkgid=$_GET['action'];
+          $review=$_POST['reviewpkg'];
+          $this->model->ReviewPkg($pkgid,$review);
+       }
+
+       public function booking($guestid,$packageid)
+       {
+          $this->model->BookPackage($guestid,$packageid);
+       }
+
+       public function bookinghotel($ID,$name)
+       {
+          $this->model->BookHotel($ID,$name);
+       }
+
+       
+
    }
 ?>

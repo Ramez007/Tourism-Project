@@ -15,6 +15,8 @@ class Reservation extends Model
     protected $TripleRooms;
     protected $Suits;
     protected $BoardType;
+    protected $Status;
+    protected $Ended;
 
     public function __construct()
     {
@@ -23,6 +25,26 @@ class Reservation extends Model
 
 
 
+    public function getHotelName()
+    {
+        $SQL = 'SELECT Name FROM hotel WHERE HotelID='.$this->HotelID.'';
+        $Result = mysqli_query($this->db->getConn(),$SQL) or die($this->db->getConn()->error);
+        while($row = $Result->fetch_assoc())
+        {
+            $Name = $row['Name'];
+        }
+        return $Name;
+    }
+    public function getPackageName()
+    {
+        $SQL = 'SELECT PackageName FROM packages WHERE PackageID='.$this->PackageID.'';
+        $Result = mysqli_query($this->db->getConn(),$SQL) or die($this->db->getConn()->error);
+        while($row = $Result->fetch_assoc())
+        {
+            $Name = $row['PackageName'];
+        }
+        return $Name;
+    }
     /**
      * Get the value of ReserveID
      */ 
@@ -239,6 +261,46 @@ class Reservation extends Model
     public function setBoardType($BoardType)
     {
         $this->BoardType = $BoardType;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Status
+     */ 
+    public function getStatus()
+    {
+        return $this->Status;
+    }
+
+    /**
+     * Set the value of Status
+     *
+     * @return  self
+     */ 
+    public function setStatus($Status)
+    {
+        $this->Status = $Status;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Ended
+     */ 
+    public function getEnded()
+    {
+        return $this->Ended;
+    }
+
+    /**
+     * Set the value of Ended
+     *
+     * @return  self
+     */ 
+    public function setEnded($Ended)
+    {
+        $this->Ended = $Ended;
 
         return $this;
     }
