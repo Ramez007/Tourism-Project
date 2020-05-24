@@ -524,7 +524,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                     $Result = mysqli_query($this->db->getConn(),$sql);
                     while ($row=$Result->fetch_assoc()){
                         echo'
-                    <input type="radio" name="hotels" value="'.$row['HotelID'].'"> '.$row['Name'].' <br>
+                    <input type="radio" name="hotels" value="'.$row['HotelID'].'" required> '.$row['Name'].' <br>
                     
                     ';
                     }
@@ -694,6 +694,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
     Function AddEvent($Event_Title,$Event_Month,$Event_Year,$Event_Post)
     {
+        
         $adminid=$_SESSION["ID"];
         $disabled="Disabled";
         $Event_Month1= strtoupper($Event_Month);
@@ -712,16 +713,39 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
     function EditEvent($id)
     {
-        $sql="UPDATE blogposts SET PostTitle='".htmlspecialchars($_POST['editeventtitle'], ENT_QUOTES)."', PostMonth='".htmlspecialchars($_POST['editeventmonth'], ENT_QUOTES)."',PostYear='".$_POST['editeventyear']."',PostText='".htmlspecialchars($_POST['blogposttext'], ENT_QUOTES)."' where PostID=$id;";
-        $Result = mysqli_query($this->db->getConn(),$sql);
-        if($Result){
-            echo'<script>swal("Successfully Updated Event", "", "success");</script>';
-         }
-         else{
-            echo'<script>
-            swal("Oops","Error Updating Event !","error");
-            </script>';
-         }
+      $required = array('editeventtitle','editeventmonth','editeventyear','blogposttext');
+      $error = false;
+        foreach($required as $field) 
+        {
+            if (empty($_POST[$field])) 
+            {
+                $error = true;
+            }
+        }
+        if ($error) 
+        {
+            echo'<script>swal("There is an empty field", "", "error");</script>';
+        } 
+        else 
+        {
+            if (strlen($_POST['editeventtitle']) >=4 && strlen($_POST['editeventmonth']) ==3 && $_POST['editeventyear'] >=1900 && $_POST['eventyear'] <=3000 && strlen($_POST['blogposttext']) ==300)
+            {
+                    $sql="UPDATE blogposts SET PostTitle='".htmlspecialchars($_POST['editeventtitle'], ENT_QUOTES)."', PostMonth='".htmlspecialchars($_POST['editeventmonth'], ENT_QUOTES)."',PostYear='".$_POST['editeventyear']."',PostText='".htmlspecialchars($_POST['blogposttext'], ENT_QUOTES)."' where PostID=$id;";
+                    $Result = mysqli_query($this->db->getConn(),$sql);
+                    if($Result){
+                        echo'<script>swal("Successfully Updated Event", "", "success");</script>';
+                    }
+                    else{
+                        echo'<script>
+                        swal("Oops","Error Updating Event !","error");
+                        </script>';
+                    }
+            }
+            else
+            {
+                echo'<script>swal("Error Editing Event", "", "error");</script>';
+            }        
+        }    
     }
 
     function SuspendEvent()
@@ -931,94 +955,145 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
     }
 
     function AddHotel()
-    {   
-        $sql="SELECT MAX(HotelID) from hotel";
-        $result=mysqli_query($this->db->getConn(),$sql);
-        $row=mysqli_fetch_assoc($result);
-        $id=$row['MAX(HotelID)']+1;
-        $services=array();
-           if(!empty($_POST['check_list']))
-           {
-                foreach($_POST['check_list'] as $check)
+    { 
+        $required = array('enterhotel', 'enterlocation', 'numberofsingle', 'numberofdouble', 'numberoftriple', 'numberofsuites','description','overview','priceofsingle','priceofdouble','priceoftriple','priceofsuites','hotelstars');  
+        $error = false;
+        foreach($required as $field) 
+        {
+            if (empty($_POST[$field])) 
+            {
+                $error = true;
+            }
+        }
+        if ($error) 
+        {
+            echo'<script>swal("There is an empty field", "", "error");</script>';
+        } 
+        else 
+        {
+                $sql="SELECT MAX(HotelID) from hotel";
+                $result=mysqli_query($this->db->getConn(),$sql);
+                $row=mysqli_fetch_assoc($result);
+                $id=$row['MAX(HotelID)']+1;
+                $services=array();
+                if(!empty($_POST['check_list']))
                 {
-                    array_push($services,$check);
+                        foreach($_POST['check_list'] as $check)
+                        {
+                            array_push($services,$check);
+                        }
                 }
-           }
+                if($_POST['numberofsingle'] > 1 && $_POST['numberofsingle'] <= 150 && $_POST['numberofdouble'] > 1 && $_POST['numberofdouble'] <= 100 && $_POST['numberoftriple'] > 1 && $_POST['numberoftriple'] <= 75 && $_POST['numberofsuites'] > 1 && $_POST['numberofsuites'] <= 50 && $_POST['priceofsingle'] >=1 && $_POST['priceofdouble'] >=1 && $_POST['priceoftriple'] >=1 && $_POST['priceofsuites'] >=1 && strlen($_POST['overview']) ==140)
+                {
+                    $types=[$_POST['numberofsingle'],$_POST['numberofdouble'],$_POST['numberoftriple'],$_POST['numberofsuites']];
+                    $desc=htmlspecialchars($_POST['description'], ENT_QUOTES);
+                    $overview=htmlspecialchars($_POST['overview'], ENT_QUOTES);
+                
+                    $hotel=new Hotel($id,$_POST['enterhotel'],$services,htmlspecialchars($_POST['enterlocation'], ENT_QUOTES),$types,$desc,$overview,$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites'],$_POST['hotelstars']);
 
-        $types=[$_POST['numberofsingle'],$_POST['numberofdouble'],$_POST['numberoftriple'],$_POST['numberofsuites']];
-        $desc=htmlspecialchars($_POST['description'], ENT_QUOTES);
-        $overview=htmlspecialchars($_POST['overview'], ENT_QUOTES);
+                    echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
+                }
+                else
+                {
+                    echo'<script>swal("Error Adding Hotel", "", "error");</script>';
+                }
+        }
         
-        $hotel=new Hotel($id,$_POST['enterhotel'],$services,htmlspecialchars($_POST['enterlocation'], ENT_QUOTES),$types,$desc,$overview,$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites'],$_POST['hotelstars']);
-
-        echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
+        
+        
         
                               
     }
 
     function Edithotel($id)
     {
-
-        $wifi="FALSE";
-        $swimming="FALSE";
-        $Spa="FALSE";
-        $gym="FALSE";
-        $pets="FALSE";
-        $bar="FALSE";
-        $restaurant="FALSE";
-        
-        $values=array();
-        foreach($_POST['check'] as $check)
+        $required = array('edithotelname', 'edithotellocation', 'description', 'overview', 'priceofsingle', 'priceofdouble', 'priceoftriple', 'priceofsuites');
+        $error = false;
+        foreach($required as $field) 
         {
-            array_push($values,$check);
-        }
-
-        for ($i=0;$i<count($values);$i++)
-        {
-            if($values[$i]=="Wifi")
+            if (empty($_POST[$field])) 
             {
-                $wifi="TRUE";
-            }
-            else if($values[$i]=="Swimming")
-            {   
-                $swimming="TRUE";
-            }
-            else if($values[$i]=="Spa")
-            {   
-                $Spa="TRUE";
-            }
-            else if($values[$i]=="Gym")
-            {   
-                $gym="TRUE";
-            }
-            else if($values[$i]=="Bar")
-            {   
-                $bar="TRUE";
-            }
-            else if($values[$i]=="Restaurant")
-            {   
-                $restaurant="TRUE";
-            }
-            else if($values[$i]=="Pets")
-            {   
-                $pets="TRUE";
+                $error = true;
             }
         }
+        if ($error) 
+        {
+            echo'<script>swal("There is an empty field", "", "error");</script>';
+        } 
+        else 
+        {
+            $wifi="FALSE";
+            $swimming="FALSE";
+            $Spa="FALSE";
+            $gym="FALSE";
+            $pets="FALSE";
+            $bar="FALSE";
+            $restaurant="FALSE";
+            
+            $values=array();
+            foreach($_POST['check'] as $check)
+            {
+                array_push($values,$check);
+            }
+    
+            for ($i=0;$i<count($values);$i++)
+            {
+                if($values[$i]=="Wifi")
+                {
+                    $wifi="TRUE";
+                }
+                else if($values[$i]=="Swimming")
+                {   
+                    $swimming="TRUE";
+                }
+                else if($values[$i]=="Spa")
+                {   
+                    $Spa="TRUE";
+                }
+                else if($values[$i]=="Gym")
+                {   
+                    $gym="TRUE";
+                }
+                else if($values[$i]=="Bar")
+                {   
+                    $bar="TRUE";
+                }
+                else if($values[$i]=="Restaurant")
+                {   
+                    $restaurant="TRUE";
+                }
+                else if($values[$i]=="Pets")
+                {   
+                    $pets="TRUE";
+                }
+            }
+
+            if ($_POST['priceofsingle'] >=1 && $_POST['priceofdouble'] >=1 && $_POST['priceoftriple'] >=1 && $_POST['priceofsuites'] >=1 && strlen($_POST['overview']) ==140)
+            {
+                $desc=htmlspecialchars($_POST['description'], ENT_QUOTES);
+                $overview= htmlspecialchars($_POST['overview'], ENT_QUOTES);
+                $hotellocation= htmlspecialchars($_POST['edithotellocation'], ENT_QUOTES);
+                $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$hotellocation."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='$desc',overview='$overview',PriceSingle='".$_POST['priceofsingle']."',PriceDouble='".$_POST['priceofdouble']."',PriceTriple='".$_POST['priceoftriple']."',PriceSuites='".$_POST['priceofsuites']."',stars='".$_POST['hotelstars']."'
+                where HotelID=$id;";
+                $Result = mysqli_query($this->db->getConn(),$sql);
+                if($Result){
+                    echo'<script>swal("Successfully Updated Hotel", "", "success");</script>';
+                 }
+                 else{
+                    echo'<script>
+                    swal("Oops","Error Updating Hotel !","error");
+                    </script>';
+                 }
+            }
+            else
+            {
+                echo'<script>swal("Error Editing Hotel", "", "error");</script>'; 
+            }
+            
+            
+        }
+
         
-        $desc=htmlspecialchars($_POST['description'], ENT_QUOTES);
-        $overview= htmlspecialchars($_POST['overview'], ENT_QUOTES);
-        $hotellocation= htmlspecialchars($_POST['edithotellocation'], ENT_QUOTES);
-        $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$hotellocation."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='$desc',overview='$overview',PriceSingle='".$_POST['priceofsingle']."',PriceDouble='".$_POST['priceofdouble']."',PriceTriple='".$_POST['priceoftriple']."',PriceSuites='".$_POST['priceofsuites']."',stars='".$_POST['hotelstars']."'
-        where HotelID=$id;";
-        $Result = mysqli_query($this->db->getConn(),$sql);
-        if($Result){
-            echo'<script>swal("Successfully Updated Hotel", "", "success");</script>';
-         }
-         else{
-            echo'<script>
-            swal("Oops","Error Updating Hotel !","error");
-            </script>';
-         }
     }
 
     function AddPackage($cruise,$name,$days,$nights,$limit,$price,$start,$end,$transport,$guide,$map,$boardtype,$hotel,$overview,$description)
