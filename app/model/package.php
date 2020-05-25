@@ -2,8 +2,9 @@
 require_once("app/model/model.php");
 require_once("app/model/cruise.php");
 require_once("app/interfaces/iReviewPackages.php");
+require_once("app/interfaces/IGallery.php");
 
-class Package extends Model implements ireviewpackages
+class Package extends Model implements ireviewpackages, igallery
 {
     protected $PackageID;
     protected $PackageName;
@@ -20,6 +21,7 @@ class Package extends Model implements ireviewpackages
     protected $DateOut;
     protected $Description;
     // protected $VisitModel;
+    protected $primaryimgs=array();
     protected $CruiseModel;
 
     protected $Review = array();
@@ -119,6 +121,62 @@ class Package extends Model implements ireviewpackages
         return $HotelName;
         
     }
+
+    function ReadMainImgs()
+    {
+        $sql="SELECT picture FROM gallery WHERE HotelId IS null AND Main='yes' ";
+        $result=mysqli_query($this->db->getConn(),$sql);
+        while($row=$result->fetch_assoc())
+        {
+            array_push($this->primaryimgs,$row['picture']);     
+        }
+    }
+
+    public function getprimaryimgs()
+    {
+        return $this->primaryimgs;
+    }
+
+    public function outputgallery()
+    {
+
+        $sql2="select picture from gallery where Packageid='".$this->PackageID."'  ";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        while($row2=mysqli_fetch_assoc($result2))
+        {
+            // array_push($this->hotelgallery,$row2['picture']);
+            echo '<img class="mySlides" src="'.$row2['picture'].'" style="width:100%">';
+        }
+
+    }
+
+    public function outputnumbers()
+    {
+        
+
+        $sql2="select count(*) from gallery where Packageid='".$this->PackageID."'  ";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        for ($i=1;$i<=$row2['count(*)'];$i++)
+        {
+            echo '<button class="w3-button demo" onclick="currentDiv("'.$i.'")">'.$i.'</button>'; 
+                                        
+        }
+            
+        
+    }
+
+    public function outputmainimg()
+    {
+        
+
+        $sql2="select picture from gallery where  Packageid='".$this->PackageID."'  and Main='yes' ";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        echo '<div class="fh5co-parallax" style="background-image: url('.$row2['picture'].');" data-stellar-background-ratio="0.5">';
+    }
+
+
     /**
      * Get the value of PackageID
      */ 

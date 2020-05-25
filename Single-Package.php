@@ -251,7 +251,8 @@ $guestcontroller=new GuestController($guestmodel);
 	</div>
 	<!-- end:fh5co-header -->
 	
-	<div class="fh5co-parallax" style="background-image: url(images/bloghomepic.jpg);" data-stellar-background-ratio="0.5">
+	<!-- <div class="fh5co-parallax" style="background-image: url(images/bloghomepic.jpg);" data-stellar-background-ratio="0.5"> -->
+	<?php $PKView->displaymaining(); ?>
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
@@ -268,11 +269,11 @@ $guestcontroller=new GuestController($guestmodel);
 	                        <div class="container">
 			                    <div class="row">
 				                    <div class="col-md-15">
-                                        <!-- Slidshow Section -->
-                                        <div class="w3-content" style="max-width:800px">
-                                        <img class="mySlides" src="images/wph1.jpg" style="width:100%">
+										<div class="w3-content" style="max-width:800px">
+                                        <!-- <img class="mySlides" src="images/wph1.jpg" style="width:100%">
                                         <img class="mySlides" src="images/wph2.jpg" style="width:100%">
-                                        <img class="mySlides" src="images/wph3.jpg" style="width:100%">
+										<img class="mySlides" src="images/wph3.jpg" style="width:100%"> -->
+										 <?php $PKView->displaygallery(); ?>
                                         </div>
 
                                         <div class="w3-center">
@@ -280,9 +281,10 @@ $guestcontroller=new GuestController($guestmodel);
                                             <button class="w3-button w3-light-grey" onclick="plusDivs(-1)">❮ Prev</button>
                                             <button class="w3-button w3-light-grey" onclick="plusDivs(1)">Next ❯</button>
                                         </div>
-                                        <button class="w3-button demo" onclick="currentDiv(1)">1</button> 
+                                        <!-- <button class="w3-button demo" onclick="currentDiv(1)">1</button> 
                                         <button class="w3-button demo" onclick="currentDiv(2)">2</button> 
-                                        <button class="w3-button demo" onclick="currentDiv(3)">3</button> 
+										<button class="w3-button demo" onclick="currentDiv(3)">3</button>  -->
+										<?php $PKView->displaygallerynumbers(); ?>
                                         </div>
                                     </div>
                                 </div>
