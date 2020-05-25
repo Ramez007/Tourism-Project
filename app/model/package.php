@@ -19,6 +19,10 @@ class Package extends Model implements ireviewpackages
     protected $DateIn;
     protected $DateOut;
     protected $Description;
+    protected $pricesingle;
+    protected $pricedouble;
+    protected $pricetriple;
+    protected $pricesuites;
     // protected $VisitModel;
     protected $CruiseModel;
 
@@ -60,19 +64,29 @@ class Package extends Model implements ireviewpackages
 
     public function GetDetails($PKID)
     {
-        $SQL = 'SELECT PackageName,PackageID,HotelID,NumberOfDays,NumberOfNights,Price,Description,CruiseID FROM packages WHERE packages.PackageID ='.$PKID.'';        $Res = mysqli_query($this->db->getConn(),$SQL);
-        while($row=$Res->fetch_assoc())
-        {
-            $this->PackageName = $row['PackageName'];
-            $this->PackageID = $row['PackageID'];
-            $this->NumberOfDays = $row['NumberOfDays'];
-            $this->NumberOfNights = $row['NumberOfNights'];
-            $this->Price = $row['Price'];
-            $this->Description = $row['Description'];
-            $this->HotelID = $row['HotelID'];
-            $this->CruiseID = $row['CruiseID'];
-            
-        }
+        $SQL = 'SELECT PackageName,PackageID,HotelID,NumberOfDays,NumberOfNights,Price,Description,CruiseID,HotelID FROM packages WHERE packages.PackageID ='.$PKID.''; 
+        $Res = mysqli_query($this->db->getConn(),$SQL);
+
+        $row=$Res->fetch_assoc();
+
+        $sql1="SELECT * from hotel where HotelID=".$row['HotelID'];
+        $result=mysqli_query($this->db->getConn(),$sql1);
+        $row1=$result->fetch_assoc();
+
+        $this->PackageName = $row['PackageName'];
+        $this->PackageID = $row['PackageID'];
+        $this->NumberOfDays = $row['NumberOfDays'];
+        $this->NumberOfNights = $row['NumberOfNights'];
+        $this->Price = $row['Price'];
+        $this->Description = $row['Description'];
+        $this->HotelID = $row['HotelID'];
+        $this->CruiseID = $row['CruiseID'];
+        $this->pricesingle=$row1['PriceSingle'];
+        $this->pricedouble=$row1['PriceDouble'];
+        $this->pricetriple=$row1['PriceTriple'];
+        $this->pricesuites=$row1['PriceSuites'];
+        
+    
 
 
     }
@@ -424,6 +438,38 @@ class Package extends Model implements ireviewpackages
         $this->Review = $Review;
 
         return $this;
+    }
+
+    /**
+     * Get the value of pricesingle
+     */ 
+    public function getPricesingle()
+    {
+        return $this->pricesingle;
+    }
+
+    /**
+     * Get the value of pricedouble
+     */ 
+    public function getPricedouble()
+    {
+        return $this->pricedouble;
+    }
+
+    /**
+     * Get the value of pricetriple
+     */ 
+    public function getPricetriple()
+    {
+        return $this->pricetriple;
+    }
+
+    /**
+     * Get the value of pricesuites
+     */ 
+    public function getPricesuites()
+    {
+        return $this->pricesuites;
     }
 }
 ?>

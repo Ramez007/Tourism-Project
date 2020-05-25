@@ -492,6 +492,10 @@ class Guest extends User {
 
     public function BookPackage($GuestID,$PackageID)
     {
+        $sql="Select * from packages where PackageID='$PackageID'";
+            $result=mysqli_query($this->db->getConn(),$sql);
+            $row=mysqli_fetch_assoc($result);
+            
         if($this->validatebooking($_POST['noofchildren'],$_POST['noofadults'],$row['DateIn'],$row['DateOut'],$_POST['singlerooms'],$_POST['doublerooms'],$_POST['triplerooms'],$_POST['suites'],$_POST['boardtype'])==true)
         {
             $mysql="select NoofChildren,NoofAdults from reserves where PackageId=$PackageID";
@@ -507,9 +511,7 @@ class Guest extends User {
             $sumofpeople=$numberofadults+$numberofchildren+$_POST['noofchildren']+$_POST['noofadults'];
 
 
-            $sql="Select * from packages where PackageID='$PackageID'";
-            $result=mysqli_query($this->db->getConn(),$sql);
-            $row=mysqli_fetch_assoc($result);
+            
 
             if ($sumofpeople<=$row['ReserveLimit'])
             {
@@ -517,6 +519,10 @@ class Guest extends User {
                 $sql5="Select Email from guest where GuestID=$GuestID";
                 $result6=mysqli_query($this->db->getConn(),$sql5);
                 $row6=mysqli_fetch_assoc($result6);
+
+                $sql7="Select * From hotel where HotelID=".$row['HotelID'];
+                $result7=mysqli_query($this->db->getConn(),$sql7);
+                $row7=mysqli_fetch_assoc($result7);
 
 
 
@@ -530,10 +536,17 @@ class Guest extends User {
                 $suites=$_POST['suites'];
                 $board=$_POST['boardtype'];
 
+
+                $priceofsingle=$row7['PriceSingle']*0.25*$_POST['singlerooms'];
+                $priceofdouble=$row7['PriceDouble']*0.5*$_POST['doublerooms'];
+                $priceoftriple=$row7['PriceTriple']*0.75*$_POST['triplerooms'];
+                $priceofsuites=$row7['PriceSuites']*$_POST['suites'];
+                
+
                 $totalprice=$row['Price'];
                 $totalprice=$totalprice*(int) $_POST['noofadults'];
                 $price=($row['Price']/2)*(int) $children;
-                $totalprice=$totalprice+$price;
+                $totalprice=$totalprice+$price+$priceofsingle+$priceofdouble+$priceoftriple+$priceofsuites;
                 $confirmprice=$totalprice*0.1;
 
                 // $hotelid=$row['HotelID'];

@@ -59,7 +59,11 @@ class PackageView extends View
                 </div>
                 <div class="services">
                 <span><img id="News" src="images\dollar.png" width="50" height="50"style="margin-bottom:40px"></span>
-                    <div class="desc"style="padding-top: 29px;"> Basic cost:'.$this->model->getPrice().' EGP/Adult And '.($this->model->getPrice()/2).' EGP/Child  </div>
+                    <div class="desc""> Basic cost:'.$this->model->getPrice().' EGP/Adult And '.($this->model->getPrice()/2).' EGP/Child <br>
+                    Price of single rooms: '.($this->model->getPricesingle()*0.25).' EGP/Room <br>
+                    Price of double rooms: '.($this->model->getPricedouble()*0.5).' EGP/Room <br>
+                    Price of triple rooms: '.($this->model->getPricetriple()*0.75).' EGP/Room <br>
+                    Price of suites : '.$this->model->getPricesuites().'</div>
                 </div>
             </div>
         </div>
