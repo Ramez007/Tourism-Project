@@ -31,6 +31,29 @@ class Guest extends User {
     }
 
    
+    function validate($value)
+    {
+        if(!filter_var($value, FILTER_VALIDATE_INT) === false||preg_match('/[\'\/~`\!@#\$%\^&\*\(\)\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\].*[0-9]|[0-9]/', $value)||$value=="")
+        {
+            return false;
+        }   
+        else{
+            return true;
+        }
+    }
+
+    function validatenumb($value)
+    {
+        if(filter_var($value, FILTER_VALIDATE_INT) === false)
+        {
+            return false;
+        }
+        else 
+        {
+            return true;
+        }
+    }
+
     function register()
     {
         if ($_POST['SelecGender']=="0")
@@ -48,29 +71,84 @@ class Guest extends User {
         $Result = mysqli_query($this->dbh->getConn(),$SQL);
         $rowcount2 = mysqli_num_rows($Result);
         if ($rowcount<1 && $rowcount2 < 1){
+            $chars=[];
             $fname=$_POST['FirstName'];
             $lname=$_POST['LastName'];
             $email=$_POST['Email'];
-            $pass=$_POST['Password'];
             $pass1=md5($_POST['Password']);
             $gend=$_POST['SelecGender'];
             $country = $_POST['Country'];
-            $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass1','$country');";
-            $result=mysqli_query($this->dbh->getConn(),$sql);
 
-            $sql2="Select MAX(GuestID) as value from guest";
-            $result2=mysqli_query($this->dbh->getConn(),$sql2);
-            $row4=mysqli_fetch_assoc($result2);
+            if($this->validate($fname)===false)
+            {
+                echo'<script>
+                    swal("Error Regestering!","Remove numbers or special characters from first name","error");
+                    </script>';
+                    return false;
+            }
+            else
+            {
+                if($this->validate($lname)===false)
+                {
+                    echo'<script>
+                    swal("Error Regestering!","Remove numbers or special characters from last name","error");
+                    </script>';
+                    return false;
+                }
+                else
+                {
+                    if (filter_var($email, FILTER_VALIDATE_EMAIL)===false)
+                    {
+                        echo'<script>
+                        swal("Error Regestering!","Please enter a valid email","error");
+                        </script>';
+                        return false;
+                        
+                    }
+                    else
+                    {
+                        if($country=="")
+                        {
+                            echo'<script>
+                            swal("Error Regestering!","Please select a valid country","error");
+                            </script>';
+                            return false;
+                        }
+                        else
+                        {
+                            if($gend=="MALE"||$gend=="FEMALE"||$gend=="OTHER")
+                            {
+                                $sql="INSERT INTO guest (FirstName,LastName,Gender,Email,Username,Password,Country) VALUES('$fname','$lname','$gend','$email','$user','$pass1','$country');";
+                                $result=mysqli_query($this->dbh->getConn(),$sql);
+
+                                $sql2="Select MAX(GuestID) as value from guest";
+                                $result2=mysqli_query($this->dbh->getConn(),$sql2);
+                                $row4=mysqli_fetch_assoc($result2);
 
 
-            $sql1="INSERT INTO login (GuestID,username,password) values('".$row4['value']."','$user','$pass1')";
-            $result1=mysqli_query($this->dbh->getConn(),$sql1);
-            $this->name=$fname;
-            $this->email=$email;
-            $this->password=$pass;
-            $this->username->$user;
-            $this->Country = $country;
-            header("Location:Login.php");
+                                $sql1="INSERT INTO login (GuestID,username,password) values('".$row4['value']."','$user','$pass1')";
+                                $result1=mysqli_query($this->dbh->getConn(),$sql1);
+                                $this->name=$fname;
+                                $this->email=$email;
+                                $this->password=$pass;
+                                $this->username->$user;
+                                $this->Country = $country;
+                                header("Location:Login.php");
+                            }
+                            else
+                            {
+                                echo'<script>
+                                swal("Error Regestering!","Select a valid gender from the drop down menu","error");
+                                </script>';   
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+            
         }
         else {echo '<script> alert("Username and/or Email Already Exists")</script>';}
     
@@ -117,29 +195,129 @@ class Guest extends User {
         
     }
 
-    public function EditProfile($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Country,$Age,$Phone,$Gender)
-    {
-        if($Pass !="")
-        {
-        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Password="'.$Pass.'", Phone="'.$Phone.'", Age="'.$Age.'", Gender="'.$Gender.'" WHERE GuestID='.$_SESSION["ID"].'';
-        $_SESSION["fname"]=$Fname;
-        $_SESSION["lname"]=$Lname;
-        $_SESSION["Email"]=$Email;
-        mysqli_query($this->dbh->getConn(),$SQL) ;
 
-        
-        $sql1="UPDATE login set password='$Pass' where username='$User'";
-        return mysqli_query($this->dbh->getConn(),$sql1);
+    public function validateall($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Country,$Age,$Phone,$Gender)
+    {
+        if($this->validate($Fname)==false)
+        {
+            echo'<script>
+                    swal("Error Editing Profile!","Remove numbers or special characters from first name","error");
+                    </script>';
+                    return false;
         }
         else
         {
-        $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Phone="'.$Phone.'", Age="'.$Age.'", Gender="'.$Gender.'" WHERE GuestID='.$_SESSION["ID"].'';
-        $_SESSION["fname"]=$Fname;
-        $_SESSION["lname"]=$Lname;
-        $_SESSION["Email"]=$Email;
-        return mysqli_query($this->dbh->getConn(),$SQL) ;
-
+            if($this->validate($Lname)==false)
+            {
+                echo'<script>
+                    swal("Error Editing Profile!","Remove numbers or special characters from last name","error");
+                    </script>';
+                    return false;
+            }
+            else
+            {
+                if ($this->validatenumb($BankAcc)==false)
+                {
+                    echo'<script>
+                    swal("Error Editing Profile!","Bank Account contains value other than a number","error");
+                    </script>';
+                    return false;
+                }
+                else
+                {
+                    if (preg_match('/[\'\/~`\!@#\$%\^&\*\(\)\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', $Passport))
+                    {
+                        echo'<script>
+                        swal("Error Editing Profile!","Passport contains special characters","error");
+                        </script>';
+                        return false;
+                    }
+                    else
+                    {
+                        if ($this->validatenumb($NationalID)==false)
+                        {
+                            echo'<script>
+                            swal("Error Editing Profile!","NationalID contains value other than a number","error");
+                            </script>';
+                            return false;
+                        }
+                        else
+                        {
+                            if ($this->validatenumb($Age)==false || $Age<18)
+                            {
+                                echo'<script>
+                                swal("Error Editing Profile!","Age contains value other than a number","error");
+                                </script>';
+                                return false;
+                            }
+                            else
+                            {
+                                if ($this->validatenumb($Phone)==false)
+                                {
+                                    echo'<script>
+                                    swal("Error Editing Profile!","Phone Number contains value other than a number","error");
+                                    </script>';
+                                    return false;
+                                }
+                                else
+                                {
+                                    if (filter_var($Email, FILTER_VALIDATE_EMAIL)==false)
+                                    {
+                                        echo'<script>
+                                        swal("Error Editing Profile!","Please enter a valid email","error");
+                                        </script>';
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        if($Gender=="MALE"||$Gender=="FEMALE"||$Gender=="OTHER")
+                                        {
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            echo'<script>
+                                            swal("Error Editing Profile!","Please select a valid gender from the drop down menu","error");
+                                            </script>';
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    public function EditProfile($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Country,$Age,$Phone,$Gender)
+    {
+
+       if ($this->validateall($Fname,$Lname,$Email,$BankAcc,$Passport,$NationalID,$User,$Pass,$Country,$Age,$Phone,$Gender)==true)
+       {
+            if($Pass !="")
+            {
+                $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Password="'.$Pass.'", Phone="'.$Phone.'", Age="'.$Age.'", Gender="'.$Gender.'" WHERE GuestID='.$_SESSION["ID"].'';
+                $_SESSION["fname"]=$Fname;
+                $_SESSION["lname"]=$Lname;
+                $_SESSION["Email"]=$Email;
+                mysqli_query($this->dbh->getConn(),$SQL) ;
+                                        
+                $sql1="UPDATE login set password='$Pass' where username='$User'";
+                return mysqli_query($this->dbh->getConn(),$sql1);
+            }
+            else
+            {
+                $SQL = 'UPDATE guest SET FirstName="'.$Fname.'",LastName="'.$Lname.'", Email="'.$Email.'", BankAccount="'.$BankAcc.'", PassportNumber="'.$Passport.'", NationalID="'.$NationalID.'", Country="'.$Country.'", Phone="'.$Phone.'", Age="'.$Age.'", Gender="'.$Gender.'" WHERE GuestID='.$_SESSION["ID"].'';
+                $_SESSION["fname"]=$Fname;
+                $_SESSION["lname"]=$Lname;
+                $_SESSION["Email"]=$Email;
+                return mysqli_query($this->dbh->getConn(),$SQL) ;
+            }
+        }
+                                
+       
         
     }
     public function EditProfilePic($file)
@@ -147,11 +325,13 @@ class Guest extends User {
         $SQL = 'UPDATE guest SET Image="'.$file.'" WHERE GuestID='.$_SESSION["ID"].'';
         return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
     }
+
     public function CancelPackage($PackageID,$ReserveID)
     {
         $SQL = 'DELETE FROM reserves WHERE PackageID='.$PackageID.' AND GuestID='.$_SESSION["ID"].' AND ReserveID='.$ReserveID.'';
         return mysqli_query($this->dbh->getConn(),$SQL) or die($this->dbh->getConn()->error);
     }
+
     public function CancelHotel($HotelID,$ReserveID,$DateIn,$DateOut)
     {
         $SQL = 'DELETE FROM reserves WHERE HotelID='.$HotelID.' AND GuestID='.$_SESSION["ID"].' AND ReserveID='.$ReserveID.'';
@@ -201,285 +381,399 @@ class Guest extends User {
         }
     }
 
-    public function BookPackage($GuestID,$PackageID)
+
+    public function validatebooking($children,$adults,$Datein,$Dateout, $single, $double,$triple,$suites,$board)
     {
+        $date = date('Y-m-d');
 
-        $mysql="select NoofChildren,NoofAdults from reserves where PackageId=$PackageID";
-        $res=mysqli_query($this->db->getConn(),$mysql);
-        $numberofadults=0;
-        $numberofchildren=0;
-        while ($row2=$res->fetch_assoc())
+        if($children<0)
         {
-            $numberofadults+=$row2['NoofAdults'];
-            $numberofchildren+=$row2['NoofChildren'];
-        }
-
-        $sumofpeople=$numberofadults+$numberofchildren+$_POST['noofchildren']+$_POST['noofadults'];
-
-
-        $sql="Select * from packages where PackageID='$PackageID'";
-        $result=mysqli_query($this->db->getConn(),$sql);
-        $row=mysqli_fetch_assoc($result);
-
-        if ($sumofpeople<=$row['ReserveLimit'])
-        {
-
-            $sql5="Select Email from guest where GuestID=$GuestID";
-            $result6=mysqli_query($this->db->getConn(),$sql5);
-            $row6=mysqli_fetch_assoc($result6);
-
-
-
-            $children=$_POST['noofchildren'];
-            $adults=$_POST['noofadults'];
-            $Datein=$row['DateIn'];
-            $Dateout=$row['DateOut'];
-            $single=$_POST['singlerooms'];
-            $double=$_POST['doublerooms'];
-            $triple=$_POST['triplerooms'];
-            $suites=$_POST['suites'];
-            $board=$_POST['boardtype'];
-
-            $totalprice=$row['Price'];
-            $totalprice=$totalprice*(int) $_POST['noofadults'];
-            $price=($row['Price']/2)*(int) $children;
-            $totalprice=$totalprice+$price;
-            $confirmprice=$totalprice*0.1;
-
-            // $hotelid=$row['HotelID'];
-
-            $sql2="INSERT INTO reserves (GuestId,PackageId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status,Ended) values ('$GuestID','$PackageID','$children','$adults','$Datein','Enabled','$Dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval','FALSE')";
-            $res4=mysqli_query($this->db->getConn(),$sql2);
-
-            if ($res4)
-            {
-                $Email_Body="<h2>Your Booking Has been Sent To SpeedoTours And Pending Approval</h2>
-                <br>
-                <h3> for ".$row['PackageName']."<h3>
-                <br>
-                Booking Detalis:
-                <br>
-                Single Rooms: $single 
-                <br>
-                Double Rooms: $double 
-                <br>
-                Triple Rooms: $triple 
-                <br>
-                Suites: $suites 
-                <br>
-                $board Board
-                <br>
-                Check In Date: $Datein 
-                <br>
-                Check Out Date: $Dateout 
-                <br>
-                Total Price: $totalprice EGP
-                <br>
-
-                <h3>Please Pay 10% of the total price which is $confirmprice EGP in order to confirm the booking</h3>
-                <h3>Please contact us by telephone number : 0212244553 in order to pay the deposit</h3>
-                <br>
-                <h3>For Other Inquires Please contact us through our contact us page or by using our email which is : Speedotourscentral@gmail.com</h3> 
-
-
-                <h4> May You Have A Pleasent Stay </h4>
-                <br>
-                <h4> Best Regards From Speedo Tours </h4>";
-                
-                include_once "serverdetails.php";
-                try{
-                $email->Subject="Book Package Request";
-                $email->Body=$Email_Body;
-                $email->addAddress($row6["Email"]);
-                $email->send();
-                }
-                catch(Exception $e)
-                {
-                    echo $e->errorMessage();
-                }
-            echo'<script>swal("Successfully Booked", "", "success");</script>';
-
-            }
-            else
-            {
-                echo'<script>
-                                        swal("Oops","Error Booking Package !","error");
-                                        </script>';
-            }
+            echo'<script>
+            swal("Error Booking","The number of children must be 0 or higher","error");
+            </script>';
+            return false;
         }
         else
         {
-            echo'<script>swal("Booking Error", "Package is already full", "Error");</script>';
+            if($adults<1)
+            {
+                echo'<script>
+                swal("Error Booking","The number of adults must be 1 or higher","error");
+                </script>';
+                return false;
+            }
+            else
+            {
+                if($Datein<=$date)
+                {
+                    echo'<script>
+                    swal("Error Booking","Please select a valid check in date","error");
+                    </script>';
+                    return false;
+                }
+                else
+                {
+                    if ($Dateout<=$Datein)
+                    {
+                        echo'<script>
+                        swal("Error Booking","Please select a valid check out date","error");
+                        </script>';
+                        return false;
+                    }
+                    else
+                    {
+                        if($single<0)
+                        {
+                            echo'<script>
+                            swal("Error Booking","Please Enter Number of single rooms equal 0 or higher","error");
+                            </script>';
+                            return false;
+                        }
+                        else
+                        {
+                            if($double<0)
+                            {
+                                echo'<script>
+                                swal("Error Booking","Please Enter Number of double rooms equal 0 or higher","error");
+                                </script>';
+                                return false;
+                            }
+                            else
+                            {
+                                if($triple<0)
+                                {
+                                    echo'<script>
+                                    swal("Error Booking","Please Enter Number of triple rooms equal 0 or higher","error");
+                                    </script>';
+                                    return false;
+                                }
+                                else
+                                {
+                                    if($suites<0)
+                                    {
+                                        echo'<script>
+                                        swal("Error Booking","Please Enter Number of suites equal 0 or higher","error");
+                                        </script>';
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        if(($single+$double+$triple+$suites)<=0)
+                                        {
+                                            echo'<script>
+                                            swal("Error Booking","Please Enter A valid number of rooms total number of rooms can\'t be 0 or less","error");
+                                            </script>';
+                                            return false;
+                                        }
+                                        else
+                                        {
+                                            if ($board=="Full"||$board=="Half")
+                                            {
+                                                return true;
+                                            }
+                                            else
+                                            {
+                                                echo'<script>
+                                                swal("Error Booking","Please Enter A valid type of boarding","error");
+                                                </script>';
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
+        }
+    }
+
+    public function BookPackage($GuestID,$PackageID)
+    {
+        if($this->validatebooking($_POST['noofchildren'],$_POST['noofadults'],$row['DateIn'],$row['DateOut'],$_POST['singlerooms'],$_POST['doublerooms'],$_POST['triplerooms'],$_POST['suites'],$_POST['boardtype'])==true)
+        {
+            $mysql="select NoofChildren,NoofAdults from reserves where PackageId=$PackageID";
+            $res=mysqli_query($this->db->getConn(),$mysql);
+            $numberofadults=0;
+            $numberofchildren=0;
+            while ($row2=$res->fetch_assoc())
+            {
+                $numberofadults+=$row2['NoofAdults'];
+                $numberofchildren+=$row2['NoofChildren'];
+            }
+
+            $sumofpeople=$numberofadults+$numberofchildren+$_POST['noofchildren']+$_POST['noofadults'];
+
+
+            $sql="Select * from packages where PackageID='$PackageID'";
+            $result=mysqli_query($this->db->getConn(),$sql);
+            $row=mysqli_fetch_assoc($result);
+
+            if ($sumofpeople<=$row['ReserveLimit'])
+            {
+
+                $sql5="Select Email from guest where GuestID=$GuestID";
+                $result6=mysqli_query($this->db->getConn(),$sql5);
+                $row6=mysqli_fetch_assoc($result6);
+
+
+
+                $children=$_POST['noofchildren'];
+                $adults=$_POST['noofadults'];
+                $Datein=$row['DateIn'];
+                $Dateout=$row['DateOut'];
+                $single=$_POST['singlerooms'];
+                $double=$_POST['doublerooms'];
+                $triple=$_POST['triplerooms'];
+                $suites=$_POST['suites'];
+                $board=$_POST['boardtype'];
+
+                $totalprice=$row['Price'];
+                $totalprice=$totalprice*(int) $_POST['noofadults'];
+                $price=($row['Price']/2)*(int) $children;
+                $totalprice=$totalprice+$price;
+                $confirmprice=$totalprice*0.1;
+
+                // $hotelid=$row['HotelID'];
+
+                $sql2="INSERT INTO reserves (GuestId,PackageId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status,Ended) values ('$GuestID','$PackageID','$children','$adults','$Datein','Enabled','$Dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval','FALSE')";
+                $res4=mysqli_query($this->db->getConn(),$sql2);
+
+                if ($res4)
+                {
+                    $Email_Body="<h2>Your Booking Has been Sent To SpeedoTours And Pending Approval</h2>
+                    <br>
+                    <h3> for ".$row['PackageName']."<h3>
+                    <br>
+                    Booking Detalis:
+                    <br>
+                    Single Rooms: $single 
+                    <br>
+                    Double Rooms: $double 
+                    <br>
+                    Triple Rooms: $triple 
+                    <br>
+                    Suites: $suites 
+                    <br>
+                    $board Board
+                    <br>
+                    Check In Date: $Datein 
+                    <br>
+                    Check Out Date: $Dateout 
+                    <br>
+                    Total Price: $totalprice EGP
+                    <br>
+
+                    <h3>Please Pay 10% of the total price which is $confirmprice EGP in order to confirm the booking</h3>
+                    <h3>Please contact us by telephone number : 0212244553 in order to pay the deposit</h3>
+                    <br>
+                    <h3>For Other Inquires Please contact us through our contact us page or by using our email which is : Speedotourscentral@gmail.com</h3> 
+
+
+                    <h4> May You Have A Pleasent Stay </h4>
+                    <br>
+                    <h4> Best Regards From Speedo Tours </h4>";
+                    
+                    include_once "serverdetails.php";
+                    try{
+                    $email->Subject="Book Package Request";
+                    $email->Body=$Email_Body;
+                    $email->addAddress($row6["Email"]);
+                    $email->send();
+                    }
+                    catch(Exception $e)
+                    {
+                        echo $e->errorMessage();
+                    }
+                echo'<script>swal("Successfully Booked", "", "success");</script>';
+
+                }
+                else
+                {
+                    echo'<script>
+                                            swal("Oops","Error Booking Package !","error");
+                                            </script>';
+                }
+            }
+            else
+            {
+                echo'<script>swal("Booking Error", "Package is already full", "Error");</script>';
+
+            }
         }
     }
 
     public function BookHotel($id,$hotelname)
     {   
-        $sql="Select * from hotel where Name='$hotelname'";
-        $result=mysqli_query($this->db->getConn(),$sql);
-        $row=mysqli_fetch_assoc($result);
-
-        $sql1="Select count(RoomType)as single from rooms  where rooms.Status='Free' and HotelID='".$row['HotelID']."' and rooms.RoomType='Single' ";
-        $result1=mysqli_query($this->db->getConn(),$sql1);
-        $row1=mysqli_fetch_assoc($result1);
-
-        $sql2="Select count(RoomType)as number from rooms where rooms.Status='Free' and HotelID='".$row['HotelID']."'and rooms.RoomType='Double' ";
-        $result2=mysqli_query($this->db->getConn(),$sql2);
-        $row2=mysqli_fetch_assoc($result2);
-
-        $sql3="Select count(RoomType)as triple from rooms where rooms.Status='Free' and HotelID='".$row['HotelID']."'and rooms.RoomType='Triple' ";
-        $result3=mysqli_query($this->db->getConn(),$sql3);
-        $row3=mysqli_fetch_assoc($result3);
-
-        $sql4="Select count(RoomType)as suites from rooms where rooms.Status='Free' and HotelID='".$row['HotelID']."'and rooms.RoomType='Suites' ";
-        $result4=mysqli_query($this->db->getConn(),$sql4);
-        $row4=mysqli_fetch_assoc($result4);
-
-
-        $sql10="select Email from guest where GuestID='$id'";
-        $result10=mysqli_query($this->db->getConn(),$sql10);
-        $row10=mysqli_fetch_assoc($result10);
-
-        $guestemail=$row10['Email'];
-        
-        $hotelid=$row['HotelID'];
-        $datein=$_POST['datein'];
-        $dateout=$_POST['dateout'];
-        $adults=$_POST['adults'];
-        $children=$_POST['children'];
-        $board=$_POST['boardtype'];
-        $single=(int)$_POST['single'];
-        $double=(int)$_POST['doublerooms'];
-        $triple=(int)$_POST['triple'];
-        $suites=(int)$_POST['suites'];
-
-        $totalprice=$row['PriceSingle']*(int)$single;
-        $totalprice+=$row['PriceDouble']*(int)$double;
-        $totalprice+=$row['PriceTriple']*(int)$triple;
-        $totalprice+=$row['PriceSuites']*(int)$suites;
-        $confirmprice=$totalprice*0.1;
-
-        if ($single <= $row1['single'])
+        if($this->validatebooking($_POST['children'],$_POST['adults'],$_POST['datein'],$_POST['dateout'],$_POST['single'],$_POST['doublerooms'],$_POST['triple'],$_POST['suites'],$_POST['boardtype'])==true)
         {
-            if ($double <= $row2['number'])
+            $sql="Select * from hotel where Name='$hotelname'";
+            $result=mysqli_query($this->db->getConn(),$sql);
+            $row=mysqli_fetch_assoc($result);
+
+            $sql1="Select count(RoomType)as single from rooms  where rooms.Status='Free' and HotelID='".$row['HotelID']."' and rooms.RoomType='Single' ";
+            $result1=mysqli_query($this->db->getConn(),$sql1);
+            $row1=mysqli_fetch_assoc($result1);
+
+            $sql2="Select count(RoomType)as number from rooms where rooms.Status='Free' and HotelID='".$row['HotelID']."'and rooms.RoomType='Double' ";
+            $result2=mysqli_query($this->db->getConn(),$sql2);
+            $row2=mysqli_fetch_assoc($result2);
+
+            $sql3="Select count(RoomType)as triple from rooms where rooms.Status='Free' and HotelID='".$row['HotelID']."'and rooms.RoomType='Triple' ";
+            $result3=mysqli_query($this->db->getConn(),$sql3);
+            $row3=mysqli_fetch_assoc($result3);
+
+            $sql4="Select count(RoomType)as suites from rooms where rooms.Status='Free' and HotelID='".$row['HotelID']."'and rooms.RoomType='Suites' ";
+            $result4=mysqli_query($this->db->getConn(),$sql4);
+            $row4=mysqli_fetch_assoc($result4);
+
+
+            $sql10="select Email from guest where GuestID='$id'";
+            $result10=mysqli_query($this->db->getConn(),$sql10);
+            $row10=mysqli_fetch_assoc($result10);
+
+            $guestemail=$row10['Email'];
+            
+            $hotelid=$row['HotelID'];
+            $datein=$_POST['datein'];
+            $dateout=$_POST['dateout'];
+            $adults=$_POST['adults'];
+            $children=$_POST['children'];
+            $board=$_POST['boardtype'];
+            $single=(int)$_POST['single'];
+            $double=(int)$_POST['doublerooms'];
+            $triple=(int)$_POST['triple'];
+            $suites=(int)$_POST['suites'];
+
+            $totalprice=$row['PriceSingle']*(int)$single;
+            $totalprice+=$row['PriceDouble']*(int)$double;
+            $totalprice+=$row['PriceTriple']*(int)$triple;
+            $totalprice+=$row['PriceSuites']*(int)$suites;
+            $confirmprice=$totalprice*0.1;
+
+            if ($single <= $row1['single'])
             {
-                if ($triple <= $row3['triple'])
+                if ($double <= $row2['number'])
                 {
-                    if ($suites <= $row4['suites'])
+                    if ($triple <= $row3['triple'])
                     {
-
-
-                        $sql5="INSERT INTO reserves (GuestId,HotelId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status,Ended) values ('$id','$hotelid','$children','$adults','$datein','Enabled','$dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval','FALSE')";
-                        $result5=mysqli_query($this->db->getConn(),$sql5);
-
-                        $sql6="UPDATE rooms
-                        SET Status='Pending', GuestID='$id',DateIn='$datein',DateOut='$dateout'
-                        Where HotelID='$hotelid' and RoomType='Single' and Status='Free' limit $single
-                        ";
-                        $result6=mysqli_query($this->db->getConn(),$sql6);
-
-                        $sql7="UPDATE rooms
-                        SET Status='Pending', GuestID='$id',DateIn='$datein',DateOut='$dateout'
-                        Where HotelID='$hotelid' and RoomType='Double' and Status='Free' limit $double
-                        ";
-                        $result7=mysqli_query($this->db->getConn(),$sql7);
-
-                        $sql8="UPDATE rooms
-                        SET Status='Pending', GuestID='$id',DateIn='$datein',DateOut='$dateout'
-                        Where HotelID='$hotelid' and RoomType='Triple' and Status='Free' limit $triple
-                        ";
-                        $result8=mysqli_query($this->db->getConn(),$sql8);
-
-                        $sql9="UPDATE rooms
-                        SET Status='Pending', GuestID='$id',DateIn='$datein',DateOut='$dateout'
-                        Where HotelID='$hotelid' and RoomType='Suites' and Status='Free' limit $suites
-                        ";
-                        $result9=mysqli_query($this->db->getConn(),$sql9);
-                        
-
-                        if ($result9)
+                        if ($suites <= $row4['suites'])
                         {
-                            $Email_Body="<h2>Your Booking Has been Sent To SpeedoTours And Pending Approval</h2>
-                            <br>
-                            <h3> for $hotelname <h3>
-                            <br>
-                            Booking Detalis:
-                            <br>
-                            Single Rooms: $single
-                            <br>
-                            Double Rooms: $double 
-                            <br>
-                            Triple Rooms: $triple 
-                            <br>
-                            Suites: $suites
-                            <br>
-                            $board Board
-                            <br>
-                            Check In Date: $datein  
-                            <br>
-                            Check Out Date: $dateout  
-                            <br>
-                            Total price : $totalprice EGP
-                            <br>
-            
-                            <h3>Please Pay 10% of the total price which is $confirmprice EGP in order to confirm the booking</h3>
-                            <h3>Please contact us by telephone number : 0212244553 in order to pay the deposit</h3>
-                            <br>
-                            <h3>For Other Inquires Please contact us through our contact us page or by using our email which is : Speedotourscentral@gmail.com</h3> 
-            
-            
-                            <h4> May You Have A Pleasent Stay </h4>
-                            <br>
-                            <h4> Best Regards From Speedo Tours </h4>";
+
+
+                            $sql5="INSERT INTO reserves (GuestId,HotelId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status,Ended) values ('$id','$hotelid','$children','$adults','$datein','Enabled','$dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval','FALSE')";
+                            $result5=mysqli_query($this->db->getConn(),$sql5);
+
+                            $sql6="UPDATE rooms
+                            SET Status='Pending', GuestID='$id',DateIn='$datein',DateOut='$dateout'
+                            Where HotelID='$hotelid' and RoomType='Single' and Status='Free' limit $single
+                            ";
+                            $result6=mysqli_query($this->db->getConn(),$sql6);
+
+                            $sql7="UPDATE rooms
+                            SET Status='Pending', GuestID='$id',DateIn='$datein',DateOut='$dateout'
+                            Where HotelID='$hotelid' and RoomType='Double' and Status='Free' limit $double
+                            ";
+                            $result7=mysqli_query($this->db->getConn(),$sql7);
+
+                            $sql8="UPDATE rooms
+                            SET Status='Pending', GuestID='$id',DateIn='$datein',DateOut='$dateout'
+                            Where HotelID='$hotelid' and RoomType='Triple' and Status='Free' limit $triple
+                            ";
+                            $result8=mysqli_query($this->db->getConn(),$sql8);
+
+                            $sql9="UPDATE rooms
+                            SET Status='Pending', GuestID='$id',DateIn='$datein',DateOut='$dateout'
+                            Where HotelID='$hotelid' and RoomType='Suites' and Status='Free' limit $suites
+                            ";
+                            $result9=mysqli_query($this->db->getConn(),$sql9);
                             
-                            include_once "serverdetails.php";
-                            try{
-                            $email->Subject="Book Hotel Request";
-                            $email->Body=$Email_Body;
-                            $email->addAddress($guestemail);
-                            $email->send();
-                            }
-                            catch(Exception $e)
+
+                            if ($result9)
                             {
-                                echo $e->errorMessage();
+                                $Email_Body="<h2>Your Booking Has been Sent To SpeedoTours And Pending Approval</h2>
+                                <br>
+                                <h3> for $hotelname <h3>
+                                <br>
+                                Booking Detalis:
+                                <br>
+                                Single Rooms: $single
+                                <br>
+                                Double Rooms: $double 
+                                <br>
+                                Triple Rooms: $triple 
+                                <br>
+                                Suites: $suites
+                                <br>
+                                $board Board
+                                <br>
+                                Check In Date: $datein  
+                                <br>
+                                Check Out Date: $dateout  
+                                <br>
+                                Total price : $totalprice EGP
+                                <br>
+                
+                                <h3>Please Pay 10% of the total price which is $confirmprice EGP in order to confirm the booking</h3>
+                                <h3>Please contact us by telephone number : 0212244553 in order to pay the deposit</h3>
+                                <br>
+                                <h3>For Other Inquires Please contact us through our contact us page or by using our email which is : Speedotourscentral@gmail.com</h3> 
+                
+                
+                                <h4> May You Have A Pleasent Stay </h4>
+                                <br>
+                                <h4> Best Regards From Speedo Tours </h4>";
+                                
+                                include_once "serverdetails.php";
+                                try{
+                                $email->Subject="Book Hotel Request";
+                                $email->Body=$Email_Body;
+                                $email->addAddress($guestemail);
+                                $email->send();
+                                }
+                                catch(Exception $e)
+                                {
+                                    echo $e->errorMessage();
+                                }
+                                echo'<script>swal("Successfully Booked", "", "success");</script>';
+                
                             }
-                            echo'<script>swal("Successfully Booked", "", "success");</script>';
-            
+                            else
+                            {
+                                echo'<script>
+                                                        swal("Oops","Error Booking Hotel !","error");
+                                                        </script>';
+                            }
                         }
                         else
                         {
                             echo'<script>
-                                                    swal("Oops","Error Booking Hotel !","error");
-                                                    </script>';
+                            swal("Error Booking Hotel","There is no enough free Suites! \n free rooms :'.$row4['suites'].'","error");
+                            </script>'; 
                         }
                     }
                     else
                     {
                         echo'<script>
-                        swal("Error Booking Hotel","There is no enough free Suites! \n free rooms :'.$row4['suites'].'","error");
+                        swal("Error Booking Hotel","There is no enough free triple rooms! \n free rooms :'.$row3['triple'].' ","error");
                         </script>'; 
                     }
                 }
                 else
                 {
-                    echo'<script>
-                    swal("Error Booking Hotel","There is no enough free triple rooms! \n free rooms :'.$row3['triple'].' ","error");
-                    </script>'; 
+                echo'<script>
+                swal("Error Booking Hotel","There is no enough free double rooms! \n free rooms :'.$row2['number'].'","error");
+                </script>'; 
                 }
             }
             else
             {
-            echo'<script>
-            swal("Error Booking Hotel","There is no enough free double rooms! \n free rooms :'.$row2['number'].'","error");
-            </script>'; 
+                echo'<script>
+                swal("Error Booking Hotel","There is no enough free single rooms! \n free rooms :'.$row1['single'].'","error");
+                </script>'; 
             }
-        }
-        else
-        {
-            echo'<script>
-            swal("Error Booking Hotel","There is no enough free single rooms! \n free rooms :'.$row1['single'].'","error");
-            </script>'; 
         }
     }
 

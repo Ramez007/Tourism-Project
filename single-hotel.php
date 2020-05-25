@@ -280,7 +280,7 @@ $guestcontroller=new GuestController($guestmodel);
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Number of Adults:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" name="adults"  required id="quantity" min="0" max="100" placeholder="1">
+                                    	<input type="number" class="form-control" name="adults"  required id="quantity" min="1" max="100" placeholder="1">
                                     </div>
                                 </div>
 

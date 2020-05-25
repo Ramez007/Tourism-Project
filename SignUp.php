@@ -261,11 +261,12 @@ padding: 20px;
 
 							<select class ="Select" name="SelecGender" id="Select">
 								<option value="0"> Select Gender </option>
-								<option value="Male"> Male </option>
-								<option value="Female"> Female </option>
+								<option value="MALE"> Male </option>
+								<option value="FEMALE"> Female </option>
 							</select>
 
 							<select id="Select" name="Country" class="Select">
+                                <option selected disabled> Choose Country</option>
                                 <option value="Afganistan">Afghanistan</option>
                                 <option value="Albania">Albania</option>
                                 <option value="Algeria">Algeria</option>
