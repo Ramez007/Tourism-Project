@@ -214,11 +214,22 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                                 <label for="edithoteloverview">Enter Hotel Overview</label>
                                                 <textarea class="form-control" id="edithoteloverview" rows="15" style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" maxlength="140" minlength="140" name="overview" required>'.$row['overview'].'</textarea>
                                             </div>
-                                            <a href="#">Show Gallery</a><br>
-                                            <div class="form-group">
-                                                <label for="fileToUpload">Upload Gallery of Hotel</label>
-                                                <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
-                                            </div>
+                                            
+                                            <label for="fileToUpload">Upload Gallery of Hotel</label>
+                                                
+                                                    <div class=row>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="custom-file">
+                                                                <input required class="custom-file-input" id="photoSelector2" name="photos[]" type="file" accept=".jpeg, .jpg, .png" multiple maxlength="10"> 
+                                                                <label class="custom-file-label" for="photoSelector"></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                       
+                                           
+                                            <br>
+                                            
+                                            <div class="row" id="imgRow2" style="margin: 0.5rem;background-color: antiquewhite;display:flex;margin-top: -28px;margin-bottom: -45px;overflow: scroll"></div>
                                             <input type="hidden" class="form-control" value="'.$row['HotelID'].'" id="HotelId" name="HotelId">
                                             <br><br>
                                             ';
@@ -1121,6 +1132,33 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                     swal("Oops","Error Updating Hotel !","error");
                     </script>';
                  }
+
+                 $sql2="DELETE FROM gallery where HotelId=$id";
+                 $Resultx = mysqli_query($this->db->getConn(),$sql2);
+
+                 for($x=0; $x<count($_FILES['photos']['tmp_name']); $x++ ) 
+                    {
+
+                        $image_base64 = base64_encode(file_get_contents($_FILES['photos']['tmp_name'][$x]) );
+                        $target_file = basename($_FILES["photos"]["name"][$x]);
+                        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                        $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+
+                        $imagename=$_POST['imgname'][$x];
+                       
+                        
+
+                        
+                        $query = "INSERT INTO gallery (HotelId,picture,imgname) VALUES ('$id','$image','$imagename');";
+                        $Result23 = mysqli_query($this->db->getConn(),$query);
+
+                    }
+
+                    $primary = $_POST['imgPrimary'];
+                    $query2= "update gallery set Main='yes' where hotelid='".$id."' and imgname='".$primary."' ";
+                    $Result233 = mysqli_query($this->db->getConn(),$query2);
+
+
             }
             else
             {
@@ -1138,6 +1176,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         if($cruise=="NULL")
         {
             $sql="INSERT INTO packages (CruiseID,PackageName,ReserveLimit,HotelID,Price,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,Suspended,DateIn,DateOut,Overview,Description) values($cruise,'$name','$limit','$hotel','$price','$guide','$transport','$map','$boardtype','$days','$nights','Disabled','$start','$end','$overview','$description')";
+
         }
         else
         {
@@ -1145,14 +1184,46 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         }
         $Result = mysqli_query($this->db->getConn(),$sql);
         if($Result)
-        {
+         {
             echo'<script>swal("Successfully Added Package", "", "success");</script>';
          }
-         else{
+         else
+         {
             echo'<script>
             swal("Oops","Error Adding Package !","error");
             </script>';
          }
+
+            $sql11="SELECT PackageID from packages where PackageName='$name';";
+            $Result11 = mysqli_query($this->db->getConn(),$sql11);
+            $row11=$Result11->fetch_assoc();
+            $pkgid = $row11['PackageID'];
+
+
+            for($x=0; $x<count($_FILES['photos']['tmp_name']); $x++) 
+            {
+
+                $image_base64 = base64_encode(file_get_contents($_FILES['photos']['tmp_name'][$x]) );
+                $target_file = basename($_FILES["photos"]["name"][$x]);
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+
+                $imagename=$_POST['imgname'][$x];
+               
+                
+
+                
+                $query = "INSERT INTO gallery (PackageId,picture,imgname) VALUES ('$pkgid','$image','$imagename');";
+                $Result23 = mysqli_query($this->db->getConn(),$query);
+
+            }
+
+            $primary = $_POST['imgPrimary'];
+            $query2= "update gallery set Main='yes' where PackageId='".$pkgid."' and imgname='".$primary."' ";
+            $Result233 = mysqli_query($this->db->getConn(),$query2);
+
+
+
     }
 
     function EditPackage($id,$cruise,$name,$days,$nights,$limit,$price,$start,$end,$transport,$guide,$map,$boardtype,$hotel,$overview,$description)

@@ -182,6 +182,7 @@ class AdminController extends Controller{
           if ($_REQUEST['numberofdays'] >=1 && $_REQUEST['numberofnights'] >=1 && $_REQUEST['numberofdays'] >=1 && $_REQUEST['reservelimit'] >= 1 && $_REQUEST['totalprice'] >= 100 && strlen($_POST['addpackageoverview']) ==140)
           {
             $this->model->AddPackage($cruise,$name,$days,$nights,$limit,$price,$start,$end,$transport,$guide,$map,$boardtype,$hotel,$overview,$description);
+
           }
           else
           {

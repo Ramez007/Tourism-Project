@@ -482,7 +482,7 @@
                                     <!-- Edit Hotel Subsection -->
             
                                     <div id="edit-hotel-subsec">
-                                        <form action="" method="post">
+                                        <form action="" method="post" enctype="multipart/form-data">
                                             <h4 class="text-center">Edit Hotel</h4>
                                             <?php $AdminView->ReadEditHotels(); ?>
                                             <input class="btn btn-primary mb-2" type="submit" name='submit-edit-hotel' value="Save Editing Hotel">
@@ -571,7 +571,7 @@
                                     <!-- Add Package SubSection -->
                                     <div id="add-package-subsec">
                                         <h4 class="text-center">Add Package</h4>
-                                        <form action="" method="post">
+                                        <form action="" method="post" enctype="multipart/form-data">
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Enter Package Name</label>
                                                 <div class="col-sm-3">
@@ -645,8 +645,23 @@
                                                 <label for="edithoteldescription">Enter Package overview</label>
                                                 <textarea class="form-control" id="edithoteldescription"  style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" minlength="140"  name="addpackageoverview" maxlength="140" rows="4"  Placeholder="Enter Text Here..." required></textarea>
                                             </div>
-                                            <label for="fileToUpload">Upload Pictures</label>
-                                            <input type="file" name="fileToUpload" id="fileToUpload">
+
+                                            <label for="fileToUpload">Upload Gallery of Hotel</label>
+                                                
+                                                    <div class=row>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="custom-file">
+                                                                <input required class="custom-file-input" id="photoSelector3" name="photos[]" type="file" accept=".jpeg, .jpg, .png" multiple maxlength="10"> 
+                                                                <label class="custom-file-label" for="photoSelector"></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                       
+                                           
+                                            <br>
+                                            
+                                            <div class="row" id="imgRow3" style="margin: 0.5rem;background-color: antiquewhite;display:flex;margin-top: -28px;margin-bottom: -45px;overflow: scroll"></div>
+
                                             <br><br>
                                             <input type="submit"  class="btn btn-primary mb-2" value="Save Package" name="SubmitAddPackage">
                                         </form>
