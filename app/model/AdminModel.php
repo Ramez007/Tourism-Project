@@ -983,13 +983,50 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                             array_push($services,$check);
                         }
                 }
-                if($_POST['numberofsingle'] > 1 && $_POST['numberofsingle'] <= 150 && $_POST['numberofdouble'] > 1 && $_POST['numberofdouble'] <= 100 && $_POST['numberoftriple'] > 1 && $_POST['numberoftriple'] <= 75 && $_POST['numberofsuites'] > 1 && $_POST['numberofsuites'] <= 50 && $_POST['priceofsingle'] >=1 && $_POST['priceofdouble'] >=1 && $_POST['priceoftriple'] >=1 && $_POST['priceofsuites'] >=1 && strlen($_POST['overview']) ==140)
+                if($_POST['numberofsingle'] >= 1 && $_POST['numberofsingle'] <= 150 && $_POST['numberofdouble'] >= 1 && $_POST['numberofdouble'] <= 100 && $_POST['numberoftriple'] >= 1 && $_POST['numberoftriple'] <= 75 && $_POST['numberofsuites'] >= 1 && $_POST['numberofsuites'] <= 50 && $_POST['priceofsingle'] >=1 && $_POST['priceofdouble'] >=1 && $_POST['priceoftriple'] >=1 && $_POST['priceofsuites'] >=1 && strlen($_POST['overview']) ==140)
                 {
+                                        
+
                     $types=[$_POST['numberofsingle'],$_POST['numberofdouble'],$_POST['numberoftriple'],$_POST['numberofsuites']];
                     $desc=htmlspecialchars($_POST['description'], ENT_QUOTES);
                     $overview=htmlspecialchars($_POST['overview'], ENT_QUOTES);
                 
                     $hotel=new Hotel($id,$_POST['enterhotel'],$services,htmlspecialchars($_POST['enterlocation'], ENT_QUOTES),$types,$desc,$overview,$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites'],$_POST['hotelstars']);
+                    
+                    
+
+                    for($x=0; $x<count($_FILES['photos']['tmp_name']); $x++ ) 
+                    {
+
+                        $image_base64 = base64_encode(file_get_contents($_FILES['photos']['tmp_name'][$x]) );
+                        $target_file = basename($_FILES["photos"]["name"][$x]);
+                        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                        $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+
+                        $imagename=$_POST['imgname'][$x];
+                       
+                        
+
+                        
+                        $query = "INSERT INTO gallery (HotelId,picture,imgname) VALUES ('$id','$image','$imagename');";
+                        $Result23 = mysqli_query($this->db->getConn(),$query);
+
+                    }
+
+                    $primary = $_POST['imgPrimary'];
+                    $query2= "update gallery set Main='yes' where hotelid='".$id."' and imgname='".$primary."' ";
+                    $Result233 = mysqli_query($this->db->getConn(),$query2);
+
+                    
+
+                    
+                    // if($Result23)
+                    // {
+                    //     echo'<script>alert("images uploaed");</script>';
+                    // }
+                    // else{
+                    //     echo'<script>alert("images not uploaed");</script>';
+                    // }
 
                     echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
                 }
