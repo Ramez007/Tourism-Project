@@ -670,7 +670,7 @@
                                     <!-- Edit Package SubSection -->
                                     <div id="edit-package-subsec">
                                         <h4 class="text-center">Edit Package</h4>
-                                        <form action="" method="post">
+                                        <form action="" method="post" enctype="multipart/form-data">
                                             <?php $AdminView->ReadEditPackages(); ?>
                                             <input type="submit" class="btn btn-primary mb-2" value="Save Editing Package" name="SubmitEditPackage">
                                             <script>

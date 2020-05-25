@@ -14,6 +14,7 @@ class mainpage extends Model
     private $mainslider=array();
     private $price=array();
     private $idarr=array();
+    private $divsimgs=array();
 
     
 
@@ -71,6 +72,14 @@ class mainpage extends Model
             array_push($this->mainslider,$row['FeaturedMainSilder']);
             array_push($this->price,$row['PriceSingle']);
         }
+
+        $sql2="select gallery.picture from gallery inner join hotel on gallery.HotelId=hotel.HotelID where gallery.Main='yes' ";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        while($row2=$result2->fetch_assoc())
+        {
+            array_push($this->divsimgs,$row2['picture']);
+        }
+
     }
 
     function listreviews()
@@ -124,6 +133,11 @@ class mainpage extends Model
     public function getMainslider()
     {
         return $this->mainslider;
+    }
+
+    public function getdivsimgs()
+    {
+        return $this->divsimgs;
     }
 
     /**

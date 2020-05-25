@@ -378,9 +378,22 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                 <label for="edithoteldescription">Edit Package overview</label>
                 <textarea class="form-control" id="editpackageoverview" name="editpackageoverview" style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" rows="4" maxlength="140" minlength="140"  Placeholder="Enter Text Here..." required>'.$row['Overview'].'</textarea>
             </div>                                                       
-            <br><br><br><a href="#">Show Gallery of Pacakage</a><br>
-            Update Gallery of Package <br>
-            <input type="file" name="fileToUpload" id="fileToUpload">
+            
+            <label for="fileToUpload">Upload Gallery of Package</label>
+                                                
+            <div class=row>
+                <div class="col-sm-12 col-md-6">
+                    <div class="custom-file">
+                        <input required class="custom-file-input" id="photoSelector4" name="photos[]" type="file" accept=".jpeg, .jpg, .png" multiple maxlength="10"> 
+                        <label class="custom-file-label" for="photoSelector"></label>
+                    </div>
+                </div>
+            </div>
+               
+   
+            <br>
+            
+            <div class="row" id="imgRow4" style="margin: 0.5rem;background-color: antiquewhite;display:flex;margin-top: -28px;margin-bottom: -45px;overflow: scroll"></div>
             <br><br>
             <input type="hidden" name="packageid" id="packageID" value="'.$row['PackageID'].'">
             ';        
@@ -1250,6 +1263,39 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             swal("Oops","Error Updating Package !","error");
             </script>';
          }
+
+            $sql11="SELECT PackageID from packages where PackageName='$name';";
+            $Result11 = mysqli_query($this->db->getConn(),$sql11);
+            $row11=$Result11->fetch_assoc();
+            $pkgid = $row11['PackageID'];
+
+
+                 $sql200="DELETE FROM gallery where PackageId=$pkgid";
+                 $Resultx = mysqli_query($this->db->getConn(),$sql200);
+
+            for($x=0; $x<count($_FILES['photos']['tmp_name']); $x++) 
+            {
+
+                $image_base64 = base64_encode(file_get_contents($_FILES['photos']['tmp_name'][$x]) );
+                $target_file = basename($_FILES["photos"]["name"][$x]);
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+
+                $imagename=$_POST['imgname'][$x];
+               
+                
+
+                
+                $query = "INSERT INTO gallery (PackageId,picture,imgname) VALUES ('$pkgid','$image','$imagename');";
+                $Result23 = mysqli_query($this->db->getConn(),$query);
+
+            }
+
+            $primary = $_POST['imgPrimary'];
+            $query2= "update gallery set Main='yes' where PackageId='".$pkgid."' and imgname='".$primary."' ";
+            $Result233 = mysqli_query($this->db->getConn(),$query2);
+
+
     }
 
 }

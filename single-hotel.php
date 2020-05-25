@@ -228,7 +228,7 @@ $guestcontroller=new GuestController($guestmodel);
                                         <!-- Slidshow Section -->
                                                                         
 
-                                        <div class="w3-content" style="max-width:1000px">
+                                        <div class="w3-content" style="max-width:800px">
                                         <!-- <img class="mySlides" src="images/wph1.jpg" style="width:100%">
                                         <img class="mySlides" src="images/wph2.jpg" style="width:100%">
 										<img class="mySlides" src="images/wph3.jpg" style="width:100%"> -->

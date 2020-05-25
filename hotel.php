@@ -81,6 +81,7 @@ require_once("app/model/hotelmodel.php");
 require_once("app/controller/HotelController.php");
 require_once("app/view/HotelView.php");
 $model=new Hotel();
+$model->ReadMainImgs();
 $controller=new HotelController($model);
 $controller->listhoteldata();
 $view=new HotelView($controller,$model);
@@ -143,7 +144,7 @@ $view=new HotelView($controller,$model);
 		
 	</div>
 	<!-- end:fh5co-header -->
-	<div class="fh5co-parallax" style="background-image: url(images/slider1.jpg);" data-stellar-background-ratio="0.5">
+	<div class="fh5co-parallax" style="background-image: url(images/hotelwall.jpg);" data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">

@@ -10,6 +10,7 @@ class PackageView extends View
         $PackageOverview = $this->model->getPackageViewOverview();
         $PackageID = $this->model->getPackageIDs();
         $PackagePrice = $this->model->getPackagePrices();
+        $this->mainimgs=$this->model->getprimaryimgs();
 
 
         for($i = 0; $i < count($PackageName); $i++)
@@ -18,7 +19,7 @@ class PackageView extends View
             '
             <div class="col-md-4">
             <div class="hotel-content">
-                <div class="hotel-grid" style="background-image: url(images/abu-simble.jpg);">
+                <div class="hotel-grid" style="background-image: url('.$this->mainimgs[$i].');">
                     <div class="price"><small>For as low as</small><span style="font-size:18">'.$PackagePrice[$i].' EGP/night</span></div>
                     <a class="book-now text-center" href="Single-Package.php?action='.$PackageID[$i].'"><i class="ti-calendar"></i> Book Now</a>
                 </div>
@@ -31,6 +32,24 @@ class PackageView extends View
             ';
         }
     }
+
+    public function displaygallery()
+    {
+        $this->model->outputgallery();
+    }
+
+    public function displaygallerynumbers()
+    {
+        $this->model->outputnumbers();
+    }
+
+    public function displaymaining()
+    {
+        $this->model->outputmainimg();
+    }
+
+
+
     public function PackageHeader()
     {
         echo ''.$this->model->getPackageName().'';

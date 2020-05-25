@@ -1,11 +1,12 @@
 <?php
 require_once("app/model/model.php");
+require_once("app/interfaces/IGallery.php");
 
 ?>
 
 <?php
 
-class singlehotelmodel extends Model
+class singlehotelmodel extends Model implements igallery
 {
     private $dbh;
     
@@ -22,7 +23,7 @@ class singlehotelmodel extends Model
         $this->hotelname=$hotelname;
     }
 
-    function outputgallery()
+    public function outputgallery()
     {
         $sql="select HotelID from hotel where Name='".$this->hotelname."'";
         $result=mysqli_query($this->dbh->getConn(),$sql);
@@ -38,7 +39,7 @@ class singlehotelmodel extends Model
 
     }
 
-    function outputnumbers()
+    public function outputnumbers()
     {
         $sql="select HotelID from hotel where Name='".$this->hotelname."'";
         $result=mysqli_query($this->dbh->getConn(),$sql);
@@ -56,7 +57,7 @@ class singlehotelmodel extends Model
         
     }
 
-    function outputmainimg()
+    public function outputmainimg()
     {
         $sql="select HotelID from hotel where Name='".$this->hotelname."'";
         $result=mysqli_query($this->dbh->getConn(),$sql);
