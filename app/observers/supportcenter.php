@@ -18,7 +18,6 @@ class supportcenter extends subjects implements iInquiry,inewswire
     // protected $recpmailarr= array();
     protected  $email;
 
-    protected $mailsss;
 
     public function __construct()
     { 
@@ -34,7 +33,7 @@ class supportcenter extends subjects implements iInquiry,inewswire
         $inquiryid=explode("&", $inquiryidspace[1]);
         
         $Subject="Reply to your inquiry ";
-        $recp= new reciever($this) ;
+        $recp=  $this->addobserver() ;
         $sql2 = 'SELECT Email,inquiry,Author FROM Inquiries where inquiries.InquiryID="'.$inquiryid[0].'";';
     
        $sql3 = ' UPDATE `inquiries` SET `Suspended` = "Enabled" WHERE `inquiries`.`InquiryID` ="'.$inquiryid[0].'";';
@@ -59,7 +58,7 @@ public function sendGuestmail()
     $guestmail=$_POST['GuestEmails'];
     $message=$_POST['gumail'];  
     $Subject="Notification from speedotours management";
-    $recp= new reciever($this) ;
+    $recp=  $this->addobserver() ;
     $recp->setmail($guestmail);
     array_push($this->recparr, $recp);
     $this->notifyinquiry($message, $Subject);
@@ -78,13 +77,13 @@ public function sendnewswire(){
     $ID=$_SESSION['ID'];
     $Subject="New wire Update";
     $sql = ' Select Email from newswire' ;
-    $Message=$_POST['news'];  ;
+     $Message=$_POST['news']  ;
     $result = mysqli_query($this->dbh->getConn(), $sql) ;
             
     while ($row=$result->fetch_assoc()) {
         $sql1 = 'INSERT INTO newswirehistory (employeeID,Message,Email) VALUES("'.$ID.'","'.$Message.'","'.$row["Email"].'");';
        if ($result1 = mysqli_query($this->dbh->getConn(), $sql1)) {
-           $recp= new reciever($this) ;
+           $recp=  $this->addobserver() ;
            $recp->setmail($row["Email"]);
            array_push($this->recparr, $recp);
         //    array_push($this->mailsss, $row["Email"]);
@@ -118,7 +117,7 @@ public function sendPackagereport(){
     $Result = mysqli_query($this->dbh->getConn(),$SQL);     
     while ($row=$Result->fetch_assoc()) {
       
-           $recp= new reciever($this) ;
+           $recp=  $this->addobserver() ;
            $recp->setmail($row["Email"]);
            array_push($this->recparr, $recp);
          //  array_push($this->mailsss, $row["Email"]);
@@ -129,14 +128,9 @@ public function sendPackagereport(){
 }
 
 
-public function sendmail($message,$subject,$mail){
-    
-    
-    
-    
-  
-   
-   
+public function sendmail($message,$subject,$mail)
+{
+ 
 $this->email->AddAddress($mail);
    
     try{ 
@@ -155,6 +149,42 @@ $this->email->AddAddress($mail);
 
     }
 }
+
+public function notify_all_admin($subject,$message)
+{   
+    $SQL = 'SELECT Email FROM guest ;';
+    $Result = mysqli_query($this->dbh->getConn(),$SQL); 
+    
+
+    while ($row=$Result->fetch_assoc()) {
+      
+        $recp=  $this->addobserver() ;
+        $recp->setmail($row["Email"]);
+
+        $recp->update($message,$subject);
+      
+     }
+    
+ 
+}
+
+
+
+
+
+
+
+
+public function addobserver(){  
+
+    $recp= new reciever($this);
+
+
+return $recp;
+
+}
+
+
 }
 
 

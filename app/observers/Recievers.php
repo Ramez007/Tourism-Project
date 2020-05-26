@@ -1,11 +1,12 @@
 <?php
 require_once("app/interfaces/IReciever.php");
-class reciever implements ireciever {
-protected $mail;
+class reciever implements ireciever
+ {
 
-
-
+    protected $mail;
 protected $center ;
+
+
 function __construct($center) {
     $this->center=$center;
    

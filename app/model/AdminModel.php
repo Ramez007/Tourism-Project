@@ -9,7 +9,7 @@
   require_once("app/model/hotelmodel.php");
   require_once("app/interfaces/iReviewHotels.php");
   require_once("app/interfaces/iReviewPackages.php");
-
+  require_once("app/observers/supportcenter.php");  
   use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require 'C:\xampp\composer\vendor\autoload.php';
@@ -914,7 +914,10 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 $Result = mysqli_query($this->db->getConn(),$sql);
 
                                 }
-                                
+                                $notification=new supportcenter();
+                                $subject=" Hotel was Suspended ";
+                                $message='<p style = "font-family:georgia,garamond,serif;font-size:16px;font-style:italic;"><h3>Dear customer, </h3><br><h2>We want inform you that as of today you cannot  book a room at hotel "'.$_POST['enterhotel'].'"." in "'.$_POST['enterlocation'].'"</h3><br><h4><i>have nice day</i></h3></p>';
+                                $notification->notify_all_admin($subject, $message);  
                                 
                                 echo'<script>swal("Successfully Suspended Hotels", "", "success");</script>';
                                   
@@ -950,7 +953,10 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         $overview=$_POST['overview'];
         
         $hotel=new Hotel($id,$_POST['enterhotel'],$services,$_POST['enterlocation'],$types,$desc,$overview,$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites'],$_POST['hotelstars']);
-
+        $notification=new supportcenter();
+        $subject="New Hotel added ";
+        $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now book your room at hotel ".$_POST['enterhotel']." in ".$_POST['enterlocation']. " as of today .</h3><br><h4><i>have nice day</i></h3>";
+        $notification->notify_all_admin($subject, $message);   
         echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
         
                               
@@ -1033,6 +1039,11 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         $Result = mysqli_query($this->db->getConn(),$sql);
         if($Result)
         {
+            $subject="New package added ";
+            $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can reserve your place in our new package ".$name." which has a limit of ".$location. " as of today .</h3><br><h4><i>have nice day</i></h3>";
+
+            $notification=new supportcenter();
+            $notification->notify_all_admin( $subject, $message);   
             echo'<script>swal("Successfully Added Package", "", "success");</script>';
          }
          else{
