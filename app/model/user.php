@@ -1,5 +1,9 @@
 <?php
   require_once("app/model/model.php");
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\Exception;
+  require 'C:\xampp\composer\vendor\autoload.php';
+  
 ?>
 
 <?php
@@ -156,6 +160,39 @@ class User extends Model {
 	
 	}
 	
+	public function ForgotPass($Email)
+	{
+		$SQL = 'SELECT GuestID from guest WHERE Email="'.$Email.'"';
+		$Result = mysqli_query($this->dbh->getConn(),$SQL);
+		$ID = mysqli_fetch_assoc($Result);
+
+		include_once "serverdetails.php";
+		try
+		{
+            
+			$email->addAddress("".$Email."");
+			$email->Subject="Speedo Tours - Reset your password";
+			$email->Body="You required to reset the password on your account. Please click this link to reset your account's passsword: http://localhost/Tourism-Project/ResetPassword.php?action=".$ID['GuestID']."";
+			$email->SetFrom("speedtourscentral@gmail.com");
+			$email->AddReplyTo("speedtourscentral@gmail.com","SpeedoToursSupport");
+			$email->send();
+		}
+		catch(Exception $e)
+		{
+	   		$errormsg = $e->errorMessage();
+	   		echo'<script>swal("Invalid Email", "", "error");</script>';
+   		} 
+
+
+	}
+
+	public function ResetPass($ID,$Password)
+	{
+		$SQL = 'UPDATE login SET login.password="'.md5($Password).'" WHERE GuestID="'.$ID.'"';
+		$SQL2 = 'UPDATE guest SET guest.Password="'.md5($Password).'" WHERE GuestID="'.$ID.'"';
+		$Result = mysqli_query($this->dbh->getConn(),$SQL) or die($this->db->getConn()->error);
+		$Result2 = mysqli_query($this->dbh->getConn(),$SQL2) or die($this->db->getConn()->error);
+	}
 
 
 	/**

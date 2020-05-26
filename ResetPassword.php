@@ -84,8 +84,8 @@
 
 		if (isset($_POST['submit']))
 		{
-			$usercontrol->login();
-			
+            $usercontrol->ResetPassword($_GET['action'],$_POST['Password']);
+            header ("Location:Login.php");
 		}
 
 		
@@ -97,77 +97,50 @@
 		$controller->listhoteldata();
 		$controller->updaterooms();
 		$hotelview=new HotelView($controller,$model);
-		?>
+        ?>
+        
+        <style>
+#message {
+  display:none;
+  background: #f1f1f1;
+  color: #000;
+  position: absolute;
 
-		
-		<?php
+margin-left: 490px;
 
-		//index.php
+margin-top: -420px;
 
-		//Include Configuration File
-		include('configapi.php');
+width: 396px;
+padding: 20px;
+}
 
-		$login_button = '';
+#message p {
+  padding: 10px 35px;
+  font-size: 18px;
+}
 
-		//This $_GET["code"] variable value received after user has login into their Google Account redirct to PHP script then this variable value has been received
-		if(isset($_GET["code"]))
-		{
-			//It will Attempt to exchange a code for an valid authentication token.
-			$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
 
-			//This condition will check there is any error occur during geting authentication token. If there is no any error occur then it will execute if block of code/
-			if(!isset($token['error']))
-			{
-				//Set the access token used for requests
-				$google_client->setAccessToken($token['access_token']);
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
 
-				//Store "access_token" value in $_SESSION variable for future use.
-				$_SESSION['access_token'] = $token['access_token'];
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
 
-				//Create Object of Google Service OAuth 2 class
-				$google_service = new Google_Service_Oauth2($google_client);
-
-				//Get user profile data from google
-				$data = $google_service->userinfo->get();
-
-				//Below you can find Get profile data and store into $_SESSION variable
-				if(!empty($data['given_name']))
-				{
-				$_SESSION['fname'] = $data['given_name'];
-				$_SESSION["type"]="USER";
-				}
-
-				if(!empty($data['family_name']))
-				{
-				$_SESSION['lname'] = $data['family_name'];
-				}
-
-				if(!empty($data['email']))
-				{
-				$_SESSION['Email'] = $data['email'];
-				}
-
-				//   if(!empty($data['gender']))
-				//   {
-				//    $_SESSION['user_gender'] = $data['gender'];
-				//   }
-
-				if(!empty($data['picture']))
-				{
-					$_SESSION['user_image'] = $data['picture'];
-				}
-			}
-		}
-
-		//This is for check user has login into system by using Google account, if User not login into system then it will execute if block of code and make code for display Login link for Login using Google account.
-		if(!isset($_SESSION['access_token']))
-		{
-		//Create a URL to obtain user authorization
-		$login_button = '<a href="'.$google_client->createAuthUrl().'"><img src="sign-in-with-google.png" style="width: 250px;margin-top: -103px;"></a>';
-		
-		}
-
-		?>
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+        </style> 
 </head>
 <body> 
 	<div id="fh5co-wrapper">
@@ -223,7 +196,7 @@
 			<div class="row">
 				<div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
 					<div class="fh5co-intro fh5co-table-cell">
-						<h1 class="text-center">Login Here!</h1>
+						<h1 class="text-center">Reset your password!</h1>
 					</div>
 				</div>
 			</div>
@@ -238,51 +211,23 @@
 					<div class="wrapper">
 						<div id="mydivform">
 						<form class="box" action = "" method ="post">
-							<h1 style="color:Black"><b>Login Form</b></h1>
-							<input type ="text" name= "username" placeholder ="username" required>
-							<input type ="password" name= "password" placeholder ="password" required>
-							<input type ="submit" name= "submit" value ="login">
-							<p style="color: Black;"><b>Do not have an account?</b></p><a href="Signup.php" style="color: Orangered;">Sign up here!</a>
-							<p style="color: Black;"><b>Forgot Password?</b></p><a href="ForgotPassword.php" style="color: Orangered;">Reset Password!</a>
+                            <h1 style="color:Black"><b>Reset form</b></h1>
+                            <input type="password" name="Password" id="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="New Password" required>
+                            <input type="password" name="cnfPassword" id="cnfPassword" placeholder="Confirm Password" required>
+                            
+
+                            <div id="message">
+                                <h3>Password must contain the following:</h3>
+                                <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                                <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                                <p id="number" class="invalid">A <b>number</b></p>
+                                <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                                <p id="match" class="invalid">Password <b>must</b> match</p>
+                            </div>
+
+							<input type ="submit" name= "submit" value ="Submit">
 						</form>
 						</div>
-
-						<?php
-						if($login_button == '')
-						{
-							
-							// echo '<div class="panel-heading">Welcome User</div><div class="panel-body">';
-							// echo '<img src="'.$_SESSION["user_image"].'" class="img-responsive img-circle img-thumbnail" />';
-							// echo '<h3><b>Name :</b> '.$_SESSION['fname'].' '.$_SESSION['lname'].'</h3>';
-							// echo '<h3><b>Email :</b> '.$_SESSION['Email'].'</h3>';
-							// echo '<h3><a href="logout.php">Logout</h3></div>';
-							$usercontrol->login_with_G();
-							// echo $_SESSION['ID'];
-							// header ("Location:http://localhost/testapi/test.php");
-							// header ("Location:Admin.php");
-							echo'<script>
-							var x = document.getElementById("mydivform");
-							if (x.style.display === "none") {
-								x.style.display = "block";
-							} else {
-								x.style.display = "none";
-							}
-							
-							</script>';
-							echo '
-							<img src="g.png" style="margin-left: 494px;margin-bottom: 20px;" width="150" height="50">
-							<h1 class="text-center">Your Login With Google Has Been Succesfull</h1>
-							<h2 class="text-center">Click On My Profile Button To Go to your Profile Page</h2>
-							<h3 class="text-center"><a href="Profile.php">My Profile</h3></div>';
-							
-						}
-						else
-						{
-							//echo $_SESSION['fname'];
-							echo '<div align="center">'.$login_button . '</div>';
-						}
-						?>
-						
 					</div>
 				</div>
 			</div>
@@ -295,8 +240,94 @@
 	?>
 	</footer>
 
-	</div>
-	<!-- END fh5co-page -->
+    </div>
+    <!-- END fh5co-page -->
+
+<script>
+var myInput = document.getElementById("Password");
+var cnfPassword = document.getElementById("cnfPassword");
+var letter = document.getElementById("letter");
+var capital = document.getElementById("capital");
+var number = document.getElementById("number");
+var length = document.getElementById("length");
+
+// When the user clicks on the password field, show the message box
+myInput.onfocus = function() {
+  document.getElementById("message").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+myInput.onblur = function() {
+  document.getElementById("message").style.display = "none";
+}
+
+// When the user clicks on the password field, show the message box
+cnfPassword.onfocus = function() {
+  document.getElementById("message").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+cnfPassword.onblur = function() {
+  document.getElementById("message").style.display = "none";
+}
+
+// When the user starts to type something inside the password field
+myInput.onkeyup = function() {
+  // Validate lowercase letters
+  var lowerCaseLetters = /[a-z]/g;
+  if(myInput.value.match(lowerCaseLetters)) {  
+    letter.classList.remove("invalid");
+    letter.classList.add("valid");
+  } else {
+    letter.classList.remove("valid");
+    letter.classList.add("invalid");
+  }
+  
+  // Validate capital letters
+  var upperCaseLetters = /[A-Z]/g;
+  if(myInput.value.match(upperCaseLetters)) {  
+    capital.classList.remove("invalid");
+    capital.classList.add("valid");
+  } else {
+    capital.classList.remove("valid");
+    capital.classList.add("invalid");
+  }
+
+  // Validate numbers
+  var numbers = /[0-9]/g;
+  if(myInput.value.match(numbers)) {  
+    number.classList.remove("invalid");
+    number.classList.add("valid");
+  } else {
+    number.classList.remove("valid");
+    number.classList.add("invalid");
+  }
+  
+  // Validate length
+  if(myInput.value.length >= 8) {
+    length.classList.remove("invalid");
+    length.classList.add("valid");
+  } else {
+    length.classList.remove("valid");
+    length.classList.add("invalid");
+  }
+
+  $(document).ready(function(){
+        $("#cnfPassword").keyup(function(){
+             if ($("#Password").val() != $("#cnfPassword").val()) {
+                $("#match").removeClass("valid");
+                $("#match").addClass("invalid");
+             }else{
+                $("#match").removeClass("invalid");
+                $("#match").addClass("valid");
+            }
+      });
+});
+
+
+}
+</script>
+	
 
 	</div>
 	<!-- END fh5co-wrapper -->
