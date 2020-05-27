@@ -222,7 +222,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                                     <div class=row>
                                                         <div class="col-sm-12 col-md-6">
                                                             <div class="custom-file">
-                                                                <input required class="custom-file-input" id="photoSelector2" name="photos[]" type="file" accept=".jpeg, .jpg, .png" multiple maxlength="10"> 
+                                                                <input class="custom-file-input" id="photoSelector2" name="photos[]" type="file" accept=".jpeg, .jpg, .png" multiple maxlength="10"> 
                                                                 <label class="custom-file-label" for="photoSelector"></label>
                                                             </div>
                                                         </div>
@@ -386,7 +386,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             <div class=row>
                 <div class="col-sm-12 col-md-6">
                     <div class="custom-file">
-                        <input required class="custom-file-input" id="photoSelector4" name="photos[]" type="file" accept=".jpeg, .jpg, .png" multiple maxlength="10"> 
+                        <input class="custom-file-input" id="photoSelector4" name="photos[]" type="file" accept=".jpeg, .jpg, .png" multiple maxlength="10"> 
                         <label class="custom-file-label" for="photoSelector"></label>
                     </div>
                 </div>
