@@ -9,6 +9,8 @@
   require_once("app/model/hotelmodel.php");
   require_once("app/interfaces/iReviewHotels.php");
   require_once("app/interfaces/iReviewPackages.php");
+  require_once("app/observers/supportcenter.php");  
+
 
   use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -912,6 +914,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 SET Suspended='Disabled'
                                 WHERE PackageID!=".$a[$i].";";
                                 $Result99 = mysqli_query($this->db->getConn(),$sql99);
+                         
                                 }
 
                                 for($i=0;$i<count($a);$i++)
@@ -920,8 +923,17 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 SET Suspended='Enabled'
                                 WHERE PackageID=".$a[$i].";";
                                 $Result = mysqli_query($this->db->getConn(),$sql);
-
+                                $sql100="Select PackageName FROM packages WHERE PackageID=".$a[$i].";";
+                                $Result100 = mysqli_query($this->db->getConn(),$sql100);
+                                $row=mysqli_fetch_assoc($Result100);
+                                $notification=new supportcenter();
+                                $subject=" Package Suspended ";
+                    $message="<h3>Dear customer, </h3><br><h2>We regrettably inform you that as of today Package'".$row['PackageName']."' is no longer available .</h3><br><h4><i>have nice day</i></h3>";
+                    $notification->notify_all_admin($subject, $message,NULL);  
+            
                                 }
+                                
+            
                                 echo'<script>swal("Successfully Suspended Packages", "", "success");</script>';
                                   
                      } 
@@ -960,7 +972,13 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 SET Suspended='Enabled'
                                 WHERE HotelID=".$a[$i].";";
                                 $Result = mysqli_query($this->db->getConn(),$sql);
-
+                                $sql1="Select Name FROM hotel WHERE HotelID=".$a[$i].";";
+                                $Result1 = mysqli_query($this->db->getConn(),$sql1);
+                                $row=mysqli_fetch_assoc($Result1);
+                                $notification=new supportcenter();
+                                $subject=" Hotel Suspended ";
+                    $message="<h3>Dear customer, </h3><br><h2>We regrettably inform you that as of today hotel ".$row['Name']." in ".$row['location']." is no longer available for booking .</h3><br><h4><i>have nice day</i></h3>";
+                    $notification->notify_all_admin($subject, $message,NULL); 
                                 }
                                 
                                 
@@ -1040,7 +1058,9 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                     $primary = $_POST['imgPrimary'];
                     $query2= "update gallery set Main='yes' where hotelid='".$id."' and imgname='".$primary."' ";
                     $Result233 = mysqli_query($this->db->getConn(),$query2);
-
+                    $query2= "Select picture from gallery WHERE Hotelid='".$id."' and Main = 'yes' ";
+                    $emb = mysqli_query($this->db->getConn(),$query2);
+                    $row=mysqli_fetch_assoc($emb);
                     
 
                     
@@ -1051,7 +1071,12 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                     // else{
                     //     echo'<script>alert("images not uploaed");</script>';
                     // }
+                    $notification=new supportcenter();
+                    $subject="New Hotel added ";
+        $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now book your room at hotel ".$_POST['enterhotel']." in ".$_POST['enterlocation']. " as of today .</h3><br><h4><i>have nice day</i></h3>";
+        $notification->notify_all_admin($subject, $message,$row['picture']);  
 
+        
                     echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
                 }
                 else
@@ -1234,8 +1259,19 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             $primary = $_POST['imgPrimary'];
             $query2= "update gallery set Main='yes' where PackageId='".$pkgid."' and imgname='".$primary."' ";
             $Result233 = mysqli_query($this->db->getConn(),$query2);
-
-
+            
+            $subject="New Hotel added ";
+            $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now book your room at hotel ".$_POST['enterhotel']." in ".$_POST['enterlocation']. " as of today .</h3>";
+            
+            
+            
+            $query2= "Select picture from gallery WHERE PackageId='".$pkgid."' and Main = 'yes' ";
+            $emb = mysqli_query($this->db->getConn(),$query2);
+            $row=mysqli_fetch_assoc($emb);  
+            $notification=new supportcenter();
+            $subject="New Package added ";
+$message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now reserve our new package ".$name." and please be advised that the package has  "."$limit" ." free places </h3><br><h4><i>have nice day</i></h3>";
+$notification->notify_all_admin($subject, $message,$row['picture']);
 
     }
 
