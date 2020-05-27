@@ -84,8 +84,16 @@
 
 		if (isset($_POST['submit']))
 		{
-            $usercontrol->ResetPassword($_GET['action'],$_POST['Password']);
-            header ("Location:Login.php");
+			if($_POST['Password'] == $_POST['cnfPassword'])
+			{
+				$usercontrol->ResetPassword($_GET['action'],$_POST['Password']);
+				header ("Location:Login.php");
+			}
+			else
+			{
+				echo '<script> alert("Password is not identical in both fields"); </script>';
+			}
+
 		}
 
 		
@@ -356,6 +364,7 @@ myInput.onkeyup = function() {
 	<script src="js/jquery.flexslider-min.js"></script>
 
 	<script src="js/custom.js"></script>
+	<script src="js/sweetalert.min.js"></script>
 
 </body>
 </html>
