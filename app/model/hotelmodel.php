@@ -199,7 +199,7 @@ class Hotel extends Model implements ireviewhotels
 
     function ReadMainImgs()
     {
-        $sql="SELECT picture FROM gallery WHERE PackageId IS null AND Main='yes' ";
+        $sql="SELECT picture FROM gallery WHERE PackageId IS null AND Main='yes' ORDER BY HotelId";
         $result=mysqli_query($this->db->getConn(),$sql);
         while($row=$result->fetch_assoc())
         {

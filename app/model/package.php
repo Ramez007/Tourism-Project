@@ -138,7 +138,7 @@ class Package extends Model implements ireviewpackages, igallery
 
     function ReadMainImgs()
     {
-        $sql="SELECT picture FROM gallery WHERE HotelId IS null AND Main='yes' ";
+        $sql="SELECT picture FROM gallery WHERE HotelId IS null AND Main='yes' ORDER BY PackageId";
         $result=mysqli_query($this->db->getConn(),$sql);
         while($row=$result->fetch_assoc())
         {
