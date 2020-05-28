@@ -94,6 +94,7 @@
 		$model=new Hotel();
 		$controller=new HotelController($model);
 		$controller->listhoteldata();
+		$controller->updaterooms();
 		$hotelview=new HotelView($controller,$model);
 		?>
 

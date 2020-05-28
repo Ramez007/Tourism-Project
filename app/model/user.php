@@ -145,7 +145,9 @@ class User extends Model {
 
 
 	
-    }
+	}
+	
+
 
 	/**
 	 * Get the value of username

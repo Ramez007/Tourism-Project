@@ -217,6 +217,19 @@ class Hotel extends Model implements ireviewhotels
         $this->singmodel->hotelreviews($var);
     }
 
+
+    public function updaterooms()
+    {
+        $date = date('Y-m-d');
+
+
+        $sql1="UPDATE rooms
+        SET Status='Free',GuestID=NULL,DateIn='2000-01-01',DateOut='2000-01-01'
+        where Status!='Free' and DateOut<='$date'";
+
+        $result=mysqli_query($this->db->getConn(),$sql1);
+    }
+
     public function setName($name)
     {
         $this->name = $name;
