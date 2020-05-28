@@ -84,8 +84,17 @@
 
 		if (isset($_POST['submit']))
 		{
-            $usercontrol->ForgotPassword($_POST['Email']);
-            header("Location:index.php");
+			$Result = $usercontrol->ForgotPassword($_POST['Email']);
+			if($Result == true)
+			{
+				header("Location:index.php");
+			}
+			else
+			{
+				echo '<script> alert("Email does not exist"); </script>';
+			}
+			
+           
 			
 		}
 

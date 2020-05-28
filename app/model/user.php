@@ -4,8 +4,9 @@
   use PHPMailer\PHPMailer\Exception;
   require 'C:\xampp\composer\vendor\autoload.php';
   
+  
 ?>
-
+<script src="js/sweetalert.min.js"></script>
 <?php
 
 class User extends Model {
@@ -167,21 +168,22 @@ class User extends Model {
 		$ID = mysqli_fetch_assoc($Result);
 
 		include_once "serverdetails.php";
-		try
+
+		if(!empty($ID))
 		{
-            
-			$email->addAddress("".$Email."");
-			$email->Subject="Speedo Tours - Reset your password";
-			$email->Body="You required to reset the password on your account. Please click this link to reset your account's passsword: http://localhost/Tourism-Project/ResetPassword.php?action=".$ID['GuestID']."";
-			$email->SetFrom("speedtourscentral@gmail.com");
-			$email->AddReplyTo("speedtourscentral@gmail.com","SpeedoToursSupport");
-			$email->send();
+		$email->addAddress("".$Email."");
+		$email->Subject="Speedo Tours - Reset your password";
+		$email->Body="You required to reset the password on your account. Please click this link to reset your account's passsword: http://localhost/Tourism-Project/ResetPassword.php?action=".$ID['GuestID']."";
+		$email->SetFrom("speedtourscentral@gmail.com");
+		$email->AddReplyTo("speedtourscentral@gmail.com","SpeedoToursSupport");
+		$email->send();
+		return true;
 		}
-		catch(Exception $e)
+		else
 		{
-	   		$errormsg = $e->errorMessage();
-	   		echo'<script>swal("Invalid Email", "", "error");</script>';
-   		} 
+			return false;
+		}
+
 
 
 	}

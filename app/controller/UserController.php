@@ -38,7 +38,7 @@ class UserController extends Controller{
 
     public function ForgotPassword($Email)
     {
-      $this->model->ForgotPass($Email);
+      return $this->model->ForgotPass($Email);
     }
     public function ResetPassword($ID,$Password)
     {
