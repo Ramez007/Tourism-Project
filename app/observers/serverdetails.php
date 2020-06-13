@@ -23,9 +23,10 @@ try {
     $email->Username   = 'speedtourscentral@gmail.com';                     // SMTP username
     $email->Password   = 'speedotours99';                               // SMTP password
     $email->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-    $email->Port       = 587  ;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+    $email->Port       = 587  ;
+    $email->CharSet = 'UTF-8';                             // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
   $email->SetFrom('speedtourscentral@gmail.com');
   $GLOBALS['Email'] = $email;
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    echo "Message could not be sent. Mailer Error: {$email->ErrorInfo}";
 }?>

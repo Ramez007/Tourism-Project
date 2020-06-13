@@ -149,22 +149,60 @@ $this->email->AddAddress($mail);
 
     }
 }
+public function sendmailwithimage($message,$subject,$mail,$image)
+{
+ 
+$this->email->AddAddress($mail);
+ //$encodedData = str_replace(' ','+',$image[1]);
+ $data = explode( ',', $image);
+$decodedData = base64_decode($data[1]);
+// $folderPath = "C:/xampp/htdocs/Tourism-Project/image.jpg";
 
-public function notify_all_admin($subject,$message)
+
+// $image_parts = explode(";base64,", $encodedData);
+
+// $image_type_aux = explode("image/", $image_parts[0]);
+
+// $image_type = $image_type_aux[1];
+
+// $image_base64 = base64_decode($image_parts[1]);
+
+// //$file = $folderPath . uniqid() . '.jpg';
+
+
+// file_put_contents($folderPath, $decodedData);
+//file_put_contents('C:\xampp\htdocs\Tourism-Project\app\Image.JPG',$decodedData);    
+try{ $this->email->AddStringAttachment($decodedData,'newImage.jpg'); 
+        $this->email->Subject=$subject;
+        $this->email->Body=$message.'<br> <br><h4><i>have nice day</i></h3>';
+        $this->email->send();
+        $this->email->ClearAllRecipients( );
+       
+       
+         
+          echo'<script>swal("Successfully sent your reply", "", "success");</script>'; 
+         
+    }catch(Exception $e){
+        echo $e->errorMessage();
+     
+
+    }
+}
+public function notify_all_admin($subject,$message,$image)
 {   
     $SQL = 'SELECT Email FROM guest ;';
     $Result = mysqli_query($this->dbh->getConn(),$SQL); 
     
 
     while ($row=$Result->fetch_assoc()) {
-      
         $recp=  $this->addobserver() ;
         $recp->setmail($row["Email"]);
-
-        $recp->update($message,$subject);
-      
-     }
-    
+        if ($image!=null) {
+            $recp->updatewithimage($message, $subject, $image);
+        } else {
+            $recp->update($message, $subject);
+        }
+    }
  
 }
 

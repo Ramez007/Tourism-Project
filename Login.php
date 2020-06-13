@@ -243,6 +243,7 @@
 							<input type ="password" name= "password" placeholder ="password" required>
 							<input type ="submit" name= "submit" value ="login">
 							<p style="color: Black;"><b>Do not have an account?</b></p><a href="Signup.php" style="color: Orangered;">Sign up here!</a>
+							<p style="color: Black;"><b>Forgot Password?</b></p><a href="ForgotPassword.php" style="color: Orangered;">Reset Password!</a>
 						</form>
 						</div>
 

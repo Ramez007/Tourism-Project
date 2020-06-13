@@ -44,6 +44,7 @@ class singlehotelview extends View
         echo '<p style="white-space: pre-wrap;">'.$this->model->getHoteldescription().'</p>';
     }
 
+
     public function outputreviews()
     {
         $this->reviews=$this->model->getReviewsofhotel();
@@ -54,6 +55,21 @@ class singlehotelview extends View
             
         }
         echo "</ul>";
+    }
+
+    public function displaygallery()
+    {
+        $this->model->outputgallery();
+    }
+
+    public function displaygallerynumbers()
+    {
+        $this->model->outputnumbers();
+    }
+
+    public function displaymaining()
+    {
+        $this->model->outputmainimg();
     }
 
     public function outputservices()

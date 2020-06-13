@@ -10,6 +10,8 @@
   require_once("app/interfaces/iReviewHotels.php");
   require_once("app/interfaces/iReviewPackages.php");
   require_once("app/observers/supportcenter.php");  
+
+
   use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require 'C:\xampp\composer\vendor\autoload.php';
@@ -214,11 +216,22 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                                 <label for="edithoteloverview">Enter Hotel Overview</label>
                                                 <textarea class="form-control" id="edithoteloverview" rows="15" style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" maxlength="140" minlength="140" name="overview" required>'.$row['overview'].'</textarea>
                                             </div>
-                                            <a href="#">Show Gallery</a><br>
-                                            <div class="form-group">
-                                                <label for="fileToUpload">Upload Gallery of Hotel</label>
-                                                <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
-                                            </div>
+                                            
+                                            <label for="fileToUpload">Upload Gallery of Hotel</label>
+                                                
+                                                    <div class=row>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="custom-file">
+                                                                <input required class="custom-file-input" id="photoSelector2" name="photos[]" type="file" accept=".jpeg, .jpg, .png" multiple maxlength="10"> 
+                                                                <label class="custom-file-label" for="photoSelector"></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                       
+                                           
+                                            <br>
+                                            
+                                            <div class="row" id="imgRow2" style="margin: 0.5rem;background-color: antiquewhite;display:flex;margin-top: -28px;margin-bottom: -45px;overflow: scroll"></div>
                                             <input type="hidden" class="form-control" value="'.$row['HotelID'].'" id="HotelId" name="HotelId">
                                             <br><br>
                                             ';
@@ -367,9 +380,22 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                 <label for="edithoteldescription">Edit Package overview</label>
                 <textarea class="form-control" id="editpackageoverview" name="editpackageoverview" style="width: 354px;resize: none;height: 132px;word-wrap: break-word;" rows="4" maxlength="140" minlength="140"  Placeholder="Enter Text Here..." required>'.$row['Overview'].'</textarea>
             </div>                                                       
-            <br><br><br><a href="#">Show Gallery of Pacakage</a><br>
-            Update Gallery of Package <br>
-            <input type="file" name="fileToUpload" id="fileToUpload">
+            
+            <label for="fileToUpload">Upload Gallery of Package</label>
+                                                
+            <div class=row>
+                <div class="col-sm-12 col-md-6">
+                    <div class="custom-file">
+                        <input required class="custom-file-input" id="photoSelector4" name="photos[]" type="file" accept=".jpeg, .jpg, .png" multiple maxlength="10"> 
+                        <label class="custom-file-label" for="photoSelector"></label>
+                    </div>
+                </div>
+            </div>
+               
+   
+            <br>
+            
+            <div class="row" id="imgRow4" style="margin: 0.5rem;background-color: antiquewhite;display:flex;margin-top: -28px;margin-bottom: -45px;overflow: scroll"></div>
             <br><br>
             <input type="hidden" name="packageid" id="packageID" value="'.$row['PackageID'].'">
             ';        
@@ -524,7 +550,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                     $Result = mysqli_query($this->db->getConn(),$sql);
                     while ($row=$Result->fetch_assoc()){
                         echo'
-                    <input type="radio" name="hotels" value="'.$row['HotelID'].'"> '.$row['Name'].' <br>
+                    <input type="radio" name="hotels" value="'.$row['HotelID'].'" required> '.$row['Name'].' <br>
                     
                     ';
                     }
@@ -694,6 +720,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
     Function AddEvent($Event_Title,$Event_Month,$Event_Year,$Event_Post)
     {
+        
         $adminid=$_SESSION["ID"];
         $disabled="Disabled";
         $Event_Month1= strtoupper($Event_Month);
@@ -712,16 +739,39 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
     function EditEvent($id)
     {
-        $sql="UPDATE blogposts SET PostTitle='".$_POST['editeventtitle']."', PostMonth='".$_POST['editeventmonth']."',PostYear='".$_POST['editeventyear']."',PostText='".$_POST['blogposttext']."' where PostID=$id;";
-        $Result = mysqli_query($this->db->getConn(),$sql);
-        if($Result){
-            echo'<script>swal("Successfully Updated Event", "", "success");</script>';
-         }
-         else{
-            echo'<script>
-            swal("Oops","Error Updating Event !","error");
-            </script>';
-         }
+      $required = array('editeventtitle','editeventmonth','editeventyear','blogposttext');
+      $error = false;
+        foreach($required as $field) 
+        {
+            if (empty($_POST[$field])) 
+            {
+                $error = true;
+            }
+        }
+        if ($error) 
+        {
+            echo'<script>swal("There is an empty field", "", "error");</script>';
+        } 
+        else 
+        {
+            if (strlen($_POST['editeventtitle']) >=4 && strlen($_POST['editeventmonth']) ==3 && $_POST['editeventyear'] >=1900 && $_POST['eventyear'] <=3000 && strlen($_POST['blogposttext']) ==300)
+            {
+                    $sql="UPDATE blogposts SET PostTitle='".htmlspecialchars($_POST['editeventtitle'], ENT_QUOTES)."', PostMonth='".htmlspecialchars($_POST['editeventmonth'], ENT_QUOTES)."',PostYear='".$_POST['editeventyear']."',PostText='".htmlspecialchars($_POST['blogposttext'], ENT_QUOTES)."' where PostID=$id;";
+                    $Result = mysqli_query($this->db->getConn(),$sql);
+                    if($Result){
+                        echo'<script>swal("Successfully Updated Event", "", "success");</script>';
+                    }
+                    else{
+                        echo'<script>
+                        swal("Oops","Error Updating Event !","error");
+                        </script>';
+                    }
+            }
+            else
+            {
+                echo'<script>swal("Error Editing Event", "", "error");</script>';
+            }        
+        }    
     }
 
     function SuspendEvent()
@@ -864,6 +914,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 SET Suspended='Disabled'
                                 WHERE PackageID!=".$a[$i].";";
                                 $Result99 = mysqli_query($this->db->getConn(),$sql99);
+                         
                                 }
 
                                 for($i=0;$i<count($a);$i++)
@@ -872,8 +923,17 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 SET Suspended='Enabled'
                                 WHERE PackageID=".$a[$i].";";
                                 $Result = mysqli_query($this->db->getConn(),$sql);
-
+                                $sql100="Select PackageName FROM packages WHERE PackageID=".$a[$i].";";
+                                $Result100 = mysqli_query($this->db->getConn(),$sql100);
+                                $row=mysqli_fetch_assoc($Result100);
+                                $notification=new supportcenter();
+                                $subject=" Package Suspended ";
+                    $message="<h3>Dear customer, </h3><br><h2>We regrettably inform you that as of today Package'".$row['PackageName']."' is no longer available .</h3><br><h4><i>have nice day</i></h3>";
+                    $notification->notify_all_admin($subject, $message,NULL);  
+            
                                 }
+                                
+            
                                 echo'<script>swal("Successfully Suspended Packages", "", "success");</script>';
                                   
                      } 
@@ -912,7 +972,13 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 SET Suspended='Enabled'
                                 WHERE HotelID=".$a[$i].";";
                                 $Result = mysqli_query($this->db->getConn(),$sql);
-
+                                $sql1="Select Name FROM hotel WHERE HotelID=".$a[$i].";";
+                                $Result1 = mysqli_query($this->db->getConn(),$sql1);
+                                $row=mysqli_fetch_assoc($Result1);
+                                $notification=new supportcenter();
+                                $subject=" Hotel Suspended ";
+                    $message="<h3>Dear customer, </h3><br><h2>We regrettably inform you that as of today hotel ".$row['Name']." in ".$row['location']." is no longer available for booking .</h3><br><h4><i>have nice day</i></h3>";
+                    $notification->notify_all_admin($subject, $message,NULL); 
                                 }
                                 $notification=new supportcenter();
                                 $subject=" Hotel was Suspended ";
@@ -934,96 +1000,216 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
     }
 
     function AddHotel()
-    {   
-        $sql="SELECT MAX(HotelID) from hotel";
-        $result=mysqli_query($this->db->getConn(),$sql);
-        $row=mysqli_fetch_assoc($result);
-        $id=$row['MAX(HotelID)']+1;
-        $services=array();
-           if(!empty($_POST['check_list']))
-           {
-                foreach($_POST['check_list'] as $check)
+    { 
+        $required = array('enterhotel', 'enterlocation', 'numberofsingle', 'numberofdouble', 'numberoftriple', 'numberofsuites','description','overview','priceofsingle','priceofdouble','priceoftriple','priceofsuites','hotelstars');  
+        $error = false;
+        foreach($required as $field) 
+        {
+            if (empty($_POST[$field])) 
+            {
+                $error = true;
+            }
+        }
+        if ($error) 
+        {
+            echo'<script>swal("There is an empty field", "", "error");</script>';
+        } 
+        else 
+        {
+                $sql="SELECT MAX(HotelID) from hotel";
+                $result=mysqli_query($this->db->getConn(),$sql);
+                $row=mysqli_fetch_assoc($result);
+                $id=$row['MAX(HotelID)']+1;
+                $services=array();
+                if(!empty($_POST['check_list']))
                 {
-                    array_push($services,$check);
+                        foreach($_POST['check_list'] as $check)
+                        {
+                            array_push($services,$check);
+                        }
                 }
-           }
+                if($_POST['numberofsingle'] >= 1 && $_POST['numberofsingle'] <= 150 && $_POST['numberofdouble'] >= 1 && $_POST['numberofdouble'] <= 100 && $_POST['numberoftriple'] >= 1 && $_POST['numberoftriple'] <= 75 && $_POST['numberofsuites'] >= 1 && $_POST['numberofsuites'] <= 50 && $_POST['priceofsingle'] >=1 && $_POST['priceofdouble'] >=1 && $_POST['priceoftriple'] >=1 && $_POST['priceofsuites'] >=1 && strlen($_POST['overview']) ==140)
+                {
+                                        
 
-        $types=[$_POST['numberofsingle'],$_POST['numberofdouble'],$_POST['numberoftriple'],$_POST['numberofsuites']];
-        $desc=$_POST['description'];
-        $overview=$_POST['overview'];
-        
-        $hotel=new Hotel($id,$_POST['enterhotel'],$services,$_POST['enterlocation'],$types,$desc,$overview,$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites'],$_POST['hotelstars']);
-        $notification=new supportcenter();
-        $subject="New Hotel added ";
+                    $types=[$_POST['numberofsingle'],$_POST['numberofdouble'],$_POST['numberoftriple'],$_POST['numberofsuites']];
+                    $desc=htmlspecialchars($_POST['description'], ENT_QUOTES);
+                    $overview=htmlspecialchars($_POST['overview'], ENT_QUOTES);
+                
+                    $hotel=new Hotel($id,$_POST['enterhotel'],$services,htmlspecialchars($_POST['enterlocation'], ENT_QUOTES),$types,$desc,$overview,$_POST['priceofsingle'],$_POST['priceofdouble'],$_POST['priceoftriple'],$_POST['priceofsuites'],$_POST['hotelstars']);
+                    
+                    
+
+                    for($x=0; $x<count($_FILES['photos']['tmp_name']); $x++ ) 
+                    {
+
+                        $image_base64 = base64_encode(file_get_contents($_FILES['photos']['tmp_name'][$x]) );
+                        $target_file = basename($_FILES["photos"]["name"][$x]);
+                        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                        $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+
+                        $imagename=$_POST['imgname'][$x];
+                       
+                        
+
+                        
+                        $query = "INSERT INTO gallery (HotelId,picture,imgname) VALUES ('$id','$image','$imagename');";
+                        $Result23 = mysqli_query($this->db->getConn(),$query);
+
+                    }
+
+                    $primary = $_POST['imgPrimary'];
+                    $query2= "update gallery set Main='yes' where hotelid='".$id."' and imgname='".$primary."' ";
+                    $Result233 = mysqli_query($this->db->getConn(),$query2);
+                    $query2= "Select picture from gallery WHERE Hotelid='".$id."' and Main = 'yes' ";
+                    $emb = mysqli_query($this->db->getConn(),$query2);
+                    $row=mysqli_fetch_assoc($emb);
+                    
+
+                    
+                    // if($Result23)
+                    // {
+                    //     echo'<script>alert("images uploaed");</script>';
+                    // }
+                    // else{
+                    //     echo'<script>alert("images not uploaed");</script>';
+                    // }
+                    $notification=new supportcenter();
+                    $subject="New Hotel added ";
         $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now book your room at hotel ".$_POST['enterhotel']." in ".$_POST['enterlocation']. " as of today .</h3><br><h4><i>have nice day</i></h3>";
-        $notification->notify_all_admin($subject, $message);   
-        echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
+        $notification->notify_all_admin($subject, $message,$row['picture']);  
+
+        
+                    echo'<script>swal("Hotel Inserted Successfully", "", "success");</script>';
+                }
+                else
+                {
+                    echo'<script>swal("Error Adding Hotel", "", "error");</script>';
+                }
+        }
+        
+        
+        
         
                               
     }
 
     function Edithotel($id)
     {
-
-        $wifi="FALSE";
-        $swimming="FALSE";
-        $Spa="FALSE";
-        $gym="FALSE";
-        $pets="FALSE";
-        $bar="FALSE";
-        $restaurant="FALSE";
-        
-        $values=array();
-        foreach($_POST['check'] as $check)
+        $required = array('edithotelname', 'edithotellocation', 'description', 'overview', 'priceofsingle', 'priceofdouble', 'priceoftriple', 'priceofsuites');
+        $error = false;
+        foreach($required as $field) 
         {
-            array_push($values,$check);
-        }
-
-        for ($i=0;$i<count($values);$i++)
-        {
-            if($values[$i]=="Wifi")
+            if (empty($_POST[$field])) 
             {
-                $wifi="TRUE";
-            }
-            else if($values[$i]=="Swimming")
-            {   
-                $swimming="TRUE";
-            }
-            else if($values[$i]=="Spa")
-            {   
-                $Spa="TRUE";
-            }
-            else if($values[$i]=="Gym")
-            {   
-                $gym="TRUE";
-            }
-            else if($values[$i]=="Bar")
-            {   
-                $bar="TRUE";
-            }
-            else if($values[$i]=="Restaurant")
-            {   
-                $restaurant="TRUE";
-            }
-            else if($values[$i]=="Pets")
-            {   
-                $pets="TRUE";
+                $error = true;
             }
         }
+        if ($error) 
+        {
+            echo'<script>swal("There is an empty field", "", "error");</script>';
+        } 
+        else 
+        {
+            $wifi="FALSE";
+            $swimming="FALSE";
+            $Spa="FALSE";
+            $gym="FALSE";
+            $pets="FALSE";
+            $bar="FALSE";
+            $restaurant="FALSE";
+            
+            $values=array();
+            foreach($_POST['check'] as $check)
+            {
+                array_push($values,$check);
+            }
+    
+            for ($i=0;$i<count($values);$i++)
+            {
+                if($values[$i]=="Wifi")
+                {
+                    $wifi="TRUE";
+                }
+                else if($values[$i]=="Swimming")
+                {   
+                    $swimming="TRUE";
+                }
+                else if($values[$i]=="Spa")
+                {   
+                    $Spa="TRUE";
+                }
+                else if($values[$i]=="Gym")
+                {   
+                    $gym="TRUE";
+                }
+                else if($values[$i]=="Bar")
+                {   
+                    $bar="TRUE";
+                }
+                else if($values[$i]=="Restaurant")
+                {   
+                    $restaurant="TRUE";
+                }
+                else if($values[$i]=="Pets")
+                {   
+                    $pets="TRUE";
+                }
+            }
 
-        $desc=$_POST['description'];
-        $overview=$_POST['overview'];
-        $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$_POST['edithotellocation']."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='$desc',overview='$overview',PriceSingle='".$_POST['priceofsingle']."',PriceDouble='".$_POST['priceofdouble']."',PriceTriple='".$_POST['priceoftriple']."',PriceSuites='".$_POST['priceofsuites']."',stars='".$_POST['hotelstars']."'
-        where HotelID=$id;";
-        $Result = mysqli_query($this->db->getConn(),$sql);
-        if($Result){
-            echo'<script>swal("Successfully Updated Hotel", "", "success");</script>';
-         }
-         else{
-            echo'<script>
-            swal("Oops","Error Updating Hotel !","error");
-            </script>';
-         }
+            if ($_POST['priceofsingle'] >=1 && $_POST['priceofdouble'] >=1 && $_POST['priceoftriple'] >=1 && $_POST['priceofsuites'] >=1 && strlen($_POST['overview']) ==140)
+            {
+                $desc=htmlspecialchars($_POST['description'], ENT_QUOTES);
+                $overview= htmlspecialchars($_POST['overview'], ENT_QUOTES);
+                $hotellocation= htmlspecialchars($_POST['edithotellocation'], ENT_QUOTES);
+                $sql="UPDATE hotel SET Name='".$_POST['edithotelname']."', location='".$hotellocation."',WiFi='".$wifi."',Swimming_Pool='".$swimming."',Spa='".$Spa."',Gym='".$gym."',Bar='".$bar."',Restaurant='".$restaurant."',Pets='".$pets."',description='$desc',overview='$overview',PriceSingle='".$_POST['priceofsingle']."',PriceDouble='".$_POST['priceofdouble']."',PriceTriple='".$_POST['priceoftriple']."',PriceSuites='".$_POST['priceofsuites']."',stars='".$_POST['hotelstars']."'
+                where HotelID=$id;";
+                $Result = mysqli_query($this->db->getConn(),$sql);
+                if($Result){
+                    echo'<script>swal("Successfully Updated Hotel", "", "success");</script>';
+                 }
+                 else{
+                    echo'<script>
+                    swal("Oops","Error Updating Hotel !","error");
+                    </script>';
+                 }
+
+                 $sql2="DELETE FROM gallery where HotelId=$id";
+                 $Resultx = mysqli_query($this->db->getConn(),$sql2);
+
+                 for($x=0; $x<count($_FILES['photos']['tmp_name']); $x++ ) 
+                    {
+
+                        $image_base64 = base64_encode(file_get_contents($_FILES['photos']['tmp_name'][$x]) );
+                        $target_file = basename($_FILES["photos"]["name"][$x]);
+                        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                        $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+
+                        $imagename=$_POST['imgname'][$x];
+                       
+                        
+
+                        
+                        $query = "INSERT INTO gallery (HotelId,picture,imgname) VALUES ('$id','$image','$imagename');";
+                        $Result23 = mysqli_query($this->db->getConn(),$query);
+
+                    }
+
+                    $primary = $_POST['imgPrimary'];
+                    $query2= "update gallery set Main='yes' where hotelid='".$id."' and imgname='".$primary."' ";
+                    $Result233 = mysqli_query($this->db->getConn(),$query2);
+
+
+            }
+            else
+            {
+                echo'<script>swal("Error Editing Hotel", "", "error");</script>'; 
+            }
+            
+            
+        }
+
+        
     }
 
     function AddPackage($cruise,$name,$days,$nights,$limit,$price,$start,$end,$transport,$guide,$map,$boardtype,$hotel,$overview,$description)
@@ -1031,6 +1217,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         if($cruise=="NULL")
         {
             $sql="INSERT INTO packages (CruiseID,PackageName,ReserveLimit,HotelID,Price,TourGuide,Transportation,TouristMap,BoardType,NumberofDays,NumberofNights,Suspended,DateIn,DateOut,Overview,Description) values($cruise,'$name','$limit','$hotel','$price','$guide','$transport','$map','$boardtype','$days','$nights','Disabled','$start','$end','$overview','$description')";
+
         }
         else
         {
@@ -1038,19 +1225,57 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
         }
         $Result = mysqli_query($this->db->getConn(),$sql);
         if($Result)
-        {
-            $subject="New package added ";
-            $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can reserve your place in our new package ".$name." which has a limit of ".$location. " as of today .</h3><br><h4><i>have nice day</i></h3>";
-
-            $notification=new supportcenter();
-            $notification->notify_all_admin( $subject, $message);   
+         {
             echo'<script>swal("Successfully Added Package", "", "success");</script>';
          }
-         else{
+         else
+         {
             echo'<script>
             swal("Oops","Error Adding Package !","error");
             </script>';
          }
+
+            $sql11="SELECT PackageID from packages where PackageName='$name';";
+            $Result11 = mysqli_query($this->db->getConn(),$sql11);
+            $row11=$Result11->fetch_assoc();
+            $pkgid = $row11['PackageID'];
+
+
+            for($x=0; $x<count($_FILES['photos']['tmp_name']); $x++) 
+            {
+
+                $image_base64 = base64_encode(file_get_contents($_FILES['photos']['tmp_name'][$x]) );
+                $target_file = basename($_FILES["photos"]["name"][$x]);
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+
+                $imagename=$_POST['imgname'][$x];
+               
+                
+
+                
+                $query = "INSERT INTO gallery (PackageId,picture,imgname) VALUES ('$pkgid','$image','$imagename');";
+                $Result23 = mysqli_query($this->db->getConn(),$query);
+
+            }
+
+            $primary = $_POST['imgPrimary'];
+            $query2= "update gallery set Main='yes' where PackageId='".$pkgid."' and imgname='".$primary."' ";
+            $Result233 = mysqli_query($this->db->getConn(),$query2);
+            
+            $subject="New Hotel added ";
+            $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now book your room at hotel ".$_POST['enterhotel']." in ".$_POST['enterlocation']. " as of today .</h3>";
+            
+            
+            
+            $query2= "Select picture from gallery WHERE PackageId='".$pkgid."' and Main = 'yes' ";
+            $emb = mysqli_query($this->db->getConn(),$query2);
+            $row=mysqli_fetch_assoc($emb);  
+            $notification=new supportcenter();
+            $subject="New Package added ";
+$message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now reserve our new package ".$name." and please be advised that the package has  "."$limit" ." free places </h3><br><h4><i>have nice day</i></h3>";
+$notification->notify_all_admin($subject, $message,$row['picture']);
+
     }
 
     function EditPackage($id,$cruise,$name,$days,$nights,$limit,$price,$start,$end,$transport,$guide,$map,$boardtype,$hotel,$overview,$description)
@@ -1077,6 +1302,39 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             swal("Oops","Error Updating Package !","error");
             </script>';
          }
+
+            $sql11="SELECT PackageID from packages where PackageName='$name';";
+            $Result11 = mysqli_query($this->db->getConn(),$sql11);
+            $row11=$Result11->fetch_assoc();
+            $pkgid = $row11['PackageID'];
+
+
+                 $sql200="DELETE FROM gallery where PackageId=$pkgid";
+                 $Resultx = mysqli_query($this->db->getConn(),$sql200);
+
+            for($x=0; $x<count($_FILES['photos']['tmp_name']); $x++) 
+            {
+
+                $image_base64 = base64_encode(file_get_contents($_FILES['photos']['tmp_name'][$x]) );
+                $target_file = basename($_FILES["photos"]["name"][$x]);
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+
+                $imagename=$_POST['imgname'][$x];
+               
+                
+
+                
+                $query = "INSERT INTO gallery (PackageId,picture,imgname) VALUES ('$pkgid','$image','$imagename');";
+                $Result23 = mysqli_query($this->db->getConn(),$query);
+
+            }
+
+            $primary = $_POST['imgPrimary'];
+            $query2= "update gallery set Main='yes' where PackageId='".$pkgid."' and imgname='".$primary."' ";
+            $Result233 = mysqli_query($this->db->getConn(),$query2);
+
+
     }
 
 }
