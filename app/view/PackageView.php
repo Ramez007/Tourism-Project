@@ -79,10 +79,10 @@ class PackageView extends View
                 <div class="services">
                 <span><img id="News" src="images\dollar.png" width="50" height="50"style="margin-bottom:40px"></span>
                     <div class="desc""> Basic cost:'.$this->model->getPrice().' EGP/Adult And '.($this->model->getPrice()/2).' EGP/Child <br>
-                    Price of single rooms: '.($this->model->getPricesingle()*0.25).' EGP/Adult And '.(($this->model->getPricesingle()*0.25)/2).' EGP/Child <br>
-                    Price of double rooms: '.($this->model->getPricedouble()*0.5).' EGP/Adult  And '.(($this->model->getPricedouble()*0.5)/2).' EGP/Child <br>
-                    Price of triple rooms: '.($this->model->getPricetriple()*0.75).' EGP/Adult And '.(($this->model->getPricetriple()*0.75)/2).' EGP/Child <br>
-                    Price of suites : '.$this->model->getPricesuites().' EGP/Adult And '.($this->model->getPricesuites()/2).' EGP/Child</div>
+                    Price of single rooms: '.($this->model->getPricesingle()*0.25).' EGP/Room <br>
+                    Price of double rooms: '.($this->model->getPricedouble()*0.5).' EGP/Room <br>
+                    Price of triple rooms: '.($this->model->getPricetriple()*0.75).' EGP/Room <br>
+                    Price of suites : '.$this->model->getPricesuites().'</div>
                 </div>
             </div>
         </div>
