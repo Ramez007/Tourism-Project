@@ -928,7 +928,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 $row=mysqli_fetch_assoc($Result100);
                                 $notification=new supportcenter();
                                 $subject=" Package Suspended ";
-                    $message="<h3>Dear customer, </h3><br><h2>We regrettably inform you that as of today Package'".$row['PackageName']."' is no longer available .</h3><br><h4><i>have nice day</i></h3>";
+                    $message="<h3>Dear customer, </h3><br><h2>We regrettably inform you that as of today Package ".$row['PackageName']."  is no longer available .</h3><br><h4><i>have a nice day</i></h3>";
                     $notification->notify_all_admin($subject, $message,NULL);  
             
                                 }
@@ -977,7 +977,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                                 $row=mysqli_fetch_assoc($Result1);
                                 $notification=new supportcenter();
                                 $subject=" Hotel Suspended ";
-                    $message="<h3>Dear customer, </h3><br><h2>We regrettably inform you that as of today hotel ".$row['Name']." in ".$row['location']." is no longer available for booking .</h3><br><h4><i>have nice day</i></h3>";
+                    $message="<h3>Dear customer, </h3><br><h2>We regrettably inform you that as of today hotel ".$row['Name']." in ".$row['location']." is no longer available for booking .</h3><br><h4><i>have a nice day</i></h3>";
                     $notification->notify_all_admin($subject, $message,NULL); 
                                 }
                                 
@@ -1073,7 +1073,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
                     // }
                     $notification=new supportcenter();
                     $subject="New Hotel added ";
-        $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now book your room at hotel ".$_POST['enterhotel']." in ".$_POST['enterlocation']. " as of today .</h3><br><h4><i>have nice day</i></h3>";
+        $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now book your room at hotel ".$_POST['enterhotel']." in ".$_POST['enterlocation']. " as of today .</h3><br><h4><i>have a nice day</i></h3>";
         $notification->notify_all_admin($subject, $message,$row['picture']);  
 
         
@@ -1261,7 +1261,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             $Result233 = mysqli_query($this->db->getConn(),$query2);
             
             $subject="New Hotel added ";
-            $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now book your room at hotel ".$_POST['enterhotel']." in ".$_POST['enterlocation']. " as of today .</h3>";
+            $message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now book your room at hotel  ".$_POST['enterhotel']."  in ".$_POST['enterlocation']. " as of today .</h3>";
             
             
             
@@ -1270,7 +1270,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
             $row=mysqli_fetch_assoc($emb);  
             $notification=new supportcenter();
             $subject="New Package added ";
-$message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now reserve our new package ".$name." and please be advised that the package has  "."$limit" ." free places </h3><br><h4><i>have nice day</i></h3>";
+$message="<h3>Dear customer, </h3><br><h2>We are glad to inform you that you can now reserve our new package  ".$name."  and please be advised that the package has  "."$limit" ." free places </h3><br><h4><i>have a nice day</i></h3>";
 $notification->notify_all_admin($subject, $message,$row['picture']);
 
     }
