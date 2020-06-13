@@ -68,6 +68,9 @@
 	<link rel="stylesheet" href="css/style.css">
 
 	<!-- Modernizr JS -->
+	
+	
+
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
@@ -89,10 +92,7 @@
 			{
 				header("Location:index.php");
 			}
-			else
-			{
-				echo '<script> alert("Email does not exist"); </script>';
-			}
+
 			
            
 			
@@ -222,6 +222,7 @@
 	<!-- CS Select -->
 	<script src="js/classie.js"></script>
 	<script src="js/selectFx.js"></script>
+	<script src="js/sweetalert.min.js"></script>
 	<!-- Flexslider -->
 	<script src="js/jquery.flexslider-min.js"></script>
 
