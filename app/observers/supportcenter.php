@@ -174,7 +174,7 @@ $decodedData = base64_decode($data[1]);
 //file_put_contents('C:\xampp\htdocs\Tourism-Project\app\Image.JPG',$decodedData);    
 try{ $this->email->AddStringAttachment($decodedData,'newImage.jpg'); 
         $this->email->Subject=$subject;
-        $this->email->Body=$message.'<br> <br><h4><i>have nice day</i></h3>';
+        $this->email->Body=$message;
         $this->email->send();
         $this->email->ClearAllRecipients( );
        
