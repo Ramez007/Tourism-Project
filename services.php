@@ -83,6 +83,7 @@ require_once("app/controller/PackageController.php");
 require_once("app/view/PackageView.php");
 
 $Model = new Package();
+$Model->ReadMainImgs();
 $Controller = new PackageController($Model);
 $Controller->ListPackageData();
 $View = new PackageView($Controller,$Model);

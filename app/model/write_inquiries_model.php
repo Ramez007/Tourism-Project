@@ -22,22 +22,23 @@ class writeinquiry extends Model {
 
     function write_inquiries()
     { include_once "serverdetails.php";
-        $name=$_POST['name'];
-        $mail=$_POST['sendermail'];
-        $message=$_POST['message'];
+        $name=htmlspecialchars($_POST['name'], ENT_QUOTES);
+        $mail=htmlspecialchars($_POST['sendermail'], ENT_QUOTES);
+        $message=htmlspecialchars($_POST['message'], ENT_QUOTES);
         try{
-            $sql = "INSERT INTO inquiries (author,Email,Inquiry) values ('$name','$mail','$message')" ; 
-             $result = mysqli_query($this->dbh->getConn(),$sql) ;
+            
              $email->addAddress("speedtourscentral@gmail.com");
              $email->Subject="inquiries";
              $email->Body=$message;
              $email->SetFrom("$mail");
              $email->AddReplyTo("$mail",$name);
              $email->send();
+             $sql = "INSERT INTO inquiries (author,Email,Inquiry) values ('$name','$mail','$message')" ; 
+             $result = mysqli_query($this->dbh->getConn(),$sql) ;
              echo'<script>swal("Successfully Sent", "", "success");</script>'; 
     }catch(Exception $e){
-        echo $e->errorMessage();
-     
+        $errormsg = $e->errorMessage();
+        echo'<script>swal("Invalid Email", "", "error");</script>'; 
     } 
             
     }

@@ -1,8 +1,19 @@
-<?php
-  require_once("app/model/model.php");
-?>
+<html>
+<head><script src="js/sweetalert.min.js"></script>
+</head>
 
 <?php
+  require_once("app/model/model.php");
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\Exception;
+  require 'C:\xampp\composer\vendor\autoload.php';
+  
+  
+?>
+
+<body>
+<?php
+
 
 class User extends Model {
 
@@ -156,6 +167,63 @@ class User extends Model {
 	
 	}
 	
+	public function ForgotPass($Email)
+	{
+		$SQL = 'SELECT GuestID from guest WHERE Email="'.$Email.'"';
+		$Result = mysqli_query($this->dbh->getConn(),$SQL);
+		$ID = mysqli_fetch_assoc($Result);
+		$sql2= 'Select * from guest where Email="'.$Email.'" and Username="" ';
+		$res = mysqli_query($this->dbh->getConn(),$sql2);
+		$rowcount=mysqli_num_rows($Result);
+		$rowcount1=mysqli_num_rows($res);
+
+		include_once "serverdetails.php";
+		if ($rowcount1>0)
+		{
+			echo'				
+				<script>
+            		swal("You can\'t reset the password!","Your account is registered by google \n use the google login in the login page","error");
+				</script>';	
+		}
+		else if ($rowcount>0)
+		{
+			if(!empty($ID))
+			{
+			$email->addAddress("".$Email."");
+			$email->Subject="Speedo Tours - Reset your password";
+			$email->Body="You required to reset the password on your account. Please click this link to reset your account's passsword: http://localhost/Tourism-Project/ResetPassword.php?action=".$ID['GuestID']."";
+			$email->SetFrom("speedtourscentral@gmail.com");
+			$email->AddReplyTo("speedtourscentral@gmail.com","SpeedoToursSupport");
+			$email->send();
+			echo'				
+				<script>
+            		swal("Email found!","An Email will be sent to you shortly","success");
+				</script>';	
+			return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			echo'<script>
+            		swal("Email not found!","","error");
+				</script>';
+		}
+
+
+
+	}
+
+	public function ResetPass($ID,$Password)
+	{
+		$SQL = 'UPDATE login SET login.password="'.md5($Password).'" WHERE GuestID="'.$ID.'"';
+		$SQL2 = 'UPDATE guest SET guest.Password="'.md5($Password).'" WHERE GuestID="'.$ID.'"';
+		$Result = mysqli_query($this->dbh->getConn(),$SQL) or die($this->db->getConn()->error);
+		$Result2 = mysqli_query($this->dbh->getConn(),$SQL2) or die($this->db->getConn()->error);
+	}
 
 
 	/**
@@ -229,3 +297,5 @@ class User extends Model {
 }
 
 ?>
+</body>
+</html>

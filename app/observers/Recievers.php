@@ -19,6 +19,15 @@ $this->center->sendmail($message,$subject,$mail);
 
 }
 
+function updatewithimage  ($message,$subject,$image){
+    
+    $mail=$this->getmail();
+$this->center->sendmailwithimage($message,$subject,$mail,$image);
+
+
+
+}
+
 public function setmail ($mail) {
 $this->mail=$mail;
 

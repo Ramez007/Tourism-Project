@@ -60,6 +60,7 @@
 		</div>
 
 		<?php
+		    error_reporting(E_ALL & ~E_NOTICE);
 			require_once("app/model/subscribe_to_news_wire_model.php");
 			require_once("app/controller/SubscibeController.php");
 			// require_once("app/view/susbcribeview.php");

@@ -18,6 +18,7 @@ class MainpageView extends View
 
     private $guestname;
     private $review;
+    private $divsimgs;
 
     private $hotelsnum;
     private $reservenum;
@@ -78,11 +79,12 @@ class MainpageView extends View
         $this->overview=$this->model->getOverview();
         $this->featured=$this->model->getFeatured();
         $this->price=$this->model->getPrice();
+        $this->divsimgs=$this->model->getdivsimgs();
         for ($i=0;$i<count($this->name);$i++)
         {
             if ($this->featured[$i]=="header")
             {
-                echo '  <div class="image" style="background-image: url(images/hotel_feture_1.jpg);">
+                echo '  <div class="image" style="background-image: url('.$this->divsimgs[$i].');">
                             <div class="descrip text-center">
                                 <p><small>For as low as</small><span style="font-size:18px;">'.$this->price[$i].' EGP/night</span></p>
                             </div>
@@ -101,13 +103,14 @@ class MainpageView extends View
     {
         $this->name=$this->model->getName();
         $this->featured=$this->model->getMainslider();
+        $this->divsimgs=$this->model->getdivsimgs();
         $counter=1;
         for ($i=0;$i<count($this->name);$i++)
         {
         if($this->featured[$i]=="TRUE")
         {
         echo '
-                    <li style="background-image: url(images/slider'.$counter.'.jpg);">
+                    <li style="background-image: url('.$this->divsimgs[$i].');">
                         <div class="overlay-gradient"></div>
                         <div class="container">
                             <div class="col-md-12 col-md-offset-0 text-center slider-text">
@@ -154,12 +157,13 @@ class MainpageView extends View
         $this->name=$this->model->getName();
         $this->overview=$this->model->getOverview();
         $this->price=$this->model->getPrice();
+        $this->divsimgs=$this->model->getdivsimgs();
         for ($i=0;$i<count($this->name);$i++)
         {  
             if ($this->featured[$i]=="feature")
             {
                 echo '<div class="f-hotel">
-                        <div class="image" style="background-image: url(images/hotel_feture_2.jpg);">
+                        <div class="image" style="background-image: url('.$this->divsimgs[$i].');">
                             <div class="descrip text-center">
                                 <p><small>For as low as</small><span style="font-size:18px;">'.$this->price[$i].' EGP/night</span></p>
                             </div>

@@ -2,8 +2,9 @@
 require_once("app/model/model.php");
 require_once("app/model/cruise.php");
 require_once("app/interfaces/iReviewPackages.php");
+require_once("app/interfaces/IGallery.php");
 
-class Package extends Model implements ireviewpackages
+class Package extends Model implements ireviewpackages, igallery
 {
     protected $PackageID;
     protected $PackageName;
@@ -19,7 +20,12 @@ class Package extends Model implements ireviewpackages
     protected $DateIn;
     protected $DateOut;
     protected $Description;
+    protected $pricesingle;
+    protected $pricedouble;
+    protected $pricetriple;
+    protected $pricesuites;
     // protected $VisitModel;
+    protected $primaryimgs=array();
     protected $CruiseModel;
 
     protected $Review = array();
@@ -60,19 +66,29 @@ class Package extends Model implements ireviewpackages
 
     public function GetDetails($PKID)
     {
-        $SQL = 'SELECT PackageName,PackageID,HotelID,NumberOfDays,NumberOfNights,Price,Description,CruiseID FROM packages WHERE packages.PackageID ='.$PKID.'';        $Res = mysqli_query($this->db->getConn(),$SQL);
-        while($row=$Res->fetch_assoc())
-        {
-            $this->PackageName = $row['PackageName'];
-            $this->PackageID = $row['PackageID'];
-            $this->NumberOfDays = $row['NumberOfDays'];
-            $this->NumberOfNights = $row['NumberOfNights'];
-            $this->Price = $row['Price'];
-            $this->Description = $row['Description'];
-            $this->HotelID = $row['HotelID'];
-            $this->CruiseID = $row['CruiseID'];
-            
-        }
+        $SQL = 'SELECT PackageName,PackageID,HotelID,NumberOfDays,NumberOfNights,Price,Description,CruiseID,HotelID FROM packages WHERE packages.PackageID ='.$PKID.''; 
+        $Res = mysqli_query($this->db->getConn(),$SQL);
+
+        $row=$Res->fetch_assoc();
+
+        $sql1="SELECT * from hotel where HotelID=".$row['HotelID'];
+        $result=mysqli_query($this->db->getConn(),$sql1);
+        $row1=$result->fetch_assoc();
+
+        $this->PackageName = $row['PackageName'];
+        $this->PackageID = $row['PackageID'];
+        $this->NumberOfDays = $row['NumberOfDays'];
+        $this->NumberOfNights = $row['NumberOfNights'];
+        $this->Price = $row['Price'];
+        $this->Description = $row['Description'];
+        $this->HotelID = $row['HotelID'];
+        $this->CruiseID = $row['CruiseID'];
+        $this->pricesingle=$row1['PriceSingle'];
+        $this->pricedouble=$row1['PriceDouble'];
+        $this->pricetriple=$row1['PriceTriple'];
+        $this->pricesuites=$row1['PriceSuites'];
+        
+    
 
 
     }
@@ -119,6 +135,62 @@ class Package extends Model implements ireviewpackages
         return $HotelName;
         
     }
+
+    function ReadMainImgs()
+    {
+        $sql="SELECT picture FROM gallery WHERE HotelId IS null AND Main='yes' ORDER BY PackageId";
+        $result=mysqli_query($this->db->getConn(),$sql);
+        while($row=$result->fetch_assoc())
+        {
+            array_push($this->primaryimgs,$row['picture']);     
+        }
+    }
+
+    public function getprimaryimgs()
+    {
+        return $this->primaryimgs;
+    }
+
+    public function outputgallery()
+    {
+
+        $sql2="select picture from gallery where Packageid='".$this->PackageID."'  ";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        while($row2=mysqli_fetch_assoc($result2))
+        {
+            // array_push($this->hotelgallery,$row2['picture']);
+            echo '<img class="mySlides" src="'.$row2['picture'].'" style="width:100%">';
+        }
+
+    }
+
+    public function outputnumbers()
+    {
+        
+
+        $sql2="select count(*) from gallery where Packageid='".$this->PackageID."'  ";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        for ($i=1;$i<=$row2['count(*)'];$i++)
+        {
+            echo '<button class="w3-button demo" onclick="currentDiv("'.$i.'")">'.$i.'</button>'; 
+                                        
+        }
+            
+        
+    }
+
+    public function outputmainimg()
+    {
+        
+
+        $sql2="select picture from gallery where  Packageid='".$this->PackageID."'  and Main='yes' ";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        echo '<div class="fh5co-parallax" style="background-image: url('.$row2['picture'].');" data-stellar-background-ratio="0.5">';
+    }
+
+
     /**
      * Get the value of PackageID
      */ 
@@ -424,6 +496,38 @@ class Package extends Model implements ireviewpackages
         $this->Review = $Review;
 
         return $this;
+    }
+
+    /**
+     * Get the value of pricesingle
+     */ 
+    public function getPricesingle()
+    {
+        return $this->pricesingle;
+    }
+
+    /**
+     * Get the value of pricedouble
+     */ 
+    public function getPricedouble()
+    {
+        return $this->pricedouble;
+    }
+
+    /**
+     * Get the value of pricetriple
+     */ 
+    public function getPricetriple()
+    {
+        return $this->pricetriple;
+    }
+
+    /**
+     * Get the value of pricesuites
+     */ 
+    public function getPricesuites()
+    {
+        return $this->pricesuites;
     }
 }
 ?>

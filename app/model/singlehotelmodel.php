@@ -1,11 +1,12 @@
 <?php
 require_once("app/model/model.php");
+require_once("app/interfaces/IGallery.php");
 
 ?>
 
 <?php
 
-class singlehotelmodel extends Model
+class singlehotelmodel extends Model implements igallery
 {
     private $dbh;
     
@@ -14,6 +15,7 @@ class singlehotelmodel extends Model
     private $hotelservices=array();
     private $reviewsofhotel=array();
     private $stars;
+    private $hotelgallery=array();
     
     function __construct($hotelname=null)
     {
@@ -21,6 +23,51 @@ class singlehotelmodel extends Model
         $this->hotelname=$hotelname;
     }
 
+    public function outputgallery()
+    {
+        $sql="select HotelID from hotel where Name='".$this->hotelname."'";
+        $result=mysqli_query($this->dbh->getConn(),$sql);
+        $row=mysqli_fetch_assoc($result);
+
+        $sql2="select picture from gallery where HotelId='".$row['HotelID']."'  ";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        while($row2=mysqli_fetch_assoc($result2))
+        {
+            // array_push($this->hotelgallery,$row2['picture']);
+            echo '<img class="mySlides" src="'.$row2['picture'].'" style="width:100%">';
+        }
+
+    }
+
+    public function outputnumbers()
+    {
+        $sql="select HotelID from hotel where Name='".$this->hotelname."'";
+        $result=mysqli_query($this->dbh->getConn(),$sql);
+        $row=mysqli_fetch_assoc($result);
+
+        $sql2="select count(*) from gallery where HotelId='".$row['HotelID']."'  ";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        for ($i=1;$i<=$row2['count(*)'];$i++)
+        {
+            echo '<button class="w3-button demo" onclick="currentDiv("'.$i.'")">'.$i.'</button>'; 
+                                        
+        }
+            
+        
+    }
+
+    public function outputmainimg()
+    {
+        $sql="select HotelID from hotel where Name='".$this->hotelname."'";
+        $result=mysqli_query($this->dbh->getConn(),$sql);
+        $row=mysqli_fetch_assoc($result);
+
+        $sql2="select picture from gallery where HotelId='".$row['HotelID']."' and Main='yes' ";
+        $result2=mysqli_query($this->dbh->getConn(),$sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        echo '<div class="fh5co-parallax" style="background-image: url('.$row2['picture'].');" data-stellar-background-ratio="0.5">';
+    }
     
 
     function listhoteldata()

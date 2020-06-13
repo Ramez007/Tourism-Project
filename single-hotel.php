@@ -205,7 +205,9 @@ $guestcontroller=new GuestController($guestmodel);
 		
 	</div>
 	<!-- end:fh5co-header -->
-	<div class="fh5co-parallax" style="background-image: url(images/slider1.jpg);" data-stellar-background-ratio="0.5">
+	<!-- <div class="fh5co-parallax" style="background-image: src(images/slider1.jpg);" data-stellar-background-ratio="0.5"> -->
+	 <?php $pageview->displaymaining(); ?>
+	
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
@@ -227,9 +229,10 @@ $guestcontroller=new GuestController($guestmodel);
                                                                         
 
                                         <div class="w3-content" style="max-width:800px">
-                                        <img class="mySlides" src="images/wph1.jpg" style="width:100%">
+                                        <!-- <img class="mySlides" src="images/wph1.jpg" style="width:100%">
                                         <img class="mySlides" src="images/wph2.jpg" style="width:100%">
-                                        <img class="mySlides" src="images/wph3.jpg" style="width:100%">
+										<img class="mySlides" src="images/wph3.jpg" style="width:100%"> -->
+										 <?php $pageview->displaygallery(); ?>
                                         </div>
 
                                         <div class="w3-center">
@@ -237,9 +240,10 @@ $guestcontroller=new GuestController($guestmodel);
                                             <button class="w3-button w3-light-grey" onclick="plusDivs(-1)">❮ Prev</button>
                                             <button class="w3-button w3-light-grey" onclick="plusDivs(1)">Next ❯</button>
                                         </div>
-                                        <button class="w3-button demo" onclick="currentDiv(1)">1</button> 
+                                        <!-- <button class="w3-button demo" onclick="currentDiv(1)">1</button> 
                                         <button class="w3-button demo" onclick="currentDiv(2)">2</button> 
-                                        <button class="w3-button demo" onclick="currentDiv(3)">3</button> 
+										<button class="w3-button demo" onclick="currentDiv(3)">3</button>  -->
+										<?php $pageview->displaygallerynumbers(); ?>
                                         </div>
                                         
                                    
@@ -280,7 +284,7 @@ $guestcontroller=new GuestController($guestmodel);
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="quantity">Number of Adults:</label>
                                     <div class="col-sm-3">
-                                    	<input type="number" class="form-control" name="adults"  required id="quantity" min="0" max="100" placeholder="1">
+                                    	<input type="number" class="form-control" name="adults"  required id="quantity" min="1" max="100" placeholder="1">
                                     </div>
                                 </div>
 

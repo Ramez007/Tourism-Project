@@ -17,6 +17,7 @@ class Hotel extends Model implements ireviewhotels
     protected $description;
     protected $overview;
     protected $Location;
+    protected $primaryimgs=array();
     protected $ViewNames=array();
     protected $ViewOverview=array();
     protected $availablerooms=0;
@@ -157,6 +158,7 @@ class Hotel extends Model implements ireviewhotels
     }
 
 
+
     public function setLocation($Location)
     {
         $this->Location = $Location;
@@ -193,6 +195,21 @@ class Hotel extends Model implements ireviewhotels
             array_push($this->ViewOverview,$row['overview']);
             array_push($this->price,$row['PriceSingle']);
         }
+    }
+
+    function ReadMainImgs()
+    {
+        $sql="SELECT picture FROM gallery WHERE PackageId IS null AND Main='yes' ORDER BY HotelId";
+        $result=mysqli_query($this->db->getConn(),$sql);
+        while($row=$result->fetch_assoc())
+        {
+            array_push($this->primaryimgs,$row['picture']);     
+        }
+    }
+
+    public function getprimaryimgs()
+    {
+        return $this->primaryimgs;
     }
 
     function ReadHotelsReviews($controller=null)
