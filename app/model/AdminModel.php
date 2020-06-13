@@ -998,7 +998,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
     function AddHotel()
     { 
-        $required = array('enterhotel', 'enterlocation', 'numberofsingle', 'numberofdouble', 'numberoftriple', 'numberofsuites','description','overview','priceofsingle','priceofdouble','priceoftriple','priceofsuites','hotelstars','photos');  
+        $required = array('enterhotel', 'enterlocation', 'numberofsingle', 'numberofdouble', 'numberoftriple', 'numberofsuites','description','overview','priceofsingle','priceofdouble','priceoftriple','priceofsuites','hotelstars');  
         $error = false;
         foreach($required as $field) 
         {
@@ -1093,7 +1093,7 @@ class Admin extends Employee implements ireviewhotels,ireviewpackages {
 
     function Edithotel($id)
     {
-        $required = array('edithotelname', 'edithotellocation', 'description', 'overview', 'priceofsingle', 'priceofdouble', 'priceoftriple', 'priceofsuites','photos');
+        $required = array('edithotelname', 'edithotellocation', 'description', 'overview', 'priceofsingle', 'priceofdouble', 'priceoftriple', 'priceofsuites');
         $error = false;
         foreach($required as $field) 
         {
