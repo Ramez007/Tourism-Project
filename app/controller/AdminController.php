@@ -16,7 +16,7 @@ class AdminController extends Controller{
     function EditPackage()
     {
       
-      $required = array('Editpackagename', 'numberofdays', 'numberofnights', 'reservelimit', 'totalprice', 'edit-date-start', 'edit-date-end','editpackageoverview','editpackagedescription');
+      $required = array('Editpackagename', 'numberofdays', 'numberofnights', 'reservelimit', 'totalprice', 'edit-date-start', 'edit-date-end','editpackageoverview','editpackagedescription','photos');
       $error = false;
         foreach($required as $field) 
         {
@@ -108,7 +108,7 @@ class AdminController extends Controller{
     function AddPackage()
     {
 
-      $required = array('packagename', 'numberofdays', 'numberofnights', 'reservelimit', 'totalprice', 'date-start', 'date-end', 'boardtype','cruise','hotels','addpackageoverview','addpackagedescription');
+      $required = array('packagename', 'numberofdays', 'numberofnights', 'reservelimit', 'totalprice', 'date-start', 'date-end', 'boardtype','cruise','hotels','addpackageoverview','addpackagedescription','photos');
       $error = false;
         foreach($required as $field) 
         {
