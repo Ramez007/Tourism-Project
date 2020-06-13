@@ -32,15 +32,32 @@ class AdminController extends Controller{
         } 
         else 
         {
-
-
-            $name=htmlspecialchars($_REQUEST['Editpackagename'], ENT_QUOTES);
+        
+          $start=$_REQUEST['edit-date-start'];
+            $end=$_REQUEST['edit-date-end'];
+          $date = date('Y-m-d');
+            if ($start<=$date)
+            {
+              echo'<script>
+                    swal("Error Creating Package","Please select a valid Start date","error");
+                    </script>';       
+            }
+            else
+            {
+              if($end<=$start)
+              {
+                echo'<script>
+                    swal("Error Editing Package","Please select a valid End date","error");
+                    </script>';
+              }
+              else
+              {
+                $name=htmlspecialchars($_REQUEST['Editpackagename'], ENT_QUOTES);
             $days=$_REQUEST['numberofdays'];
             $nights=$_REQUEST['numberofnights'];
             $limit=$_REQUEST['reservelimit'];
             $price=$_REQUEST['totalprice'];
-            $start=$_REQUEST['edit-date-start'];
-            $end=$_REQUEST['edit-date-end'];
+            
 
 
 
@@ -102,6 +119,9 @@ class AdminController extends Controller{
                     swal("Oops","Error Editing Package !","error");
                     </script>';
             }
+              }
+            }
+            
         }  
     }
 
@@ -124,13 +144,33 @@ class AdminController extends Controller{
         } 
         else 
         {
-          $name=htmlspecialchars($_REQUEST['packagename'], ENT_QUOTES);
+         
+          $date = date('Y-m-d');
+          $start=$_REQUEST['date-start'];
+          $end=$_REQUEST['date-end'];
+
+            if ($start<=$date)
+            {
+              echo'<script>
+                    swal("Error Creating Package","Please select a valid Start date","error");
+                    </script>';       
+            }
+            else
+            {
+              if($end<=$start)
+              {
+                echo'<script>
+                    swal("Error Editing Package","Please select a valid End date","error");
+                    </script>';
+              }
+              else
+              {
+                $name=htmlspecialchars($_REQUEST['packagename'], ENT_QUOTES);
           $days=$_REQUEST['numberofdays'];
           $nights=$_REQUEST['numberofnights'];
           $limit=$_REQUEST['reservelimit'];
           $price=$_REQUEST['totalprice'];
-          $start=$_REQUEST['date-start'];
-          $end=$_REQUEST['date-end'];
+          
     
     
     
@@ -190,7 +230,9 @@ class AdminController extends Controller{
                     swal("Oops","Error Adding Package !","error");
                     </script>';
           }
-          
+
+              }
+            }
         }  
       
       
