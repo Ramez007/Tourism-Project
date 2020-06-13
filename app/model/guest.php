@@ -44,7 +44,7 @@ class Guest extends User {
 
     function validatenumb($value)
     {
-        if(filter_var($value, FILTER_VALIDATE_INT) === false)
+        if(preg_match('/^[0-9]{1,}/', $value)==false)
         {
             return false;
         }
@@ -216,7 +216,8 @@ class Guest extends User {
             }
             else
             {
-                if ($this->validatenumb($BankAcc)==false)
+                $length=mb_strlen($BankAcc);
+                if ($this->validatenumb($BankAcc)==false||$length!=16)
                 {
                     echo'<script>
                     swal("Error Editing Profile!","Bank Account contains value other than a number","error");
@@ -234,7 +235,8 @@ class Guest extends User {
                     }
                     else
                     {
-                        if ($this->validatenumb($NationalID)==false)
+                        $length=mb_strlen($NationalID);
+                        if ($this->validatenumb($NationalID)==false||$length!=14)
                         {
                             echo'<script>
                             swal("Error Editing Profile!","NationalID contains value other than a number","error");
@@ -252,7 +254,8 @@ class Guest extends User {
                             }
                             else
                             {
-                                if ($this->validatenumb($Phone)==false)
+                                $length=mb_strlen($Phone);
+                                if ($this->validatenumb($Phone)==false||$length!=11)
                                 {
                                     echo'<script>
                                     swal("Error Editing Profile!","Phone Number contains value other than a number","error");

@@ -62,13 +62,13 @@ class GuestView extends View
         <label for="email">Email:</label><br>
         <input type="text" id="inputBox" name="email" value="'.$_SESSION['Email'].'"><br>
         <label for="BankAccount">Bank Account Number:</label><br>
-        <input type="text" pattern="[0-9]+" title="Numbers Only" minlength="16" id="inputBox" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
+        <input type="text" pattern="[0-9]+" title="Numbers Only" minlength="16" maxlength="16" id="inputBox" name="BankAccount" value="'.$this->model->getBank_Account_No().'"><br>
         <label for="PassportNumber">Passport Number:</label><br>
-        <input type="text" id="inputBox" minlength="6" pattern="[0-9]+" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
+        <input type="text" id="inputBox" minlength="6" name="PassportNumber" value="'.$this->model->getPassport_No().'"><br>
         <label for="NationalNumber">National ID Number:</label><br>
-        <input type="text" id="inputBox" minlength="6" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
+        <input type="text" id="inputBox" minlength="14" maxlength="14" name="NationalNumber" value="'.$this->model->getNational_ID_No().'"><br>
         <label for="Phone">Phone Number: </label><br>
-        <input type="text" id="inputBox" minlength="11" pattern="[0-9]+" title="please enter number only" name="Phone" value="'.$this->model->getPhone().'"><br>
+        <input type="text" id="inputBox" minlength="11" maxlength="11" pattern="[0-9]+" title="please enter number only" name="Phone" value="'.$this->model->getPhone().'"><br>
         <label for="Age">Age: </label><br>
         <input type="number" id="inputBox" min="18" max="100" name="Age" value="'.$this->model->getAge().'"><br>
 
@@ -358,7 +358,7 @@ class GuestView extends View
       </div>
       <div class="modal-body">
       <form enctype="multipart/form-data" method="post">
-        <input type="file" id="myFile" name="filename"><br>
+        <input type="file" id="myFile" accept=".jpeg, .jpg, .png" name="filename"><br>
         <input type="submit" name="submitpp" value="Upload Photo" style="margin-left: 37.5%; margin-top: 25px;">
       </form>
       </div>
@@ -406,12 +406,22 @@ class GuestView extends View
             $image_base64 = base64_encode(file_get_contents($_FILES['filename']['tmp_name']) );
             $target_file = basename($_FILES["filename"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-            $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
-            if($this->model->EditProfilePic($image))
+            if($imageFileType=="png"||$imageFileType=="jpeg"||$imageFileType=="jpg")
             {
-                echo '<script>swal("uploaded photo successfully","","success")</script>';
-                echo '<script>
-                setTimeout(function(){location.reload()}, 1000);
+                $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+                if($this->model->EditProfilePic($image))
+                {
+                    echo '<script>swal("uploaded photo successfully","","success")</script>';
+                    echo '<script>
+                    setTimeout(function(){location.reload()}, 1000);
+                    </script>';
+                }
+               
+            }
+            else
+            {
+                echo'<script>
+                swal("Error Editing Profile Picture!","Unsupported File Type","error");
                 </script>';
             }
         }
