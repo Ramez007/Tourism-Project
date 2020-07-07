@@ -226,11 +226,11 @@ class Hotel extends Model implements ireviewhotels
 
         mysqli_query($this->db->getConn(),$sql2);
 
-        $sql2="Update reserves
-        set Suspended='Disabled'
+        $sql3="Update reserves
+        set Ended='TRUE'
         where DateOut<='$date'";
 
-        mysqli_query($this->db->getConn(),$sql2);
+        mysqli_query($this->db->getConn(),$sql3);
 
 
     }

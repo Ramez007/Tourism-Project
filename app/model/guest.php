@@ -243,7 +243,7 @@ class Guest extends User {
 
             // $hotelid=$row['HotelID'];
 
-            $sql2="INSERT INTO reserves (GuestId,PackageId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status) values ('$GuestID','$PackageID','$children','$adults','$Datein','Enabled','$Dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval')";
+            $sql2="INSERT INTO reserves (GuestId,PackageId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status,Ended) values ('$GuestID','$PackageID','$children','$adults','$Datein','Enabled','$Dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval','FALSE')";
             $res4=mysqli_query($this->db->getConn(),$sql2);
 
             if ($res4)
@@ -365,7 +365,7 @@ class Guest extends User {
                     {
 
 
-                        $sql5="INSERT INTO reserves (GuestId,HotelId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status) values ('$id','$hotelid','$children','$adults','$datein','Enabled','$dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval')";
+                        $sql5="INSERT INTO reserves (GuestId,HotelId,NoofChildren,NoofAdults,DateIn,Suspended,DateOut,NoOfSingleRooms,NoOfDoubleRooms,NoOfTripleRooms,NoOfSuits,BoardType,price,Status,Ended) values ('$id','$hotelid','$children','$adults','$datein','Enabled','$dateout','$single','$double','$triple','$suites','$board','$totalprice','Waiting for approval','FALSE')";
                         $result5=mysqli_query($this->db->getConn(),$sql5);
 
                         $sql6="UPDATE rooms
